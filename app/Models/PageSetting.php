@@ -1,0 +1,18 @@
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+
+class PageSetting extends Model
+{
+    use HasFactory;
+
+    protected $guarded = [];
+
+    public function hasParent()
+    {
+        return $this->hasOne(Page::class, 'slug', 'parent_slug');
+    }
+}
