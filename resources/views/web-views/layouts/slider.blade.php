@@ -1,32 +1,36 @@
 <section id="home-background-slider" class="background-slider-block owl-carousel">
-    <div class="lazy item home-slider-img">
-        <div id="home" class="home-main-block"
-            style="background-image: url('public/website/images/slider/15974359982976.jpg')">
-            <div class="container-xl">
-                <div class="row">
-                    <div class="col-lg-12 ">
-                        <div class="home-dtl">
-                            <div class="home-heading">Learn Anytime</div>
-                            <p class="btm-10">Learn Wherever, Whenever, However...</p>
-                            <p class="btm-20">Online classes </p>
-                        </div>
-
-                        <div class="home-search">
-                            <form method="GET" id="searchform" action="https://eclass.mediacity.co.in/demo/public/search">
-                                <div class="search">
-                                    <input type="text" name="searchTerm" class="searchTerm"
-                                        placeholder="Search Courses">
-                                    <button type="submit" class="searchButton">Search
-                                    </button>
+    @foreach (slider() as $key=>$slider)
+        <div class="lazy item home-slider-img">
+            <div id="home" class="home-main-block"
+                style="background-image: url('public/admin/images/sliders/{{ $slider->image }}')">
+                <div class="container-xl">
+                    <div class="row">
+                        <div class="col-lg-12 ">
+                            <div class="home-dtl">
+                                <div class="home-heading">{{ $slider->title }}</div>
+                                <p class="btm-10">{{ $slider->sub_title }}</p>
+                                <p class="btm-20">{{ $slider->description }}</p>
+                            </div>
+                            @if($key==0)
+                                <div class="home-search">
+                                    <form method="GET" id="searchform" action="https://eclass.mediacity.co.in/demo/public/search">
+                                        <div class="search">
+                                            <input type="text" name="searchTerm" class="searchTerm"
+                                                placeholder="Search Courses">
+                                            <button type="submit" class="searchButton">Search
+                                            </button>
+                                        </div>
+                                    </form>
                                 </div>
-                            </form>
+                            @endif
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
-    <div id="home" class="home-main-block"
+    @endforeach
+
+    {{-- <div id="home" class="home-main-block"
         style="background-image: url('public/website/images/slider/15974360873025.jpg')">
         <div class="container-xl">
             <div class="row">
@@ -55,5 +59,5 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div> --}}
 </section>

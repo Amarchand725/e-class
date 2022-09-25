@@ -381,7 +381,7 @@ class MenuController extends Controller
 
     	$form = '';
     	$edit_form = '';
-    	$show_form = '';
+    	$show_form = '<table class="table">';
     	$index_page = "";
     	$show  = "";
         $t_columns = "";
@@ -396,7 +396,6 @@ class MenuController extends Controller
 
                 $form .= '<div class="form-group">' ."\n";
                 $edit_form .= '<div class="form-group">' ."\n";
-                $show_form .= '<div class="form-group">' ."\n";
 
                 $form .= '<label for="'.$value->Field.'" class="col-sm-2 control-label">'.ucfirst($value->Field);
                 if($value->Null=='NO'){
@@ -426,13 +425,11 @@ class MenuController extends Controller
                 '</div>';
 
                 $edit_form .= '<label for="'.$value->Field.'" class="col-sm-2 control-label">'.ucfirst($value->Field);
-                $show_form .= '<label for="'.$value->Field.'" class="col-sm-2 control-label">'.ucfirst($value->Field);
                 if($value->Null=='NO'){
                     $edit_form .= ' <span style="color:red">*</span>';
                 }
 
                 $edit_form .= '</label>' ."\n";
-                $show_form .= '</label>' ."\n";
 
                 $edit_form .='<div class="col-sm-8">';
                         if($type[0]=='text'){
@@ -454,16 +451,6 @@ class MenuController extends Controller
                     '</div>'.
                 '</div>';
 
-                $show_form .='<div class="col-sm-8">'.
-                                '@if($model->status)'.
-                                    '<span class="label label-success">Active</span>'.
-                                '@else'.
-                                    '<span class="label label-danger">In-Active</span>'.
-                                '@endif'.
-                                '<div>{{ $model->'.$value->Field.' }}</div>'.
-                            '</div>'.
-                        '</div>';
-
                 if($value->Field=='status'){
                     $index_page .= '<td>'.
                                         '@if($model->status)'.
@@ -472,13 +459,27 @@ class MenuController extends Controller
                                             '<span class="label label-danger">In-Active</span>'.
                                         '@endif'.
                                     '</td>';
+                    $show_form .= '<tr>'.
+                                    '<th>'.ucfirst($value->Field).'</th>'.
+                                    '<td>'.
+                                        '@if($model->status)'.
+                                            '<span class="label label-success">Active</span>'.
+                                        '@else'.
+                                            '<span class="label label-danger">In-Active</span>'.
+                                        '@endif'.
+                                    '</td>'.
+                                '</tr>';
                 }elseif($type[0]=='date'){
                     $index_page .= '<td>{{ date("d, M-Y", strtotime($model->'.$value->Field.')) }}</td>';
+                    $show_form .= '<tr><th>'.ucfirst($value->Field).'</th><td>{{ date("d, M-Y", strtotime($model->'.$value->Field.')) }}</td></tr>';
                 }else{
                     $index_page .= '<td>{{ $model->'.$value->Field.' }}</td>';
+                    $show_form .= '<tr><th>'.ucfirst($value->Field).'</th><td>{{ $model->'.$value->Field.' }}</td></tr>';
                 }
             }
 		}
+
+        $show_form .= '</table>';
 
         $index_page .= '<td width="250px">'.
                     '<a href="{{ route("'.$route_menu.'.show", $model->id) }}" data-toggle="tooltip" data-placement="top" title="Show '.Str::ucfirst($modelName).'" class="btn btn-info btn-xs"><i class="fa fa-eye"></i> Show</a>'.
@@ -487,9 +488,12 @@ class MenuController extends Controller
                 '</td>';
 
 		$createForm = $form;
-        $createForm .= '<label for="" class="col-sm-2 control-label"></label>'."\n".
-                        '<div class="col-sm-6">'.
-                            '<button type="submit" class="btn btn-success pull-left">Save</button>'.
+
+        $createForm .= '<div class="form-group">'.
+                            '<label for="status" class="col-sm-2 control-label"></label>'.
+                            '<div class="col-sm-8">'.
+                                '<button type="submit" class="btn btn-success pull-left">Save</button>'.
+                            '</div>'.
                         '</div>';
 
 		$createForm = str_replace('{createForm}', $createForm, $createFile);
@@ -498,10 +502,15 @@ class MenuController extends Controller
 		$createForm = str_replace('{page_title}', 'Add New '.$create_page_title, $createForm);
 
 		$updateForm = $edit_form;
-        $updateForm .= '<label for="" class="col-sm-2 control-label"></label>'."\n".
-                        '<div class="col-sm-6">'.
-                            '<button type="submit" class="btn btn-success pull-left">Save</button>'.
+
+        $updateForm .= '<div class="form-group">'.
+                            '<label for="status" class="col-sm-2 control-label"></label>'.
+                            '<div class="col-sm-8">'.
+                                '<button type="submit" class="btn btn-success pull-left">Save</button>'.
+                            '</div>'.
                         '</div>';
+
+
 		$updateForm = str_replace('{createForm}', $updateForm, $editFile);
         $updateForm = str_replace('{store_route}', '{{ route("'.$route_menu.'.update", $model->id) }}', $updateForm);
 		$updateForm = str_replace('{view_all_route}', '{{ route("'.$route_menu.'.index") }}', $updateForm);

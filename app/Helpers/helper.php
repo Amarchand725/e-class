@@ -1,6 +1,12 @@
 <?php
 use App\Models\PageSetting;
 use App\Models\Menu;
+use App\Models\Slider;
+use App\Models\Category;
+use App\Models\Learning;
+use App\Models\Fact;
+use App\Models\Course;
+use App\Models\Blog;
 
 function globalData()
 {
@@ -14,4 +20,31 @@ function globalData()
 
 function menus(){
     return Menu::where('status', 1)->get();
+}
+
+function slider()
+{
+    return Slider::where('status', 1)->get();
+}
+function categories(){
+    return Category::where('status', 1)->get();
+}
+function mainCategories(){
+    return Category::where('status', 1)->where('parent_id', NULL)->get();
+}
+function learningLabels(){
+    return Learning::where('status', 1)->get();
+}
+function facts(){
+    return Fact::where('status', 1)->get();
+}
+function topDiscountCourses(){
+    return Course::where('status', 1)->where('sale_price', '!=', NULL)->get();
+}
+function featuredCourses(){
+    return Course::where('status', 1)->where('is_featured', 1)->latest();
+}
+function latestBlogs()
+{
+    return Blog::orderby('id', 'desc')->where('status', 1)->get();
 }

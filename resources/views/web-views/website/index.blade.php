@@ -67,7 +67,7 @@
     <!-- testimonial end -->
 
     <!-- video start -->
-    @include('web-views.layouts.video-section')  
+    @include('web-views.layouts.video-section')
     <!-- video end -->
 
     <!-- instructor start -->

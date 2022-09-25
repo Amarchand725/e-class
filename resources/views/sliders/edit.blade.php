@@ -38,7 +38,7 @@
 							<div class="form-group">
 								<label for="image" class="col-sm-2 control-label">Exist Image </label>
 								<div class="col-sm-8">
-									<img src="{{ asset('public/admin/images/sliders') }}/{{ $model->image }}" alt="">
+									<img src="{{ asset('public/admin/images/sliders') }}/{{ $model->image }}" width="150px" alt="">
 								</div>
 							</div>
 						@endif

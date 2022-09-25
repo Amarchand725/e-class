@@ -18,9 +18,9 @@
 		<link rel="stylesheet" href="{{asset('public/admin/css/jquery.fancybox.css')}}">
 		<link rel="stylesheet" href="{{asset('public/admin/css/AdminLTE.min.css')}}">
 		<link rel="stylesheet" href="{{asset('public/admin/css/_all-skins.min.css')}}">
-		<link rel="stylesheet" href="{{asset('public/admin/css/summernote.css')}}">
 		<link rel="stylesheet" href="{{asset('public/admin/css/magnific-popup.css')}}">
 		<link rel="stylesheet" href="{{asset('public/admin/css/style.css')}}">
+		<link rel="stylesheet" href="{{asset('public/admin/css/bootstrap-tagsinput.css')}}">
 		<link rel="stylesheet" href="{{asset('public/admin/css/toastr.min.css')}}">
 		<link rel="stylesheet" href="{{asset('public/admin/css/custome.css')}}">
 		@stack('css')
@@ -59,7 +59,6 @@
 	<script src="{{asset('public/admin/js/jquery.slimscroll.min.js')}}"></script>
 	<script src="{{asset('public/admin/js/jquery.fancybox.pack.js')}}"></script>
 	<script src="{{asset('public/admin/js/app.min.js')}}"></script>
-	<script src="{{asset('public/admin/js/summernote.js')}}"></script>
 	<script src="{{asset('public/admin/js/jquery.magnific-popup.min.js')}}"></script>
 	<script src="{{asset('public/admin/js/demo.js')}}"></script>
 	<script src="{{asset('public/admin/js/tinymce/tinymce.min.js')}}"></script>
@@ -67,7 +66,8 @@
 	<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 	<script src="{{asset('public/admin/js/toastr.min.js')}}"></script>
 	<script src="{{asset('public/admin/js/search.js')}}"></script>
-
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-tagsinput/0.8.0/bootstrap-tagsinput.min.js"></script>
+    <script src="https://cdn.ckeditor.com/4.14.0/standard/ckeditor.js"></script>
 	@stack('js')
 
     <script>
@@ -108,6 +108,47 @@
         @endif
         $(document).ready(function() {
             $('.js-example-basic-single').select2();
+        });
+        $('.numberonly').keypress(function (e) {
+            var charCode = (e.which) ? e.which : event.keyCode
+            if (String.fromCharCode(charCode).match(/[^0-9]/g))
+                return false;
+        });
+
+        $(document).ready(function() {
+            $('.ckeditor').ckeditor();
+        });
+
+        imgInput.onchange = evt => {
+            const [file] = imgInput.files
+            if (file) {
+                preview.src = URL.createObjectURL(file)
+            }
+        }
+
+        //tags
+        $(function () {
+            $('input')
+            .on('change', function (event) {
+            var $element = $(event.target);
+            var $container = $element.closest('.example');
+
+            if (!$element.data('tagsinput')) return;
+
+            var val = $element.val();
+            if (val === null) val = 'null';
+            var items = $element.tagsinput('items');
+
+            $('code', $('pre.val', $container)).html(
+                $.isArray(val)
+                ? JSON.stringify(val)
+                : '"' + val.replace('"', '\\"') + '"'
+            );
+            $('code', $('pre.items', $container)).html(
+                JSON.stringify($element.tagsinput('items'))
+            );
+            })
+            .trigger('change');
         });
     </script>
 </html>

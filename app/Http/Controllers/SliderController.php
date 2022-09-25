@@ -1,4 +1,4 @@
-<?php 
+<?php
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
@@ -115,7 +115,7 @@ class SliderController extends Controller
             $rules = [
                 'title' => 'required'
             ];
-    
+
             $this->validate($request, $rules);
         }
 

@@ -81,7 +81,7 @@
             --linear-gradient-about-blue-bg-color:linear-gradient(40deg, #1a263a 33%, #4a8394 84%);
             --linear-gradient-career-bg-color:linear-gradient(22.72914987deg, #f5c252 4%, #6ac1d0);
             --background-blue-bg-color: #0284a2;
-            --background-red-bg-color: #f44a4a; 
+            --background-red-bg-color: #f44a4a;
             --background-grey-bg-color:#f7f8fa;
             --background-light-grey-bg-color:#f9f9f9;
             --background-black-bg-color:#29303b;
@@ -210,7 +210,7 @@
             <button type="button" class="close">×</button>
             <form action="#" class="form-inline search-form" method="GET">
                 <input type="find" name="searchTerm" class="form-control" id="search"  placeholder="Searchforcourses" value="">
-                <button type="submit" class="btn btn-outline-info btn_sm">Search</button> 
+                <button type="submit" class="btn btn-outline-info btn_sm">Search</button>
             </form>
         </div>
         <!-- start end -->
@@ -240,7 +240,7 @@
                                     <div class="box-footer">
                         <button type="submit" onclick="window.location.href = 'login.html';" class="btn btn-lg col-md-3 btn-primary">Submit</button>
                         </div>
-                        
+
                     </div>
                 </div>
                 </div>
@@ -252,30 +252,12 @@
         <section id="categories-tab" class="categories-tab-main-block">
             <div class="container-xl">
                 <div id="categories-tab-slider" class="categories-tab-block owl-carousel">
-                    <div class="item categories-tab-dtl">
-                        <a href="browse/categorya943.html?id=2&amp;category=devlopment"
-                            title="Devlopment"><i class="fa fa-connectdevelop"></i>Devlopment</a>
-                    </div>
-                    <div class="item categories-tab-dtl">
-                        <a href="browse/categoryf18b.html?id=6&amp;category=healthfitness"
-                            title="Health &amp; Fitness"><i class="fa fa-heartbeat"></i>Health &amp; Fitness</a>
-                    </div>
-                    <div class="item categories-tab-dtl">
-                        <a href="browse/category8e7e.html?id=4&amp;category=lifestyle"
-                            title="Lifestyle"><i class="fa fa-yelp"></i>Lifestyle</a>
-                    </div>
-                    <div class="item categories-tab-dtl">
-                        <a href="browse/category43bf.html?id=3&amp;category=music"
-                            title="Music"><i class="fa fa-music"></i>Music</a>
-                    </div>
-                    <div class="item categories-tab-dtl">
-                        <a href="browse/category15bc.html?id=1&amp;category=design"
-                            title="Design"><i class="fa fa-slideshare"></i>Design</a>
-                    </div>
-                    <div class="item categories-tab-dtl">
-                        <a href="browse/categoryc2e2.html?id=5&amp;category=photogarphy"
-                            title="Photogarphy"><i class="fa fa-file-photo-o"></i>Photogarphy</a>
-                    </div>
+                    @foreach (mainCategories() as $category)
+                        <div class="item categories-tab-dtl">
+                            <a href="browse/categorya943.html?id=2&amp;category=devlopment"
+                                title="Devlopment">{!! $category->icon !!} {{ $category->name }}</a>
+                        </div>
+                    @endforeach
                 </div>
             </div>
         </section>
@@ -305,4 +287,4 @@
         @include('web-views.layouts.custome_js')
         <!-- Footer jquery -->
     </body>
-</html> 
+</html>

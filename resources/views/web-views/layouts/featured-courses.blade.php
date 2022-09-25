@@ -12,217 +12,180 @@
                 </div>
             </div>
             <div id="student-view-slider" class="student-view-slider-main-block owl-carousel">
-                                
-                <div class="item student-view-block student-view-block-1">
-                    <div class="genre-slide-image  protip "
-                        data-pt-placement="outside" data-pt-interactive="false"
-                        data-pt-title="#prime-next-item-description-block21">
-                        <div class="view-block">
-                            <div class="view-img">
-                                                            <a href="course/21/travel-hacking-smart-fun-travel-copy-166373019920.html"><img
-                                        data-src="https://eclass.mediacity.co.in/demo/public/images/course/157976457360.jpg" alt="course"
-                                        class="img-fluid owl-lazy"></a>
-                                                        </div>
-                            <div class="badges bg-priamry offer-badge"><span>OFF<span>50%</span></span></div>
-
-                                                    <div class="advance-badge">
-                                <span class="badge bg-warning">Trending</span>
-                            </div>
-                                                                                                                                                                                                    <div class="view-user-img">
-
-                                                            <a href="all/profile/2.html" title=""><img src="{{ asset('public/website') }}/images/user_img/159116551043.jpg"
-                                        class="img-fluid user-img-one" alt=""></a>
-                                
-
-                            </div>
-
-                            <div class="view-dtl">
-                                <div class="view-heading"><a
-                                        href="course/21/travel-hacking-smart-fun-travel-copy-166373019920.html">Travel Hacking -Smart &amp; Fun Tr...</a>
+                @foreach (featuredCourses() as $course)
+                    <div class="item student-view-block student-view-block-1">
+                        <div class="genre-slide-image  protip "
+                            data-pt-placement="outside" data-pt-interactive="false"
+                            data-pt-title="#prime-next-item-description-block{{ $course->id }}">
+                            <div class="view-block">
+                                <div class="view-img">
+                                    <a href="course/21/travel-hacking-smart-fun-travel-copy-166373019920.html">
+                                        <img data-src="{{ asset('public/admin/images/courses') }}/{{ $course->thumbnail }}" alt="course"
+                                                class="img-fluid owl-lazy">
+                                    </a>
                                 </div>
-                                <div class="user-name">
-                                    <h6>By <span><a href="all/profile/2.html"> Instructor</a></span></h6>
+
+                                @if($course->sale_price != NULL)
+                                    <div class="badges bg-priamry offer-badge">
+                                        @php $percentage = $course->sale_price/$course->price*100; @endphp
+                                        <span>OFF<span>{{ (int)$percentage }}%</span></span>
+                                    </div>
+                                @endif
+
+                                <div class="advance-badge">
+                                    @if($course->sale_price != NULL)
+                                        <span class="badge bg-info">On-sale</span>
+                                    @elseif($course->is_featured)
+                                        <span class="badge bg-primary">Featured</span>
+                                    @elseif($course->is_featured)
+                                        <span class="badge bg-warning">Trending</span>
+                                    @endif
                                 </div>
-                                <div class="rating">
-                                    <ul>
-                                        <li>
-                                                                                                                            
-                                            <div class="pull-left">
-                                                <div class="star-ratings-sprite"><span
-                                                        style="width:86.666666666667%"
-                                                        class="star-ratings-sprite-rating"></span>
+                                <div class="view-user-img">
+                                    <a href="#" title="">
+                                        @if($course->hasUserProfile)
+                                            <img src="{{ asset('public/users') }}/{{ $course->hasUserProfile->profile_image }}" width="50px"  class="img-fluid user-img-one" alt="">
+                                        @else
+                                            <img src="{{ asset('public/default.png') }}" width="50px"  class="img-fluid user-img-one" alt="">
+                                        @endif
+                                    </a>
+                                </div>
+                                <div class="view-dtl">
+                                    <div class="view-heading">
+                                        <a href="#">{{ $course->title }}</a>
+                                    </div>
+                                    <div class="user-name">
+                                        <h6>By <span><a href="#">{{ $course->hasCreatedBy->roles->first()->name }}</a></span></h6>
+                                    </div>
+                                    <div class="rating">
+                                        <ul>
+                                            <li>
+
+                                                <div class="pull-left">
+                                                    <div class="star-ratings-sprite"><span
+                                                            style="width:86.666666666667%"
+                                                            class="star-ratings-sprite-rating"></span>
+                                                    </div>
+                                                </div>
+
+
+                                                                                    </li>
+                                            <!-- overall rating-->
+
+                                                                                                                    <!-- <li>
+                                                    <b>4</b>
+                                                </li> -->
+                                                                                <li class="reviews">
+                                                (1 Reviews)
+                                            </li>
+
+                                        </ul>
+                                    </div>
+                                    <div class="view-footer">
+                                        <div class="row">
+                                            <div class="col-lg-6 col-md-6 col-sm-6 col-6">
+                                                <div class="count-user">
+                                                    <i data-feather="user"></i>
+                                                    <span>0</span>
                                                 </div>
                                             </div>
-
-
-                                                                                </li>
-                                        <!-- overall rating-->
-                                        
-                                                                                                                <!-- <li>
-                                                <b>4</b>
-                                            </li> -->
-                                                                            <li class="reviews">
-                                            (1 Reviews)
-                                        </li>
-
-                                    </ul>
-                                </div>
-                                <div class="view-footer">
-                                    <div class="row">
-                                        <div class="col-lg-6 col-md-6 col-sm-6 col-6">
-                                            <div class="count-user">
-                                                <i data-feather="user"></i><span>
-                                                    0</span>
-                                            </div>
-                                        </div>
-                                        <div class="col-lg-6 col-md-6 col-sm-6 col-6">
-                                                                                    <div class="rate text-right">
-                                                <ul>
-
-                                                    
-                                                    <li><a><b>1.00₹</b></a>
-                                                    </li>
-
-                                                    <li><a><b><strike>2.00₹</strike></b></a>
-                                                    </li>
-
-
-                                                                                                </ul>
-                                            </div>
-                                                                                </div>
-                                    </div>
-                                </div>
-
-
-
-                                <div class="img-wishlist">
-                                    <div class="protip-wishlist">
-                                        <ul>
-
-                                            <li class="protip-wish-btn"><a
-                                                    href="https://calendar.google.com/calendar/r/eventedit?text=Travel%20Hacking%20-Smart%20&amp;%20Fun%20Travel"
-                                                    target="__blank" title="reminder"><i data-feather="bell"></i></a></li>
-
-                                                                                    <li class="protip-wish-btn"><a href="login.html" title="heart"><i
-                                                        data-feather="heart"></i></a></li>
-                                                                                </ul>
-                                    </div>
-                                </div>
-
-
-                            </div>
-                        </div>
-                    </div>
-                    <div id="prime-next-item-description-block21" class="prime-description-block">
-                        <div class="prime-description-under-block">
-                            <div class="prime-description-under-block">
-                                <h5 class="description-heading">Travel Hacking -Smart &amp; Fun Travel</h5>
-                                <div class="main-des">
-                                    <p>Last Updated: 22nd September 2022</p>
-                                </div>
-
-                                <ul class="description-list">
-                                    <li>
-                                        <i data-feather="play-circle"></i>
-                                        <div class="class-des">
-                                            Classes:
-                                            10                                    </div>
-                                    </li>
-                                    &nbsp;
-                                    <li>
-                                        <div>
-                                            <div class="time-des">
-                                                <span class="">
-                                                    <i data-feather="clock"></i>
-                                                                                                    19 Minutes
-                                                </span>
-                                            </div>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div class="lang-des">
-                                                                                                                            <i data-feather="globe"></i> English
-                                                                                                                        </div>
-                                    </li>
-
-                                </ul>
-
-                                <div class="product-main-des">
-                                    <p>60+ World Travel Tips: Cheap Travel. Fear of Flying. Travel Motivation &amp; Safety. Negotiation. Social Success Abroad.</p>
-                                </div>
-                                <div>
-                                                                                                                                    <div class="product-learn-dtl">
-                                        <ul>
-                                            <li><i
-                                                    data-feather="check-circle"></i>Locating the perfect dates to travel for the cheapest price.
-                                            </li>
-                                        </ul>
-                                    </div>
-                                                                                                                                    <div class="product-learn-dtl">
-                                        <ul>
-                                            <li><i
-                                                    data-feather="check-circle"></i>Locating the perfect dates to travel for the cheapest price.
-                                            </li>
-                                        </ul>
-                                    </div>
-                                                                                                                                    <div class="product-learn-dtl">
-                                        <ul>
-                                            <li><i
-                                                    data-feather="check-circle"></i>Learn the tricks of travel and finding discount places to stay.
-                                            </li>
-                                        </ul>
-                                    </div>
-                                                                                                                                    <div class="product-learn-dtl">
-                                        <ul>
-                                            <li><i
-                                                    data-feather="check-circle"></i>How to travel light
-                                            </li>
-                                        </ul>
-                                    </div>
-                                                                                                                                    <div class="product-learn-dtl">
-                                        <ul>
-                                            <li><i
-                                                    data-feather="check-circle"></i>How to finance your trips
-                                            </li>
-                                        </ul>
-                                    </div>
-                                                                                                                                    <div class="product-learn-dtl">
-                                        <ul>
-                                            <li><i
-                                                    data-feather="check-circle"></i>How to locate &amp; book cheap flights
-                                            </li>
-                                        </ul>
-                                    </div>
-                                                                                                                                    <div class="product-learn-dtl">
-                                        <ul>
-                                            <li><i
-                                                    data-feather="check-circle"></i>How to communicate if you don&#039;t speak the native language in a country.
-                                            </li>
-                                        </ul>
-                                    </div>
-                                                                                                                                </div>
-                                <div class="des-btn-block">
-                                    <div class="row">
-                                        <div class="col-lg-8">
-                                                                                                                                                                    <form id="demo-form2" method="post"
-                                                action="https://eclass.mediacity.co.in/demo/public/guest/addtocart/21" data-parsley-validate
-                                                class="form-horizontal form-label-left">
-                                                <input type="hidden" name="_token" value="leZ79T21enQSxfzfbeOTzvgubGXd6jlVMG4Ztrf9">
-
-
-                                                <div class="box-footer">
-                                                    <button type="submit" class="btn btn-primary"><i data-feather="shopping-cart"></i>&nbsp;Add To Cart</button>
-                                                </div>
-                                            </form>
-
-                                                                                                                                                                </div>
-                                        <div class="col-lg-4">
-                                            <div class="img-wishlist">
-                                                <div class="protip-wishlist">
+                                            <div class="col-lg-6 col-md-6 col-sm-6 col-6">
+                                                <div class="rate text-right">
                                                     <ul>
-                                                                                                            <li class="protip-wish-btn"><a href="login.html"
-                                                                title="heart"><i data-feather="heart"></i></a></li>
-                                                                                                        </ul>
+                                                        <li><a><b>${{ number_format($course->sale_price, 2) }}</b></a></li>
+                                                        <li><a><b><strike>${{ number_format($course->price, 2) }}</strike></b></a></li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="img-wishlist">
+                                        <div class="protip-wishlist">
+                                            <ul>
+                                                <li class="protip-wish-btn">
+                                                    <a href="https://calendar.google.com/calendar/r/eventedit?text=Travel%20Hacking%20-Smart%20&amp;%20Fun%20Travel"
+                                                        target="__blank" title="reminder"><i data-feather="bell"></i>
+                                                    </a>
+                                                </li>
+                                                <li class="protip-wish-btn">
+                                                    <a href="login.html" title="heart"><i data-feather="heart"></i></a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div id="prime-next-item-description-block{{ $course->id }}" class="prime-description-block">
+                            <div class="prime-description-under-block">
+                                <div class="prime-description-under-block">
+                                    <h5 class="description-heading">{{ $course->title }}</h5>
+                                    <div class="main-des">
+                                        <p>Last Updated: {{ date('d F Y', strtotime($course->updated_at)) }}</p>
+                                    </div>
+
+                                    <ul class="description-list">
+                                        <li>
+                                            <i data-feather="play-circle"></i>
+                                            <div class="class-des">
+                                                Classes: 10
+                                            </div>
+                                        </li>
+                                        &nbsp;
+                                        <li>
+                                            <div>
+                                                <div class="time-des">
+                                                    <span class="">
+                                                        <i data-feather="clock"></i>
+                                                        19 Minutes
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <div class="lang-des"></div>
+                                        </li>
+                                    </ul>
+
+                                    <div class="product-main-des">
+                                        <p>{{ $course->short_description }}</p>
+                                    </div>
+                                    <div>
+                                        @if(!empty($course->haveWhatLearns))
+                                            @foreach ($course->haveWhatLearns as $learn)
+                                                <div class="product-learn-dtl">
+                                                    <ul>
+                                                        <li>
+                                                            <i data-feather="check-circle"></i>{{ $learn->title }}.
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                            @endforeach
+                                        @endif
+                                    </div>
+                                    <div class="des-btn-block">
+                                        <div class="row">
+                                            <div class="col-lg-8">
+                                                <form id="demo-form2" method="post"
+                                                    action="https://eclass.mediacity.co.in/demo/public/guest/addtocart/21" data-parsley-validate
+                                                    class="form-horizontal form-label-left">
+                                                    <input type="hidden" name="_token" value="leZ79T21enQSxfzfbeOTzvgubGXd6jlVMG4Ztrf9">
+
+                                                    <div class="box-footer">
+                                                        <button type="submit" class="btn btn-primary"><i data-feather="shopping-cart"></i>&nbsp;Add To Cart</button>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                            <div class="col-lg-4">
+                                                <div class="img-wishlist">
+                                                    <div class="protip-wishlist">
+                                                        <ul>
+                                                            <li class="protip-wish-btn">
+                                                                <a href="login.html" title="heart"><i data-feather="heart"></i></a>
+                                                            </li>
+                                                        </ul>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
@@ -231,9 +194,9 @@
                             </div>
                         </div>
                     </div>
-                </div>
-                                            
-                <div class="item student-view-block student-view-block-1">
+                @endforeach
+
+                {{-- <div class="item student-view-block student-view-block-1">
                     <div class="genre-slide-image  protip "
                         data-pt-placement="outside" data-pt-interactive="false"
                         data-pt-title="#prime-next-item-description-block19">
@@ -245,7 +208,7 @@
                                                         </div>
                             <div class="badges bg-priamry offer-badge"><span>OFF<span>60%</span></span></div>
 
-                                                                                                    
+
                             <div class="advance-badge">
                                 <span class="badge bg-info">Onsale</span>
                             </div>
@@ -253,7 +216,7 @@
 
                                                             <a href="all/profile/1.html" title=""><img src="{{ asset('public/website') }}/images/user_img/1653992825cute-freelance-girl-using-laptop-sitting-floor-smiling.jpg"
                                         class="img-fluid user-img-one" alt=""></a>
-                                
+
 
                             </div>
 
@@ -270,7 +233,7 @@
                                                                                                                             <div class="pull-left">No Rating</div>
                                                                                 </li>
                                         <!-- overall rating-->
-                                        
+
                                                                                                                 <li class="reviews">
                                             (0 Reviews)
                                         </li>
@@ -289,7 +252,7 @@
                                                                                     <div class="rate text-right">
                                                 <ul>
 
-                                                    
+
                                                     <li><a><b>400.00₹</b></a>
                                                     </li>
 
@@ -414,7 +377,7 @@
                         </div>
                     </div>
                 </div>
-                                            
+
                 <div class="item student-view-block student-view-block-1">
                     <div class="genre-slide-image  protip "
                         data-pt-placement="outside" data-pt-interactive="false"
@@ -431,7 +394,7 @@
 
                                                             <a href="all/profile/2.html" title=""><img src="{{ asset('public/website') }}/images/user_img/159116551043.jpg"
                                         class="img-fluid user-img-one" alt=""></a>
-                                
+
 
                             </div>
 
@@ -448,7 +411,7 @@
                                                                                                                             <div class="pull-left">No Rating</div>
                                                                                 </li>
                                         <!-- overall rating-->
-                                        
+
                                                                                                                 <li class="reviews">
                                             (0 Reviews)
                                         </li>
@@ -467,7 +430,7 @@
                                                                                     <div class="rate text-right">
                                                 <ul>
 
-                                                    
+
                                                     <li><a><b>500.00₹</b></a>
                                                     </li>
 
@@ -599,7 +562,7 @@
                         </div>
                     </div>
                 </div>
-                                            
+
                 <div class="item student-view-block student-view-block-1">
                     <div class="genre-slide-image  protip "
                         data-pt-placement="outside" data-pt-interactive="false"
@@ -616,7 +579,7 @@
 
                                                             <a href="all/profile/1.html" title=""><img src="{{ asset('public/website') }}/images/user_img/1653992825cute-freelance-girl-using-laptop-sitting-floor-smiling.jpg"
                                         class="img-fluid user-img-one" alt=""></a>
-                                
+
 
                             </div>
 
@@ -633,7 +596,7 @@
                                                                                                                             <div class="pull-left">No Rating</div>
                                                                                 </li>
                                         <!-- overall rating-->
-                                        
+
                                                                                                                 <li class="reviews">
                                             (0 Reviews)
                                         </li>
@@ -769,7 +732,7 @@
                         </div>
                     </div>
                 </div>
-                                            
+
                 <div class="item student-view-block student-view-block-1">
                     <div class="genre-slide-image  protip "
                         data-pt-placement="outside" data-pt-interactive="false"
@@ -786,7 +749,7 @@
 
                                                             <a href="all/profile/2.html" title=""><img src="{{ asset('public/website') }}/images/user_img/159116551043.jpg"
                                         class="img-fluid user-img-one" alt=""></a>
-                                
+
 
                             </div>
 
@@ -803,7 +766,7 @@
                                                                                                                             <div class="pull-left">No Rating</div>
                                                                                 </li>
                                         <!-- overall rating-->
-                                        
+
                                                                                                                 <li class="reviews">
                                             (0 Reviews)
                                         </li>
@@ -822,7 +785,7 @@
                                                                                     <div class="rate text-right">
                                                 <ul>
 
-                                                    
+
                                                     <li><a><b>600.00₹</b></a>
                                                     </li>
 
@@ -961,7 +924,7 @@
                         </div>
                     </div>
                 </div>
-                                            
+
                 <div class="item student-view-block student-view-block-1">
                     <div class="genre-slide-image  protip "
                         data-pt-placement="outside" data-pt-interactive="false"
@@ -978,7 +941,7 @@
 
                                                             <a href="all/profile/1.html" title=""><img src="{{ asset('public/website') }}/images/user_img/1653992825cute-freelance-girl-using-laptop-sitting-floor-smiling.jpg"
                                         class="img-fluid user-img-one" alt=""></a>
-                                
+
 
                             </div>
 
@@ -995,7 +958,7 @@
                                                                                                                             <div class="pull-left">No Rating</div>
                                                                                 </li>
                                         <!-- overall rating-->
-                                        
+
                                                                                                                 <li class="reviews">
                                             (0 Reviews)
                                         </li>
@@ -1014,7 +977,7 @@
                                                                                     <div class="rate text-right">
                                                 <ul>
 
-                                                    
+
                                                     <li><a><b>400.00₹</b></a>
                                                     </li>
 
@@ -1139,7 +1102,7 @@
                         </div>
                     </div>
                 </div>
-                                            
+
                 <div class="item student-view-block student-view-block-1">
                     <div class="genre-slide-image  protip "
                         data-pt-placement="outside" data-pt-interactive="false"
@@ -1159,7 +1122,7 @@
 
                                                             <a href="all/profile/1.html" title=""><img src="{{ asset('public/website') }}/images/user_img/1653992825cute-freelance-girl-using-laptop-sitting-floor-smiling.jpg"
                                         class="img-fluid user-img-one" alt=""></a>
-                                
+
 
                             </div>
 
@@ -1176,7 +1139,7 @@
                                                                                                                             <div class="pull-left">No Rating</div>
                                                                                 </li>
                                         <!-- overall rating-->
-                                        
+
                                                                                                                 <li class="reviews">
                                             (0 Reviews)
                                         </li>
@@ -1305,7 +1268,7 @@
                         </div>
                     </div>
                 </div>
-                                            
+
                 <div class="item student-view-block student-view-block-1">
                     <div class="genre-slide-image  protip "
                         data-pt-placement="outside" data-pt-interactive="false"
@@ -1322,7 +1285,7 @@
 
                                                             <a href="all/profile/1.html" title=""><img src="{{ asset('public/website') }}/images/user_img/1653992825cute-freelance-girl-using-laptop-sitting-floor-smiling.jpg"
                                         class="img-fluid user-img-one" alt=""></a>
-                                
+
 
                             </div>
 
@@ -1339,7 +1302,7 @@
                                                                                                                             <div class="pull-left">No Rating</div>
                                                                                 </li>
                                         <!-- overall rating-->
-                                        
+
                                                                                                                 <li class="reviews">
                                             (0 Reviews)
                                         </li>
@@ -1358,7 +1321,7 @@
                                                                                     <div class="rate text-right">
                                                 <ul>
 
-                                                    
+
                                                     <li><a><b>500.00₹</b></a>
                                                     </li>
 
@@ -1490,7 +1453,7 @@
                         </div>
                     </div>
                 </div>
-                                            
+
                 <div class="item student-view-block student-view-block-1">
                     <div class="genre-slide-image  protip "
                         data-pt-placement="outside" data-pt-interactive="false"
@@ -1507,7 +1470,7 @@
 
                                                             <a href="all/profile/1.html" title=""><img src="{{ asset('public/website') }}/images/user_img/1653992825cute-freelance-girl-using-laptop-sitting-floor-smiling.jpg"
                                         class="img-fluid user-img-one" alt=""></a>
-                                
+
 
                             </div>
 
@@ -1524,7 +1487,7 @@
                                                                                                                             <div class="pull-left">No Rating</div>
                                                                                 </li>
                                         <!-- overall rating-->
-                                        
+
                                                                                                                 <li class="reviews">
                                             (0 Reviews)
                                         </li>
@@ -1660,7 +1623,7 @@
                         </div>
                     </div>
                 </div>
-                                            
+
                 <div class="item student-view-block student-view-block-1">
                     <div class="genre-slide-image  protip "
                         data-pt-placement="outside" data-pt-interactive="false"
@@ -1680,7 +1643,7 @@
 
                                                             <a href="all/profile/2.html" title=""><img src="{{ asset('public/website') }}/images/user_img/159116551043.jpg"
                                         class="img-fluid user-img-one" alt=""></a>
-                                
+
 
                             </div>
 
@@ -1697,7 +1660,7 @@
                                                                                                                             <div class="pull-left">No Rating</div>
                                                                                 </li>
                                         <!-- overall rating-->
-                                        
+
                                                                                                                 <li class="reviews">
                                             (0 Reviews)
                                         </li>
@@ -1716,7 +1679,7 @@
                                                                                     <div class="rate text-right">
                                                 <ul>
 
-                                                    
+
                                                     <li><a><b>800.00₹</b></a>
                                                     </li>
 
@@ -1847,8 +1810,8 @@
                             </div>
                         </div>
                     </div>
-                </div>
-                                    </div>
+                </div> --}}
+            </div>
 
         </div>
     </section>

@@ -53,3 +53,13 @@ Route::group(['middleware' => 'auth'], function(){
 require __DIR__.'/auth.php';
 
 Route::resource('admin/slider', 'SliderController');
+Route::resource('admin/category', 'CategoryController');
+Route::resource('admin/learning', 'LearningController');
+
+Route::resource('admin/fact', 'FactController');
+
+Route::resource('admin/course', 'CourseController');
+
+Route::resource('admin/blog', 'BlogController');
+
+Route::resource('admin/trustcompany', 'TrustCompanyController');
