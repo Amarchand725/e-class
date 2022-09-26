@@ -7,6 +7,7 @@ use App\Models\Learning;
 use App\Models\Fact;
 use App\Models\Course;
 use App\Models\Blog;
+use App\Models\TrustCompany;
 
 function globalData()
 {
@@ -47,4 +48,7 @@ function featuredCourses(){
 function latestBlogs()
 {
     return Blog::orderby('id', 'desc')->where('status', 1)->get();
+}
+function trustCompanies(){
+    return TrustCompany::orderby('id', 'desc')->where('status', 1)->get();
 }
