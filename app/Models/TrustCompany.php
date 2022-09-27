@@ -12,7 +12,8 @@ class TrustCompany extends Model
 
     static function getValidationRules(){
     	$rules = [
-		    'name' => 'required'
+		    'name' => 'required',
+            'logo' => 'required'
 		];
 		return $rules;
     }

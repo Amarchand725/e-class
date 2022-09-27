@@ -43,6 +43,14 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
+    static function getValidationRules(){
+    	$rules = [
+            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+            'password' => 'required|same:confirmed',
+		];
+		return $rules;
+    }
+
     public function hasUserProfile()
     {
         return $this->hasOne(UserProfile::class, 'user_id', 'id');

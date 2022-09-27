@@ -33,7 +33,11 @@
                         <thead>
                             <tr>
                                 <th>SL</th>
-                                <th>LOGO</th><th>NAME</th><th>DESCRIPTION</th><th>STATUS</th>
+                                <th>LOGO</th>
+                                <th>NAME</th>
+                                <th>WEBSITE LINK</th>
+                                <th>DESCRIPTION</th>
+                                <th>STATUS</th>
                                 <th>Action</th>
                             </tr>
                         </thead>
@@ -49,6 +53,7 @@
                                         @endif
                                     </td>
                                     <td>{{ $model->name }}</td>
+                                    <td>{{ $model->website_link }}</td>
                                     <td>{{ $model->description }}</td>
                                     <td>
                                         @if($model->status)

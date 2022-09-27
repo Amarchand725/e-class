@@ -154,7 +154,6 @@
                             '</td>'+
                             '<td>'+
                                 '<select name="types[]" id="" class="form-control js-example-basic-single">'+
-                                    '<option value="" selected>Select type</option>'+
                                     '<option value="integer">INT</option>'+
                                     '<option value="string">VARCHAR</option>'+
                                     '<option value="boolean">BOOLEAN</option>'+

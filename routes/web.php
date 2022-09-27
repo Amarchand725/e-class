@@ -48,18 +48,30 @@ Route::group(['middleware' => 'auth'], function(){
     Route::resource('role', 'RoleController');
 
     Route::resource('menu', 'MenuController');
+
+    Route::resource('admin/slider', 'SliderController');
+    Route::resource('admin/category', 'CategoryController');
+    Route::resource('admin/learning', 'LearningController');
+
+    Route::resource('admin/fact', 'FactController');
+
+    Route::resource('admin/course', 'CourseController');
+
+    Route::resource('admin/blog', 'BlogController');
+
+    Route::resource('admin/trustcompany', 'TrustCompanyController');
+    Route::resource('admin/country', 'CountryController');
+    Route::resource('admin/country', 'CountryController');
+    Route::resource('admin/country', 'CountryController');
+    Route::resource('admin/state', 'StateController');
+    Route::resource('admin/state', 'StateController');
+    Route::resource('admin/city', 'CityController');
+
+    Route::get('admin/get_states', 'StateController@getStates')->name('admin.get_states');
+    Route::get('admin/get_cities', 'CityController@getCities')->name('admin.get_cities');
 });
 
 require __DIR__.'/auth.php';
 
-Route::resource('admin/slider', 'SliderController');
-Route::resource('admin/category', 'CategoryController');
-Route::resource('admin/learning', 'LearningController');
 
-Route::resource('admin/fact', 'FactController');
-
-Route::resource('admin/course', 'CourseController');
-
-Route::resource('admin/blog', 'BlogController');
-
-Route::resource('admin/trustcompany', 'TrustCompanyController');
+Route::resource('admin/userprofile', 'UserProfileController');

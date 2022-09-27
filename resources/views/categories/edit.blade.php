@@ -59,6 +59,28 @@
                             </div>
                         </div>
 
+                        @if($model->thumbnail)
+							<div class="form-group">
+								<label for="image" class="col-sm-2 control-label">Exist Thumbnail </label>
+								<div class="col-sm-8">
+									<img id="preview" src="{{ asset('public/admin/images/courses') }}/{{ $model->thumbnail }}" width="100px" alt="">
+								</div>
+							</div>
+                        @else 
+                            <div class="form-group">
+                                <label for="image" class="col-sm-2 control-label">Preview</label>
+                                <div class="col-sm-8">
+                                    <img id="preview" src="{{ asset('public/default.png') }}" width="100px" alt="">
+                                </div>
+                            </div>
+						@endif
+
+                        <div class="form-group">
+                            <label for="thumbnail" class="col-sm-2 control-label">Thumbnail @if(!$model->thumbnail) <span style="color:red">*</span> @endif</label>
+                            <div class="col-sm-8">
+                                <input type="file" class="form-control" id="imgInput" accept="image/*" name="thumbnail">
+                            <span style="color: red">{{ $errors->first("thumbnail") }}</span></div></div>
+
                         <div class="form-group">
                         <label for="status" class="col-sm-2 control-label">Status <span style="color:red">*</span></label>
                         <div class="col-sm-8"><select class="form-control" name="status"><option value="1" {{ $model->status==1?"selected":"" }}>Active</option><option value="0" {{ $model->status==0?"selected":"" }}>In Active</option></select><span style="color: red">{{ $errors->first("status") }}</span></div></div><label for="" class="col-sm-2 control-label"></label>

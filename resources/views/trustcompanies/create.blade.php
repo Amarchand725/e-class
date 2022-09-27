@@ -37,6 +37,11 @@
                         </div>
 
                         <div class="form-group">
+                            <label for="website_link" class="col-sm-2 control-label">Company Website Link <span style="color:red">*</span></label>
+                            <div class="col-sm-8"><input id="website_link" type="text" class="form-control" name="website_link" value="{{ old("website_link") }}" placeholder="Enter website_link e.g http://localhost/e-class/admin/trustcompany">
+                            <span style="color: red">{{ $errors->first("website_link") }}</span></div></div>
+
+                        <div class="form-group">
                             <label for="logo" class="col-sm-2 control-label">Logo</label>
                             <div class="col-sm-8">
                                 <input type="file" accept="image/*" class="form-control" name="logo" id="imgInput">

@@ -33,7 +33,7 @@
                         <thead>
                             <tr>
                                 <th>SL</th>
-                                <th>ICON</th><th>NAME</th><th>PARENT</th><th>DESCRIPTION</th><th>STATUS</th>
+                                <th>THUMBNAIL</th><th>ICON</th><th>NAME</th><th>PARENT</th><th>DESCRIPTION</th><th>STATUS</th>
                                 <th>Action</th>
                             </tr>
                         </thead>
@@ -41,6 +41,13 @@
                             @foreach($models as $key=>$model)
                             <tr id="id-{{ $model->id }}">
                                     <td>{{  $models->firstItem()+$key }}.</td>
+                                    <td>
+                                        @if($model->thumbnail)
+                                            <img style="border-radius: 50%;" src="{{ asset('public/admin/images/categories') }}/{{ $model->thumbnail }}" width="50px" height="50px" alt="">
+                                        @else
+                                            <img style="border-radius: 50%;" src="{{ asset('public/default.png') }}" width="50  px" height="50px" alt="">
+                                        @endif
+                                    </td>
                                     <td>{!! $model->icon !!}</td>
                                     <td>{{ $model->name }}</td>
                                     <td>{{ $model->hasParent->name??'' }}</td>

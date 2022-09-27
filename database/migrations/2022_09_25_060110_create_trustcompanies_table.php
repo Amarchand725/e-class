@@ -14,7 +14,10 @@ class CreateTrustCompaniesTable extends Migration
     {
         Schema::create('trustcompanies', function (Blueprint $table) {
             $table->id();
-            $table->string("name"); $table->string("description")->nullable(); $table->string("logo")->nullable();
+            $table->string("name"); 
+            $table->string("description")->nullable(); 
+            $table->string("website_link")->nullable();
+            $table->string("logo")->nullable();
             $table->boolean('status')->default(1);
             $table->string('deleted_at')->nullable();
             $table->timestamps();

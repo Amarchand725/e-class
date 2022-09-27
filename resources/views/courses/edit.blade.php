@@ -77,9 +77,16 @@
 							<div class="form-group">
 								<label for="image" class="col-sm-2 control-label">Exist Thumbnail </label>
 								<div class="col-sm-8">
-									<img id="preview" src="{{ asset('public/admin/images/courses') }}/{{ $model->thumbnail }}" width="100px" alt="">
+									<img id="preview" src="{{ asset('public/admin/images/categories') }}/{{ $model->thumbnail }}" width="100px" alt="">
 								</div>
 							</div>
+                        @else 
+                            <div class="form-group">
+                                <label for="image" class="col-sm-2 control-label">Preview</label>
+                                <div class="col-sm-8">
+                                    <img id="preview" src="{{ asset('public/default.png') }}" width="100px" alt="">
+                                </div>
+                            </div>
 						@endif
 
                         @if($model->video)

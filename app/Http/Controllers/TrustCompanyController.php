@@ -106,11 +106,32 @@ class TrustCompanyController extends Controller
     public function update($id, Request $request)
     {
         $model = TrustCompany::findOrFail($id);
+        $input = $request->all();
 
-	    $this->validate($request, TrustCompany::getValidationRules());
+        if(!$model->logo){
+            $this->validate($request, TrustCompany::getValidationRules());
+        }else{
+            $rules = [
+                'name' => 'required'
+            ];
+
+            $this->validate($request, $rules);
+        }
 
         try{
-	        $model->fill( $request->all() )->save();
+            if (isset($request->logo)) {
+                $exist_logo_path = public_path('/admin/images/trust-companies');
+                $exist_logo = $exist_logo_path.'/'.$model->logo;
+                if($model->logo){
+                    unlink($exist_logo);
+                }
+                $logo = date('d-m-Y-His').'.'.$request->file('logo')->getClientOriginalExtension();
+                $request->logo->move(public_path('/admin/images/trust-companies'), $logo);
+                $input['logo'] = $logo;
+            }
+
+            $model->fill( $input )->save();
+
             return redirect()->route('trustcompany.index')->with('message', 'TrustCompany update Successfully !');
         } catch (\Exception $e) {
             return redirect()->back()->with('error', 'Error. '.$e->getMessage());

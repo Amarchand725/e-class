@@ -45,7 +45,7 @@
                                         @if($model->image)
                                             <img style="border-radius: 50%;" src="{{ asset('public/admin/images/sliders') }}/{{ $model->image }}" width="50px" height="50px" alt="">
                                         @else
-                                            N/A
+                                            <img style="border-radius: 50%;" src="{{ asset('public/default.png') }}" width="50px" height="50px" alt="">
                                         @endif
                                     </td>
                                     <td>{{ $model->title }}</td>

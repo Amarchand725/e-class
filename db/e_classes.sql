@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.1.3
+-- version 5.1.1
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Sep 25, 2022 at 08:22 PM
--- Server version: 10.4.24-MariaDB
--- PHP Version: 7.4.29
+-- Generation Time: Sep 27, 2022 at 04:40 PM
+-- Server version: 10.4.20-MariaDB
+-- PHP Version: 7.4.22
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -18,7 +18,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `e_class`
+-- Database: `e_classes`
 --
 
 -- --------------------------------------------------------
@@ -62,8 +62,10 @@ CREATE TABLE `categories` (
   `id` bigint(20) UNSIGNED NOT NULL,
   `parent_id` bigint(20) DEFAULT NULL,
   `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `slug` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `description` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `icon` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `thumbnail` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `status` tinyint(1) NOT NULL DEFAULT 1,
   `deleted_at` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
@@ -74,15 +76,67 @@ CREATE TABLE `categories` (
 -- Dumping data for table `categories`
 --
 
-INSERT INTO `categories` (`id`, `parent_id`, `name`, `description`, `icon`, `status`, `deleted_at`, `created_at`, `updated_at`) VALUES
-(1, NULL, 'Development', 'Lorem ipsum', '<i class=\"fa fa-connectdevelop\"></i>', 1, NULL, '2022-09-23 13:08:27', '2022-09-23 13:08:27'),
-(2, NULL, 'Health & Fitness', 'Lorem ipsum', '<i class=\"fa fa-heartbeat\"></i>', 1, NULL, '2022-09-23 13:09:20', '2022-09-23 13:09:20'),
-(3, NULL, 'Lifestyle', 'Lorem ipsum', '<i class=\"fa fa-yelp\"></i>', 1, NULL, '2022-09-23 13:15:11', '2022-09-23 13:15:11'),
-(4, NULL, 'Music', 'Lorem ipsum', '<i class=\"fa fa-music\"></i>', 1, NULL, '2022-09-23 13:15:40', '2022-09-23 13:15:40'),
-(5, NULL, 'Design', 'Lorem ipsum', '<i class=\"fa fa-slideshare\"></i>', 1, NULL, '2022-09-23 13:16:46', '2022-09-23 13:16:46'),
-(6, NULL, 'Photography', 'Lorem ipsum', '<i class=\"fa fa-file-photo-o\"></i>', 1, NULL, '2022-09-23 13:17:24', '2022-09-23 13:17:24'),
-(7, 1, 'Web Development', 'lorem ipsum', '<i class=\"fa fa-codepen rgt-20\"></i>', 1, NULL, '2022-09-23 14:07:56', '2022-09-23 14:07:56'),
-(8, 7, 'All Web Devlopment', 'All Web Devlopment', '<i class=\"fa fa-language rgt-20\"></i>', 1, NULL, '2022-09-23 14:31:09', '2022-09-23 14:31:09');
+INSERT INTO `categories` (`id`, `parent_id`, `name`, `slug`, `description`, `icon`, `thumbnail`, `status`, `deleted_at`, `created_at`, `updated_at`) VALUES
+(1, NULL, 'Development', 'development', 'Lorem ipsum', '<i class=\"fa fa-connectdevelop\"></i>', '26-09-2022-074349.jpg', 1, NULL, '2022-09-23 13:08:27', '2022-09-26 02:43:49'),
+(2, NULL, 'Health & Fitness', 'health-fitness', 'Lorem ipsum', '<i class=\"fa fa-heartbeat\"></i>', '26-09-2022-074339.jpg', 1, NULL, '2022-09-23 13:09:20', '2022-09-26 02:43:39'),
+(3, NULL, 'Lifestyle', 'lifestyle', 'Lorem ipsum', '<i class=\"fa fa-yelp\"></i>', '26-09-2022-074327.jpg', 1, NULL, '2022-09-23 13:15:11', '2022-09-26 02:43:27'),
+(4, NULL, 'Music', 'music', 'Lorem ipsum', '<i class=\"fa fa-music\"></i>', '26-09-2022-074311.jpg', 1, NULL, '2022-09-23 13:15:40', '2022-09-26 02:43:11'),
+(5, NULL, 'Design', 'design', 'Lorem ipsum', '<i class=\"fa fa-slideshare\"></i>', '26-09-2022-074256.jpg', 1, NULL, '2022-09-23 13:16:46', '2022-09-26 02:42:56'),
+(6, NULL, 'Photography', 'photography', 'Lorem ipsum', '<i class=\"fa fa-file-photo-o\"></i>', '26-09-2022-074106.jpg', 1, NULL, '2022-09-23 13:17:24', '2022-09-26 02:41:06'),
+(7, 1, 'Web Development', 'web-development', 'lorem ipsum', '<i class=\"fa fa-codepen rgt-20\"></i>', NULL, 1, NULL, '2022-09-23 14:07:56', '2022-09-23 14:07:56'),
+(8, 7, 'All Web Devlopment', 'all-web-development', 'All Web Devlopment', '<i class=\"fa fa-language rgt-20\"></i>', NULL, 1, NULL, '2022-09-23 14:31:09', '2022-09-23 14:31:09');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `cities`
+--
+
+CREATE TABLE `cities` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `country_id` bigint(20) NOT NULL,
+  `state_id` bigint(20) NOT NULL,
+  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `status` tinyint(1) NOT NULL DEFAULT 1,
+  `deleted_at` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `cities`
+--
+
+INSERT INTO `cities` (`id`, `country_id`, `state_id`, `name`, `status`, `deleted_at`, `created_at`, `updated_at`) VALUES
+(1, 1, 1, 'Karachi', 1, NULL, '2022-09-27 07:10:39', '2022-09-27 07:18:57'),
+(2, 1, 1, 'Hyderabad', 1, NULL, '2022-09-27 07:10:54', '2022-09-27 07:18:46');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `countries`
+--
+
+CREATE TABLE `countries` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `country_code` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `currency` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `currency_symbol` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `description` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `flag` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `status` tinyint(1) NOT NULL DEFAULT 1,
+  `deleted_at` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `countries`
+--
+
+INSERT INTO `countries` (`id`, `name`, `country_code`, `currency`, `currency_symbol`, `description`, `flag`, `status`, `deleted_at`, `created_at`, `updated_at`) VALUES
+(1, 'Pakistan', 'PAK', NULL, NULL, NULL, '27-09-2022-105012.jpg', 1, NULL, '2022-09-27 05:37:36', '2022-09-27 05:50:12');
 
 -- --------------------------------------------------------
 
@@ -287,7 +341,11 @@ INSERT INTO `menus` (`id`, `menu_of`, `parent_id`, `menu`, `icon`, `label`, `url
 (48, 'admin', NULL, 'fact', '<i class=\"fa fa-free-code-camp\" aria-hidden=\"true\"></i>', 'All Facts', 'admin/fact', 1, NULL, NULL, NULL),
 (52, 'admin', NULL, 'course', '<i class=\"fa fa-snowflake-o\" aria-hidden=\"true\"></i>', 'All Courses', 'admin/course', 1, NULL, NULL, NULL),
 (54, 'admin', NULL, 'blog', '<i class=\"fa fa-clipboard\" aria-hidden=\"true\"></i>', 'All Blogs', 'admin/blog', 1, NULL, NULL, NULL),
-(57, 'admin', NULL, 'trustcompany', '<i class=\"fa fa-building\" aria-hidden=\"true\"></i>', 'All Trusted Companies', 'admin/trustcompany', 1, NULL, NULL, NULL);
+(57, 'admin', NULL, 'trustcompany', '<i class=\"fa fa-building\" aria-hidden=\"true\"></i>', 'All Trusted Companies', 'admin/trustcompany', 1, NULL, NULL, NULL),
+(60, 'admin', NULL, 'country', '<i class=\"fa fa-globe\" aria-hidden=\"true\"></i>', 'All Countries', 'admin/country', 1, NULL, NULL, NULL),
+(62, 'admin', NULL, 'state', '<i class=\"fa fa-window-restore\" aria-hidden=\"true\"></i>', 'All States', 'admin/state', 1, NULL, NULL, NULL),
+(63, 'admin', NULL, 'city', '<i class=\"fa fa-window-restore\" aria-hidden=\"true\"></i>', 'All Cities', 'admin/city', 1, NULL, NULL, NULL),
+(64, 'admin', NULL, 'userprofile', '<i class=\"fa fa-user-secret\" aria-hidden=\"true\"></i>', 'All Users', 'admin/userprofile', 1, NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -322,9 +380,12 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 (17, '2022_09_24_095928_create_course_includes_table', 8),
 (18, '2022_09_24_100237_create_course_tags_table', 9),
 (19, '2022_09_24_080939_create_courses_table', 10),
-(20, '2022_09_25_112114_create_user_profiles_table', 11),
 (22, '2022_09_25_043046_create_blogs_table', 12),
-(26, '2022_09_25_060110_create_trustcompanies_table', 13);
+(26, '2022_09_25_060110_create_trustcompanies_table', 13),
+(28, '2022_09_27_102419_create_countries_table', 15),
+(29, '2022_09_27_112315_create_states_table', 16),
+(31, '2022_09_27_114502_create_cities_table', 17),
+(33, '2022_09_27_124239_create_userprofiles_table', 18);
 
 -- --------------------------------------------------------
 
@@ -503,6 +564,34 @@ INSERT INTO `sliders` (`id`, `created_by`, `title`, `sub_title`, `description`, 
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `states`
+--
+
+CREATE TABLE `states` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `country_id` bigint(20) NOT NULL,
+  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `description` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `status` tinyint(1) NOT NULL DEFAULT 1,
+  `deleted_at` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `states`
+--
+
+INSERT INTO `states` (`id`, `country_id`, `name`, `description`, `status`, `deleted_at`, `created_at`, `updated_at`) VALUES
+(1, 1, 'Sindh', 'Lorem ipsm', 1, NULL, '2022-09-27 06:36:18', '2022-09-27 06:36:18'),
+(2, 1, 'KPK', 'Lorem ipsm', 1, NULL, '2022-09-27 06:36:50', '2022-09-27 06:36:50'),
+(3, 1, 'Balochistan', 'Lorem ipsm', 1, NULL, '2022-09-27 06:37:04', '2022-09-27 06:37:04'),
+(4, 1, 'Punjab', 'Lorem ipsm', 1, NULL, '2022-09-27 06:37:18', '2022-09-27 06:37:18'),
+(5, 1, 'Gilgit baltistan', 'lorem ipsum', 1, NULL, '2022-09-27 06:37:55', '2022-09-27 06:37:55');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `trustcompanies`
 --
 
@@ -510,6 +599,7 @@ CREATE TABLE `trustcompanies` (
   `id` bigint(20) UNSIGNED NOT NULL,
   `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `description` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `website_link` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `logo` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `status` tinyint(1) NOT NULL DEFAULT 1,
   `deleted_at` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
@@ -521,8 +611,39 @@ CREATE TABLE `trustcompanies` (
 -- Dumping data for table `trustcompanies`
 --
 
-INSERT INTO `trustcompanies` (`id`, `name`, `description`, `logo`, `status`, `deleted_at`, `created_at`, `updated_at`) VALUES
-(1, 'Iris Barrera', 'Distinctio Quam nat', '25-09-2022-181504.jpg', 1, NULL, '2022-09-25 13:15:04', '2022-09-25 13:15:04');
+INSERT INTO `trustcompanies` (`id`, `name`, `description`, `website_link`, `logo`, `status`, `deleted_at`, `created_at`, `updated_at`) VALUES
+(1, 'LOGO TEXT', 'Distinctio Quam nat', 'https://www.youtube.com/', '26-09-2022-063754.jpg', 1, NULL, '2022-09-25 13:15:04', '2022-09-26 02:02:30'),
+(2, 'LOREM IPSUM', 'lorem ipsum', 'https://www.google.com/', '26-09-2022-063854.jpg', 1, NULL, '2022-09-26 01:38:54', '2022-09-26 02:02:04'),
+(3, 'Company', 'lorem ipsum', 'https://www.youtube.com/', '26-09-2022-063935.jpg', 1, NULL, '2022-09-26 01:39:35', '2022-09-26 02:01:49');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `userprofiles`
+--
+
+CREATE TABLE `userprofiles` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `role_id` bigint(20) NOT NULL,
+  `country_id` bigint(20) DEFAULT NULL,
+  `state_id` bigint(20) DEFAULT NULL,
+  `city_id` bigint(20) DEFAULT NULL,
+  `user_id` bigint(20) NOT NULL,
+  `first_name` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `last_name` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `mobile` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `address` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `profile_image` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `facebook_url` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `twitter_url` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `youtube_url` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `linked_in_url` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `details` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `status` tinyint(1) NOT NULL DEFAULT 1,
+  `deleted_at` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
 
@@ -537,6 +658,8 @@ CREATE TABLE `users` (
   `email_verified_at` timestamp NULL DEFAULT NULL,
   `password` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `remember_token` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `status` tinyint(1) NOT NULL DEFAULT 0,
+  `is_verified` tinyint(1) NOT NULL DEFAULT 0,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -545,36 +668,8 @@ CREATE TABLE `users` (
 -- Dumping data for table `users`
 --
 
-INSERT INTO `users` (`id`, `name`, `email`, `email_verified_at`, `password`, `remember_token`, `created_at`, `updated_at`) VALUES
-(1, 'Johanna Lesch', 'ispinka@example.net', '2022-09-23 09:04:12', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'E1ap7PivXk', '2022-09-23 09:04:12', '2022-09-23 09:04:12'),
-(2, 'Sydney Beatty', 'cpaucek@example.net', '2022-09-23 09:04:12', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'gnpmCwVlId', '2022-09-23 09:04:12', '2022-09-23 09:04:12'),
-(3, 'Kayden Reichert', 'coy22@example.net', '2022-09-23 09:04:12', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', '3G22wV7cDi', '2022-09-23 09:04:12', '2022-09-23 09:04:12'),
-(4, 'Mrs. Emilia Mraz DVM', 'rbruen@example.org', '2022-09-23 09:04:12', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', '8SX7ikTwKo', '2022-09-23 09:04:12', '2022-09-23 09:04:12'),
-(5, 'Kailyn Rosenbaum', 'zella.heaney@example.net', '2022-09-23 09:04:12', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'fe2Qbs4KLQ', '2022-09-23 09:04:12', '2022-09-23 09:04:12'),
-(6, 'Mr. Jameson Ziemann', 'bailee56@example.net', '2022-09-23 09:04:12', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'LSeqlMf74W', '2022-09-23 09:04:12', '2022-09-23 09:04:12'),
-(7, 'Prof. Albina Sporer PhD', 'roberts.jan@example.com', '2022-09-23 09:04:12', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', '9wY1PaM2zm', '2022-09-23 09:04:12', '2022-09-23 09:04:12'),
-(8, 'Alvena Hand PhD', 'dena.cormier@example.org', '2022-09-23 09:04:12', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'TsZMBoKZrG', '2022-09-23 09:04:12', '2022-09-23 09:04:12'),
-(9, 'Eldon Lakin', 'xweimann@example.com', '2022-09-23 09:04:12', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'Ko5kCiIMVn', '2022-09-23 09:04:12', '2022-09-23 09:04:12'),
-(10, 'Emma Hagenes', 'vmiller@example.org', '2022-09-23 09:04:12', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'npNt1VgRNv', '2022-09-23 09:04:12', '2022-09-23 09:04:12'),
-(11, 'Admin', 'admin@gmail.com', NULL, '$2y$10$qyWbBZDGI/2z6iYevWZqzOczsUscw6aZI5S.Fb5i3gG0NgTnINnku', NULL, '2022-09-23 09:04:12', '2022-09-23 09:04:12');
-
--- --------------------------------------------------------
-
---
--- Table structure for table `user_profiles`
---
-
-CREATE TABLE `user_profiles` (
-  `id` bigint(20) UNSIGNED NOT NULL,
-  `user_id` bigint(20) NOT NULL,
-  `profile_image` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `youtube` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `facebook` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `linked_in` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `about` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+INSERT INTO `users` (`id`, `name`, `email`, `email_verified_at`, `password`, `remember_token`, `status`, `is_verified`, `created_at`, `updated_at`) VALUES
+(11, 'Admin', 'admin@gmail.com', NULL, '$2y$10$qyWbBZDGI/2z6iYevWZqzOczsUscw6aZI5S.Fb5i3gG0NgTnINnku', NULL, 0, 0, '2022-09-23 09:04:12', '2022-09-23 09:04:12');
 
 -- --------------------------------------------------------
 
@@ -640,6 +735,18 @@ ALTER TABLE `blogs`
 -- Indexes for table `categories`
 --
 ALTER TABLE `categories`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `cities`
+--
+ALTER TABLE `cities`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `countries`
+--
+ALTER TABLE `countries`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -759,9 +866,21 @@ ALTER TABLE `sliders`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `states`
+--
+ALTER TABLE `states`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `trustcompanies`
 --
 ALTER TABLE `trustcompanies`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `userprofiles`
+--
+ALTER TABLE `userprofiles`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -770,12 +889,6 @@ ALTER TABLE `trustcompanies`
 ALTER TABLE `users`
   ADD PRIMARY KEY (`id`),
   ADD UNIQUE KEY `users_email_unique` (`email`);
-
---
--- Indexes for table `user_profiles`
---
-ALTER TABLE `user_profiles`
-  ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `what_learns`
@@ -798,6 +911,18 @@ ALTER TABLE `blogs`
 --
 ALTER TABLE `categories`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+
+--
+-- AUTO_INCREMENT for table `cities`
+--
+ALTER TABLE `cities`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- AUTO_INCREMENT for table `countries`
+--
+ALTER TABLE `countries`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `courses`
@@ -839,13 +964,13 @@ ALTER TABLE `learnings`
 -- AUTO_INCREMENT for table `menus`
 --
 ALTER TABLE `menus`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=58;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=65;
 
 --
 -- AUTO_INCREMENT for table `migrations`
 --
 ALTER TABLE `migrations`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=34;
 
 --
 -- AUTO_INCREMENT for table `pages`
@@ -884,22 +1009,28 @@ ALTER TABLE `sliders`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
+-- AUTO_INCREMENT for table `states`
+--
+ALTER TABLE `states`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+
+--
 -- AUTO_INCREMENT for table `trustcompanies`
 --
 ALTER TABLE `trustcompanies`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
+-- AUTO_INCREMENT for table `userprofiles`
+--
+ALTER TABLE `userprofiles`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
-
---
--- AUTO_INCREMENT for table `user_profiles`
---
-ALTER TABLE `user_profiles`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `what_learns`

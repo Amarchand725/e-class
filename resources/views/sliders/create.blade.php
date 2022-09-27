@@ -36,10 +36,16 @@
 						<div class="form-group">
 							<label for="image" class="col-sm-2 control-label">Image <span style="color:red">*</span></label>
 							<div class="col-sm-8">
-								<input type="file" class="form-control" name="image">
+								<input type="file" id="imgInput" class="form-control" name="image">
 								<span style="color: red">{{ $errors->first("image") }}</span>
 							</div>
 						</div>
+						<div class="form-group">
+                            <label for="image" class="col-sm-2 control-label">Preview </label>
+                            <div class="col-sm-8">
+                                <img src="{{ asset('public/default.png') }}" id="preview"  width="100px" alt="">
+                            </div>
+                        </div>
 						<div class="form-group">
 						<label for="status" class="col-sm-2 control-label">Status <span style="color:red">*</span></label>
 						<div class="col-sm-8"><select class="form-control" name="status"><option value="1" {{ old("status")==1?"selected":"" }}>Active</option><option value="0" {{ old("status")==0?"selected":"" }}>In Active</option></select><span style="color: red">{{ $errors->first("status") }}</span></div></div><label for="" class="col-sm-2 control-label"></label>

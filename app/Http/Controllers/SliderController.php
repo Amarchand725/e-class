@@ -108,6 +108,7 @@ class SliderController extends Controller
     public function update($id, Request $request)
     {
         $model = Slider::findOrFail($id);
+        $input = $request->all();
 
         if(!$model->image){
             $this->validate($request, Slider::getValidationRules());
@@ -123,10 +124,10 @@ class SliderController extends Controller
             if (isset($request->image)) {
                 $image = date('d-m-Y-His').'.'.$request->file('image')->getClientOriginalExtension();
                 $request->image->move(public_path('/admin/images/sliders'), $image);
-                $model['image'] = $image;
+                $input['image'] = $image;
             }
 
-	        $model->fill( $request->all() )->save();
+	        $model->fill( $input )->save();
             return redirect()->route('slider.index')->with('message', 'Slider update Successfully !');
         } catch (\Exception $e) {
             return redirect()->back()->with('error', 'Error. '.$e->getMessage());

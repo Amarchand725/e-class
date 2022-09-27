@@ -55,6 +55,12 @@ class CategoryController extends Controller
         DB::beginTransaction();
 
         try{
+            if (isset($request->thumbnail)) {
+                $thumbnail = date('d-m-Y-His').'.'.$request->file('thumbnail')->getClientOriginalExtension();
+                $request->thumbnail->move(public_path('/admin/images/categories'), $thumbnail);
+                $input['thumbnail'] = $thumbnail;
+            }
+            $input['slug'] = Str::slug($request->name);
 	        Category::create($input);
 
             DB::commit();
@@ -100,11 +106,23 @@ class CategoryController extends Controller
     public function update($id, Request $request)
     {
         $model = Category::findOrFail($id);
+        $input = $request->all();
 
 	    $this->validate($request, Category::getValidationRules());
 
         try{
-	        $model->fill( $request->all() )->save();
+            if (isset($request->thumbnail)) {
+                $exist_thumbnail_path = public_path('/admin/images/categories');
+                $exist_thumbnail = $exist_thumbnail_path.'/'.$model->thumbnail;
+                if($model->thumbnail){
+                    unlink($exist_thumbnail);
+                }
+                $thumbnail = date('d-m-Y-His').'.'.$request->file('thumbnail')->getClientOriginalExtension();
+                $request->thumbnail->move(public_path('/admin/images/categories'), $thumbnail);
+                $input['thumbnail'] = $thumbnail;
+            }
+            $input['slug'] = Str::slug($request->name);
+	        $model->fill( $input )->save();
             return redirect()->route('category.index')->with('message', 'Category update Successfully !');
         } catch (\Exception $e) {
             return redirect()->back()->with('error', 'Error. '.$e->getMessage());

@@ -37,15 +37,23 @@
                             </div>
                         </div>
 
+                        <div class="form-group">
+                            <label for="website_link" class="col-sm-2 control-label">Company Website Link <span style="color:red">*</span></label>
+                            <div class="col-sm-8"><input id="website_link" type="text" class="form-control" name="website_link" value="{{ $model->website_link }}" placeholder="Enter website_link e.g http://localhost/e-class/admin/trustcompany">
+                            <span style="color: red">{{ $errors->first("website_link") }}</span></div></div>
+
                         @if($model->logo)
 							<div class="form-group">
 								<label for="image" class="col-sm-2 control-label">Exist Logo </label>
 								<div class="col-sm-8">
-                                    @if($model->logo)
-                                        <img id="preview" src="{{ asset('public/admin/images/trust-companies') }}/{{ $model->logo }}" width="100px" alt="">
-                                    @else
-                                        <img id="preview" src="{{ asset('public/default.png') }}" width="100px" alt="">
-                                    @endif
+                                    <img id="preview" src="{{ asset('public/admin/images/trust-companies') }}/{{ $model->logo }}" width="100px" alt="">
+								</div>
+							</div>
+                        @else 
+                            <div class="form-group">
+								<label for="image" class="col-sm-2 control-label">Preview </label>
+								<div class="col-sm-8">
+                                    <img id="preview" src="{{ asset('public/default.png') }}" width="100px" alt="">
 								</div>
 							</div>
 						@endif
