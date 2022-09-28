@@ -11,28 +11,37 @@
         </div>
         
         <div id="institute-home-slider" class="instructor-home-main-slider owl-carousel">
-            <div class="item">
-                <div class="instructor-home-block text-center">
-                    <div class="instructor-home-block-one">
-                        <a href="ins/16/1.html" title=""><img src="{{ asset('public/website/files/institute/16636631862886ac3a3422443e91d849a8831b57f3.pdf') }}"  class="img-fluid" /></a>
-                        <div class="instructor-home-hover-icon">
-                            <ul>
-                                <li>
-                                    <div class="instructor-home-btn">
-                                        <a href="ins/16/1.html" class="btn btn-primary" title="View Page"><i data-feather="eye"></i></a>
-                                    </div>
-                                </li>
-                            </ul>
-                        </div>  
-                        <div class="instructor-home-dtl">
-                            <h4 class="instructor-home-heading"><a href="ins/16/1.html" title="">h </a></h4>
-                            <p><a href="https://eclass.mediacity.co.in/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="f2939096879e9e939adc9a938181939cc0c6c0c2b2959f939b9edc919d9f">[email&#160;protected]</a></p>
-                            <p></p>
+            @foreach (institutes() as $institute)
+                <div class="item">
+                    <div class="instructor-home-block text-center">
+                        <div class="instructor-home-block-one">
+                            <a href="{{ route('institute.single', $institute->slug) }}" title="">
+                                <img src="{{ asset('public/admin/images/institutes') }}/{{ $institute->logo }}"  class="img-fluid" />
+                            </a>
+                            <div class="instructor-home-hover-icon">
+                                <ul>
+                                    <li>
+                                        <div class="instructor-home-btn">
+                                            <a href="ins/16/1.html" class="btn btn-primary" title="View Page"><i data-feather="eye"></i></a>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>  
+                            <div class="instructor-home-dtl">
+                                <h4 class="instructor-home-heading">
+                                    <a href="#" title="">{{ $institute->name }}</a>
+                                </h4>
+                                <p>
+                                    <a href="#" class="__cf_email__" data-cfemail="{{ $institute->email }}">{{ $institute->email }}</a>
+                                </p>
+                                <p></p>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
-                        <div class="item">
+            @endforeach
+
+            {{-- <div class="item">
                 <div class="instructor-home-block text-center">
                     <div class="instructor-home-block-one">
                                                 <a href="ins/15/testing01.html" title=""><img src="{{ asset('public/website/files/institute/16624480151645186167student.jpg') }}"  class="img-fluid" /></a>
@@ -53,7 +62,8 @@
                     </div>
                 </div>
             </div>
-                        <div class="item">
+            
+            <div class="item">
                 <div class="instructor-home-block text-center">
                     <div class="instructor-home-block-one">
                                                 <a href="ins/11/testing.html" title=""><img src="{{ asset('public/website/files/institute/1662447189163757494720943839.jpg') }}"  class="img-fluid" /></a>
@@ -74,7 +84,8 @@
                     </div>
                 </div>
             </div>
-                        <div class="item">
+                        
+            <div class="item">
                 <div class="instructor-home-block text-center">
                     <div class="instructor-home-block-one">
                                                 <a href="ins/14/testing04.html" title=""><img src="{{ asset('public/website/files/institute/1662447330163757494720943839.jpg') }}"  class="img-fluid" /></a>
@@ -95,7 +106,8 @@
                     </div>
                 </div>
             </div>
-                        <div class="item">
+                        
+            <div class="item">
                 <div class="instructor-home-block text-center">
                     <div class="instructor-home-block-one">
                                                 <a href="ins/12/testing02.html" title=""><img src="{{ asset('public/website/files/institute/166088918116591744811641973164157978285110.jpg') }}"  class="img-fluid" /></a>
@@ -116,7 +128,8 @@
                     </div>
                 </div>
             </div>
-                        <div class="item">
+                        
+            <div class="item">
                 <div class="instructor-home-block text-center">
                     <div class="instructor-home-block-one">
                                                 <a href="ins/13/testing03.html" title=""><img src="{{ asset('public/website/files/institute/1660889225166088918116591744811641973164157978285110.jpg') }}"  class="img-fluid" /></a>
@@ -136,8 +149,7 @@
                         </div>
                     </div>
                 </div>
-            </div>
-            
+            </div> --}}
         </div>
     </div>
 </section>

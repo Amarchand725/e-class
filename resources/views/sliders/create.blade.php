@@ -47,8 +47,16 @@
                             </div>
                         </div>
 						<div class="form-group">
-						<label for="status" class="col-sm-2 control-label">Status <span style="color:red">*</span></label>
-						<div class="col-sm-8"><select class="form-control" name="status"><option value="1" {{ old("status")==1?"selected":"" }}>Active</option><option value="0" {{ old("status")==0?"selected":"" }}>In Active</option></select><span style="color: red">{{ $errors->first("status") }}</span></div></div><label for="" class="col-sm-2 control-label"></label>
+							<label for="status" class="col-sm-2 control-label">Status <span style="color:red">*</span></label>
+							<div class="col-sm-8">
+								<select class="form-control" name="status">
+									<option value="1" {{ old("status")==1?"selected":"" }}>Active</option>
+									<option value="0" {{ old("status")==0?"selected":"" }}>In Active</option>
+								</select>
+								<span style="color: red">{{ $errors->first("status") }}</span>
+							</div>
+						</div>
+						<label for="" class="col-sm-2 control-label"></label>
 						<div class="col-sm-6"><button type="submit" class="btn btn-success pull-left">Save</button></div>
 					</div>
 				</div>

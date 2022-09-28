@@ -33,7 +33,7 @@
                         <thead>
                             <tr>
                                 <th>SL</th>
-                                <th>THUMBNAIL</th><th>ICON</th><th>NAME</th><th>PARENT</th><th>DESCRIPTION</th><th>STATUS</th>
+                                <th>IMAGE</th><th>ICON</th><th>NAME</th><th>PARENT</th><th>FEATURED</th><th>STATUS</th>
                                 <th>Action</th>
                             </tr>
                         </thead>
@@ -51,12 +51,18 @@
                                     <td>{!! $model->icon !!}</td>
                                     <td>{{ $model->name }}</td>
                                     <td>{{ $model->hasParent->name??'' }}</td>
-                                    <td>{{ $model->description }}</td>
+                                    <td>
+                                        @if($model->is_featured)
+                                            <span class="label label-success"> Active</span>
+                                        @else
+                                            <span class="label label-danger"> Deactive</span>
+                                        @endif
+                                    </td>
                                     <td>
                                         @if($model->status)
                                             <span class="label label-success">Active</span>
                                         @else
-                                            <span class="label label-danger">In-Active</span>
+                                            <span class="label label-danger">Deactive</span>
                                         @endif
                                     </td>
                                     <td width="250px">

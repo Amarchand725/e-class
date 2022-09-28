@@ -82,9 +82,31 @@
                             <span style="color: red">{{ $errors->first("thumbnail") }}</span></div></div>
 
                         <div class="form-group">
-                        <label for="status" class="col-sm-2 control-label">Status <span style="color:red">*</span></label>
-                        <div class="col-sm-8"><select class="form-control" name="status"><option value="1" {{ $model->status==1?"selected":"" }}>Active</option><option value="0" {{ $model->status==0?"selected":"" }}>In Active</option></select><span style="color: red">{{ $errors->first("status") }}</span></div></div><label for="" class="col-sm-2 control-label"></label>
-                        <div class="col-sm-6"><button type="submit" class="btn btn-success pull-left">Save</button></div>
+                            <label for="status" class="col-sm-2 control-label">Status <span style="color:red">*</span></label>
+                            <div class="col-sm-8">
+                                <select class="form-control" name="status">
+                                    <option value="1" {{ $model->status==1?"selected":"" }}>Active</option>
+                                    <option value="0" {{ $model->status==0?"selected":"" }}>In Active</option>
+                                </select>
+                                <span style="color: red">{{ $errors->first("status") }}</span>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="status" class="col-sm-2 control-label">Featured </label>
+                            <div class="col-sm-8">
+                                <select class="form-control" name="is_featured">
+                                    <option value="1" {{ old("is_featured")==1?"selected":"" }}>Active</option>
+                                    <option value="0" {{ old("is_featured")==0?"selected":"" }}>In Active</option>
+                                </select>
+                                <span style="color: red">{{ $errors->first("is_featured") }}</span>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+							<label for="status" class="col-sm-2 control-label"></label>
+							<div class="col-sm-8"><button type="submit" class="btn btn-success pull-left">Save</button></div>
+						</div>
 					</div>
 				</div>
 			</form>

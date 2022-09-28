@@ -8,6 +8,7 @@ use App\Models\Fact;
 use App\Models\Course;
 use App\Models\Blog;
 use App\Models\TrustCompany;
+use App\Models\Institute;
 
 function globalData()
 {
@@ -51,4 +52,7 @@ function latestBlogs()
 }
 function trustCompanies(){
     return TrustCompany::orderby('id', 'desc')->where('status', 1)->get();
+}
+function institutes(){
+    return Institute::orderby('id', 'desc')->where('status', 1)->get();
 }

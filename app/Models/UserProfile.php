@@ -12,8 +12,21 @@ class UserProfile extends Model
 
     static function getValidationRules(){
     	$rules = [
-		    'user_id' => 'required','role_id' => 'required'
+		    'role_id' => 'required'
 		];
 		return $rules;
+    }
+
+    public function hasCountryName()
+    {
+        return $this->hasOne(Country::class, 'id', 'country_id');
+    }
+    public function hasStateName()
+    {
+        return $this->hasOne(State::class, 'id', 'state_id');
+    }
+    public function hasCityName()
+    {
+        return $this->hasOne(City::class, 'id', 'city_id');
     }
 }

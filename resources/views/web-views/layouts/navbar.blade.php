@@ -462,7 +462,7 @@
                 </div>
                 <div class="col-lg-3">
                     <div class="Login-btn">
-                        @guest(Auth::check())
+                        @if(!Auth::check())
                             @if(!request()->is('login'))
                                 <a href="{{ route('login') }}" class="btn btn-primary" title="login">Login</a>
                             @endif
@@ -470,7 +470,7 @@
                                 <a href="{{ route('register') }}" class="btn btn-primary" title="register">Signup</a>
                             @endif
                         @else 
-                            <a href="{{ route('dashboard') }}" class="btn btn-primary" title="Dashboard">Dashboard</a>
+                            <a href="{{ route('admin.dashboard') }}" class="btn btn-primary" title="Dashboard">Dashboard</a>
                         @endif
                     </div>
                 </div>

@@ -53,7 +53,7 @@
 						
 						<div class="form-group">
 						<label for="mobile" class="col-sm-2 control-label">Mobile</label>
-						<div class="col-sm-8"><input type="text" class="form-control" name="mobile" value="{{ old("mobile") }}" placeholder="Enter mobile">
+						<div class="col-sm-8"><input type="text" class="form-control numberonly" name="mobile" value="{{ old("mobile") }}" placeholder="Enter mobile">
 						<span style="color: red">{{ $errors->first("mobile") }}</span></div></div>
 						
 						<div class="form-group">
@@ -135,8 +135,30 @@
 						</div>
 						
 						<div class="form-group">
-						<label for="status" class="col-sm-2 control-label">Status <span style="color:red">*</span></label>
-						<div class="col-sm-8"><select class="form-control" name="status"><option value="1" {{ old("status")==1?"selected":"" }}>Active</option><option value="0" {{ old("status")==0?"selected":"" }}>In Active</option></select><span style="color: red">{{ $errors->first("status") }}</span></div></div><div class="form-group"><label for="status" class="col-sm-2 control-label"></label><div class="col-sm-8"><button type="submit" class="btn btn-success pull-left">Save</button></div></div>
+							<label for="status" class="col-sm-2 control-label">Status </label>
+							<div class="col-sm-8">
+								<select class="form-control" name="status">
+									<option value="1" {{ old("status")==1?"selected":"" }}>Active</option>
+									<option value="0" {{ old("status")==0?"selected":"" }}>In Active</option>
+								</select>
+								<span style="color: red">{{ $errors->first("status") }}</span>
+							</div>
+						</div>
+
+						<div class="form-group">
+							<label for="is_featured" class="col-sm-2 control-label">Featured</label>
+							<div class="col-sm-8">
+								<select class="form-control" name="is_featured">
+									<option value="1" {{ old("is_featured")==1?"selected":"" }}>Active</option>
+									<option value="0" {{ old("is_featured")==0?"selected":"" }}>In Active</option>
+								</select>
+								<span style="color: red">{{ $errors->first("status") }}</span>
+							</div>
+						</div>
+						<div class="form-group">
+							<label for="status" class="col-sm-2 control-label"></label>
+							<div class="col-sm-8"><button type="submit" class="btn btn-success pull-left">Save</button></div>
+						</div>
 					</div>
 				</div>
 			</form>

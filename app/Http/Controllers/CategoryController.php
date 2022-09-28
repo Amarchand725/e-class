@@ -6,6 +6,7 @@ use App\Models\Menu;
 use App\Models\Category;
 use DB;
 use Session;
+use Illuminate\Support\Str;
 
 class CategoryController extends Controller
 {
@@ -26,7 +27,7 @@ class CategoryController extends Controller
         }
 
         $page_title = Menu::where('menu', 'category')->first()->label;
-        $models = Category::orderby('id', 'desc')->paginate(10);
+        $models = Category::orderby('id', 'asc')->paginate(10);
         return view('categories.index', compact('models', 'page_title'));
     }
 

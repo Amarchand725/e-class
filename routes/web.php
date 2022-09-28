@@ -23,6 +23,10 @@ Route::get('/', 'WebController@index');
 Route::post('/user/logout', [App\Http\Controllers\Auth\LoginController::class, 'userLogout'])->name('user.logout');
 Route::resource('crud', 'App\Http\Controllers\CrudController'); */
 
+//institute
+Route::get('/institute/{slug}/single', 'WebController@instituteSingle')->name('institute.single');
+Route::get('/course/{slug}/single', 'WebController@courseSingle')->name('course.single');
+
 Route::group(['middleware' => 'guest'], function(){
     Route::view('/admin/login','admin.auth.login')->name('admin.login');
     Route::post('/admin/login',[App\Http\Controllers\AdminController::class, 'authenticate'])->name('admin.login');
@@ -75,3 +79,5 @@ require __DIR__.'/auth.php';
 
 
 Route::resource('admin/userprofile', 'UserProfileController');
+ 
+Route::resource('admin/institute', 'InstituteController');

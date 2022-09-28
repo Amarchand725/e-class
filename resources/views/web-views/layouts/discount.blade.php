@@ -19,7 +19,7 @@
                         data-pt-title="#prime-next-item-description-block{{ $course->id }}">
                         <div class="view-block">
                             <div class="view-img">
-                                <a href="course/21/travel-hacking-smart-fun-travel-copy-166373019920.html">
+                                <a href="{{ route('course.single', $course->slug) }}">
                                     <img data-src="{{ asset('public/admin/images/courses') }}/{{ $course->thumbnail }}" alt="course"
                                             class="img-fluid owl-lazy">
                                 </a>

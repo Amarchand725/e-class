@@ -1,5 +1,5 @@
 @extends('layouts.admin.app')
-@section('title', 'Show UserProfile')
+@section('title', 'Show User Details')
 @push('css')
     <style>
         select {
@@ -22,34 +22,54 @@
                 <div class="box box-info">
                     <div class="box-body">
                         <table class="table">
-                            <tr><th width="200px">Profile</th><td>{{ $model->profile_image }}</td></tr>
-                            <tr><th>Role</th><td>{{ $model->roles->first()->name }}</td></tr>
-                            <tr><th>User</th><td>{{ $model->name }}</td></tr>
-                            <tr><th>First_name</th><td>{{ $model->first_name }}</td></tr>
-                            <tr><th>Last_name</th><td>{{ $model->last_name }}</td>
-                            </tr><tr><th>Email</th><td>{{ $model->email }}</td></tr>
-                            <tr><th>Mobile</th><td>{{ $model->mobile }}</td></tr>
-                            
-                            <tr><th>Country</th><td>{{ $model->country_id }}</td></tr>
-                            <tr><th>State</th><td>{{ $model->state_id }}</td></tr>
-                            <tr><th>City</th><td>{{ $model->city_id }}</td></tr>
-                            <tr><th>Address</th><td>{{ $model->address }}</td></tr>
-                            
-                            <tr><th>Facebook_url</th><td>{{ $model->facebook_url }}</td></tr>
-                            <tr><th>Twitter_url</th><td>{{ $model->twitter_url }}</td></tr>
-                            <tr><th>Youtube_url</th><td>{{ $model->youtube_url }}</td></tr>
-                            <tr><th>Linked_in_url</th><td>{{ $model->linked_in_url }}</td></tr>
-                            <tr><th>Details</th><td>{{ $model->details }}</td></tr>
+                            <tr>
+                                <th width="200px">Profile</th>
+                                <td>
+                                    @if($model->hasUserProfile)
+                                        <img style="border-radius: 50%;" src="{{ asset('public/admin/images/profiles') }}/{{ $model->hasUserProfile->profile_image }}" width="50px" height="50px" alt="">
+                                    @else
+                                        <img style="border-radius: 50%;" src="{{ asset('public/default.png') }}" width="50px" height="50px" alt="">
+                                    @endif
+                                </td>
+                            </tr>
+                            <tr><th>Role</th><td><span class="badge badge-info">{{ $model->roles->first()->name??'N/A' }}</span></td></tr>
                             <tr>
                                 <th>Status</th>
                                 <td>
                                     @if($model->status)
-                                        <span class="label label-success">Active</span>
+                                        <span class="label label-success"><i class="fa fa-check"></i> Active</span>
                                     @else
-                                        <span class="label label-danger">In-Active</span>
+                                        <span class="label label-danger"><i class="fa fa-times"></i> In-Active</span>
                                     @endif
                                 </td>
                             </tr>
+                            <tr>
+                                <th>Verified</th>
+                                <td>
+                                    @if($model->is_verified)
+                                        <span class="label label-info"><i class="fa fa-check"></i> Verified</span>
+                                    @else
+                                        <span class="label label-warning"><i class="fa fa-times"></i> Un-verified</span>
+                                    @endif
+                                </td>
+                            </tr>
+                            <tr><th>User</th><td>{{ $model->name }}</td></tr>
+                            <tr><th>First_name</th><td>{{ $model->hasUserProfile->first_name }}</td></tr>
+                            <tr><th>Last_name</th><td>{{ $model->hasUserProfile->last_name }}</td>
+                            </tr><tr><th>Email</th><td>{{ $model->email }}</td></tr>
+                            <tr><th>Mobile</th><td>{{ $model->hasUserProfile->mobile }}</td></tr>
+                            
+                            <tr><th>Country</th><td>{{ $model->hasUserProfile->hasCountryName->name??'N/A' }}</td></tr>
+                            <tr><th>State</th><td>{{ $model->hasUserProfile->hasStateName->name??'N/A' }}</td></tr>
+                            <tr><th>City</th><td>{{ $model->hasUserProfile->hasCityName->name??'N/A' }}</td></tr>
+                            <tr><th>Address</th><td>{{ $model->hasUserProfile->address }}</td></tr>
+                            
+                            <tr><th>Facebook_url</th><td>{{ $model->hasUserProfile->facebook_url }}</td></tr>
+                            <tr><th>Twitter_url</th><td>{{ $model->hasUserProfile->twitter_url }}</td></tr>
+                            <tr><th>Youtube_url</th><td>{{ $model->hasUserProfile->youtube_url }}</td></tr>
+                            <tr><th>Linked_in_url</th><td>{{ $model->hasUserProfile->linked_in_url }}</td></tr>
+                            <tr><th>Details</th><td>{!! $model->hasUserProfile->details !!}</td></tr>
+                            
                         </table>
                     </div>
                 </div>

@@ -1,13 +1,13 @@
 @extends('layouts.admin.app')
 @section('title', $page_title)
 @section('content')
-<input type="hidden" id="page_url" value="{{ route('userprofile.index') }}">
+<input type="hidden" id="page_url" value="{{ route('institute.index') }}">
 <section class="content-header">
     <div class="content-header-left">
         <h1>{{ $page_title }}</h1>
     </div>
     <div class="content-header-right">
-        <a href="{{ route('userprofile.create') }}" data-toggle="tooltip" data-placement="left" title="Add New User" class="btn btn-primary btn-sm">Add New User</a>
+        <a href="{{ route('institute.create') }}" data-toggle="tooltip" data-placement="left" title="Add New Institute" class="btn btn-primary btn-sm">Add New Institute</a>
     </div>
 </section>
 
@@ -33,11 +33,13 @@
                         <thead>
                             <tr>
                                 <th>SL</th>
-                                <th>PROFILE</th>
-                                <th>USER_NAME</th>
-                                <th>ROLE</th>
+                                <th>LOGO</th>
+                                <th>NAME</th>
                                 <th>EMAIL</th>
                                 <th>MOBILE</th>
+                                <th>SKILL</th>
+                                <th>AFFILATED_BY</th>
+                                <th>IS_VERIFIED</th>
                                 <th>STATUS</th>
                                 <th>Action</th>
                             </tr>
@@ -47,16 +49,29 @@
                             <tr id="id-{{ $model->id }}">
                                     <td>{{  $models->firstItem()+$key }}.</td>
                                     <td>
-                                        @if($model->hasUserProfile)
-                                            <img style="border-radius: 50%;" src="{{ asset('public/admin/images/profiles') }}/{{ $model->hasUserProfile->profile_image }}" width="50px" height="50px" alt="">
+                                        @if($model->logo)
+                                            <img style="border-radius: 50%;" src="{{ asset('public/admin/images/institutes') }}/{{ $model->logo }}" width="50px" height="50px" alt="">
                                         @else
                                             <img style="border-radius: 50%;" src="{{ asset('public/default.png') }}" width="50px" height="50px" alt="">
                                         @endif
                                     </td>
                                     <td>{{ $model->name }}</td>
-                                    <td><span class="badge badge-info">{{ $model->roles->first()->name??'N/A' }}</span></td>
                                     <td>{{ $model->email }}</td>
-                                    <td>{{ $model->hasUserProfile->mobile??'N/A' }}</td>
+                                    <td>{{ $model->mobile }}</td>
+                                    <td>
+                                        @php $skills = json_decode($model->skill) @endphp 
+                                        @foreach ($skills as $skill)
+                                            <span class="badge badge-info">{{ $skill }}</span>,
+                                        @endforeach
+                                    </td>
+                                    <td>{{ $model->affilated_by }}</td>
+                                    <td>
+                                        @if($model->is_verified)
+                                            <span class="label label-success">Active</span>
+                                        @else
+                                            <span class="label label-danger">In-Active</span>
+                                        @endif
+                                    </td>
                                     <td>
                                         @if($model->status)
                                             <span class="label label-success">Active</span>
@@ -65,14 +80,14 @@
                                         @endif
                                     </td>
                                     <td width="250px">
-                                        <a href="{{ route("userprofile.show", $model->id) }}" data-toggle="tooltip" data-placement="top" title="Show User" class="btn btn-info btn-xs"><i class="fa fa-eye"></i> Show</a>
-                                        <a href="{{ route("userprofile.edit", $model->id) }}" data-toggle="tooltip" data-placement="top" title="Edit User" class="btn btn-primary btn-xs" style="margin-left: 3px;"><i class="fa fa-edit"></i> Edit</a>
-                                        <button data-toggle="tooltip" data-placement="top" title="Delete User" class="btn btn-danger btn-xs delete" data-slug="{{ $model->id }}" data-del-url="{{ route("userprofile.destroy", $model->id) }}" style="margin-left: 3px;"><i class="fa fa-trash"></i> Delete</button>
+                                        <a href="{{ route("institute.show", $model->id) }}" data-toggle="tooltip" data-placement="top" title="Show Institute" class="btn btn-info btn-xs"><i class="fa fa-eye"></i> Show</a>
+                                        <a href="{{ route("institute.edit", $model->id) }}" data-toggle="tooltip" data-placement="top" title="Edit Institute" class="btn btn-primary btn-xs" style="margin-left: 3px;"><i class="fa fa-edit"></i> Edit</a>
+                                        <button data-toggle="tooltip" data-placement="top" title="Delete Institute" class="btn btn-danger btn-xs delete" data-slug="{{ $model->id }}" data-del-url="{{ route("institute.destroy", $model->id) }}" style="margin-left: 3px;"><i class="fa fa-trash"></i> Delete</button>
                                     </td>
                                 </tr>
                             @endforeach
                             <tr>
-                                <td colspan="22">
+                                <td colspan="14">
                                     Displying {{$models->firstItem()}} to {{$models->lastItem()}} of {{$models->total()}} records
                                     <div class="d-flex justify-content-center">
                                         {!! $models->links('pagination::bootstrap-4') !!}

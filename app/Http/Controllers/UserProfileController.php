@@ -5,13 +5,17 @@ use Illuminate\Http\Request;
 use App\Models\Menu;
 use App\Models\UserProfile;
 use App\Models\User;
-use App\Models\Role;
 use App\Models\Country;
+use App\Models\State;
+use App\Models\City;
 use DB;
 use Session;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules;
+
+use App\Models\Role as UserRole;
+use Spatie\Permission\Models\Role;
 
 class UserProfileController extends Controller
 {
@@ -44,7 +48,7 @@ class UserProfileController extends Controller
     public function create()
     {
         $view_all_title = Menu::where('menu', 'userprofile')->first()->label;
-        $roles = Role::where('status', 1)->get();
+        $roles = Role::where('name', '!=', 'Admin')->where('status', 1)->get();
         $countries = Country::where('status', 1)->get();
         return view('userprofiles.create', compact('view_all_title', 'roles', 'countries'));
     }
@@ -56,8 +60,6 @@ class UserProfileController extends Controller
      */
     public function store(Request $request)
     {
-        // return $request;
-
         $this->validate($request, User::getValidationRules());
         $this->validate($request, UserProfile::getValidationRules());
 
@@ -72,7 +74,7 @@ class UserProfileController extends Controller
                 'password' => Hash::make($request->password),
             ]);
 
-            $user->assignRole($request->role_id);
+            $user->assignRole($request->input('role_id'));
 
             if($user){
                 $input = $request->except(['_token', 'role_id', 'email', 'password', 'confirmed']);
@@ -83,7 +85,9 @@ class UserProfileController extends Controller
                     $input['profile_image'] = $profile_image;
                 }
 
-                UserProfile::create($input);
+                $input['user_id'] = $user->id;
+
+                UserProfile::create($input);    
             }
 
             DB::commit();
@@ -116,8 +120,12 @@ class UserProfileController extends Controller
     public function edit($id)
     {
         $view_all_title = Menu::where('menu', 'userprofile')->first()->label;
-        $model = UserProfile::findOrFail($id);
-        return view('userprofiles.edit', compact('view_all_title', 'model'));
+        $model = User::findOrFail($id);
+        $roles = Role::where('name', '!=', 'Admin')->where('status', 1)->get();
+        $countries = Country::where('status', 1)->get();
+        $states = State::where('country_id', $model->hasUserProfile->country_id)->where('status', 1)->get();
+        $cities = City::where('state_id', $model->hasUserProfile->state_id)->where('status', 1)->get();
+        return view('userprofiles.edit', compact('view_all_title', 'model', 'roles', 'countries', 'states', 'cities'));
     }
 
     /**
@@ -128,13 +136,53 @@ class UserProfileController extends Controller
      */
     public function update($id, Request $request)
     {
-        $model = UserProfile::findOrFail($id);
+        $user = User::findOrFail($id);
+        $model = UserProfile::where('user_id', $user->id)->first();
 
-	    $this->validate($request, UserProfile::getValidationRules());
+        $this->validate($request, UserProfile::getValidationRules());
+        
+        $rules = [
+            'email' => 'unique:users,email,'.$id,
+		];
+
+        if($request->password){
+            $rules['password'] = 'required|same:confirmed';
+        }
+
+        $this->validate($request, $rules);
+        DB::beginTransaction();
 
         try{
-	        $model->fill( $request->all() )->save();
-            return redirect()->route('userprofile.index')->with('message', 'UserProfile update Successfully !');
+            $user->email = $request->email;
+            if(!empty($request->password)){
+                $user->password = $request->password;
+            }
+            $user->status = $request->status;
+            $user->save();
+            $user->assignRole($request->input('role_id'));
+
+            if($user){
+                $input = $request->except(['_method', 'role_id', 'email', 'password', 'confirmed']);
+                if (isset($request->profile_image)) {
+                    $exist_image = public_path('/admin/images/profiles');
+                    if($model->profile_image){
+                        $exist = $exist_image.'/'.$model->profile_image;
+                        unlink($exist);
+                    }
+
+                    $profile_image = date('d-m-Y-His').'.'.$request->file('profile_image')->getClientOriginalExtension();
+                    $request->profile_image->move(public_path('/admin/images/profiles'), $profile_image);
+                    $input['profile_image'] = $profile_image;
+                }
+
+                $input['user_id'] = $user->id;
+
+                $model->fill($input)->save();
+            }
+
+            DB::commit();
+
+            return redirect()->route('userprofile.index')->with('message', 'User update Successfully !');
         } catch (\Exception $e) {
             return redirect()->back()->with('error', 'Error. '.$e->getMessage());
         }

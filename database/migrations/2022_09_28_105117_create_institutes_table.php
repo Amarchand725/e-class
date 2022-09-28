@@ -3,7 +3,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateCategoriesTable extends Migration
+class CreateInstitutesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -12,15 +12,9 @@ class CreateCategoriesTable extends Migration
      */
     public function up()
     {
-        Schema::create('categories', function (Blueprint $table) {
+        Schema::create('institutes', function (Blueprint $table) {
             $table->id();
-            $table->bigInteger("parent_id")->nullable(); 
-            $table->string("name"); 
-            $table->string("slug"); 
-            $table->string("description")->nullable(); 
-            $table->string("icon")->nullable();
-            $table->string("thumbnail")->nullable();
-            $table->boolean('is_featured')->default(0);
+            $table->string("logo"); $table->string("name"); $table->string("email"); $table->string("mobile"); $table->string("skill"); $table->text("address")->nullable(); $table->string("affilated_by")->nullable(); $table->text("about"); $table->boolean("is_verified");
             $table->boolean('status')->default(1);
             $table->string('deleted_at')->nullable();
             $table->timestamps();
@@ -34,6 +28,6 @@ class CreateCategoriesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('categories');
+        Schema::dropIfExists('institutes');
     }
 }
