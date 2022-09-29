@@ -24,30 +24,48 @@
 				<div class="box box-info">
 					<div class="box-body">
                         <div class="form-group">
-                        <label for="title" class="col-sm-2 control-label">Title <span style="color:red">*</span></label>
-                        <div class="col-sm-8"><input type="text" class="form-control" name="title" value="{{ old("title") }}" placeholder="Enter title">
-                        <span style="color: red">{{ $errors->first("title") }}</span></div></div>
-
-                        <div class="form-group">
-                        <label for="price" class="col-sm-2 control-label">Actual Price</label>
-                        <div class="col-sm-8"><input type="text" class="form-control numberonly" name="price" value="{{ old("price") }}" placeholder="Enter actual price">
-                        <span style="color: red">{{ $errors->first("price") }}</span></div></div>
-
-                        <div class="form-group">
-                            <label for="price" class="col-sm-2 control-label">Sale Price</label>
-                            <div class="col-sm-8"><input type="text" class="form-control numberonly" name="sale_price" value="{{ old('sale_price') }}" placeholder="Enter sale price">
-                            <span style="color: red">{{ $errors->first("sale_price") }}</span></div></div>
-
-                        <div class="form-group">
-                            <label for="is_featured" class="col-sm-2 control-label">Is Featured</label>
+                            <label for="instructor" class="col-sm-2 control-label">Instructor <span style="color:red">*</span></label>
                             <div class="col-sm-8">
-                                <div class="form-group form-check">
-                                    <input type="checkbox" value="1" class="form-check-input" id="is_featured" name="is_featured">
-                                    <label class="form-check-label" for="is_featured">Check if featured</label>
-                                </div>
-                                <span style="color: red">{{ $errors->first("is_featured") }}</span>
+                                <select name="instructor_slug" class="form-control" id="instructor">
+                                    <option value="" selected>Select instructor</option>
+                                    @foreach ($instructors as $instructor)
+                                        <option value="{{ $instructor->slug }}" {{ old('instructor_slug')==$instructor->slug?'selected':'' }}>{{ $instructor->name }}</option>
+                                    @endforeach
+                                </select>
+                                <span style="color: red">{{ $errors->first("institute_slug") }}</span>
                             </div>
                         </div>
+
+                        <div class="form-group">
+                            <label for="institute" class="col-sm-2 control-label">Institute <span style="color:red">*</span></label>
+                            <div class="col-sm-8">
+                                <select name="institute_slug" class="form-control" id="institute">
+                                    <option value="" selected>Select institute</option>
+                                    @foreach ($institutes as $institute)
+                                        <option value="{{ $institute->slug }}" {{ old('institute_slug')==$institute->slug?'selected':'' }}>{{ $institute->name }}</option>
+                                    @endforeach
+                                </select>
+                                <span style="color: red">{{ $errors->first("institute_slug") }}</span>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="category" class="col-sm-2 control-label">Category <span style="color:red">*</span></label>
+                            <div class="col-sm-8">
+                                <select name="category_slug" class="form-control" id="category">
+                                    <option value="" selected>Select Category</option>
+                                    @foreach ($categories as $category)
+                                        <option value="{{ $category->slug }}" {{ old('category_slug')==$category->slug?'selected':'' }}>{{ $category->name }}</option>
+                                    @endforeach
+                                </select>
+                                <span style="color: red">{{ $errors->first("category_slug") }}</span>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="title" class="col-sm-2 control-label">Title <span style="color:red">*</span></label>
+                            <div class="col-sm-8"><input type="text" class="form-control" name="title" value="{{ old("title") }}" placeholder="Enter title">
+                            <span style="color: red">{{ $errors->first("title") }}</span></div></div>
 
                         <div class="form-group">
                             <label for="short_description" class="col-sm-2 control-label">Short Description</label>
@@ -85,7 +103,18 @@
                         </div>
 
                         <div class="form-group">
-                            <label for="video" class="col-sm-2 control-label">Video</label>
+                            <label for="is_youtube_url" class="col-sm-2 control-label">Youtube Video URL</label>
+                            <div class="col-sm-8">
+                                <div class="switch">
+                                    <input id="youtube_url" class="cmn-toggle cmn-toggle-round-flat" name="is_youtube_url" value="1" type="checkbox">
+                                    <label for="youtube_url"></label>
+                                </div>
+                                <span style="color: red">{{ $errors->first("is_youtube_url") }}</span>
+                            </div>
+                        </div>
+
+                        <div class="form-group upload-video-field">
+                            <label for="video" class="col-sm-2 control-label">Upload Video </label>
                             <div class="col-sm-8">
                                 <input type="file" class="form-control" name="video" accept="video/*">
                                 <span style="color: red">{{ $errors->first("video") }}</span>
@@ -93,6 +122,73 @@
                         </div>
 
                         <div class="form-group">
+                            <label for="duration" class="col-sm-2 control-label">Duration </label>
+                            <div class="col-sm-8">
+                                <input type="time" class="form-control" name="duration" accept="video/*" placeholder="Enter video duration">
+                                <span style="color: red">{{ $errors->first("duration") }}</span>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="is_paid" class="col-sm-2 control-label">Paid</label>
+                            <div class="col-sm-8">
+                                <div class="switch">
+                                    <input id="paid" class="cmn-toggle cmn-toggle-round-flat" name="is_paid" value="1" type="checkbox">
+                                    <label for="paid"></label>
+                                </div>
+                                <span style="color: red">{{ $errors->first("is_paid") }}</span>
+                            </div>
+                        </div>
+
+                        <span id="if-paid" style="display: none">
+                            <div class="form-group">
+                                <label for="price" class="col-sm-2 control-label">Price</label>
+                                <div class="col-sm-8">
+                                    <input type="text" class="form-control numberonly" name="price" value="{{ old("price") }}" placeholder="Enter price">
+                                    <span style="color: red">{{ $errors->first("price") }}</span>
+                                </div>
+                            </div>
+        
+                            <div class="form-group">
+                                <label for="discount_type" class="col-sm-2 control-label">Discount Type</label>
+                                <div class="col-sm-8">
+                                    <select name="discount_type" id="discount_type" class="form-control">
+                                        <option value="" selected>Select discount type</option>
+                                        <option value="percent">Percent(%)</option>
+                                        <option value="fix">Fixed</option>
+                                    </select>
+                                    <span style="color: red">{{ $errors->first("discount_type") }}</span>
+                                </div>
+                            </div>
+    
+                            <div class="custome-discount"></div>
+                        </span>
+
+                        <div class="form-group">
+                            <label for="is_featured" class="col-sm-2 control-label">Featured</label>
+                            <div class="col-sm-8">
+                                <div class="switch">
+                                    <input id="featured" class="cmn-toggle cmn-toggle-round-flat" name="is_featured" value="1" type="checkbox">
+                                    <label for="featured"></label>
+                                </div>
+                                <span style="color: red">{{ $errors->first("is_featured") }}</span>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="status" class="col-sm-2 control-label">Status</label>
+                            <div class="col-sm-8">
+                                <div class="switch">
+                                    <input id="status" class="cmn-toggle cmn-toggle-round-flat" @if(old('status')) checked @endif name="status" type="checkbox">
+                                    <label for="status"></label>
+                                </div>
+                                <span style="color: red">{{ $errors->first("status") }}</span>
+                            </div>
+                        </div>
+
+
+
+                        {{-- <div class="form-group">
                             <label for="learn" class="col-sm-2 control-label">Whatlearn</label>
                             <div class="col-sm-8">
                                 <div class="col-sm-12">
@@ -142,9 +238,9 @@
                                 <input type="text" class="form-control" name="tags[]" data-role="tagsinput" placeholder="Write tag label press enter">
                                 <span style="color: red">{{ $errors->first("tags") }}</span>
                             </div>
-                        </div>
+                        </div> --}}
 
-                        <div class="form-group">
+                        {{--  <div class="form-group">
                             <label for="status" class="col-sm-2 control-label">Status <span style="color:red">*</span></label>
                             <div class="col-sm-8">
                                 <select class="form-control" name="status">
@@ -153,7 +249,7 @@
                                 </select>
                                 <span style="color: red">{{ $errors->first("status") }}</span>
                             </div>
-                        </div>
+                        </div> --}}
 
                         <div class="form-group">
                             <label for="status" class="col-sm-2 control-label"></label>
@@ -171,7 +267,60 @@
 @endsection
 @push('js')
     <script>
-        $(document).on('click', '#add-more-learns-btn', function(){
+        $(document).on('click', '#youtube_url', function(){
+            if($('input[name="is_youtube_url"]').is(':checked'))
+            {
+                var html = '';
+                html =  '<label for="video_url" class="col-sm-2 control-label">Youtube Video URL </label>'+
+                        '<div class="col-sm-8">'+
+                            '<input type="text" class="form-control" name="video_url" accept="video/*" placeholder="Enter video url">'+
+                            '<span style="color: red">{{ $errors->first("video_url") }}</span>'+
+                        '</div>';
+                
+                $('.upload-video-field').html(html);
+            }else
+            {
+                var html = '';
+                html =  '<label for="video" class="col-sm-2 control-label">Upload Video </label>'+
+                            '<div class="col-sm-8">'+
+                                '<input type="file" class="form-control" name="video" accept="video/*">'+
+                                '<span style="color: red">{{ $errors->first("video") }}</span>'+
+                            '</div>';
+                
+                $('.upload-video-field').html(html);
+            }
+        });
+
+        $(document).on('click', '#paid', function(){
+            if($('input[name="is_paid"]').is(':checked'))
+            {
+                $('#if-paid').css('display', 'block');
+            }else
+            {
+                $('#if-paid').css('display', 'none');
+            }
+        });
+
+        $(document).on('change', '#discount_type', function(){
+            var discount_type = $(this).val();
+            
+            var html = '';
+            if(discount_type){
+                html += '<div class="form-group">'+
+                            '<label for="discount" class="col-sm-2 control-label">Discount </label>'+
+                            '<div class="col-sm-8">'+
+                                '<input type="number" class="form-control" name="discount" id="discount" placeholder="Enter discount value">'+
+                                '<span style="color: red">{{ $errors->first("discount") }}</span>'+
+                            '</div>'+
+                        '</div>';
+                $('.custome-discount').html(html);    
+            }else{
+                $('.custome-discount').html("");    
+            }
+        });
+
+
+        /* $(document).on('click', '#add-more-learns-btn', function(){
             var html = '';
             html += '<div class="col-sm-12 custom" style="margin-top:5px !important" >'+
                         '<div class="col-sm-11">'+
@@ -206,6 +355,6 @@
 
         $(document).on('click', '#remove-more-include-btn', function(){
             $(this).parents('.custom').remove();
-        });
+        }); */
     </script>
 @endpush

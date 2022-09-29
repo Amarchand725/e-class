@@ -63,19 +63,19 @@
                                 <div class="about-instructor">
                                     <div class="row">
                                         @if($model->haveCourses)
-                                            @foreach ($model->haveCourses as $course)
+                                            @foreach ($model->haveCourses as $single_course)
                                                 <div class="col-lg-6">
                                                     <div class="student-view-block">
                                                         <div class="view-block">
                                                             <div class="view-img">
-                                                                <a href="{{ route('course.single', $course->slug) }}">
-                                                                    <img src="{{ asset('public/admin/images/courses') }}/{{ $course->thumbnail }}" alt="course" class="img-fluid">
+                                                                <a href="{{ route('course.single', $single_course->slug) }}">
+                                                                    <img src="{{ asset('public/admin/images/courses') }}/{{ $single_course->thumbnail }}" alt="course" class="img-fluid">
                                                                 </a>
                                                             </div>
                                                             <div class="view-user-img">
-                                                                <a href="#" title="">
-                                                                    @if($course->hasUserProfile)
-                                                                        <img src="{{ asset('public/admin/images/profiles') }}/{{ $course->hasUserProfile->profile_image }}" class="img-fluid user-img-one" alt="">
+                                                                <a href="{{ route('user.profile', $single_course->hasCreatedBy->slug) }}" title="">
+                                                                    @if($single_course->hasUserProfile)
+                                                                        <img src="{{ asset('public/admin/images/profiles') }}/{{ $single_course->hasUserProfile->profile_image }}" class="img-fluid user-img-one" alt="">
                                                                     @else
                                                                         <img src="{{ asset('public/default.png') }}" width="50px"  class="img-fluid user-img-one" alt="">
                                                                     @endif
@@ -83,9 +83,10 @@
                                                             </div>
                                                             <div class="view-dtl">
                                                                 <div class="view-heading">
-                                                                    <a href="#">{{ $course->title }}</a></div>
+                                                                    <a href="#">{{ $single_course->title }}</a>
+                                                                </div>
                                                                 <div class="user-name">
-                                                                    <h6>By <span>{{ $course->hasCreatedBy->roles->first()->name }}</span></h6>
+                                                                    <h6>By <span>{{ $single_course->hasCreatedBy->roles->first()->name }}</span></h6>
                                                                 </div>                                           
                                                                 <div class="rating">
                                                                     <ul>

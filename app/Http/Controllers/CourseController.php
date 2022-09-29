@@ -11,6 +11,9 @@ use Illuminate\Support\Str;
 use App\Models\WhatLearn;
 use App\Models\CourseInclude;
 use App\Models\CourseTag;
+use App\Models\Institute;
+use App\Models\Category;
+use App\Models\User;
 
 class CourseController extends Controller
 {
@@ -43,7 +46,10 @@ class CourseController extends Controller
     public function create()
     {
         $view_all_title = Menu::where('menu', 'course')->first()->label;
-        return view('courses.create', compact('view_all_title'));
+        $instructors = User::role('instructor')->where('status', 1)->get();
+        $institutes = Institute::where('status', 1)->get();
+        $categories = Category::where('status', 1)->get();
+        return view('courses.create', compact('view_all_title', 'institutes', 'categories', 'instructors'));
     }
 
     /**
@@ -71,19 +77,38 @@ class CourseController extends Controller
                 $model->video = $video;
             }
 
+            $price = $request->price;
+            if(isset($request->discount)){
+                if($request->discount_type=='percent'){
+                    $discount_price = $request->discount*$price/100;
+                    $price = $price-$discount_price;
+                    $price = round($price, 2);
+                }else{
+                    $price = $price-$request->discount;
+                }
+            }
+
             $model->created_by = Auth::user()->id;
+            $model->instructor_slug = $request->instructor_slug;
+            $model->institute_slug = $request->institute_slug;
+            $model->category_slug = $request->category_slug;
             $model->title = $request->title;
             $model->slug = str::slug($request->title);
-            $model->price = $request->price;
-            $model->sale_price = $request->sale_price;
-            $model->is_featured = $request->is_featured;
+            $model->retail_price = $request->price;
+            $model->discount_type = $request->discount_type;
+            $model->discount = $request->discount;
+            $model->price = $price;
+            $model->is_paid = isset($request->is_paid)?$request->is_paid:0;
+            $model->is_featured = isset($request->is_featured)?$request->is_featured:0;
             $model->short_description = $request->short_description;
             $model->requirements = $request->requirements;
             $model->full_description = $request->full_description;
-            $model->status = $request->status;
+            $model->video_url = isset($request->video_url)?$request->video_url:NULL;
+            $model->duration = $request->duration;
+            $model->status = isset($request->status)?$request->status:0;
             $model->save();
 
-            if($model && count($request->learns) > 0){
+            /* if($model && count($request->learns) > 0){
                 foreach($request->learns as $learn){
                     if($learn != NULL){
                         WhatLearn::create([
@@ -115,7 +140,7 @@ class CourseController extends Controller
                         ]);
                     }
                 }
-            }
+            } */
 
             DB::commit();
 
@@ -149,7 +174,10 @@ class CourseController extends Controller
     {
         $view_all_title = Menu::where('menu', 'course')->first()->label;
         $model = Course::findOrFail($id);
-        return view('courses.edit', compact('view_all_title', 'model'));
+        $instructors = User::role('instructor')->where('status', 1)->get();
+        $institutes = Institute::where('status', 1)->get();
+        $categories = Category::where('status', 1)->get();
+        return view('courses.edit', compact('view_all_title', 'model', 'institutes', 'categories', 'instructors'));
     }
 
     /**
@@ -166,7 +194,7 @@ class CourseController extends Controller
             $this->validate($request, Course::getValidationRules());
         }else{
             $rules = [
-                'title' => 'required'
+                'title' => 'unique:courses,title,'.$id,
             ];
 
             $this->validate($request, $rules);
@@ -174,6 +202,60 @@ class CourseController extends Controller
 
         try{
             if (isset($request->thumbnail)) {
+                $exist_image = public_path('/admin/images/courses');
+                if($model->profile_image){
+                    $exist = $exist_image.'/'.$model->thumbnail;
+                    unlink($exist);
+                }
+
+                $thumbnail = date('d-m-Y-His').'.'.$request->file('thumbnail')->getClientOriginalExtension();
+                $request->thumbnail->move(public_path('/admin/images/courses'), $thumbnail);
+                $model->thumbnail = $thumbnail;
+            }
+
+            if (isset($request->video)) {
+                $exist_image = public_path('/admin/images/courses');
+                if($model->profile_image){
+                    $exist = $exist_image.'/'.$model->video;
+                    unlink($exist);
+                }
+
+                $video = date('d-m-Y-His').'.'.$request->file('video')->getClientOriginalExtension();
+                $request->video->move(public_path('/admin/images/courses'), $video);
+                $model->video = $video;
+            }
+
+            $price = $request->price;
+            if(isset($request->discount)){
+                if($request->discount_type=='percent'){
+                    $discount_price = $request->discount*$price/100;
+                    $price = $price-$discount_price;
+                    $price = round($price, 2);
+                }else{
+                    $price = $price-$request->discount;
+                }
+            }
+
+            $model->instructor_slug = $request->instructor_slug;
+            $model->institute_slug = $request->institute_slug;
+            $model->category_slug = $request->category_slug;
+            $model->title = $request->title;
+            $model->slug = str::slug($request->title);
+            $model->retail_price = $request->price;
+            $model->discount_type = $request->discount_type;
+            $model->discount = $request->discount;
+            $model->price = $price;
+            $model->is_paid = isset($request->is_paid)?$request->is_paid:0;
+            $model->is_featured = isset($request->is_featured)?$request->is_featured:0;
+            $model->short_description = $request->short_description;
+            $model->requirements = $request->requirements;
+            $model->full_description = $request->full_description;
+            $model->video_url = isset($request->video_url)?$request->video_url:NULL;
+            $model->duration = $request->duration;
+            $model->status = isset($request->status)?$request->status:0;
+            $model->save();
+
+            /* if (isset($request->thumbnail)) {
                 $thumbnail = date('d-m-Y-His').'.'.$request->file('thumbnail')->getClientOriginalExtension();
                 $request->thumbnail->move(public_path('/admin/images/courses'), $thumbnail);
                 $model->thumbnail = $thumbnail;
@@ -185,6 +267,9 @@ class CourseController extends Controller
                 $model->video = $video;
             }
 
+            $model->instructor_slug = $request->instructor_slug;
+            $model->institute_slug = $request->institute_slug;
+            $model->category_slug = $request->category_slug;
             $model->title = $request->title;
             $model->slug = str::slug($request->title);
             $model->price = $request->price;
@@ -194,38 +279,44 @@ class CourseController extends Controller
             $model->requirements = $request->requirements;
             $model->full_description = $request->full_description;
             $model->status = $request->status;
-            $model->save();
+            $model->save(); */
 
-            if($model && count($request->learns) > 0){
+            /* if($model && count($request->learns) > 0){
                 WhatLearn::where('course_id', $model->id)->delete();
                 foreach($request->learns as $learn){
-                    WhatLearn::create([
-                        'course_id' => $model->id,
-                        'title' => $learn,
-                    ]);
+                    if($learn != NULL){
+                        WhatLearn::create([
+                            'course_id' => $model->id,
+                            'title' => $learn,
+                        ]);
+                    }
                 }
             }
 
             if($model && count($request->includes) > 0){
                 CourseInclude::where('course_id', $model->id)->delete();
                 foreach($request->includes as $key=>$include){
-                    CourseInclude::create([
-                        'course_id' => $model->id,
-                        'icon' => $request->icons[$key],
-                        'title' => $include,
-                    ]);
+                    if($include != NULL){
+                        CourseInclude::create([
+                            'course_id' => $model->id,
+                            'icon' => $request->icons[$key],
+                            'title' => $include,
+                        ]);
+                    }
                 }
             }
 
             if($model && count($request->tags) > 0){
                 CourseTag::where('course_id', $model->id)->delete();
                 foreach($request->tags as $tag){
-                    CourseTag::create([
-                        'course_id' => $model->id,
-                        'tag' => $tag,
-                    ]);
+                    if($tag != NULL){
+                        CourseTag::create([
+                            'course_id' => $model->id,
+                            'tag' => $tag,
+                        ]);
+                    }
                 }
-            }
+            } */
 
             return redirect()->route('course.index')->with('message', 'Course update Successfully !');
         } catch (\Exception $e) {

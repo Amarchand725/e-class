@@ -55,7 +55,7 @@
                                         @endif
                                     </td>
                                     <td>{{ $model->title }}</td>
-                                    <td>${{ number_format($model->sale_price, 2) }}</td>
+                                    <td>${{ number_format($model->price, 2) }}</td>
                                     <td>{{ Str::limit($model->short_description, 20) }}</td>
                                     <td>
                                         @if($model->is_featured)
@@ -72,10 +72,11 @@
                                             <span class="label label-danger">In-Active</span>
                                         @endif
                                     </td>
-                                    <td width="250px">
-                                        <a href="{{ route("course.show", $model->id) }}" data-toggle="tooltip" data-placement="top" title="Show Course" class="btn btn-info btn-xs"><i class="fa fa-eye"></i> Show</a>
-                                        <a href="{{ route("course.edit", $model->id) }}" data-toggle="tooltip" data-placement="top" title="Edit Course" class="btn btn-primary btn-xs" style="margin-left: 3px;"><i class="fa fa-edit"></i> Edit</a>
-                                        <button data-toggle="tooltip" data-placement="top" title="Delete Course" class="btn btn-danger btn-xs delete" data-slug="{{ $model->id }}" data-del-url="{{ route("course.destroy", $model->id) }}" style="margin-left: 3px;"><i class="fa fa-trash"></i> Delete</button>
+                                    <td width="250px">  
+                                        <a href="{{ route("course.show", $model->id) }}" data-toggle="tooltip" data-placement="top" title="Course Classes" class="btn btn-primary btn-xs"><i class="fa fa-snowflake-o"></i></a>
+                                        <a href="{{ route("course.show", $model->id) }}" data-toggle="tooltip" data-placement="top" title="Show Course" class="btn btn-info btn-xs"><i class="fa fa-eye"></i></a>
+                                        <a href="{{ route("course.edit", $model->id) }}" data-toggle="tooltip" data-placement="top" title="Edit Course" class="btn btn-primary btn-xs" style="margin-left: 3px;"><i class="fa fa-edit"></i></a>
+                                        <button data-toggle="tooltip" data-placement="top" title="Delete Course" class="btn btn-danger btn-xs delete" data-slug="{{ $model->id }}" data-del-url="{{ route("course.destroy", $model->id) }}" style="margin-left: 3px;"><i class="fa fa-trash"></i></button>
                                     </td>
                                 </tr>
                             @endforeach

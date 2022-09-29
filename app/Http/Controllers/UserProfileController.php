@@ -16,6 +16,7 @@ use Illuminate\Validation\Rules;
 
 use App\Models\Role as UserRole;
 use Spatie\Permission\Models\Role;
+use Str;
 
 class UserProfileController extends Controller
 {
@@ -68,8 +69,17 @@ class UserProfileController extends Controller
         DB::beginTransaction();
 
         try{
+            $name = $request->first_name.' '.$request->last_name;
+
+            $slug = '';
+            do{
+                $slug = Str::random(2);
+                $slug = Str::slug('amarchand').'-'.strtolower($slug);
+            }while(User::where('slug', $slug)->first());
+
             $user = User::create([
-                'name' => $request->first_name.' '.$request->last_name,
+                'name' => $name,
+                'slug' => $slug,
                 'email' => $request->email,
                 'password' => Hash::make($request->password),
             ]);

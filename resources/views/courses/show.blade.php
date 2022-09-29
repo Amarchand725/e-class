@@ -31,6 +31,18 @@
                                 <td>{{ $model->hasCreatedBy->name }} ( {{ $model->hasCreatedBy->roles->first()->name }} )</td>
                             </tr>
                             <tr>
+                                <th>Instructor</th>
+                                <td>{{ $model->hasInstructor->name??'N/A' }}</td>
+                            </tr>
+                            <tr>
+                                <th>Institute</th>
+                                <td>{{ $model->hasInstitute->name??'N/A' }}</td>
+                            </tr>
+                            <tr>
+                                <th>Category</th>
+                                <td>{{ $model->hasCategory->name??'N/A' }}</td>
+                            </tr>
+                            <tr>
                                 <th>Title</th>
                                 <td>{{ $model->title }}</td>
                             </tr>

@@ -26,6 +26,7 @@ Route::resource('crud', 'App\Http\Controllers\CrudController'); */
 //institute
 Route::get('/institute/{slug}/single', 'WebController@instituteSingle')->name('institute.single');
 Route::get('/course/{slug}/single', 'WebController@courseSingle')->name('course.single');
+Route::get('/user/{slug}/profile', 'WebController@userProfile')->name('user.profile');
 
 Route::group(['middleware' => 'guest'], function(){
     Route::view('/admin/login','admin.auth.login')->name('admin.login');

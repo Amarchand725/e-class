@@ -12,7 +12,8 @@ class Course extends Model
 
     static function getValidationRules(){
     	$rules = [
-		    'title' => 'required', 'thumbnail' => 'required'
+            'title' => ['required', 'string', 'max:191', 'unique:courses'],
+            'thumbnail' => 'required'
 		];
 		return $rules;
     }
@@ -33,5 +34,18 @@ class Course extends Model
     public function haveTags()
     {
         return $this->hasMany(CourseTag::class, 'course_id', 'id');
+    }
+    public function hasCategory()
+    {
+        return $this->hasOne(Category::class, 'slug', 'category_slug');
+    }
+
+    public function hasInstitute()
+    {
+        return $this->hasOne(Institute::class, 'slug', 'institute_slug');
+    }
+    public function hasInstructor()
+    {
+        return $this->hasOne(User::class, 'slug', 'instructor_slug');
     }
 }

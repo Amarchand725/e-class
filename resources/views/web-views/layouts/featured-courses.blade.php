@@ -19,7 +19,7 @@
                             data-pt-title="#prime-next-item-description-block{{ $course->id }}">
                             <div class="view-block">
                                 <div class="view-img">
-                                    <a href="course/21/travel-hacking-smart-fun-travel-copy-166373019920.html">
+                                    <a href="{{ route('course.single', $course->slug) }}">
                                         <img data-src="{{ asset('public/admin/images/courses') }}/{{ $course->thumbnail }}" alt="course"
                                                 class="img-fluid owl-lazy">
                                     </a>
@@ -42,7 +42,7 @@
                                     @endif
                                 </div>
                                 <div class="view-user-img">
-                                    <a href="#" title="">
+                                    <a href="{{ route('user.profile', $course->hasCreatedBy->slug) }}" title="">
                                         @if($course->hasUserProfile)
                                             <img src="{{ asset('public/users') }}/{{ $course->hasUserProfile->profile_image }}" width="50px"  class="img-fluid user-img-one" alt="">
                                         @else
@@ -52,10 +52,10 @@
                                 </div>
                                 <div class="view-dtl">
                                     <div class="view-heading">
-                                        <a href="#">{{ $course->title }}</a>
+                                        <a href="{{ route('course.single', $course->slug) }}">{{ $course->title }}</a>
                                     </div>
                                     <div class="user-name">
-                                        <h6>By <span><a href="#">{{ $course->hasCreatedBy->roles->first()->name }}</a></span></h6>
+                                        <h6>By <span><a href="{{ route('user.profile', $course->hasCreatedBy->slug) }}">{{ $course->hasCreatedBy->roles->first()->name }}</a></span></h6>
                                     </div>
                                     <div class="rating">
                                         <ul>
