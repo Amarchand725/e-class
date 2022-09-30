@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Sep 29, 2022 at 04:22 PM
+-- Generation Time: Sep 30, 2022 at 04:36 PM
 -- Server version: 10.4.20-MariaDB
 -- PHP Version: 7.4.22
 
@@ -142,6 +142,47 @@ INSERT INTO `countries` (`id`, `name`, `country_code`, `currency`, `currency_sym
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `courseincludes`
+--
+
+CREATE TABLE `courseincludes` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `course_id` bigint(20) NOT NULL,
+  `icon` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `detail` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `status` tinyint(1) NOT NULL DEFAULT 1,
+  `deleted_at` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `courseincludes`
+--
+
+INSERT INTO `courseincludes` (`id`, `course_id`, `icon`, `detail`, `status`, `deleted_at`, `created_at`, `updated_at`) VALUES
+(1, 11, '<i class=\"fa fa-window-restore\" aria-hidden=\"true\"></i>', 'tested', 1, NULL, '2022-09-30 02:50:43', '2022-09-30 02:50:43'),
+(2, 11, '<i class=\"fa fa-sliders\" aria-hidden=\"true\"></i>', 'tesetd', 0, NULL, '2022-09-30 03:09:33', '2022-09-30 03:09:33'),
+(3, 11, '<i class=\"fa fa-sliders\" aria-hidden=\"true\"></i>', 'tested', 1, NULL, '2022-09-30 03:24:20', '2022-09-30 03:24:20'),
+(4, 11, '<i class=\"fa fa-sliders\" aria-hidden=\"true\"></i>', 'tested', 1, NULL, '2022-09-30 03:24:28', '2022-09-30 03:24:28'),
+(5, 11, '<i class=\"fa fa-sliders\" aria-hidden=\"true\"></i>', 'tyyyy', 1, NULL, '2022-09-30 03:26:00', '2022-09-30 03:26:00'),
+(6, 11, '<i class=\"fa fa-sliders\" aria-hidden=\"true\"></i>', 'tyyyy', 1, NULL, '2022-09-30 03:27:09', '2022-09-30 03:27:09'),
+(7, 11, '<i class=\"fa fa-globe\" aria-hidden=\"true\"></i>', 'ggdf', 0, NULL, '2022-09-30 03:27:29', '2022-09-30 05:49:55'),
+(8, 11, '<i class=\"fa fa-sliders\" aria-hidden=\"true\"></i>', 'yuio', 1, '2022-09-30 10:27:37', '2022-09-30 03:31:12', '2022-09-30 05:27:37'),
+(9, 11, '<i class=\"fa fa-sliders\" aria-hidden=\"true\"></i>', 'amat', 1, '2022-09-30 10:27:34', '2022-09-30 03:31:48', '2022-09-30 05:27:34'),
+(10, 11, '<i class=\"fa fa-university\" aria-hidden=\"true\"></i>', 'ahoi', 0, '2022-09-30 10:27:30', '2022-09-30 03:32:13', '2022-09-30 05:27:30'),
+(11, 11, '<i class=\"fa fa-globe\" aria-hidden=\"true\"></i>', 'updated--updated', 0, '2022-09-30 10:27:27', '2022-09-30 03:32:14', '2022-09-30 05:27:27'),
+(12, 12, '<i class=\"fa fa-globe\" aria-hidden=\"true\"></i>', 'tesd-updated', 0, NULL, '2022-09-30 03:34:51', '2022-09-30 04:35:08'),
+(13, 13, '<i class=\"fa fa-globe\" aria-hidden=\"true\"></i>', 'tesd--updated', 0, NULL, '2022-09-30 03:34:55', '2022-09-30 04:34:33'),
+(14, 14, '<i class=\"fa fa-university\" aria-hidden=\"true\"></i>', 'you--updated', 0, NULL, '2022-09-30 03:35:09', '2022-09-30 04:33:58'),
+(15, 15, '<i class=\"fa fa-globe\" aria-hidden=\"true\"></i>', 'tested-updated', 0, NULL, '2022-09-30 03:42:33', '2022-09-30 04:30:29'),
+(16, 16, '<i class=\"fa fa-window-restore\" aria-hidden=\"true\"></i>', 'detasss-updated', 0, NULL, '2022-09-30 03:52:33', '2022-09-30 04:30:42'),
+(17, 17, '<i class=\"fa fa-globe\" aria-hidden=\"true\"></i>', 'tested -updated', 0, NULL, '2022-09-30 09:11:59', '2022-09-30 09:19:19'),
+(18, 18, '<i class=\"fa fa-window-restore\" aria-hidden=\"true\"></i>', 'tesed -updated', 0, NULL, '2022-09-30 09:13:26', '2022-09-30 09:13:56');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `courses`
 --
 
@@ -197,7 +238,7 @@ CREATE TABLE `course_includes` (
   `id` bigint(20) UNSIGNED NOT NULL,
   `course_id` bigint(20) NOT NULL,
   `icon` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `title` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `detail` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -206,7 +247,7 @@ CREATE TABLE `course_includes` (
 -- Dumping data for table `course_includes`
 --
 
-INSERT INTO `course_includes` (`id`, `course_id`, `icon`, `title`, `created_at`, `updated_at`) VALUES
+INSERT INTO `course_includes` (`id`, `course_id`, `icon`, `detail`, `created_at`, `updated_at`) VALUES
 (1, 1, '<i class=\"fa fa-bullhorn\"></i>', 'Anytime, Anywhere', '2022-09-25 06:41:04', '2022-09-25 06:41:04'),
 (2, 1, '<i class=\"fa fa-bandcamp\"></i>', 'on-demand video', '2022-09-25 06:41:04', '2022-09-25 06:41:04'),
 (3, 1, '<i class=\"fa fa-bullseye\"></i>', 'Full lifetime access', '2022-09-25 06:41:04', '2022-09-25 06:41:04'),
@@ -391,7 +432,8 @@ INSERT INTO `menus` (`id`, `menu_of`, `parent_id`, `menu`, `icon`, `label`, `url
 (62, 'admin', NULL, 'state', '<i class=\"fa fa-window-restore\" aria-hidden=\"true\"></i>', 'All States', 'admin/state', 1, NULL, NULL, NULL),
 (63, 'admin', NULL, 'city', '<i class=\"fa fa-window-restore\" aria-hidden=\"true\"></i>', 'All Cities', 'admin/city', 1, NULL, NULL, NULL),
 (64, 'admin', NULL, 'userprofile', '<i class=\"fa fa-user-secret\" aria-hidden=\"true\"></i>', 'All Users', 'admin/userprofile', 1, NULL, NULL, NULL),
-(66, 'admin', NULL, 'institute', '<i class=\"fa fa-university\" aria-hidden=\"true\"></i>', 'All Instittutes', 'admin/institute', 1, NULL, NULL, NULL);
+(66, 'admin', NULL, 'institute', '<i class=\"fa fa-university\" aria-hidden=\"true\"></i>', 'All Instittutes', 'admin/institute', 1, NULL, NULL, NULL),
+(68, 'admin', NULL, 'courseinclude', '<i class=\"fa fa-window-maximize\" aria-hidden=\"true\"></i>', 'Course Includes', 'admin/courseinclude', 1, NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -432,7 +474,8 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 (29, '2022_09_27_112315_create_states_table', 16),
 (31, '2022_09_27_114502_create_cities_table', 17),
 (33, '2022_09_27_124239_create_userprofiles_table', 18),
-(35, '2022_09_28_105117_create_institutes_table', 19);
+(35, '2022_09_28_105117_create_institutes_table', 19),
+(37, '2022_09_30_055602_create_courseincludes_table', 20);
 
 -- --------------------------------------------------------
 
@@ -809,6 +852,12 @@ ALTER TABLE `countries`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `courseincludes`
+--
+ALTER TABLE `courseincludes`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `courses`
 --
 ALTER TABLE `courses`
@@ -990,6 +1039,12 @@ ALTER TABLE `countries`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
+-- AUTO_INCREMENT for table `courseincludes`
+--
+ALTER TABLE `courseincludes`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
+
+--
 -- AUTO_INCREMENT for table `courses`
 --
 ALTER TABLE `courses`
@@ -1035,13 +1090,13 @@ ALTER TABLE `learnings`
 -- AUTO_INCREMENT for table `menus`
 --
 ALTER TABLE `menus`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=67;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=69;
 
 --
 -- AUTO_INCREMENT for table `migrations`
 --
 ALTER TABLE `migrations`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=36;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=38;
 
 --
 -- AUTO_INCREMENT for table `pages`

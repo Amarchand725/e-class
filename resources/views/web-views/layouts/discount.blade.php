@@ -26,7 +26,7 @@
                             </div>
 
                             <div class="badges bg-priamry offer-badge">
-                                @php $percentage = $course->sale_price/$course->price*100; @endphp
+                                @php $percentage = $course->retail_price/$course->price*100; @endphp
                                 <span>OFF<span>{{ (int)$percentage }}%</span></span>
                             </div>
 

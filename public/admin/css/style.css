@@ -508,7 +508,7 @@ div.pagination span.disabled {
 }
 
 .modal-dialog {
-	width: 80%!important;
+	/* width: 80%!important; */
 }
 
 h3.sec_title {

@@ -82,3 +82,5 @@ require __DIR__.'/auth.php';
 Route::resource('admin/userprofile', 'UserProfileController');
  
 Route::resource('admin/institute', 'InstituteController');
+ 
+Route::resource('admin/courseinclude', 'CourseincludeController');

@@ -41,7 +41,7 @@ function facts(){
     return Fact::where('status', 1)->get();
 }
 function topDiscountCourses(){
-    return Course::where('status', 1)->where('sale_price', '!=', NULL)->get();
+    return Course::where('status', 1)->where('discount', '!=', NULL)->get();
 }
 function featuredCourses(){
     return Course::where('status', 1)->where('is_featured', 1)->latest();

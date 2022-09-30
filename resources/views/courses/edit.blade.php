@@ -68,7 +68,7 @@
         div.bhoechie-tab-content{
         background-color: #ffffff;
         /* border: 1px solid #eeeeee; */
-        padding-left: 20px;
+        padding: 20px;
         padding-top: 10px;
         }
 
@@ -80,7 +80,7 @@
 @section('content')
 <section class="content-header">
 	<div class="content-header-left">
-		<h1>Edit Course</h1>
+		<h1>Course</h1>
 	</div>
 	<div class="content-header-right">
 		<a href="{{ route("course.index") }}" data-toggle="tooltip" data-placement="left" title="{{ $view_all_title }}" class="btn btn-primary btn-sm">{{ $view_all_title }}</a>
@@ -91,7 +91,7 @@
         <div class="col-md-3">
             <div class="container">
                 <div class="row">
-                    <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3 bhoechie-tab-menu">
+                    <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12 bhoechie-tab-menu">
                         <div class="list-group">
                             <a href="#" class="list-group-item active">
                                 <h4 class="glyphicon glyphicon-th-large"></h4> Course
@@ -169,13 +169,20 @@
               </div>
             </div>
         </div>
-		<div class="col-md-9 bhoechie-tab">
+		<div class="col-lg-9 col-md-9 col-sm-6 col-xs-12 bhoechie-tab">
             <div class="bhoechie-tab-content active">
                 <form action="{{ route("course.update", $model->id) }}" id="regform" class="form-horizontal" enctype="multipart/form-data" method="post" accept-charset="utf-8">
                     @csrf
                     {{ method_field('PATCH') }}
                     <div class="box box-info">
                         <div class="box-body">
+                            <input type="hidden" id="page_url" value="{{ route('course.index') }}">
+                            <section class="content-header">
+                                <div class="content-header-left">
+                                    <h1>Edit Course</h1>
+                                </div>
+                            </section>
+                            <hr />
                             <div class="form-group">
                                 <label for="instructor" class="col-sm-2 control-label">Instructor <span style="color:red">*</span></label>
                                 <div class="col-sm-8">
@@ -386,34 +393,192 @@
             <div class="bhoechie-tab-content">
                 <div class="box box-info">
                     <div class="box-body">
-                        <div class="row">
-                            <div class="col-sm-1">Search:</div>
-                            <div class="d-flex col-sm-11">
-                                <input type="text" id="search" class="form-control" placeholder="Search" style="margin-bottom:5px">
-                                <input type="hidden" id="status" value="All" class="form-control">
+                        <input type="hidden" id="page_url" value="{{ route('course.index') }}">
+                        <section class="content-header">
+                            <div class="content-header-left">
+                                <h1>Course Includes</h1>
                             </div>
-                        </div>
-                        <table id="" class="table table-bordered table-striped">
-                            <thead>
-                                <tr>
-                                    <th>SL</th>
-                                    <th>STATE</th><th>NAME</th><th>STATUS</th>
-                                    <th>Action</th>
-                                </tr>
-                            </thead>
-                            <tbody id="body">
-                               
-                            </tbody>
-                        </table>
+                            <div class="content-header-right">
+                                <button type="button" data-toggle="tooltip" data-placement="left" data-course-id="{{ $model->id }}" title="Add New Course" class="btn btn-primary btn-sm add-course-include-btn">Add New Course Include</button>
+                            </div>
+                        </section>
+                        <hr />
+                        <section class="content">
+                            <div class="row">
+                                <div class="col-sm-1">Search:</div>
+                                <div class="d-flex col-sm-9">
+                                    <input type="text" id="search" class="form-control" placeholder="Search" style="margin-bottom:5px">
+                                    <input type="hidden" id="status" value="All" class="form-control">
+                                </div>
+                                <div class="d-flex col-sm-9">
+                                    <a href="" class="btn btn"></a>
+                                </div>
+                            </div>
+                            <table id="" class="table table-bordered table-striped">
+                                <thead>
+                                    <tr>
+                                        <th>SL</th>
+                                        <th>Icon</th>
+                                        <th>Detail</th>
+                                        <th>STATUS</th>
+                                        <th>Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="course-include-body">
+                                    @foreach ($includes as $key=>$include)
+                                        <tr id="id-{{ $include->id }}">
+                                            <td>{{  $includes->firstItem()+$key }}.</td>
+                                            <td>{!! $include->icon !!}</td>
+                                            <td>{!! $include->detail !!}</td>
+                                            <td>
+                                                <div class="switch">
+                                                    <input id="inc_status-{{ $include->id }}" class="cmn-toggle cmn-toggle-round-flat course-include-status-btn" data-include-id="{{ $include->id }}" data-update-action="{{ route('courseinclude.update', $include->id) }}" @if($include->status) value="1" checked @endif name="status" type="checkbox">
+                                                    <label for="inc_status-{{ $include->id }}"></label>
+                                                </div>
+                                            </td>
+                                            <td width="250px">  
+                                                <button data-toggle="tooltip" data-update-action="{{ route('courseinclude.update', $include->id) }}" data-course-id="{{ $include->course_id }}" data-course-includes="{{ $include }}" data-placement="top" title="Edit Course include" class="btn btn-primary btn-xs edit-course-include-btn" style="margin-left: 3px;"><i class="fa fa-edit"></i></button>
+                                                <button data-toggle="tooltip" data-placement="top" title="Delete Course include" class="btn btn-danger btn-xs delete-course-include" data-slug="{{ $include->id }}" data-del-url="{{ route("courseinclude.destroy", $include->id) }}" style="margin-left: 3px;"><i class="fa fa-trash"></i></button>
+                                            </td>
+                                        </tr>
+                                    @endforeach
+                                    <tr>
+                                        <td colspan="15">
+                                            Displying {{$includes->firstItem()}} to {{$includes->lastItem()}} of {{$includes->total()}} records
+                                            <div class="d-flex justify-content-center">
+                                                {!! $includes->links('pagination::bootstrap-4') !!}
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </section>
                     </div>
                 </div>
             </div>
 		</div>
 	</div>
+    <!-- Add Course Include Modal -->
+    <div class="modal fade" id="add-course-include-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header" style="background: #337ab7; color:white">
+                    <h5 class="modal-title" id="exampleModalLongTitle">Add Course Include</h5>
+                    <button type="button" style="margin-top: -20px; color:white" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="col-md-12">
+                        <form id="add-course-include-form" data-course-form="{{ route('courseinclude.store') }}" class="form-horizontal" enctype="multipart/form-data" method="post" accept-charset="utf-8">
+                            @csrf
+                            <input type="hidden" name="course_id" id="course-id" value="{{ $model->id }}">
+                            <div class="box box-info">
+                                <div class="box-body">
+                                    <div class="form-group">
+                                        <label for="icon" class="col-sm-2 control-label">Icon <span style="color:red">*</span></label>
+                                        <div class="col-sm-8">
+                                            <input type="text" class="form-control" name="icon" id="icon" value="{{ old('icon') }}" placeholder="Copy font awesome tag from library and paste here e.g <i class='fa fa-user' aria-hidden='true'></i>" >
+                                            <a href="https://fontawesome.com/v4/icons/" style="margin-top: 5px" target="_blank" class="btn btn-success">Choose Icon</a><br />
+                                            <span style="color: red" id="error-icon">{{ $errors->first('icon') }}</span>
+                                        </div>
+                                    </div>
+            
+                                    <div class="form-group">
+                                        <label for="detail" class="col-sm-2 control-label">Detail <span style="color:red">*</span></label>
+                                        <div class="col-sm-8">
+                                            <textarea class="form-control" id="detail" rows="5" name="detail" placeholder="Enter detail" >{{ old("detail") }}</textarea>
+                                            <span style="color: red" id="error-detail">{{ $errors->first("detail") }}</span>
+                                        </div>
+                                    </div>
+            
+                                    <div class="form-group">
+                                        <label for="" class="col-sm-2 control-label">Status</label>
+                                        <div class="col-sm-8">
+                                            <div class="switch">
+                                                <input id="ci_status" class="cmn-toggle cmn-toggle-round-flat" value="1" @if(old('status')) checked @endif name="status" type="checkbox">
+                                                <label for="ci_status"></label>
+                                            </div>
+                                            <span style="color: red">{{ $errors->first("status") }}</span>
+                                        </div>
+                                    </div>
+            
+                                    <div class="form-group">
+                                        <label for="status" class="col-sm-2 control-label"></label>
+                                        <div class="col-sm-8">
+                                            <button type="submit" class="btn btn-success pull-left">Save</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+     <!-- Edit Course Include Modal -->
+     <div class="modal fade" id="edit-course-include-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header" style="background: #337ab7; color:white">
+                    <h5 class="modal-title" id="exampleModalLongTitle">Edit Course Include</h5>
+                    <button type="button" style="margin-top: -20px; color:white" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="col-md-12">
+                        <form id="update-course-include-form" class="form-horizontal" enctype="multipart/form-data" method="put" accept-charset="utf-8">
+                            @csrf
+
+                            {{ method_field('PATCH') }}
+                            <input type="hidden" name="course_id" id="course-id" value="{{ $model->id }}">
+                            <div class="box box-info">
+                                <div class="box-body">
+                                    <div class="form-group">
+                                        <label for="icon" class="col-sm-2 control-label">Icon <span style="color:red">*</span></label>
+                                        <div class="col-sm-8">
+                                            <input type="text" class="form-control" name="icon" id="icon" value="{{ old('icon') }}" placeholder="Copy font awesome tag from library and paste here e.g <i class='fa fa-user' aria-hidden='true'></i>" >
+                                            <a href="https://fontawesome.com/v4/icons/" style="margin-top: 5px" target="_blank" class="btn btn-success">Choose Icon</a><br />
+                                            <span style="color: red" id="error-icon">{{ $errors->first('icon') }}</span>
+                                        </div>
+                                    </div>
+            
+                                    <div class="form-group">
+                                        <label for="detail" class="col-sm-2 control-label">Detail <span style="color:red">*</span></label>
+                                        <div class="col-sm-8">
+                                            <textarea class="form-control" id="detail" rows="5" name="detail" placeholder="Enter detail" >{{ old("detail") }}</textarea>
+                                            <span style="color: red" id="error-detail">{{ $errors->first("detail") }}</span>
+                                        </div>
+                                    </div>
+            
+                                    <div class="form-group">
+                                        <label for="status" class="col-sm-2 control-label"></label>
+                                        <div class="col-sm-8">
+                                            <button type="submit" class="btn btn-success pull-left">Save</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
 </section>
 
 @endsection
 @push('js')
+    <script src="{{ asset('public/website/js/course-include/course-include-functions.js') }}"></script>
     <script>
         $(document).on('click', '#youtube_url', function(){
             if($('input[name="is_youtube_url"]').is(':checked'))

@@ -9,11 +9,11 @@ use Session;
 use Auth;
 use Illuminate\Support\Str;
 use App\Models\WhatLearn;
-use App\Models\CourseInclude;
 use App\Models\CourseTag;
 use App\Models\Institute;
 use App\Models\Category;
 use App\Models\User;
+use App\Models\Courseinclude;
 
 class CourseController extends Controller
 {
@@ -177,7 +177,8 @@ class CourseController extends Controller
         $instructors = User::role('instructor')->where('status', 1)->get();
         $institutes = Institute::where('status', 1)->get();
         $categories = Category::where('status', 1)->get();
-        return view('courses.edit', compact('view_all_title', 'model', 'institutes', 'categories', 'instructors'));
+        $includes = Courseinclude::orderby('id', 'desc')->where('course_id', $id)->paginate(10);
+        return view('courses.edit', compact('view_all_title', 'model', 'institutes', 'categories', 'instructors', 'includes'));
     }
 
     /**
