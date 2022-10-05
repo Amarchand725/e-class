@@ -118,58 +118,15 @@
                                 <h4 class="glyphicon glyphicon-th-large"></h4> Announcement
                             </a>
                             <a href="#" class="list-group-item">
-                                <h4 class="glyphicon glyphicon-th-large"></h4> Review Report
-                            </a>
-                            <a href="#" class="list-group-item">
                                 <h4 class="glyphicon glyphicon-th-large"></h4> Quiz Topic
                             </a>
                         </div>
-                        {{-- <div class="col-lg-9 col-md-9 col-sm-9 col-xs-9 bhoechie-tab">
-                            <!-- flight section -->
-                            <div class="bhoechie-tab-content active">
-                                <center>
-                                  <h1 class="glyphicon glyphicon-plane" style="font-size:14em;color:#55518a"></h1>
-                                  <h2 style="margin-top: 0;color:#55518a">Cooming Soon</h2>
-                                  <h3 style="margin-top: 0;color:#55518a">Flight Reservation</h3>
-                                </center>
-                            </div>
-                            <!-- train section -->
-                            <div class="bhoechie-tab-content">
-                                <center>
-                                  <h1 class="glyphicon glyphicon-road" style="font-size:12em;color:#55518a"></h1>
-                                  <h2 style="margin-top: 0;color:#55518a">Cooming Soon</h2>
-                                  <h3 style="margin-top: 0;color:#55518a">Train Reservation</h3>
-                                </center>
-                            </div>
-                
-                            <!-- hotel search -->
-                            <div class="bhoechie-tab-content">
-                                <center>
-                                  <h1 class="glyphicon glyphicon-home" style="font-size:12em;color:#55518a"></h1>
-                                  <h2 style="margin-top: 0;color:#55518a">Cooming Soon</h2>
-                                  <h3 style="margin-top: 0;color:#55518a">Hotel Directory</h3>
-                                </center>
-                            </div>
-                            <div class="bhoechie-tab-content">
-                                <center>
-                                  <h1 class="glyphicon glyphicon-cutlery" style="font-size:12em;color:#55518a"></h1>
-                                  <h2 style="margin-top: 0;color:#55518a">Cooming Soon</h2>
-                                  <h3 style="margin-top: 0;color:#55518a">Restaurant Diirectory</h3>
-                                </center>
-                            </div>
-                            <div class="bhoechie-tab-content">
-                                <center>
-                                  <h1 class="glyphicon glyphicon-credit-card" style="font-size:12em;color:#55518a"></h1>
-                                  <h2 style="margin-top: 0;color:#55518a">Cooming Soon</h2>
-                                  <h3 style="margin-top: 0;color:#55518a">Credit Card</h3>
-                                </center>
-                            </div>
-                        </div> --}}
                     </div>
               </div>
             </div>
         </div>
 		<div class="col-lg-9 col-md-9 col-sm-6 col-xs-12 bhoechie-tab">
+            <!-- COURSE -->
             <div class="bhoechie-tab-content active">
                 <form action="{{ route("course.update", $model->id) }}" id="regform" class="form-horizontal" enctype="multipart/form-data" method="post" accept-charset="utf-8">
                     @csrf
@@ -390,6 +347,8 @@
                     </div>
                 </form>
             </div>
+
+            <!-- COURSE INCLUDES-->
             <div class="bhoechie-tab-content">
                 <div class="box box-info">
                     <div class="box-body">
@@ -456,128 +415,305 @@
                     </div>
                 </div>
             </div>
-		</div>
-	</div>
-    <!-- Add Course Include Modal -->
-    <div class="modal fade" id="add-course-include-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered" role="document">
-            <div class="modal-content">
-                <div class="modal-header" style="background: #337ab7; color:white">
-                    <h5 class="modal-title" id="exampleModalLongTitle">Add Course Include</h5>
-                    <button type="button" style="margin-top: -20px; color:white" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <div class="col-md-12">
-                        <form id="add-course-include-form" data-course-form="{{ route('courseinclude.store') }}" class="form-horizontal" enctype="multipart/form-data" method="post" accept-charset="utf-8">
-                            @csrf
-                            <input type="hidden" name="course_id" id="course-id" value="{{ $model->id }}">
-                            <div class="box box-info">
-                                <div class="box-body">
-                                    <div class="form-group">
-                                        <label for="icon" class="col-sm-2 control-label">Icon <span style="color:red">*</span></label>
-                                        <div class="col-sm-8">
-                                            <input type="text" class="form-control" name="icon" id="icon" value="{{ old('icon') }}" placeholder="Copy font awesome tag from library and paste here e.g <i class='fa fa-user' aria-hidden='true'></i>" >
-                                            <a href="https://fontawesome.com/v4/icons/" style="margin-top: 5px" target="_blank" class="btn btn-success">Choose Icon</a><br />
-                                            <span style="color: red" id="error-icon">{{ $errors->first('icon') }}</span>
-                                        </div>
-                                    </div>
-            
-                                    <div class="form-group">
-                                        <label for="detail" class="col-sm-2 control-label">Detail <span style="color:red">*</span></label>
-                                        <div class="col-sm-8">
-                                            <textarea class="form-control" id="detail" rows="5" name="detail" placeholder="Enter detail" >{{ old("detail") }}</textarea>
-                                            <span style="color: red" id="error-detail">{{ $errors->first("detail") }}</span>
-                                        </div>
-                                    </div>
-            
-                                    <div class="form-group">
-                                        <label for="" class="col-sm-2 control-label">Status</label>
-                                        <div class="col-sm-8">
-                                            <div class="switch">
-                                                <input id="ci_status" class="cmn-toggle cmn-toggle-round-flat" value="1" @if(old('status')) checked @endif name="status" type="checkbox">
-                                                <label for="ci_status"></label>
+
+            <!-- COURSE WHATLEARNS-->
+            <div class="bhoechie-tab-content">
+                <div class="box box-info">
+                    <div class="box-body">
+                        <input type="hidden" id="page_url" value="{{ route('whatlearn.index') }}">
+                        <section class="content-header">
+                            <div class="content-header-left">
+                                <h1>WhatLearns</h1>
+                            </div>
+                            <div class="content-header-right">
+                                <button type="button" data-toggle="tooltip" data-placement="left" data-course-id="{{ $model->id }}" title="Add New WhatLearn" class="btn btn-primary btn-sm add-course-whatlearn-btn">Add New WhatLearn</button>
+                            </div>
+                        </section>
+                        <hr />
+                        <section class="content">
+                            <div class="row">
+                                <div class="col-sm-1">Search:</div>
+                                <div class="d-flex col-sm-9">
+                                    <input type="text" id="search" class="form-control" placeholder="Search" style="margin-bottom:5px">
+                                    <input type="hidden" id="status" value="All" class="form-control">
+                                </div>
+                                <div class="d-flex col-sm-9">
+                                    <a href="" class="btn btn"></a>
+                                </div>
+                            </div>
+                            <table id="" class="table table-bordered table-striped">
+                                <thead>
+                                    <tr>
+                                        <th>SL</th>
+                                        <th>Detail</th>
+                                        <th>STATUS</th>
+                                        <th>Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="course-whatlearn-body">
+                                    @foreach ($whatlearns as $key=>$whatlearn)
+                                        <tr id="id-{{ $whatlearn->id }}">
+                                            <td>{{  $whatlearns->firstItem()+$key }}.</td>
+                                            <td>{!! $whatlearn->detail !!}</td>
+                                            <td>
+                                                <div class="switch">
+                                                    <input id="inc_status-{{ $whatlearn->id }}" class="cmn-toggle cmn-toggle-round-flat course-whatlearn-status-btn" data-whatlearn-id="{{ $whatlearn->id }}" data-update-action="{{ route('whatlearn.update', $whatlearn->id) }}" @if($whatlearn->status) value="1" checked @endif name="status" type="checkbox">
+                                                    <label for="inc_status-{{ $whatlearn->id }}"></label>
+                                                </div>
+                                            </td>
+                                            <td width="250px">  
+                                                <button data-toggle="tooltip" data-update-action="{{ route('whatlearn.update', $whatlearn->id) }}" data-course-id="{{ $whatlearn->course_id }}" data-course-whatlearns="{{ $whatlearn }}" data-placement="top" title="Edit Course whatlearn" class="btn btn-primary btn-xs edit-course-whatlearn-btn" style="margin-left: 3px;"><i class="fa fa-edit"></i></button>
+                                                <button data-toggle="tooltip" data-placement="top" title="Delete Course whatlearn" class="btn btn-danger btn-xs delete-course-whatlearn" data-slug="{{ $whatlearn->id }}" data-del-url="{{ route("whatlearn.destroy", $whatlearn->id) }}" style="margin-left: 3px;"><i class="fa fa-trash"></i></button>
+                                            </td>
+                                        </tr>
+                                    @endforeach
+                                    <tr>
+                                        <td colspan="15">
+                                            Displying {{$whatlearns->firstItem()}} to {{$whatlearns->lastItem()}} of {{$whatlearns->total()}} records
+                                            <div class="d-flex justify-content-center">
+                                                {!! $whatlearns->links('pagination::bootstrap-4') !!}
                                             </div>
-                                            <span style="color: red">{{ $errors->first("status") }}</span>
-                                        </div>
-                                    </div>
-            
-                                    <div class="form-group">
-                                        <label for="status" class="col-sm-2 control-label"></label>
-                                        <div class="col-sm-8">
-                                            <button type="submit" class="btn btn-success pull-left">Save</button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </form>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </section>
                     </div>
                 </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
-                </div>
             </div>
-        </div>
-    </div>
 
-     <!-- Edit Course Include Modal -->
-     <div class="modal fade" id="edit-course-include-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered" role="document">
-            <div class="modal-content">
-                <div class="modal-header" style="background: #337ab7; color:white">
-                    <h5 class="modal-title" id="exampleModalLongTitle">Edit Course Include</h5>
-                    <button type="button" style="margin-top: -20px; color:white" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <div class="col-md-12">
-                        <form id="update-course-include-form" class="form-horizontal" enctype="multipart/form-data" method="put" accept-charset="utf-8">
-                            @csrf
-
-                            {{ method_field('PATCH') }}
-                            <input type="hidden" name="course_id" id="course-id" value="{{ $model->id }}">
-                            <div class="box box-info">
-                                <div class="box-body">
-                                    <div class="form-group">
-                                        <label for="icon" class="col-sm-2 control-label">Icon <span style="color:red">*</span></label>
-                                        <div class="col-sm-8">
-                                            <input type="text" class="form-control" name="icon" id="icon" value="{{ old('icon') }}" placeholder="Copy font awesome tag from library and paste here e.g <i class='fa fa-user' aria-hidden='true'></i>" >
-                                            <a href="https://fontawesome.com/v4/icons/" style="margin-top: 5px" target="_blank" class="btn btn-success">Choose Icon</a><br />
-                                            <span style="color: red" id="error-icon">{{ $errors->first('icon') }}</span>
-                                        </div>
-                                    </div>
-            
-                                    <div class="form-group">
-                                        <label for="detail" class="col-sm-2 control-label">Detail <span style="color:red">*</span></label>
-                                        <div class="col-sm-8">
-                                            <textarea class="form-control" id="detail" rows="5" name="detail" placeholder="Enter detail" >{{ old("detail") }}</textarea>
-                                            <span style="color: red" id="error-detail">{{ $errors->first("detail") }}</span>
-                                        </div>
-                                    </div>
-            
-                                    <div class="form-group">
-                                        <label for="status" class="col-sm-2 control-label"></label>
-                                        <div class="col-sm-8">
-                                            <button type="submit" class="btn btn-success pull-left">Save</button>
-                                        </div>
-                                    </div>
+            <!-- COURSE CHAPTERS-->
+            <div class="bhoechie-tab-content">
+                <div class="box box-info">
+                    <div class="box-body">
+                        <input type="hidden" id="page_url" value="{{ route('coursechapter.index') }}">
+                        <section class="content-header">
+                            <div class="content-header-left">
+                                <h1>Course Chapters</h1>
+                            </div>
+                            <div class="content-header-right">
+                                <button type="button" data-toggle="tooltip" data-placement="left" data-course-id="{{ $model->id }}" title="Add New coursechapter" class="btn btn-primary btn-sm add-course-chapter-btn">Add New coursechapter</button>
+                            </div>
+                        </section>
+                        <hr />
+                        <section class="content">
+                            <div class="row">
+                                <div class="col-sm-1">Search:</div>
+                                <div class="d-flex col-sm-9">
+                                    <input type="text" id="search" class="form-control" placeholder="Search" style="margin-bottom:5px">
+                                    <input type="hidden" id="status" value="All" class="form-control">
+                                </div>
+                                <div class="d-flex col-sm-9">
+                                    <a href="" class="btn btn"></a>
                                 </div>
                             </div>
-                        </form>
+                            <table id="" class="table table-bordered table-striped">
+                                <thead>
+                                    <tr>
+                                        <th>SL</th>
+                                        <th>Chapter</th>
+                                        <th>STATUS</th>
+                                        <th>Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="course-chapter-body">
+                                    @foreach ($coursechapters as $key=>$coursechapter)
+                                        <tr id="id-{{ $coursechapter->id }}">
+                                            <td>{{  $coursechapters->firstItem()+$key }}.</td>
+                                            <td>{!! $coursechapter->name !!}</td>
+                                            <td>
+                                                <div class="switch">
+                                                    <input id="inc_status-{{ $coursechapter->id }}" class="cmn-toggle cmn-toggle-round-flat course-chapter-status-btn" data-chapter-id="{{ $coursechapter->id }}" data-update-action="{{ route('coursechapter.update', $coursechapter->id) }}" @if($coursechapter->status) value="1" checked @endif name="status" type="checkbox">
+                                                    <label for="inc_status-{{ $coursechapter->id }}"></label>
+                                                </div>
+                                            </td>
+                                            <td width="250px">  
+                                                <button data-toggle="tooltip" data-update-action="{{ route('coursechapter.update', $coursechapter->id) }}" data-course-id="{{ $coursechapter->course_id }}" data-course-chapters="{{ $coursechapter }}" data-placement="top" title="Edit Course coursechapter" class="btn btn-primary btn-xs edit-course-chapter-btn" style="margin-left: 3px;"><i class="fa fa-edit"></i></button>
+                                                <button data-toggle="tooltip" data-placement="top" title="Delete Course coursechapter" class="btn btn-danger btn-xs delete-course-chapter" data-slug="{{ $coursechapter->id }}" data-del-url="{{ route("coursechapter.destroy", $coursechapter->id) }}" style="margin-left: 3px;"><i class="fa fa-trash"></i></button>
+                                            </td>
+                                        </tr>
+                                    @endforeach
+                                    <tr>
+                                        <td colspan="15">
+                                            Displying {{$coursechapters->firstItem()}} to {{$coursechapters->lastItem()}} of {{$coursechapters->total()}} records
+                                            <div class="d-flex justify-content-center">
+                                                {!! $coursechapters->links('pagination::bootstrap-4') !!}
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </section>
                     </div>
                 </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+            </div>
+
+            <!-- COURSE CLASSES-->
+            <div class="bhoechie-tab-content">
+                <div class="box box-info">
+                    <div class="box-body">
+                        <input type="hidden" id="page_url" value="{{ route('courseclass.index') }}">
+                        <section class="content-header">
+                            <div class="content-header-left">
+                                <h1>Course Classes</h1>
+                            </div>
+                            <div class="content-header-right">
+                                <button type="button" data-toggle="tooltip" data-placement="left" data-course-id="{{ $model->id }}" title="Add New courseclass" class="btn btn-primary btn-sm add-course-class-btn">Add New Course Class</button>
+                            </div>
+                        </section>
+                        <hr />
+                        <section class="content">
+                            <div class="row">
+                                <div class="col-sm-1">Search:</div>
+                                <div class="d-flex col-sm-9">
+                                    <input type="text" id="search" class="form-control" placeholder="Search" style="margin-bottom:5px">
+                                    <input type="hidden" id="status" value="All" class="form-control">
+                                </div>
+                                <div class="d-flex col-sm-9">
+                                    <a href="" class="btn btn"></a>
+                                </div>
+                            </div>
+                            <table id="" class="table table-bordered table-striped">
+                                <thead>
+                                    <tr>
+                                        <th>SL</th>
+                                        <th>Chapter</th>
+                                        <th>Title</th>
+                                        <th>STATUS</th>
+                                        <th>FEATURED</th>
+                                        <th>Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="course-class-body">
+                                    @foreach ($courseclasses as $key=>$courseclass)
+                                        <tr id="id-{{ $courseclass->id }}">
+                                            <td>{{  $courseclasses->firstItem()+$key }}.</td>
+                                            <td>{!! $courseclass->hasChapter->name??'N/A' !!}</td>
+                                            <td>{!! $courseclass->title !!}</td>
+                                            <td>
+                                                <div class="switch">
+                                                    <input id="class_status-{{ $courseclass->id }}" class="cmn-toggle cmn-toggle-round-flat course-class-status-btn" data-class-id="{{ $courseclass->id }}" data-update-action="{{ route('courseclass.update', $courseclass->id) }}" @if($courseclass->status) value="1" checked @endif name="status" type="checkbox">
+                                                    <label for="class_status-{{ $courseclass->id }}"></label>
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="switch">
+                                                    <input id="is_featured-{{ $courseclass->id }}" class="cmn-toggle cmn-toggle-round-flat course-class-featured-btn" data-class-id="{{ $courseclass->id }}" data-update-action="{{ route('courseclass.update', $courseclass->id) }}" value="1" @if($courseclass->is_featured) checked @endif name="is_featured" type="checkbox">
+                                                    <label for="is_featured-{{ $courseclass->id }}"></label>
+                                                </div>
+                                            </td>
+                                            <td width="250px">  
+                                                <button data-toggle="tooltip" data-update-action="{{ route('courseclass.update', $courseclass->id) }}" data-edit-class-url="{{ route('courseclass.edit', $courseclass->id) }}" data-class-id="{{ $courseclass->course_id }}"  data-placement="top" title="Edit Course courseclass" class="btn btn-primary btn-xs edit-course-class-btn" style="margin-left: 3px;"><i class="fa fa-edit"></i></button>
+                                                <button data-toggle="tooltip" data-placement="top" title="Delete Course courseclass" class="btn btn-danger btn-xs delete-course-class" data-slug="{{ $courseclass->id }}" data-del-url="{{ route("courseclass.destroy", $courseclass->id) }}" style="margin-left: 3px;"><i class="fa fa-trash"></i></button>
+                                            </td>
+                                        </tr>
+                                    @endforeach
+                                    <tr>
+                                        <td colspan="15">
+                                            Displying {{$courseclasses->firstItem()}} to {{$courseclasses->lastItem()}} of {{$courseclasses->total()}} records
+                                            <div class="d-flex justify-content-center">
+                                                {!! $courseclasses->links('pagination::bootstrap-4') !!}
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </section>
+                    </div>
                 </div>
             </div>
-        </div>
-    </div>
+
+            <!-- COURSE questions-->
+            <div class="bhoechie-tab-content">
+                <div class="box box-info">
+                    <div class="box-body">
+                        <input type="hidden" id="page_url" value="{{ route('courseclass.index') }}">
+                        <section class="content-header">
+                            <div class="content-header-left">
+                                <h1>Course Classes</h1>
+                            </div>
+                            <div class="content-header-right">
+                                <button type="button" data-toggle="tooltip" data-placement="left" data-course-id="{{ $model->id }}" title="Add New courseclass" class="btn btn-primary btn-sm add-course-class-btn">Add New Course Class</button>
+                            </div>
+                        </section>
+                        <hr />
+                        <section class="content">
+                            <div class="row">
+                                <div class="col-sm-1">Search:</div>
+                                <div class="d-flex col-sm-9">
+                                    <input type="text" id="search" class="form-control" placeholder="Search" style="margin-bottom:5px">
+                                    <input type="hidden" id="status" value="All" class="form-control">
+                                </div>
+                                <div class="d-flex col-sm-9">
+                                    <a href="" class="btn btn"></a>
+                                </div>
+                            </div>
+                            <table id="" class="table table-bordered table-striped">
+                                <thead>
+                                    <tr>
+                                        <th>SL</th>
+                                        <th>Chapter</th>
+                                        <th>Title</th>
+                                        <th>STATUS</th>
+                                        <th>FEATURED</th>
+                                        <th>Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="course-class-body">
+                                    @foreach ($courseclasses as $key=>$courseclass)
+                                        <tr id="id-{{ $courseclass->id }}">
+                                            <td>{{  $courseclasses->firstItem()+$key }}.</td>
+                                            <td>{!! $courseclass->hasChapter->name??'N/A' !!}</td>
+                                            <td>{!! $courseclass->title !!}</td>
+                                            <td>
+                                                <div class="switch">
+                                                    <input id="class_status-{{ $courseclass->id }}" class="cmn-toggle cmn-toggle-round-flat course-class-status-btn" data-class-id="{{ $courseclass->id }}" data-update-action="{{ route('courseclass.update', $courseclass->id) }}" @if($courseclass->status) value="1" checked @endif name="status" type="checkbox">
+                                                    <label for="class_status-{{ $courseclass->id }}"></label>
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="switch">
+                                                    <input id="is_featured-{{ $courseclass->id }}" class="cmn-toggle cmn-toggle-round-flat course-class-featured-btn" data-class-id="{{ $courseclass->id }}" data-update-action="{{ route('courseclass.update', $courseclass->id) }}" value="1" @if($courseclass->is_featured) checked @endif name="is_featured" type="checkbox">
+                                                    <label for="is_featured-{{ $courseclass->id }}"></label>
+                                                </div>
+                                            </td>
+                                            <td width="250px">  
+                                                <button data-toggle="tooltip" data-update-action="{{ route('courseclass.update', $courseclass->id) }}" data-edit-class-url="{{ route('courseclass.edit', $courseclass->id) }}" data-class-id="{{ $courseclass->course_id }}"  data-placement="top" title="Edit Course courseclass" class="btn btn-primary btn-xs edit-course-class-btn" style="margin-left: 3px;"><i class="fa fa-edit"></i></button>
+                                                <button data-toggle="tooltip" data-placement="top" title="Delete Course courseclass" class="btn btn-danger btn-xs delete-course-class" data-slug="{{ $courseclass->id }}" data-del-url="{{ route("courseclass.destroy", $courseclass->id) }}" style="margin-left: 3px;"><i class="fa fa-trash"></i></button>
+                                            </td>
+                                        </tr>
+                                    @endforeach
+                                    <tr>
+                                        <td colspan="15">
+                                            Displying {{$courseclasses->firstItem()}} to {{$courseclasses->lastItem()}} of {{$courseclasses->total()}} records
+                                            <div class="d-flex justify-content-center">
+                                                {!! $courseclasses->links('pagination::bootstrap-4') !!}
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </section>
+                    </div>
+                </div>
+            </div>
+		</div>
+	</div>    
+
+    @include('web-views.website.courseincludes.classes.modals')
+
+    @include('web-views.website.courseincludes.chapters.modals')
+    
+    @include('web-views.website.courseincludes.whatlearns.modals')
+
+    @include('web-views.website.courseincludes.includes.modals')
 </section>
 
 @endsection
 @push('js')
+    <script src="{{ asset('public/website/js/course-include/course-class-functions.js') }}"></script>
+    <script src="{{ asset('public/website/js/course-include/course-chapter-functions.js') }}"></script>
+    <script src="{{ asset('public/website/js/course-include/course-whatlearn-functions.js') }}"></script>
     <script src="{{ asset('public/website/js/course-include/course-include-functions.js') }}"></script>
     <script>
         $(document).on('click', '#youtube_url', function(){

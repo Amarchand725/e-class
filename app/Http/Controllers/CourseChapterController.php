@@ -3,11 +3,11 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Menu;
-use App\Models\Courseinclude;
+use App\Models\CourseChapter;
 use DB;
 use Session;
 
-class CourseincludeController extends Controller
+class CourseChapterController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -17,17 +17,17 @@ class CourseincludeController extends Controller
     public function index(Request $request)
     {
         if($request->ajax()){
-            $query = Courseinclude::orderby('id', 'desc')->where('id', '>', 0);
+            $query = CourseChapter::orderby('id', 'desc')->where('id', '>', 0);
             if($request['search'] != ""){
-                $query->where("course_id", "like", "%". $request["search"] ."%");$query->orWhere("icon", "like", "%". $request["search"] ."%");$query->orWhere("detail", "like", "%". $request["search"] ."%");
+                $query->where("name", "like", "%". $request["search"] ."%");$query->orWhere("file", "like", "%". $request["search"] ."%");
             }
             $models = $query->paginate(10);
-            return (string) view('courseincludes._search', compact('models'));
+            return (string) view('coursechapters._search', compact('models'));
         }
 
-        $page_title = Menu::where('menu', 'courseinclude')->first()->label;
-        $models = Courseinclude::orderby('id', 'desc')->paginate(10);
-        return view('courseincludes.index', compact('models', 'page_title'));
+        $page_title = Menu::where('menu', 'coursechapter')->first()->label;
+        $models = CourseChapter::orderby('id', 'desc')->paginate(10);
+        return view('coursechapters.index', compact('models', 'page_title'));
     }
 
     /**
@@ -37,8 +37,8 @@ class CourseincludeController extends Controller
      */
     public function create()
     {
-        $view_all_title = Menu::where('menu', 'courseinclude')->first()->label;
-        return view('courseincludes.create', compact('view_all_title'));
+        $view_all_title = Menu::where('menu', 'coursechapter')->first()->label;
+        return view('coursechapters.create', compact('view_all_title'));
     }
 
     /**
@@ -48,8 +48,8 @@ class CourseincludeController extends Controller
      */
     public function store(Request $request)
     {
-        $this->validate($request, Courseinclude::getValidationRules());
-        
+        $this->validate($request, CourseChapter::getValidationRules());
+
         $input = $request->all();
 
         DB::beginTransaction();
@@ -58,17 +58,17 @@ class CourseincludeController extends Controller
             if(!isset($request->status)){
                 $input['status'] = 0;
             }
-	        $model = Courseinclude::create($input);
+	        $model = CourseChapter::create($input);
 
             DB::commit();
             if($model){
-                $includes = Courseinclude::orderby('id', 'desc')->where('course_id', $model->course_id)->paginate(10);
-                $listing = (string) view('web-views.website.courseincludes.includes.listing', compact('includes'));
+                $coursechapters = CourseChapter::orderby('id', 'desc')->where('course_id', $model->course_id)->paginate(10);
+                $listing = (string) view('web-views.website.courseincludes.chapters.listing', compact('coursechapters'));
                 return response()->json(['code'=>200, 'listing'=>$listing]);
             }
         } catch (\Exception $e) {
             DB::rollback();
-            return response()->json(['error'=>'Error. '.$e->getMessage()], 500);
+            return redirect()->back()->with('error', 'Error. '.$e->getMessage());
         }
     }
 
@@ -80,9 +80,9 @@ class CourseincludeController extends Controller
      */
     public function show($id)
     {
-        $view_all_title = Menu::where('menu', 'courseinclude')->first()->label;
-        $model = Courseinclude::findOrFail($id);
-      	return view('courseincludes.show', compact('view_all_title', 'model'));
+        $view_all_title = Menu::where('menu', 'coursechapter')->first()->label;
+        $model = CourseChapter::findOrFail($id);
+      	return view('coursechapters.show', compact('view_all_title', 'model'));
     }
 
     /**
@@ -93,9 +93,9 @@ class CourseincludeController extends Controller
      */
     public function edit($id)
     {
-        $view_all_title = Menu::where('menu', 'courseinclude')->first()->label;
-        $model = Courseinclude::findOrFail($id);
-        return view('courseincludes.edit', compact('view_all_title', 'model'));
+        $view_all_title = Menu::where('menu', 'coursechapter')->first()->label;
+        $model = CourseChapter::findOrFail($id);
+        return view('coursechapters.edit', compact('view_all_title', 'model'));
     }
 
     /**
@@ -106,8 +106,8 @@ class CourseincludeController extends Controller
      */
     public function update($id, Request $request)
     {
-        $model = Courseinclude::findOrFail($id);
-        
+        $model = CourseChapter::findOrFail($id);
+
         if(isset($request->change_status)){
             if($model->status==1){
                 $model->status = 0;
@@ -116,14 +116,14 @@ class CourseincludeController extends Controller
             }
             $model->save();
             if($model){
-                $includes = Courseinclude::orderby('id', 'desc')->where('course_id', $model->course_id)->paginate(10);
-                $listing = (string) view('web-views.website.courseincludes.includes.listing', compact('includes'));
+                $coursechapters = CourseChapter::orderby('id', 'desc')->where('course_id', $model->course_id)->paginate(10);
+                $listing = (string) view('web-views.website.courseincludes.chapters.listing', compact('coursechapters'));
                 return response()->json(['code'=>200, 'listing'=>$listing]);
             }
         }
 
         $input = $request->all();
-	    $this->validate($request, Courseinclude::getValidationRules());
+	    $this->validate($request, CourseChapter::getValidationRules());
 
         try{
             $input = $request->except(['status']);
@@ -131,8 +131,8 @@ class CourseincludeController extends Controller
             
             DB::commit();
             if($model){
-                $includes = Courseinclude::orderby('id', 'desc')->where('course_id', $model->course_id)->paginate(10);
-                $listing = (string) view('web-views.website.courseincludes.includes.listing', compact('includes'));
+                $coursechapters = CourseChapter::orderby('id', 'desc')->where('course_id', $model->course_id)->paginate(10);
+                $listing = (string) view('web-views.website.courseincludes.chapters.listing', compact('coursechapters'));
                 return response()->json(['code'=>200, 'listing'=>$listing]);
             }
         } catch (\Exception $e) {
@@ -149,7 +149,7 @@ class CourseincludeController extends Controller
      */
     public function destroy($id)
     {
-        $model = Courseinclude::findOrFail($id);
+        $model = CourseChapter::findOrFail($id);
 	    $model->delete();
 
         if($model){

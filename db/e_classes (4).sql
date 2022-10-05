@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Sep 30, 2022 at 04:36 PM
+-- Generation Time: Oct 05, 2022 at 04:21 PM
 -- Server version: 10.4.20-MariaDB
 -- PHP Version: 7.4.22
 
@@ -142,6 +142,67 @@ INSERT INTO `countries` (`id`, `name`, `country_code`, `currency`, `currency_sym
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `coursechapters`
+--
+
+CREATE TABLE `coursechapters` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `course_id` bigint(20) NOT NULL,
+  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `file` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `status` tinyint(1) NOT NULL DEFAULT 1,
+  `deleted_at` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `coursechapters`
+--
+
+INSERT INTO `coursechapters` (`id`, `course_id`, `name`, `file`, `status`, `deleted_at`, `created_at`, `updated_at`) VALUES
+(1, 11, 'Student', NULL, 0, NULL, '2022-10-05 03:28:05', '2022-10-05 03:28:05'),
+(2, 11, 'Amar', NULL, 0, NULL, '2022-10-05 03:28:16', '2022-10-05 08:07:16'),
+(3, 11, 'Employee', NULL, 1, NULL, '2022-10-05 03:36:23', '2022-10-05 07:46:42'),
+(4, 11, 'Jackson', NULL, 1, NULL, '2022-10-05 03:36:35', '2022-10-05 07:50:51'),
+(5, 11, 'Employee updated', NULL, 0, '2022-10-05 09:03:12', '2022-10-05 03:37:27', '2022-10-05 04:03:12'),
+(6, 11, 'Amarchand', NULL, 0, '2022-10-05 09:03:01', '2022-10-05 03:38:40', '2022-10-05 04:03:01'),
+(8, 11, 'Amar', NULL, 0, '2022-10-05 08:47:28', '2022-10-05 03:39:34', '2022-10-05 03:47:28'),
+(9, 11, 'Amar', NULL, 0, '2022-10-05 08:47:25', '2022-10-05 03:41:19', '2022-10-05 03:47:25'),
+(10, 11, 'tested', NULL, 0, '2022-10-05 08:47:22', '2022-10-05 03:47:18', '2022-10-05 03:47:22');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `courseclasses`
+--
+
+CREATE TABLE `courseclasses` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `course_id` bigint(20) NOT NULL,
+  `chapter_id` bigint(20) NOT NULL,
+  `title` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `detail` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `type` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `attachment` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `is_featured` tinyint(1) NOT NULL,
+  `status` tinyint(1) NOT NULL DEFAULT 1,
+  `deleted_at` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `courseclasses`
+--
+
+INSERT INTO `courseclasses` (`id`, `course_id`, `chapter_id`, `title`, `detail`, `type`, `attachment`, `is_featured`, `status`, `deleted_at`, `created_at`, `updated_at`) VALUES
+(1, 11, 3, 'Minim in quo sint r', 'Cupidatat dolores ut', 'Image', NULL, 0, 0, NULL, '2022-10-05 06:08:44', '2022-10-05 09:01:43'),
+(2, 11, 3, 'Dolore ea et quia do--updated', 'Et aut animi omnis--update', 'Audio', NULL, 1, 1, NULL, '2022-10-05 06:09:46', '2022-10-05 09:05:27');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `courseincludes`
 --
 
@@ -161,24 +222,22 @@ CREATE TABLE `courseincludes` (
 --
 
 INSERT INTO `courseincludes` (`id`, `course_id`, `icon`, `detail`, `status`, `deleted_at`, `created_at`, `updated_at`) VALUES
-(1, 11, '<i class=\"fa fa-window-restore\" aria-hidden=\"true\"></i>', 'tested', 1, NULL, '2022-09-30 02:50:43', '2022-09-30 02:50:43'),
-(2, 11, '<i class=\"fa fa-sliders\" aria-hidden=\"true\"></i>', 'tesetd', 0, NULL, '2022-09-30 03:09:33', '2022-09-30 03:09:33'),
-(3, 11, '<i class=\"fa fa-sliders\" aria-hidden=\"true\"></i>', 'tested', 1, NULL, '2022-09-30 03:24:20', '2022-09-30 03:24:20'),
-(4, 11, '<i class=\"fa fa-sliders\" aria-hidden=\"true\"></i>', 'tested', 1, NULL, '2022-09-30 03:24:28', '2022-09-30 03:24:28'),
-(5, 11, '<i class=\"fa fa-sliders\" aria-hidden=\"true\"></i>', 'tyyyy', 1, NULL, '2022-09-30 03:26:00', '2022-09-30 03:26:00'),
-(6, 11, '<i class=\"fa fa-sliders\" aria-hidden=\"true\"></i>', 'tyyyy', 1, NULL, '2022-09-30 03:27:09', '2022-09-30 03:27:09'),
-(7, 11, '<i class=\"fa fa-globe\" aria-hidden=\"true\"></i>', 'ggdf', 0, NULL, '2022-09-30 03:27:29', '2022-09-30 05:49:55'),
-(8, 11, '<i class=\"fa fa-sliders\" aria-hidden=\"true\"></i>', 'yuio', 1, '2022-09-30 10:27:37', '2022-09-30 03:31:12', '2022-09-30 05:27:37'),
-(9, 11, '<i class=\"fa fa-sliders\" aria-hidden=\"true\"></i>', 'amat', 1, '2022-09-30 10:27:34', '2022-09-30 03:31:48', '2022-09-30 05:27:34'),
-(10, 11, '<i class=\"fa fa-university\" aria-hidden=\"true\"></i>', 'ahoi', 0, '2022-09-30 10:27:30', '2022-09-30 03:32:13', '2022-09-30 05:27:30'),
-(11, 11, '<i class=\"fa fa-globe\" aria-hidden=\"true\"></i>', 'updated--updated', 0, '2022-09-30 10:27:27', '2022-09-30 03:32:14', '2022-09-30 05:27:27'),
-(12, 12, '<i class=\"fa fa-globe\" aria-hidden=\"true\"></i>', 'tesd-updated', 0, NULL, '2022-09-30 03:34:51', '2022-09-30 04:35:08'),
-(13, 13, '<i class=\"fa fa-globe\" aria-hidden=\"true\"></i>', 'tesd--updated', 0, NULL, '2022-09-30 03:34:55', '2022-09-30 04:34:33'),
-(14, 14, '<i class=\"fa fa-university\" aria-hidden=\"true\"></i>', 'you--updated', 0, NULL, '2022-09-30 03:35:09', '2022-09-30 04:33:58'),
-(15, 15, '<i class=\"fa fa-globe\" aria-hidden=\"true\"></i>', 'tested-updated', 0, NULL, '2022-09-30 03:42:33', '2022-09-30 04:30:29'),
-(16, 16, '<i class=\"fa fa-window-restore\" aria-hidden=\"true\"></i>', 'detasss-updated', 0, NULL, '2022-09-30 03:52:33', '2022-09-30 04:30:42'),
-(17, 17, '<i class=\"fa fa-globe\" aria-hidden=\"true\"></i>', 'tested -updated', 0, NULL, '2022-09-30 09:11:59', '2022-09-30 09:19:19'),
-(18, 18, '<i class=\"fa fa-window-restore\" aria-hidden=\"true\"></i>', 'tesed -updated', 0, NULL, '2022-09-30 09:13:26', '2022-09-30 09:13:56');
+(1, 11, '<i class=\"fa fa-university\" aria-hidden=\"true\"></i>', 'teted', 1, NULL, '2022-10-05 02:07:11', '2022-10-05 08:05:01');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `coursequestions`
+--
+
+CREATE TABLE `coursequestions` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `question` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `status` tinyint(1) NOT NULL DEFAULT 1,
+  `deleted_at` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
 
@@ -227,44 +286,6 @@ INSERT INTO `courses` (`id`, `created_by`, `instructor_slug`, `institute_slug`, 
 (9, 11, 'claire-robertson-8u', 'justina-moon', 'design', 'The Mordern JavaScript - The Complete Guide', 'the-mordern-javascript-the-complete-guide', NULL, NULL, NULL, '1000', 'Modern JavaScript from the beginning - all the way up to JS expert level! THE must-have JavaScript resource in 2020.', '<p>This is the most far reaching and present day course you can discover on JavaScript - it depends on all my JavaScript information AND educating experience. It&#39;s both a total guide, beginning with the center essentials of the language, just as a broad reference of the JavaScript language and condition, guaranteeing that the two newcomers just as experienced JavaScript designers get a great deal out&nbsp;of this course!</p>', '<p>It&#39;s an enormous course since it&#39;s stuffed with significant information and supportive substance. From the center nuts and bolts, over cutting edge ideas and JavaScript strengths, as far as possible up to master points like execution enhancement and testing - this course has everything. My objective was to make your go-to asset for the JavaScript language, which you can use for learning it as well as an asset you can return to and look into significant themes. The course depends on my experience as a long haul JavaScript engineer just as an instructor with in excess of 1,000,000 understudies on Udemy just as on my YouTube channel Academind. It&#39;s stuffed with models, demos, ventures, assignments, tests and obviously recordings - all with the objective of giving you the most ideal method for learning JavaScript.</p>', 1, NULL, '25-09-2022-144841.jpg', NULL, NULL, NULL, 1, NULL, '2022-09-25 09:48:41', '2022-09-25 09:48:41'),
 (10, 11, 'claire-robertson-8u', 'justina-moon', 'photography', 'The Complete Web Developer Bootcamp', 'the-complete-web-developer-bootcamp', NULL, NULL, NULL, '1500', 'The only course you need to learn web development - HTML, CSS, JS, Node, and More!', '<ul>\r\n	<li>94% of my in-person bootcamp understudies proceed to land full-time engineer positions. The vast majority of them are finished apprentices when I start working with them. The past 2 bootcamp programs that I showed cost $14,000 and $21,000. This course is similarly as extensive however with spic and span content at a small amount of the cost.</li>\r\n</ul>', '<p>This is the main complete tenderfoot full-stack designer course that spreads NodeJS. We assemble 13+ activities, including a monstrous generation application called YelpCamp. No other course strolls you through the formation of such a generous application. The course is continually refreshed with new substance, ventures, and modules. Consider it a membership to a ceaseless inventory of designer preparing. You find a good pace hound Rusty! At the point when you&#39;re figuring out how to program you frequently need to forfeit learning the energizing and current advances for the &quot;apprentice amicable&quot; classes. With this course, you outwit the two universes. This is a course intended for the total tenderfoot, yet it covers the absolute generally energizing and important themes in the business.</p>', 1, NULL, '25-09-2022-145027.jpg', NULL, NULL, NULL, 1, NULL, '2022-09-25 09:50:27', '2022-09-25 09:50:27'),
 (11, 11, 'claire-robertson-8u', 'melinda-tillman', 'lifestyle', 'Culpa velit volupta', 'culpa-velit-volupta', '400', 'fix', '10', '390', 'In et laboris soluta', '<p><strong>Lorem Ipsum</strong>&nbsp;is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry&#39;s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</p>', '<p><strong>Lorem Ipsum</strong>&nbsp;is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry&#39;s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</p>', 1, 1, '29-09-2022-132330.jpg', 'https://www.youtube.com/watch?v=d_TG77u6-AU', NULL, '16:37:00', 1, NULL, '2022-09-29 08:23:30', '2022-09-29 08:54:17');
-
--- --------------------------------------------------------
-
---
--- Table structure for table `course_includes`
---
-
-CREATE TABLE `course_includes` (
-  `id` bigint(20) UNSIGNED NOT NULL,
-  `course_id` bigint(20) NOT NULL,
-  `icon` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `detail` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
---
--- Dumping data for table `course_includes`
---
-
-INSERT INTO `course_includes` (`id`, `course_id`, `icon`, `detail`, `created_at`, `updated_at`) VALUES
-(1, 1, '<i class=\"fa fa-bullhorn\"></i>', 'Anytime, Anywhere', '2022-09-25 06:41:04', '2022-09-25 06:41:04'),
-(2, 1, '<i class=\"fa fa-bandcamp\"></i>', 'on-demand video', '2022-09-25 06:41:04', '2022-09-25 06:41:04'),
-(3, 1, '<i class=\"fa fa-bullseye\"></i>', 'Full lifetime access', '2022-09-25 06:41:04', '2022-09-25 06:41:04'),
-(4, 2, '<i class=\"fa fa-university\" aria-hidden=\"true\"></i>', 'Anytime, Anywhere', '2022-09-25 07:51:29', '2022-09-25 07:51:29'),
-(5, 2, '<i class=\"fa fa-building-o\"></i>', 'Downloadable resources', '2022-09-25 07:51:29', '2022-09-25 07:51:29'),
-(6, 2, '<i class=\"fa fa-bolt\"></i>', 'Full lifetime access', '2022-09-25 07:51:29', '2022-09-25 07:51:29'),
-(7, 2, '<i class=\"fa fa-adjust\"></i>', 'Access on mobile and TV', '2022-09-25 07:51:29', '2022-09-25 07:51:29'),
-(15, 5, '<i class=\"fa fa-braille\"></i>', 'On-demand video', '2022-09-25 09:39:13', '2022-09-25 09:39:13'),
-(16, 5, '<i class=\"fa fa-buysellads\"></i>', 'Full lifetime access', '2022-09-25 09:39:13', '2022-09-25 09:39:13'),
-(17, 5, '<i class=\"fa fa-crosshairs\"></i>', 'Access on mobile and TV', '2022-09-25 09:39:13', '2022-09-25 09:39:13'),
-(18, 6, '<i class=\"fa fa-bullhorn\"></i>', 'Anytime, Anywhere', '2022-09-25 09:42:44', '2022-09-25 09:42:44'),
-(19, 6, '<i class=\"fa fa-anchor\"></i>', 'Full lifetime access', '2022-09-25 09:42:44', '2022-09-25 09:42:44'),
-(20, 6, '<i class=\"fa fa-book\"></i>', 'Access on mobile and TV', '2022-09-25 09:42:44', '2022-09-25 09:42:44'),
-(21, 7, '<i class=\"fa fa-thermometer-full\" aria-hidden=\"true\"></i>', 'Anytime, Anywhere', '2022-09-25 09:44:50', '2022-09-25 09:44:50'),
-(22, 8, '<i class=\"fa fa-thermometer-full\" aria-hidden=\"true\"></i>', 'Anytime, Anywhere', '2022-09-25 09:46:57', '2022-09-25 09:46:57'),
-(25, 10, '<i class=\"fa fa-thermometer-full\" aria-hidden=\"true\"></i>', 'On-demand video', '2022-09-29 04:40:51', '2022-09-29 04:40:51'),
-(26, 9, '<i class=\"fa fa-thermometer-full\" aria-hidden=\"true\"></i>', 'Anytime, Anywhere', '2022-09-29 04:41:16', '2022-09-29 04:41:16');
 
 -- --------------------------------------------------------
 
@@ -433,7 +454,11 @@ INSERT INTO `menus` (`id`, `menu_of`, `parent_id`, `menu`, `icon`, `label`, `url
 (63, 'admin', NULL, 'city', '<i class=\"fa fa-window-restore\" aria-hidden=\"true\"></i>', 'All Cities', 'admin/city', 1, NULL, NULL, NULL),
 (64, 'admin', NULL, 'userprofile', '<i class=\"fa fa-user-secret\" aria-hidden=\"true\"></i>', 'All Users', 'admin/userprofile', 1, NULL, NULL, NULL),
 (66, 'admin', NULL, 'institute', '<i class=\"fa fa-university\" aria-hidden=\"true\"></i>', 'All Instittutes', 'admin/institute', 1, NULL, NULL, NULL),
-(68, 'admin', NULL, 'courseinclude', '<i class=\"fa fa-window-maximize\" aria-hidden=\"true\"></i>', 'Course Includes', 'admin/courseinclude', 1, NULL, NULL, NULL);
+(68, 'admin', NULL, 'courseinclude', '<i class=\"fa fa-window-maximize\" aria-hidden=\"true\"></i>', 'Course Includes', 'admin/courseinclude', 1, NULL, NULL, NULL),
+(69, 'admin', NULL, 'whatlearn', '<i class=\"fa fa-microchip\" aria-hidden=\"true\"></i>', 'WhatLearns', 'admin/whatlearn', 1, NULL, NULL, NULL),
+(70, 'admin', NULL, 'coursechapter', '<i class=\"fa fa-book\" aria-hidden=\"true\"></i>', 'Course Chapters', 'admin/coursechapter', 1, NULL, NULL, NULL),
+(71, 'admin', NULL, 'courseclass', '<i class=\"fa fa-credit-card-alt\" aria-hidden=\"true\"></i>', 'Course Classes', 'admin/courseclass', 1, NULL, NULL, NULL),
+(76, 'admin', NULL, 'coursequestion', '<i class=\"fa fa-bell-o\" aria-hidden=\"true\"></i>', 'Course Question & Answers', 'admin/coursequestion', 1, NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -464,8 +489,6 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 (10, '2022_09_23_055619_create_categories_table', 3),
 (11, '2022_09_23_081845_create_learnings_table', 4),
 (13, '2022_09_24_062614_create_facts_table', 5),
-(16, '2022_09_24_095433_create_what_learns_table', 7),
-(17, '2022_09_24_095928_create_course_includes_table', 8),
 (18, '2022_09_24_100237_create_course_tags_table', 9),
 (19, '2022_09_24_080939_create_courses_table', 10),
 (22, '2022_09_25_043046_create_blogs_table', 12),
@@ -475,7 +498,11 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 (31, '2022_09_27_114502_create_cities_table', 17),
 (33, '2022_09_27_124239_create_userprofiles_table', 18),
 (35, '2022_09_28_105117_create_institutes_table', 19),
-(37, '2022_09_30_055602_create_courseincludes_table', 20);
+(37, '2022_09_30_055602_create_courseincludes_table', 20),
+(39, '2022_10_05_055826_create_whatlearns_table', 21),
+(41, '2022_10_05_074442_create_coursechapters_table', 22),
+(43, '2022_10_05_091137_create_courseclasses_table', 23),
+(45, '2022_10_05_022031_create_coursequestions_table', 24);
 
 -- --------------------------------------------------------
 
@@ -776,52 +803,35 @@ INSERT INTO `users` (`id`, `name`, `slug`, `email`, `email_verified_at`, `passwo
 -- --------------------------------------------------------
 
 --
--- Table structure for table `what_learns`
+-- Table structure for table `whatlearns`
 --
 
-CREATE TABLE `what_learns` (
+CREATE TABLE `whatlearns` (
   `id` bigint(20) UNSIGNED NOT NULL,
   `course_id` bigint(20) NOT NULL,
-  `title` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `detail` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `status` tinyint(1) NOT NULL DEFAULT 1,
+  `deleted_at` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Dumping data for table `what_learns`
+-- Dumping data for table `whatlearns`
 --
 
-INSERT INTO `what_learns` (`id`, `course_id`, `title`, `created_at`, `updated_at`) VALUES
-(1, 1, 'Locating the perfect dates to travel for the cheapest price.', '2022-09-25 06:41:04', '2022-09-25 06:41:04'),
-(2, 1, 'Locating the perfect dates to travel for the cheapest price.', '2022-09-25 06:41:04', '2022-09-25 06:41:04'),
-(3, 1, 'Learn the tricks of travel and finding discount places to stay.', '2022-09-25 06:41:04', '2022-09-25 06:41:04'),
-(4, 1, 'How to travel light', '2022-09-25 06:41:04', '2022-09-25 06:41:04'),
-(5, 1, 'How to finance your trips', '2022-09-25 06:41:04', '2022-09-25 06:41:04'),
-(6, 1, 'How to locate & book cheap flights', '2022-09-25 06:41:04', '2022-09-25 06:41:04'),
-(7, 1, 'How to communicate if you don\'t speak the native language in a country.', '2022-09-25 06:41:04', '2022-09-25 06:41:04'),
-(8, 2, 'You\'ll be able to draw onto your clients nails some sophisticated', '2022-09-25 07:51:29', '2022-09-25 07:51:29'),
-(9, 2, 'You\'ll have a different perspective about designing nails', '2022-09-25 07:51:29', '2022-09-25 07:51:29'),
-(10, 2, 'Practice to be able to reach', '2022-09-25 07:51:29', '2022-09-25 07:51:29'),
-(19, 5, 'Curl your hair', '2022-09-25 09:39:13', '2022-09-25 09:39:13'),
-(20, 5, 'Straighten your hai', '2022-09-25 09:39:13', '2022-09-25 09:39:13'),
-(21, 5, 'Cut your own hair', '2022-09-25 09:39:13', '2022-09-25 09:39:13'),
-(22, 5, 'Dye your own hair naturally at hom', '2022-09-25 09:39:13', '2022-09-25 09:39:13'),
-(23, 6, 'Draw the human face', '2022-09-25 09:42:44', '2022-09-25 09:42:44'),
-(24, 6, 'Draw perspective drawings', '2022-09-25 09:42:44', '2022-09-25 09:42:44'),
-(25, 6, 'Drawing Fundamentals', '2022-09-25 09:42:44', '2022-09-25 09:42:44'),
-(26, 6, 'Character design', '2022-09-25 09:42:44', '2022-09-25 09:42:44'),
-(27, 6, 'How to create concept art', '2022-09-25 09:42:44', '2022-09-25 09:42:44'),
-(28, 7, 'Spend less time fighting with the DAW and more time focusing on the music.', '2022-09-25 09:44:50', '2022-09-25 09:44:50'),
-(29, 7, 'Discover the quickest and easiest ways to write music in Logic Pro.', '2022-09-25 09:44:50', '2022-09-25 09:44:50'),
-(30, 7, 'Professional by following my step-by-step mixing system using stock plugins.', '2022-09-25 09:44:50', '2022-09-25 09:44:50'),
-(31, 8, 'Be comfortable putting SQL and PostgreSQL on their resume', '2022-09-25 09:46:57', '2022-09-25 09:46:57'),
-(32, 8, 'Use SQL to perform data analysis', '2022-09-25 09:46:57', '2022-09-25 09:46:57'),
-(33, 8, 'Be confident while working with constraints and relating data tables', '2022-09-25 09:46:57', '2022-09-25 09:46:57'),
-(34, 8, 'Tons of exercises that will solidify your knowledge', '2022-09-25 09:46:57', '2022-09-25 09:46:57'),
-(39, 9, 'Get friendly and fast support in the course Q&A', '2022-09-29 04:41:16', '2022-09-29 04:41:16'),
-(40, 9, 'What\'s new in ES6: arrow functions, classes, default and rest parameters, etc.', '2022-09-29 04:41:16', '2022-09-29 04:41:16'),
-(41, 9, 'Organize and structure your code using JavaScript patterns like modules', '2022-09-29 04:41:16', '2022-09-29 04:41:16'),
-(42, 9, 'Get friendly and fast support in the course Q&A', '2022-09-29 04:41:16', '2022-09-29 04:41:16');
+INSERT INTO `whatlearns` (`id`, `course_id`, `detail`, `status`, `deleted_at`, `created_at`, `updated_at`) VALUES
+(1, 11, 'test', 1, '2022-10-05 07:09:34', '2022-10-05 01:19:05', '2022-10-05 02:09:34'),
+(2, 11, 'tyuo-op', 1, '2022-10-05 06:53:55', '2022-10-05 01:23:35', '2022-10-05 01:53:55'),
+(3, 11, 'tested -updated', 1, '2022-10-05 06:50:10', '2022-10-05 01:24:54', '2022-10-05 01:50:10'),
+(4, 11, 'tested', 0, '2022-10-05 06:39:43', '2022-10-05 01:31:31', '2022-10-05 01:39:43'),
+(5, 11, 'testedd ad', 0, '2022-10-05 06:38:59', '2022-10-05 01:32:44', '2022-10-05 01:38:59'),
+(6, 11, 'tetsedrf', 1, '2022-10-05 06:38:51', '2022-10-05 01:34:25', '2022-10-05 01:38:51'),
+(7, 11, 'rwarws upsRWS', 0, '2022-10-05 07:08:19', '2022-10-05 02:08:04', '2022-10-05 02:08:19'),
+(8, 11, 'TESTED amar', 0, NULL, '2022-10-05 02:09:47', '2022-10-05 02:33:19'),
+(9, 11, 'TESTE 2 tesd tedd ho', 1, '2022-10-05 07:33:12', '2022-10-05 02:09:52', '2022-10-05 02:33:12'),
+(10, 11, 'TESTE 3 ted tesd c g', 0, '2022-10-05 07:32:59', '2022-10-05 02:09:58', '2022-10-05 02:32:59'),
+(11, 11, 'TESTE 4 UPDATED b', 0, '2022-10-05 07:32:38', '2022-10-05 02:10:03', '2022-10-05 02:32:38');
 
 --
 -- Indexes for dumped tables
@@ -852,21 +862,33 @@ ALTER TABLE `countries`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `coursechapters`
+--
+ALTER TABLE `coursechapters`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `courseclasses`
+--
+ALTER TABLE `courseclasses`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `courseincludes`
 --
 ALTER TABLE `courseincludes`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `courses`
+-- Indexes for table `coursequestions`
 --
-ALTER TABLE `courses`
+ALTER TABLE `coursequestions`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `course_includes`
+-- Indexes for table `courses`
 --
-ALTER TABLE `course_includes`
+ALTER TABLE `courses`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -1005,9 +1027,9 @@ ALTER TABLE `users`
   ADD UNIQUE KEY `users_email_unique` (`email`);
 
 --
--- Indexes for table `what_learns`
+-- Indexes for table `whatlearns`
 --
-ALTER TABLE `what_learns`
+ALTER TABLE `whatlearns`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -1039,22 +1061,34 @@ ALTER TABLE `countries`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
+-- AUTO_INCREMENT for table `coursechapters`
+--
+ALTER TABLE `coursechapters`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+
+--
+-- AUTO_INCREMENT for table `courseclasses`
+--
+ALTER TABLE `courseclasses`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
 -- AUTO_INCREMENT for table `courseincludes`
 --
 ALTER TABLE `courseincludes`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT for table `coursequestions`
+--
+ALTER TABLE `coursequestions`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `courses`
 --
 ALTER TABLE `courses`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
-
---
--- AUTO_INCREMENT for table `course_includes`
---
-ALTER TABLE `course_includes`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
 
 --
 -- AUTO_INCREMENT for table `course_tags`
@@ -1090,13 +1124,13 @@ ALTER TABLE `learnings`
 -- AUTO_INCREMENT for table `menus`
 --
 ALTER TABLE `menus`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=69;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=77;
 
 --
 -- AUTO_INCREMENT for table `migrations`
 --
 ALTER TABLE `migrations`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=38;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=46;
 
 --
 -- AUTO_INCREMENT for table `pages`
@@ -1159,10 +1193,10 @@ ALTER TABLE `users`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
 
 --
--- AUTO_INCREMENT for table `what_learns`
+-- AUTO_INCREMENT for table `whatlearns`
 --
-ALTER TABLE `what_learns`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=43;
+ALTER TABLE `whatlearns`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- Constraints for dumped tables

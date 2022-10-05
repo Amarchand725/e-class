@@ -84,3 +84,7 @@ Route::resource('admin/userprofile', 'UserProfileController');
 Route::resource('admin/institute', 'InstituteController');
  
 Route::resource('admin/courseinclude', 'CourseincludeController');
+Route::resource('admin/whatlearn', 'WhatLearnController');
+Route::resource('admin/coursechapter', 'CourseChapterController');
+Route::resource('admin/courseclass', 'CourseClassController');
+Route::resource('admin/coursequestion', 'CoursequestionController');

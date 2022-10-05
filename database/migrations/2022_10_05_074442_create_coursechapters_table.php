@@ -1,10 +1,9 @@
-<?php
-
+<?php 
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateWhatLearnsTable extends Migration
+class CreateCourseChaptersTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +12,12 @@ class CreateWhatLearnsTable extends Migration
      */
     public function up()
     {
-        Schema::create('what_learns', function (Blueprint $table) {
+        Schema::create('coursechapters', function (Blueprint $table) {
             $table->id();
             $table->bigInteger('course_id');
-            $table->string('title');
+            $table->string("name"); $table->string("file")->nullable();
+            $table->boolean('status')->default(1);
+            $table->string('deleted_at')->nullable();
             $table->timestamps();
         });
     }
@@ -28,6 +29,6 @@ class CreateWhatLearnsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('what_learns');
+        Schema::dropIfExists('coursechapters');
     }
 }

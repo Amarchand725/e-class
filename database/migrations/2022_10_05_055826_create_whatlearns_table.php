@@ -1,10 +1,9 @@
-<?php
-
+<?php 
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateCourseIncludesTable extends Migration
+class CreateWhatLearnsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +12,12 @@ class CreateCourseIncludesTable extends Migration
      */
     public function up()
     {
-        Schema::create('course_includes', function (Blueprint $table) {
+        Schema::create('whatlearns', function (Blueprint $table) {
             $table->id();
-            $table->bigInteger('course_id');
-            $table->string('icon');
-            $table->string('title');
+            $table->bigInteger("course_id");
+            $table->string("detail")->nullable();
+            $table->boolean('status')->default(1);
+            $table->string('deleted_at')->nullable();
             $table->timestamps();
         });
     }
@@ -29,6 +29,6 @@ class CreateCourseIncludesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('course_includes');
+        Schema::dropIfExists('whatlearns');
     }
 }

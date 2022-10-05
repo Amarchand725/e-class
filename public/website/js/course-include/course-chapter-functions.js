@@ -1,6 +1,6 @@
-$('.course-include-status-btn').on('change', function(){
+$('.course-chapter-status-btn').on('change', function(){
     var status_update_url = $(this).attr('data-update-action');
-    var tr_id = $(this).attr('data-include-id');
+    var tr_id = $(this).attr('data-chapter-id');
     var change_status = $(this).val();
     Swal.fire({
         title: 'Are you sure?',
@@ -25,7 +25,7 @@ $('.course-include-status-btn').on('change', function(){
                     if(response){
                         Swal.fire(
                             'Changed!',
-                            'You have changed course include status.',
+                            'You have changed course chapter status.',
                             'success'
                         )
                     }else{
@@ -47,7 +47,7 @@ $('.course-include-status-btn').on('change', function(){
     })
 });
 
-$('.delete-course-include').on('click', function(){
+$('.delete-course-chapter').on('click', function(){
     var slug = $(this).attr('data-slug');
     var delete_url = $(this).attr('data-del-url');
     Swal.fire({
@@ -70,10 +70,10 @@ $('.delete-course-include').on('click', function(){
                 type : 'DELETE',
                 success : function(response){
                     if(response){
-                        $('#id-'+slug).hide();
+                        $('#id-'+slug).remove();
                         Swal.fire(
                             'Deleted!',
-                            'You have deleted course include.',
+                            'You have deleted course chapter.',
                             'success'
                         )
                     }else{
@@ -89,8 +89,8 @@ $('.delete-course-include').on('click', function(){
     })
 });
 
-$(document).on('click', '.edit-course-include-btn', function(){
-    $('#update-course-include-form')
+$(document).on('click', '.edit-course-chapter-btn', function(){
+    $('#update-course-chapter-form')
     .find("input,textarea")
     .val('')
     .end()
@@ -98,38 +98,37 @@ $(document).on('click', '.edit-course-include-btn', function(){
     .prop("checked", "")
     .end();
 
-    var course_include = $(this).data('course-includes');
-    $('#update-course-include-form').find('#course-id').val(course_include.course_id);
-    $('#update-course-include-form').find('#icon').val(course_include.icon);
-    $('#update-course-include-form').find('#detail').val(course_include.detail);
-    if(course_include.status){
-        $('#update-course-include-form').find('#edit_status').prop('checked',true);
+    var course_chapter = $(this).data('course-chapters');
+    $('#update-course-chapter-form').find('#course-id').val(course_chapter.course_id);
+    $('#update-course-chapter-form').find('#name').val(course_chapter.name);
+    if(course_chapter.status){
+        $('#update-course-chapter-form').find('#edit_status').prop('checked',true);
     }
     
-    $('#course-include-id').val($(this).attr('data-courseinclude-id'));
-    $('#edit-course-include-modal').modal('show');
+    $('#course-id').val($(this).attr('data-coursechapter-id'));
+    $('#edit-course-chapter-modal').modal('show');
 });
 
-$('#update-course-include-form').on('submit',function(e){
+$('#update-course-chapter-form').on('submit',function(e){
     e.preventDefault();
 
-    var course_include_update_url = $('.edit-course-include-btn').attr('data-update-action');
+    var course_chapter_update_url = $('.edit-course-chapter-btn').attr('data-update-action');
     var formData = $(this).serializeArray({ icon: "icon", detail: 'detail', edit_status:'edit_status' });
     $.ajax({
         headers: {
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
         },
-        url: course_include_update_url,
+        url: course_chapter_update_url,
         type:"PUT",
         data: formData,
         success:function(response){
-            $('#edit-course-include-modal').modal('hide');
+            $('#edit-course-chapter-modal').modal('hide');
             if(response.code==200){
-                $('#course-include-body').html(response.listing);
+                $('#course-chapter-body').html(response.listing);
                 Swal.fire({
                     position: 'top-end',
                     icon: 'success',
-                    title: 'Courseinclude updated successfully.',
+                    title: 'Coursechapter updated successfully.',
                     showConfirmButton: false,
                     timer: 1500
                 })
@@ -156,26 +155,25 @@ $('#update-course-include-form').on('submit',function(e){
     });
 });
 
-$('#add-course-include-form').on('submit',function(e){
+$('#add-course-chapter-form').on('submit',function(e){
     e.preventDefault();
-    var course_include_store_url = $(this).attr('data-course-form');
-    var formData = $(this).serializeArray({ course_id: 'course_id', icon: "icon", detail: 'detail', ci_status:'ci_status' });
-    // console.log(formData);
+    var course_chapter_store_url = $(this).attr('data-course-form');
+    var formData = $(this).serializeArray({name: 'name', ci_status:'ci_status' });
     $.ajax({
         headers: {
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
         },
-        url: course_include_store_url,
+        url: course_chapter_store_url,
         type:"POST",
         data: formData,
         success:function(response){
-            $('#add-course-include-modal').modal('hide');
+            $('#add-course-chapter-modal').modal('hide');
             if(response.code==200){
-                $('#course-include-body').html(response.listing);
+                $('#course-chapter-body').html(response.listing);
                 Swal.fire({
                     position: 'top-end',
                     icon: 'success',
-                    title: 'Courseinclude added successfully.',
+                    title: 'Coursechapter added successfully.',
                     showConfirmButton: false,
                     timer: 1500
                 })
@@ -188,29 +186,24 @@ $('#add-course-include-form').on('submit',function(e){
             }
         },
         error: function(response) {
-            if(response.responseJSON.errors.icon){
-                $('#error-icon').text(response.responseJSON.errors.icon);
+            if(response.responseJSON.errors.name){
+                $('#error-name').text(response.responseJSON.errors.name);
             }else{
-                $('#error-icon').text('');
-            }
-            if(response.responseJSON.errors.detail){
-                $('#error-detail').text(response.responseJSON.errors.detail);
-            }else{
-                $('#error-detail').text('');
+                $('#error-name').text('');
             }
         },
     });
 });
 
-$(document).on('click', '.add-course-include-btn', function(){
-    $('#add-course-include-form')
+$(document).on('click', '.add-course-chapter-btn', function(){
+    $('#add-course-chapter-form')
     .find("input,textarea")
     .val('')
     .end()
     .find("input[type=checkbox]")
     .prop("checked", "")
     .end();
-
-    $('#add-course-include-modal').find('#course-id').val($(this).attr('data-course-id'));
-    $('#add-course-include-modal').modal('show');
+    
+    $('#add-course-chapter-form').find('#course-id').val($(this).attr('data-course-id'));
+    $('#add-course-chapter-modal').modal('show');
 });

@@ -14,6 +14,8 @@ use App\Models\Institute;
 use App\Models\Category;
 use App\Models\User;
 use App\Models\Courseinclude;
+use App\Models\CourseChapter;
+use App\Models\CourseClass;
 
 class CourseController extends Controller
 {
@@ -108,40 +110,6 @@ class CourseController extends Controller
             $model->status = isset($request->status)?$request->status:0;
             $model->save();
 
-            /* if($model && count($request->learns) > 0){
-                foreach($request->learns as $learn){
-                    if($learn != NULL){
-                        WhatLearn::create([
-                            'course_id' => $model->id,
-                            'title' => $learn,
-                        ]);
-                    }
-                }
-            }
-
-            if($model && count($request->includes) > 0){
-                foreach($request->includes as $key=>$include){
-                    if($include != NULL){
-                        CourseInclude::create([
-                            'course_id' => $model->id,
-                            'icon' => $request->icons[$key],
-                            'title' => $include,
-                        ]);
-                    }
-                }
-            }
-
-            if($model && count($request->tags) > 0){
-                foreach($request->tags as $tag){
-                    if($tag != NULL){
-                        CourseTag::create([
-                            'course_id' => $model->id,
-                            'tag' => $tag,
-                        ]);
-                    }
-                }
-            } */
-
             DB::commit();
 
             return redirect()->route('course.index')->with('message', 'Course Added Successfully !');
@@ -178,7 +146,13 @@ class CourseController extends Controller
         $institutes = Institute::where('status', 1)->get();
         $categories = Category::where('status', 1)->get();
         $includes = Courseinclude::orderby('id', 'desc')->where('course_id', $id)->paginate(10);
-        return view('courses.edit', compact('view_all_title', 'model', 'institutes', 'categories', 'instructors', 'includes'));
+        $whatlearns = WhatLearn::orderby('id', 'desc')->where('course_id', $id)->paginate(10);
+        $coursechapters = CourseChapter::orderby('id', 'desc')->where('course_id', $id)->paginate(10);
+        $courseclasses = CourseClass::orderby('id', 'desc')->where('course_id', $id)->paginate(10);
+        return view('courses.edit', compact(
+            'view_all_title', 'model', 'institutes', 'categories', 'instructors', 'includes', 'whatlearns', 
+            'coursechapters', 'courseclasses'
+        ));
     }
 
     /**

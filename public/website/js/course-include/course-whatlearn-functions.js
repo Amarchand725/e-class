@@ -1,6 +1,6 @@
-$('.course-include-status-btn').on('change', function(){
+$('.course-whatlearn-status-btn').on('change', function(){
     var status_update_url = $(this).attr('data-update-action');
-    var tr_id = $(this).attr('data-include-id');
+    var tr_id = $(this).attr('data-whatlearn-id');
     var change_status = $(this).val();
     Swal.fire({
         title: 'Are you sure?',
@@ -25,7 +25,7 @@ $('.course-include-status-btn').on('change', function(){
                     if(response){
                         Swal.fire(
                             'Changed!',
-                            'You have changed course include status.',
+                            'You have changed course whatlearn status.',
                             'success'
                         )
                     }else{
@@ -47,7 +47,7 @@ $('.course-include-status-btn').on('change', function(){
     })
 });
 
-$('.delete-course-include').on('click', function(){
+$('.delete-course-whatlearn').on('click', function(){
     var slug = $(this).attr('data-slug');
     var delete_url = $(this).attr('data-del-url');
     Swal.fire({
@@ -70,10 +70,10 @@ $('.delete-course-include').on('click', function(){
                 type : 'DELETE',
                 success : function(response){
                     if(response){
-                        $('#id-'+slug).hide();
+                        $('#id-'+slug).remove();
                         Swal.fire(
                             'Deleted!',
-                            'You have deleted course include.',
+                            'You have deleted course whatlearn.',
                             'success'
                         )
                     }else{
@@ -89,8 +89,8 @@ $('.delete-course-include').on('click', function(){
     })
 });
 
-$(document).on('click', '.edit-course-include-btn', function(){
-    $('#update-course-include-form')
+$(document).on('click', '.edit-course-whatlearn-btn', function(){
+    $('#update-course-whatlearn-form')
     .find("input,textarea")
     .val('')
     .end()
@@ -98,38 +98,39 @@ $(document).on('click', '.edit-course-include-btn', function(){
     .prop("checked", "")
     .end();
 
-    var course_include = $(this).data('course-includes');
-    $('#update-course-include-form').find('#course-id').val(course_include.course_id);
-    $('#update-course-include-form').find('#icon').val(course_include.icon);
-    $('#update-course-include-form').find('#detail').val(course_include.detail);
-    if(course_include.status){
-        $('#update-course-include-form').find('#edit_status').prop('checked',true);
+    var course_whatlearn = $(this).data('course-whatlearns');
+    $('#update-course-whatlearn-form').find('#course-id').val(course_whatlearn.course_id);
+    $('#update-course-whatlearn-form').find('#icon').val(course_whatlearn.icon);
+    $('#update-course-whatlearn-form').find('#detail').val(course_whatlearn.detail);
+    if(course_whatlearn.status){
+        $('#update-course-whatlearn-form').find('#edit_status').prop('checked',true);
     }
     
-    $('#course-include-id').val($(this).attr('data-courseinclude-id'));
-    $('#edit-course-include-modal').modal('show');
+    $('#course-whatlearn-id').val($(this).attr('data-coursewhatlearn-id'));
+    $('#edit-course-whatlearn-modal').modal('show');
 });
 
-$('#update-course-include-form').on('submit',function(e){
+$('#update-course-whatlearn-form').on('submit',function(e){
     e.preventDefault();
 
-    var course_include_update_url = $('.edit-course-include-btn').attr('data-update-action');
+    var course_whatlearn_update_url = $('.edit-course-whatlearn-btn').attr('data-update-action');
+    // alert(course_whatlearn_update_url);
     var formData = $(this).serializeArray({ icon: "icon", detail: 'detail', edit_status:'edit_status' });
     $.ajax({
         headers: {
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
         },
-        url: course_include_update_url,
+        url: course_whatlearn_update_url,
         type:"PUT",
         data: formData,
         success:function(response){
-            $('#edit-course-include-modal').modal('hide');
+            $('#edit-course-whatlearn-modal').modal('hide');
             if(response.code==200){
-                $('#course-include-body').html(response.listing);
+                $('#course-whatlearn-body').html(response.listing);
                 Swal.fire({
                     position: 'top-end',
                     icon: 'success',
-                    title: 'Courseinclude updated successfully.',
+                    title: 'Coursewhatlearn updated successfully.',
                     showConfirmButton: false,
                     timer: 1500
                 })
@@ -156,26 +157,26 @@ $('#update-course-include-form').on('submit',function(e){
     });
 });
 
-$('#add-course-include-form').on('submit',function(e){
+$('#add-course-whatlearn-form').on('submit',function(e){
     e.preventDefault();
-    var course_include_store_url = $(this).attr('data-course-form');
-    var formData = $(this).serializeArray({ course_id: 'course_id', icon: "icon", detail: 'detail', ci_status:'ci_status' });
-    // console.log(formData);
+    var course_whatlearn_store_url = $(this).attr('data-course-form');
+    var formData = $(this).serializeArray({ icon: "icon", detail: 'detail', ci_status:'ci_status' });
     $.ajax({
         headers: {
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
         },
-        url: course_include_store_url,
+        url: course_whatlearn_store_url,
         type:"POST",
         data: formData,
         success:function(response){
-            $('#add-course-include-modal').modal('hide');
+            $('#add-course-whatlearn-modal').modal('hide');
+            // console.log(response);
             if(response.code==200){
-                $('#course-include-body').html(response.listing);
+                $('#course-whatlearn-body').html(response.listing);
                 Swal.fire({
                     position: 'top-end',
                     icon: 'success',
-                    title: 'Courseinclude added successfully.',
+                    title: 'Coursewhatlearn added successfully.',
                     showConfirmButton: false,
                     timer: 1500
                 })
@@ -202,15 +203,15 @@ $('#add-course-include-form').on('submit',function(e){
     });
 });
 
-$(document).on('click', '.add-course-include-btn', function(){
-    $('#add-course-include-form')
+$(document).on('click', '.add-course-whatlearn-btn', function(){
+    $('#add-course-whatlearn-form')
     .find("input,textarea")
     .val('')
     .end()
     .find("input[type=checkbox]")
     .prop("checked", "")
     .end();
-
-    $('#add-course-include-modal').find('#course-id').val($(this).attr('data-course-id'));
-    $('#add-course-include-modal').modal('show');
+    
+    $('#add-course-whatlearn-form').find('#course-id').val($(this).attr('data-course-id'));
+    $('#add-course-whatlearn-modal').modal('show');
 });
