@@ -27,8 +27,8 @@
                                     <label for="" class="col-sm-2 control-label">Status</label>
                                     <div class="col-sm-8">
                                         <div class="switch">
-                                            <input id="ci_status" class="cmn-toggle cmn-toggle-round-flat" value="1" @if(old('status')) checked @endif name="status" type="checkbox">
-                                            <label for="ci_status"></label>
+                                            <input id="c_learns_status" class="cmn-toggle cmn-toggle-round-flat" value="1" @if(old('status')) checked @endif name="status" type="checkbox">
+                                            <label for="c_learns_status"></label>
                                         </div>
                                         <span style="color: red">{{ $errors->first("status") }}</span>
                                     </div>

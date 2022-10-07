@@ -29,7 +29,7 @@ class Course extends Model
     }
     public function haveCourseIncludes()
     {
-        return $this->hasMany(CourseInclude::class, 'course_id', 'id');
+        return $this->hasMany(Courseinclude::class, 'course_id', 'id');
     }
     public function haveTags()
     {
@@ -47,5 +47,13 @@ class Course extends Model
     public function hasInstructor()
     {
         return $this->hasOne(User::class, 'slug', 'instructor_slug');
+    }
+    public function haveChapters()
+    {
+        return $this->hasMany(CourseChapter::class, 'course_id', 'id');
+    }
+    public function haveClasses()
+    {
+        return $this->hasMany(CourseClass::class, 'course_id', 'id');
     }
 }

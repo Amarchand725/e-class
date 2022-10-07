@@ -55,9 +55,12 @@ class CourseChapterController extends Controller
         DB::beginTransaction();
 
         try{
-            if(!isset($request->status)){
+            if(isset($request->status)){
+                $input['status'] = 1;
+            }else{
                 $input['status'] = 0;
             }
+            
 	        $model = CourseChapter::create($input);
 
             DB::commit();

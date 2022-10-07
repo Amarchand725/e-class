@@ -1,6 +1,11 @@
 @extends('web-views.layouts.app')
 
 @push('css')
+    <style>
+        .details svg.feather{
+            margin: 0;
+        }
+    </style>
 @endpush
 
 @section('content')
@@ -29,7 +34,7 @@
                         </li>
                     </ul>
                     <ul>
-                        <li><a href="#" title="about">Created:  <a href="#" title="instructor"> {{ $model->hasCreatedBy->roles->first()->name }} </a> </a></li>
+                        <li><a href="#" title="about">Created:  <a href="{{ route('user.profile', $model->hasInstructor->slug) }}" title="instructor"> {{ $model->hasInstructor->name }} </a> </a></li>
                         <li><a href="#" title="about">Last Updated: {{ date('d F Y', strtotime($model->updated_at)) }}</a></li>
                         <li><a href="#" title="about"><i class="fa fa-comment"></i></a> English</li>
                     </ul>
@@ -54,9 +59,15 @@
                         <div class="about-home-dtl-training">
                             <div class="about-home-dtl-block btm-10">
                                 <div class="about-home-rate">
-                                    <ul>                                                   
-                                        <li>$ {{ number_format($model->sale_price, 2) }}</li>
-                                        <li><span><s>${{ number_format($model->price, 2) }}</s></span></li>
+                                    <ul>
+                                        @if($model->is_paid)     
+                                            <li>$ {{ number_format($model->price, 2) }}</li>
+                                            @if($model->discount != NULL)
+                                                <li><span><s>${{ number_format($model->retail_price, 2) }}</s></span></li>
+                                            @endif
+                                        @else 
+                                            <li>FREE</li>
+                                        @endif
                                     </ul>
                                 </div>
 
@@ -75,7 +86,7 @@
                                         <li><span>Course Includes</span></li>
                                         @if($model->haveCourseIncludes)
                                             @foreach ($model->haveCourseIncludes as $include)
-                                            <li>{!! $include->icon !!} {{ $include->title }}</li>        
+                                                <li>{!! $include->icon !!} {{ $include->detail }}</li>        
                                             @endforeach
                                         @endif
                                     </ul>
@@ -222,7 +233,7 @@
                             <div class="col-lg-6 col-md-6">
                                 <div class="product-learn-dtl">
                                     <ul>
-                                        <li><i data-feather="check-circle"></i>{{ $learn->title }}</li>
+                                        <li class="details"><i data-feather="check-circle"></i><span style="padding-left:10px">{{ $learn->detail }}</span></li>
                                     </ul>
                                 </div>
                             </div>
@@ -240,14 +251,23 @@
                     <div class="row" style="padding-bottom:10px">
                         <div class="col-lg-9 col-6">
                             <div class="expand-content">
+                                @php 
+                                $sum_minutes = 0;
+                                foreach ($model->haveClasses as $course_class){
+                                    $explodedTime = array_map('intval', explode(':', $course_class->lecture_duration ));
+                                    $sum_minutes += $explodedTime[0]*60+$explodedTime[1];
+                                }
+                                $lecture_duration_total_time = floor($sum_minutes/60).':'.floor($sum_minutes % 60);
+
                                 
-                                <small>4 sections • 13 lectures • 01h 29m total length</small>
+                                @endphp 
+                                <small>{{ count($model->haveChapters) }} sections • {{ count($model->haveClasses) }} lectures • {{ $lecture_duration_total_time }} total length</small>
                             </div>
                         </div>
-                        <div class="col-lg-3 col-6 col-xs-6 nopadding">
+                        {{-- <div class="col-lg-3 col-6 col-xs-6 nopadding">
                             <button type="button" onclick="toggleAllSections()" class="btn btn-link courseToggle"><span style="color:#0384a3">Expand all sections</span></button>
                             <button type="button" onclick="toggleAllSections()" class="btn btn-link courseToggle" style="display:none"><span style="color:#0384a3">Collapse all sections</span></button>
-                        </div>
+                        </div> --}}
                     </div>
                     <!-- FSMS -->
 
@@ -255,263 +275,106 @@
                         <div class="faq-dtl">
                             <div id="accordion" class="second-accordion">
                                 <div class="card">
-                                    <div class="card-header" id="headingTwo33">
-                                        <div class="mb-0">
-                                            <button class="btn btn-link" data-toggle="collapse" data-target="#collapseTwo33" aria-expanded="true" aria-controls="collapseTwo">
-                                                <div class="row">
-                                                    <div class="col-lg-8 col-6">
-                                                        Introduction
-                                                        
-                                                    </div>
-                                                    <div class="col-lg-2 col-4">
-                                                        <div class="text-right">
-                                                            8 Classes
+                                    @foreach ($model->haveChapters as $key=>$chapter)      
+                                        <div class="card-header" id="headingTwo33">
+                                            <div class="mb-0">
+                                                <button class="btn btn-link" data-toggle="collapse" data-target="#collapseTwo{{ $key }}" aria-expanded="false" aria-controls="collapseTwo">
+                                                    <div class="row">
+                                                        <div class="col-lg-8 col-6">
+                                                            {{ $chapter->name }}
                                                         </div>
-                                                    </div>
+                                                        <div class="col-lg-2 col-4">
+                                                            <div class="text-right">
+                                                                {{ count($chapter->haveChapterClasses) }} Classes
+                                                            </div>
+                                                        </div>
 
-                                                    <div class="col-lg-2 col-2">
-                                                        <div class="chapter-total-time">
-                                                            37 min
+                                                        <div class="col-lg-2 col-2">
+                                                            <div class="chapter-total-time">
+                                                                @php 
+                                                                    $sum_chapter_class_minutes = 0;
+                                                                    foreach ($chapter->haveChapterClasses as $chapter_class){
+                                                                        $explodedTime = array_map('intval', explode(':', $chapter_class->lecture_duration ));
+                                                                        $sum_chapter_class_minutes += $explodedTime[0]*60+$explodedTime[1];
+                                                                    }
+                                                                    $chapter_total_lectures_duration = floor($sum_chapter_class_minutes/60).':'.floor($sum_chapter_class_minutes % 60);
+                                                                @endphp
+                                                                {{ $chapter_total_lectures_duration }}
+                                                            </div>
                                                         </div>
                                                     </div>
-                                                </div>
-                                            </button>
+                                                </button>
+                                            </div>
                                         </div>
-                                    </div>
-                                    
-                                    <div id="collapseTwo33" class="collapse show" aria-labelledby="headingTwo" data-parent="#accordion">
-                                        <div class="card-body">
-                                            <table class="table">
-                                                <tbody>
-                                                    <tr>
-                                                        <th class="class-icon">
-                                                            <a href="#" title="Course"><i class="fa fa-play-circle"></i></a>
-                                                        </th>
-                                                        <td>
-                                                            <div class="koh-tab-content">
-                                                                <div class="koh-tab-content-body">
-                                                                    <div class="koh-faq">
-                                                                        <div class="koh-faq-question">
-                                                                            <span class="koh-faq-question-span"> Live class </span>
+                                        
+                                        <div id="collapseTwo{{ $key }}" class="collapse false" aria-labelledby="headingTwo" data-parent="#accordion">
+                                            <div class="card-body">
+                                                <table class="table">
+                                                    <tbody>
+                                                        @foreach ($chapter->haveChapterClasses as $chapter_class)
+                                                            @if($chapter_class->type=="Video")
+                                                                <tr>
+                                                                    <th class="class-icon">
+                                                                        <a href="#" title="Course"><i class="fa fa-play-circle"></i></a>
+                                                                    </th>
+                                                                    <td>
+                                                                        <div class="koh-tab-content">
+                                                                            <div class="koh-tab-content-body">
+                                                                                <div class="koh-faq">
+                                                                                    <div class="koh-faq-question">
+                                                                                        <span class="koh-faq-question-span"> 
+                                                                                            {{ $chapter_class->title }}
+                                                                                        </span>
+                                                                                    </div>
+                                                                                    <div class="koh-faq-answer"></div>
+                                                                                </div>
+                                                                            </div>
                                                                         </div>
-                                                                        <div class="koh-faq-answer"></div>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </td>
-                                                        <td>
-                                                            
-                                                        </td>
-
-                                                        <td class="txt-rgt">
-                                                            min
-                                                        </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <th class="class-icon">
-                                                            <a href="#" title="Course"><i class="fa fa-play-circle"></i></a>
-                                                        </th>
-                                                        <td>
-                                                            <div class="koh-tab-content">
-                                                              <div class="koh-tab-content-body">
-                                                                <div class="koh-faq">
-                                                                    <div class="koh-faq-question">
-                                                                        <span class="koh-faq-question-span">
-                                                                            How to Install WordPress 
-                                                                        </span>
-                                                                        <i class="fa fa-sort-down" aria-hidden="true"></i>
-                                                                    </div>
-                                                                  <div class="koh-faq-answer">
-                                                                    <p style="box-sizing: border-box; margin: 0px; word-break: break-word; color: #686f7a; font-family: 'sf pro text', -apple-system, BlinkMacSystemFont, Roboto, 'segoe ui', Helvetica, Arial, sans-serif, 'apple color emoji', 'segoe ui emoji', 'segoe ui symbol'; font-size: 13px; letter-spacing: 0.3px; background-color: #ffffff;">In this lecture, we're going to take a look at the final WordPress website we're going to have built by the end of the course. You'll see:
-                                                                    </p>
-                                                                    <ol style="box-sizing: border-box; margin-top: 0px; margin-bottom: 10.5px; padding-left: 35px; color: #686f7a; font-family: 'sf pro text', -apple-system, BlinkMacSystemFont, Roboto, 'segoe ui', Helvetica, Arial, sans-serif, 'apple color emoji', 'segoe ui emoji', 'segoe ui symbol'; font-size: 13px; letter-spacing: 0.3px; background-color: #ffffff;">
-                                                                        <li style="box-sizing: border-box;"><span style="box-sizing: border-box;">The beautiful, custom home page</span></li>
-                                                                        <li style="box-sizing: border-box;"><span style="box-sizing: border-box;">Dynamic testimonials</span></li>
-                                                                        <li style="box-sizing: border-box;"><span style="box-sizing: border-box;">How to edit the logo in the WordPress customizer</span></li>
-                                                                        <li style="box-sizing: border-box;">The custom blog page</li>
-                                                                        <li style="box-sizing: border-box;">How to add dynamic resources</li>
-                                                                        <li style="box-sizing: border-box;">Contact page</li>
-                                                                        <li style="box-sizing: border-box;">The WordPress admin panel</li>
-                                                                    </ol>
-                                                                  </div>
-                                                                </div>
-                                                              </div>
-                                                            </div>
-                                                        </td>
-                                                        <td></td>
-                                                        <td class="txt-rgt">
-                                                            11:36min
-                                                        </td>
-                                                        </tr>
-                                                        <tr>
-                                                        <th class="class-icon">
-                                                            <a href="#" title="Course"><i class="fa fa-play-circle"></i></a>
-                                                        </th>
-                                                        <td>
-                                                            <div class="koh-tab-content">
-                                                              <div class="koh-tab-content-body">
-                                                                <div class="koh-faq">
-                                                                    <div class="koh-faq-question">
-                                                                        <span class="koh-faq-question-span"> 
-                                                                            Wordpress Theme Developement 
-                                                                        </span>
-                                                                        <i class="fa fa-sort-down" aria-hidden="true"></i>
-                                                                    </div>
-                                                                    <div class="koh-faq-answer">
-                                                                        <p>
-                                                                            <span style="color: #686f7a; font-family: 'sf pro text', -apple-system, BlinkMacSystemFont, Roboto, 'segoe ui', Helvetica, Arial, sans-serif, 'apple color emoji', 'segoe ui emoji', 'segoe ui symbol'; font-size: 13px; letter-spacing: 0.3px; background-color: #ffffff;">Bootstrap is the most popular front-end framework on the web today.&nbsp;</span><span style="box-sizing: border-box; color: #686f7a; font-family: 'sf pro text', -apple-system, BlinkMacSystemFont, Roboto, 'segoe ui', Helvetica, Arial, sans-serif, 'apple color emoji', 'segoe ui emoji', 'segoe ui symbol'; font-size: 13px; letter-spacing: 0.3px; background-color: #ffffff;">In this lecture, I talk about how</span><span style="box-sizing: border-box; color: #686f7a; font-family: 'sf pro text', -apple-system, BlinkMacSystemFont, Roboto, 'segoe ui', Helvetica, Arial, sans-serif, 'apple color emoji', 'segoe ui emoji', 'segoe ui symbol'; font-size: 13px; letter-spacing: 0.3px; background-color: #ffffff;">&nbsp;learning to properly use Bootstrap can save yourself hundreds of hours, and increase your work output by up to 100%.</span>
-                                                                        </p>
-                                                                    </div>
-                                                                </div>
-                                                              </div>
-                                                            </div>
-                                                        </td>
-                                                        <td></td>
-
-                                                        <td class="txt-rgt">
-                                                            6:19min
-                                                        </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <th class="class-icon">
-                                                            <a href="#" title="Course"><i class="fa fa-play-circle"></i></a>
-                                                        </th>
-
-                                                        <td>
-                                                            <div class="koh-tab-content">
-                                                              <div class="koh-tab-content-body">
-                                                                <div class="koh-faq">
-                                                                  <div class="koh-faq-question">
-                                                                    <span class="koh-faq-question-span"> Devlopment </span>
-
-                                                                                                                                                                                                                <i class="fa fa-sort-down" aria-hidden="true"></i>
-                                                                                                                                      </div>
-                                                                  <div class="koh-faq-answer">
-                                                                    <p><span style="color: #686f7a; font-family: 'sf pro text', -apple-system, BlinkMacSystemFont, Roboto, 'segoe ui', Helvetica, Arial, sans-serif, 'apple color emoji', 'segoe ui emoji', 'segoe ui symbol'; font-size: 13px; letter-spacing: 0.3px; background-color: #ffffff;">In this lecture, we'll clean up and customize the stylesheet that is provided with the Underscores Starter theme in order to work better with our custom theme going forward.</span></p>
-                                                                  </div>
-                                                                </div>
-                                                              </div>
-                                                            </div>
-                                                        </td>
-
-                                                        <td>
-                                                            
-                                                            <a href="../../watch/lightbox/107.html" class="iframe" style="display: block;">preview</a>
-
-                                                            
-                                                        </td>
-
-                                                        <td class="txt-rgt">
-                                                                                                                10min
-                                                        
-
-
-                                                    </tr>
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        <tr>
-                                                        <th class="class-icon">
-                                                                                                                <a href="#" title="Course"><i class="fa fa-play-circle"></i></a>
-                                                                                                                                                                                                                                                                                                                                                </th>
-
-                                                        <td>
-
-                                                            <div class="koh-tab-content">
-                                                              <div class="koh-tab-content-body">
-                                                                <div class="koh-faq">
-                                                                  <div class="koh-faq-question">
-
-                                                                    <span class="koh-faq-question-span"> Live 2 </span>
-
-                                                                                                                                           <div class="live-class">Live at: 2020-04-30 14:40:00</div>
-                                                                                                                                                                                                          </div>
-                                                                  <div class="koh-faq-answer">
-                                                                    
-                                                                  </div>
-                                                                </div>
-                                                              </div>
-                                                            </div>
-                                                        </td>
-
-                                                        <td>
-                                                            
-                                                        </td>
-
-                                                        <td class="txt-rgt">
-                                                                                                                min
-                                                        
-
-
-                                                    </tr>
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        <tr>
-                                                        <th class="class-icon">
-                                                                                                                                                                                                                                                                                        <a href="#" title="Course"><i class="fas fa-file-pdf"></i></a>
-                                                                                                                                                                        </th>
-
-                                                        <td>
-
-                                                            <div class="koh-tab-content">
-                                                              <div class="koh-tab-content-body">
-                                                                <div class="koh-faq">
-                                                                  <div class="koh-faq-question">
-
-                                                                    <span class="koh-faq-question-span"> pdf </span>
-
-                                                                                                                                                                                                          </div>
-                                                                  <div class="koh-faq-answer">
-                                                                    
-                                                                  </div>
-                                                                </div>
-                                                              </div>
-                                                            </div>
-                                                        </td>
-
-                                                        <td>
-                                                            
-                                                        </td>
-
-                                                        <td class="txt-rgt">
-                                                                                                                5mb
-                                                        
-
-
-                                                    </tr>
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                <tr>
-                                                        <th class="class-icon">
-                                                                                                                <a href="#" title="Course"><i class="fa fa-play-circle"></i></a>
-                                                                                                                                                                                                                                                                                                                                                </th>
-
-                                                        <td>
-
-                                                            <div class="koh-tab-content">
-                                                              <div class="koh-tab-content-body">
-                                                                <div class="koh-faq">
-                                                                  <div class="koh-faq-question">
-
-                                                                    <span class="koh-faq-question-span"> Test </span>
-
-                                                                                                                                                                                                                <i class="fa fa-sort-down" aria-hidden="true"></i>
-                                                                                                                                      </div>
-                                                                  <div class="koh-faq-answer">
-                                                                    <p>Test</p>
-                                                                  </div>
-                                                                </div>
-                                                              </div>
-                                                            </div>
-                                                        </td>
-
-                                                        <td>
-                                                            
-                                                        </td>
-
-                                                        <td class="txt-rgt">
-                                                                                                                min
-                                                        
-
-
-                                                    </tr>
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            </tbody>
-                                            </table>
+                                                                    </td>
+                                                                    <td>
+                                                                    </td>
+                                                                    <td class="txt-rgt">
+                                                                        @php 
+                                                                            $explodedTime = array_map('intval', explode(':', $chapter_class->lecture_duration ));
+                                                                            $sum_chapter_class_minutes = $explodedTime[0]*60+$explodedTime[1];
+                                                                            $chapter_total_lectures_duration = floor($sum_chapter_class_minutes/60).':'.floor($sum_chapter_class_minutes % 60);
+                                                                        @endphp
+                                                                        {{ $chapter_total_lectures_duration }}
+                                                                    </td>
+                                                                </tr>
+                                                            @else 
+                                                                <tr>
+                                                                    <th class="class-icon">
+                                                                        <a href="#" title="Course"><i class='fas fa-file-download'></i></a>
+                                                                    </th>
+                                                                    <td>
+                                                                        <div class="koh-tab-content">
+                                                                            <div class="koh-tab-content-body">
+                                                                                <div class="koh-faq">
+                                                                                    <div class="koh-faq-question">
+                                                                                        <span class="koh-faq-question-span">
+                                                                                            {{ $chapter_class->title }}
+                                                                                        </span>
+                                                                                    </div>
+                                                                                    <div class="koh-faq-answer"></div>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </td>
+                                                                    <td>
+                                                                        
+                                                                    </td>
+                                                                    <td class="txt-rgt">
+                                                                        --
+                                                                    </td>
+                                                                </tr>
+                                                            @endif
+                                                        @endforeach
+                                                    </tbody>
+                                                </table>
+                                            </div>
                                         </div>
-                                    </div>
+                                    @endforeach
                                 </div>
                             </div>
                         </div>
@@ -568,8 +431,14 @@
                                 <div class="col-lg-2 col-md-3 col-12">
                                     <div class="course-currency txt-rgt">
                                         <ul>
-                                            <li class="rate"><i class="fa fa-dollar"></i> {{ number_format($recent_course->sale_price, 2) }}</li>
-                                            <li class="rate"><s><i class="fa fa-dollar"></i> {{ number_format($recent_course->price, 2) }}</s></li>
+                                            @if($recent_course->is_paid)
+                                                <li class="rate"><i class="fa fa-dollar"></i> {{ number_format($recent_course->price, 2) }}</li>
+                                                @if($recent_course->discount != NULL)
+                                                    <li class="rate"><s><i class="fa fa-dollar"></i> {{ number_format($recent_course->retail_price, 2) }}</s></li>
+                                                @endif
+                                            @else 
+                                                <li>FREE</li>
+                                            @endif
                                         </ul>
                                     </div>
                                 </div>
@@ -759,9 +628,15 @@
                                                         </div>
                                                         <div class="col-lg-6 col-md-6 col-sm-6 col-6">
                                                             <div class="rate text-right">
-                                                                <ul>
-                                                                    <li><a><b><i class="fa fa-dollar"></i> {{ number_format($recent_course->sale_price, 2) }}</b></a></li>
-                                                                    <li><a><b><strike><i class="fa fa-dollar"></i> {{ number_format($recent_course->price, 2) }}</strike></b></a></li>                                                                    
+                                                                <ul>                                                             
+                                                                    @if($relate_course->is_paid)
+                                                                        <li><a><b><i class="fa fa-dollar"></i> {{ number_format($relate_course->price, 2) }}</b></a></li>
+                                                                        @if($relate_course->discount != NULL)
+                                                                            <li><a><b><strike><i class="fa fa-dollar"></i> {{ number_format($relate_course->retail_price, 2) }}</strike></b></a></li>
+                                                                        @endif
+                                                                    @else 
+                                                                        <li>FREE</li>
+                                                                    @endif
                                                                 </ul>
                                                             </div>
                                                         </div>

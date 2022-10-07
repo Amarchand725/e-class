@@ -20,6 +20,8 @@ class CreateCourseClassesTable extends Migration
             $table->text("detail")->nullable(); 
             $table->string("type"); 
             $table->string("attachment")->nullable(); 
+            $table->string("lecture")->nullable(); 
+            $table->time("lecture_duration")->nullable(); 
             $table->boolean("is_featured");
             $table->boolean('status')->default(1);
             $table->string('deleted_at')->nullable();

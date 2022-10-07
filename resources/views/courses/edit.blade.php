@@ -111,15 +111,15 @@
                             <a href="#" class="list-group-item">
                                 <h4 class="glyphicon glyphicon-th-large"></h4> Question
                             </a>
-                            <a href="#" class="list-group-item">
+                            {{-- <a href="#" class="list-group-item">
                                 <h4 class="glyphicon glyphicon-th-large"></h4> Review Rating
-                            </a>
+                            </a> --}}
                             <a href="#" class="list-group-item">
                                 <h4 class="glyphicon glyphicon-th-large"></h4> Announcement
                             </a>
-                            <a href="#" class="list-group-item">
+                            {{-- <a href="#" class="list-group-item">
                                 <h4 class="glyphicon glyphicon-th-large"></h4> Quiz Topic
-                            </a>
+                            </a> --}}
                         </div>
                     </div>
               </div>
@@ -623,17 +623,17 @@
                 </div>
             </div>
 
-            <!-- COURSE questions-->
+            <!-- COURSE QUESTION-->
             <div class="bhoechie-tab-content">
                 <div class="box box-info">
                     <div class="box-body">
                         <input type="hidden" id="page_url" value="{{ route('courseclass.index') }}">
                         <section class="content-header">
                             <div class="content-header-left">
-                                <h1>Course Classes</h1>
+                                <h1>Course Questions</h1>
                             </div>
                             <div class="content-header-right">
-                                <button type="button" data-toggle="tooltip" data-placement="left" data-course-id="{{ $model->id }}" title="Add New courseclass" class="btn btn-primary btn-sm add-course-class-btn">Add New Course Class</button>
+                                <button type="button" data-toggle="tooltip" data-placement="left" data-course-id="{{ $model->id }}" title="Add New coursequestion" class="btn btn-primary btn-sm add-course-question-btn">Add New Course Question</button>
                             </div>
                         </section>
                         <hr />
@@ -652,42 +652,99 @@
                                 <thead>
                                     <tr>
                                         <th>SL</th>
-                                        <th>Chapter</th>
-                                        <th>Title</th>
+                                        <th>QUESTION</th>
                                         <th>STATUS</th>
-                                        <th>FEATURED</th>
                                         <th>Action</th>
                                     </tr>
                                 </thead>
-                                <tbody id="course-class-body">
-                                    @foreach ($courseclasses as $key=>$courseclass)
-                                        <tr id="id-{{ $courseclass->id }}">
-                                            <td>{{  $courseclasses->firstItem()+$key }}.</td>
-                                            <td>{!! $courseclass->hasChapter->name??'N/A' !!}</td>
-                                            <td>{!! $courseclass->title !!}</td>
+                                <tbody id="course-question-body">
+                                    @foreach ($coursequestions as $key=>$coursequestion)
+                                        <tr id="id-{{ $coursequestion->id }}">
+                                            <td>{{  $coursequestions->firstItem()+$key }}.</td>
+                                            <td>{!! $coursequestion->question !!}</td>
                                             <td>
                                                 <div class="switch">
-                                                    <input id="class_status-{{ $courseclass->id }}" class="cmn-toggle cmn-toggle-round-flat course-class-status-btn" data-class-id="{{ $courseclass->id }}" data-update-action="{{ route('courseclass.update', $courseclass->id) }}" @if($courseclass->status) value="1" checked @endif name="status" type="checkbox">
-                                                    <label for="class_status-{{ $courseclass->id }}"></label>
-                                                </div>
-                                            </td>
-                                            <td>
-                                                <div class="switch">
-                                                    <input id="is_featured-{{ $courseclass->id }}" class="cmn-toggle cmn-toggle-round-flat course-class-featured-btn" data-class-id="{{ $courseclass->id }}" data-update-action="{{ route('courseclass.update', $courseclass->id) }}" value="1" @if($courseclass->is_featured) checked @endif name="is_featured" type="checkbox">
-                                                    <label for="is_featured-{{ $courseclass->id }}"></label>
+                                                    <input id="question_status-{{ $coursequestion->id }}" class="cmn-toggle cmn-toggle-round-flat course-question-status-btn" data-question-id="{{ $coursequestion->id }}" data-update-action="{{ route('coursequestion.update', $coursequestion->id) }}" @if($coursequestion->status) value="1" checked @endif name="status" type="checkbox">
+                                                    <label for="question_status-{{ $coursequestion->id }}"></label>
                                                 </div>
                                             </td>
                                             <td width="250px">  
-                                                <button data-toggle="tooltip" data-update-action="{{ route('courseclass.update', $courseclass->id) }}" data-edit-class-url="{{ route('courseclass.edit', $courseclass->id) }}" data-class-id="{{ $courseclass->course_id }}"  data-placement="top" title="Edit Course courseclass" class="btn btn-primary btn-xs edit-course-class-btn" style="margin-left: 3px;"><i class="fa fa-edit"></i></button>
-                                                <button data-toggle="tooltip" data-placement="top" title="Delete Course courseclass" class="btn btn-danger btn-xs delete-course-class" data-slug="{{ $courseclass->id }}" data-del-url="{{ route("courseclass.destroy", $courseclass->id) }}" style="margin-left: 3px;"><i class="fa fa-trash"></i></button>
+                                                <button data-toggle="tooltip" data-update-action="{{ route('coursequestion.update', $coursequestion->id) }}" data-course-questions="{{ $coursequestion }}" data-question-id="{{ $coursequestion->course_id }}"  data-placement="top" title="Edit Course coursequestion" class="btn btn-primary btn-xs edit-course-question-btn" style="margin-left: 3px;"><i class="fa fa-edit"></i></button>
+                                                <button data-toggle="tooltip" data-placement="top" title="Delete Course coursequestion" class="btn btn-danger btn-xs delete-course-question" data-slug="{{ $coursequestion->id }}" data-del-url="{{ route("coursequestion.destroy", $coursequestion->id) }}" style="margin-left: 3px;"><i class="fa fa-trash"></i></button>
                                             </td>
                                         </tr>
                                     @endforeach
                                     <tr>
                                         <td colspan="15">
-                                            Displying {{$courseclasses->firstItem()}} to {{$courseclasses->lastItem()}} of {{$courseclasses->total()}} records
+                                            Displying {{$coursequestions->firstItem()}} to {{$coursequestions->lastItem()}} of {{$coursequestions->total()}} records
                                             <div class="d-flex justify-content-center">
-                                                {!! $courseclasses->links('pagination::bootstrap-4') !!}
+                                                {!! $coursequestions->links('pagination::bootstrap-4') !!}
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </section>
+                    </div>
+                </div>
+            </div>
+
+            <!-- COURSE ANNOUNCEMENT-->
+            <div class="bhoechie-tab-content">
+                <div class="box box-info">
+                    <div class="box-body">
+                        <input type="hidden" id="page_url" value="{{ route('courseannouncement.index') }}">
+                        <section class="content-header">
+                            <div class="content-header-left">
+                                <h1>Course Announcement</h1>
+                            </div>
+                            <div class="content-header-right">
+                                <button type="button" data-toggle="tooltip" data-placement="left" data-course-id="{{ $model->id }}" title="Add New courseannouncement" class="btn btn-primary btn-sm add-course-announcement-btn">Add New Course Announcement</button>
+                            </div>
+                        </section>
+                        <hr />
+                        <section class="content">
+                            <div class="row">
+                                <div class="col-sm-1">Search:</div>
+                                <div class="d-flex col-sm-9">
+                                    <input type="text" id="search" class="form-control" placeholder="Search" style="margin-bottom:5px">
+                                    <input type="hidden" id="status" value="All" class="form-control">
+                                </div>
+                                <div class="d-flex col-sm-9">
+                                    <a href="" class="btn btn"></a>
+                                </div>
+                            </div>
+                            <table id="" class="table table-bordered table-striped">
+                                <thead>
+                                    <tr>
+                                        <th>SL</th>
+                                        <th>announcement</th>
+                                        <th>STATUS</th>
+                                        <th>Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="course-announcement-body">
+                                    @foreach ($courseannouncements as $key=>$courseannouncement)
+                                        <tr id="id-{{ $courseannouncement->id }}">
+                                            <td>{{  $courseannouncements->firstItem()+$key }}.</td>
+                                            <td>{!! $courseannouncement->announcement !!}</td>
+                                            <td>
+                                                <div class="switch">
+                                                    <input id="announcement_status-{{ $courseannouncement->id }}" class="cmn-toggle cmn-toggle-round-flat course-announcement-status-btn" data-announcement-id="{{ $courseannouncement->id }}" data-update-action="{{ route('courseannouncement.update', $courseannouncement->id) }}" @if($courseannouncement->status) value="1" checked @endif name="status" type="checkbox">
+                                                    <label for="announcement_status-{{ $courseannouncement->id }}"></label>
+                                                </div>
+                                            </td>
+                                            <td width="250px">  
+                                                <button data-toggle="tooltip" data-update-action="{{ route('courseannouncement.update', $courseannouncement->id) }}" data-course-announcements="{{ $courseannouncement }}" data-announcement-id="{{ $courseannouncement->course_id }}"  data-placement="top" title="Edit Course courseannouncement" class="btn btn-primary btn-xs edit-course-announcement-btn" style="margin-left: 3px;"><i class="fa fa-edit"></i></button>
+                                                <button data-toggle="tooltip" data-placement="top" title="Delete Course courseannouncement" class="btn btn-danger btn-xs delete-course-announcement" data-slug="{{ $courseannouncement->id }}" data-del-url="{{ route("courseannouncement.destroy", $courseannouncement->id) }}" style="margin-left: 3px;"><i class="fa fa-trash"></i></button>
+                                            </td>
+                                        </tr>
+                                    @endforeach
+                                    <tr>
+                                        <td colspan="15">
+                                            Displying {{$courseannouncements->firstItem()}} to {{$courseannouncements->lastItem()}} of {{$courseannouncements->total()}} records
+                                            <div class="d-flex justify-content-center">
+                                                {!! $courseannouncements->links('pagination::bootstrap-4') !!}
                                             </div>
                                         </td>
                                     </tr>
@@ -700,6 +757,10 @@
 		</div>
 	</div>    
 
+    @include('web-views.website.courseincludes.announcements.modals')
+
+    @include('web-views.website.courseincludes.questions.modals')
+
     @include('web-views.website.courseincludes.classes.modals')
 
     @include('web-views.website.courseincludes.chapters.modals')
@@ -711,6 +772,8 @@
 
 @endsection
 @push('js')
+    <script src="{{ asset('public/website/js/course-include/course-announcement-functions.js') }}"></script>
+    <script src="{{ asset('public/website/js/course-include/course-question-functions.js') }}"></script>
     <script src="{{ asset('public/website/js/course-include/course-class-functions.js') }}"></script>
     <script src="{{ asset('public/website/js/course-include/course-chapter-functions.js') }}"></script>
     <script src="{{ asset('public/website/js/course-include/course-whatlearn-functions.js') }}"></script>
@@ -767,6 +830,7 @@
                 $('.custome-discount').html("");    
             }
         });
+        
         $(function() {
             $("div.bhoechie-tab-menu>div.list-group>a").click(function(e) {
                 e.preventDefault();
@@ -777,5 +841,12 @@
                 $("div.bhoechie-tab>div.bhoechie-tab-content").eq(index).addClass("active");
             });
         });
+
+        course_attachment.onchange = evt => {
+            const [file] = course_attachment.files
+            if (file) {
+                class_preview.src = URL.createObjectURL(file)
+            }
+        }
     </script>
 @endpush

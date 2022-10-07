@@ -62,6 +62,16 @@ class CourseClassController extends Controller
                 $input['attachment'] = $attachment;
             }
 
+            if (isset($request->lecture)) {
+                $getID3 = new \getID3();
+                
+                $lecture = date('d-m-Y-His').'.'.$request->file('lecture')->getClientOriginalExtension();
+                $pathVideo = $request->lecture->move(public_path('/admin/course_class/lectures'), $lecture);
+                $fileAnalyze = $getID3->analyze($pathVideo);
+                $input['lecture'] = $lecture;
+                $input['lecture_duration'] = $fileAnalyze['playtime_string'];
+            }
+
             if(isset($request['status']) && $request['status']==null){
                 $input['status'] = 1;
             }else{
@@ -122,15 +132,6 @@ class CourseClassController extends Controller
     {
         $model = CourseClass::findOrFail($id);
 
-	    /* $this->validate($request, CourseClass::getValidationRules());
-
-        try{
-	        $model->fill( $request->all() )->save();
-            return redirect()->route('courseclass.index')->with('message', 'CourseClass update Successfully !');
-        } catch (\Exception $e) {
-            return redirect()->back()->with('error', 'Error. '.$e->getMessage());
-        } */
-
         if(isset($request->change_status)){
             if($model->status==1){
                 $model->status = 0;
@@ -164,9 +165,31 @@ class CourseClassController extends Controller
 
         try{
             if (isset($request->attachment)) {
+                $exist_path = public_path('/admin/course_class/attachments');
+                if($model->attachment){
+                    $exist_file = $exist_path.'/'.$model->attachment;
+                    unlink($exist_file);
+                }
+                
                 $attachment = date('d-m-Y-His').'.'.$request->file('attachment')->getClientOriginalExtension();
                 $request->attachment->move(public_path('/admin/course_class/attachments'), $attachment);
                 $input['attachment'] = $attachment;
+            }
+
+            if (isset($request->lecture)) {
+                $exist_path = public_path('/admin/course_class/lectures');
+                if($model->lecture){
+                    $exist_file = $exist_path.'/'.$model->lecture;
+                    unlink($exist_file);
+                }
+
+                $getID3 = new \getID3();
+                
+                $lecture = date('d-m-Y-His').'.'.$request->file('lecture')->getClientOriginalExtension();
+                $pathVideo = $request->lecture->move(public_path('/admin/course_class/lectures'), $lecture);
+                $fileAnalyze = $getID3->analyze($pathVideo);
+                $input['lecture'] = $lecture;
+                $input['lecture_duration'] = $fileAnalyze['playtime_string'];
             }
 
             $input = $request->except(['status']);

@@ -55,7 +55,9 @@ class WhatLearnController extends Controller
         DB::beginTransaction();
 
         try{
-            if(!isset($request->status)){
+            if(isset($request->status)){
+                $input['status'] = 1;
+            }else{
                 $input['status'] = 0;
             }
 	        

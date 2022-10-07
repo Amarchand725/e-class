@@ -55,10 +55,19 @@ class CoursequestionController extends Controller
         DB::beginTransaction();
 
         try{
-	        Coursequestion::create($input);
+            if(isset($request->status)){
+                $input['status'] = 1;
+            }else{
+                $input['status'] = 0;
+            }
+	        $model = Coursequestion::create($input);
 
             DB::commit();
-            return redirect()->route('coursequestion.index')->with('message', 'Coursequestion Added Successfully !');
+            if($model){
+                $coursequestions = Coursequestion::orderby('id', 'desc')->where('course_id', $model->course_id)->paginate(10);
+                $listing = (string) view('web-views.website.courseincludes.questions.listing', compact('coursequestions'));
+                return response()->json(['code'=>200, 'listing'=>$listing]);
+            }
         } catch (\Exception $e) {
             DB::rollback();
             return redirect()->back()->with('error', 'Error. '.$e->getMessage());
@@ -101,11 +110,38 @@ class CoursequestionController extends Controller
     {
         $model = Coursequestion::findOrFail($id);
 
-	    $this->validate($request, Coursequestion::getValidationRules());
-
         try{
-	        $model->fill( $request->all() )->save();
-            return redirect()->route('coursequestion.index')->with('message', 'Coursequestion update Successfully !');
+            if(isset($request->change_status)){
+                if($model->status==1){
+                    $model->status = 0;
+                }else{
+                    $model->status = 1;
+                }
+                $model->save();
+                if($model){
+                    $coursequestions = Coursequestion::orderby('id', 'desc')->where('course_id', $model->course_id)->paginate(10);
+                    $listing = (string) view('web-views.website.courseincludes.questions.listing', compact('coursequestions'));
+                    return response()->json(['code'=>200, 'listing'=>$listing]);
+                }
+            }
+    
+            $input = $request->all();
+            $this->validate($request, Coursequestion::getValidationRules());
+    
+            try{
+                $input = $request->except(['status']);
+                $model->fill( $input )->save();
+                
+                DB::commit();
+                if($model){
+                    $coursequestions = Coursequestion::orderby('id', 'desc')->where('course_id', $model->course_id)->paginate(10);
+                    $listing = (string) view('web-views.website.courseincludes.questions.listing', compact('coursequestions'));
+                    return response()->json(['code'=>200, 'listing'=>$listing]);
+                }
+            } catch (\Exception $e) {
+                DB::rollback();
+                return response()->json(['error'=>'Error. '.$e->getMessage()], 500);
+            }
         } catch (\Exception $e) {
             return redirect()->back()->with('error', 'Error. '.$e->getMessage());
         }

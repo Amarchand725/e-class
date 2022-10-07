@@ -6,7 +6,7 @@
             </div>
             <div class="col-lg-6 col-md-6 col-5">
                 <div class="view-button txt-rgt">
-                    <a href="topdiscounted/view.html" class="btn btn-secondary" title="View More">View More<i data-feather="chevron-right"></i>
+                    <a href="#" class="btn btn-secondary" title="View More">View More<i data-feather="chevron-right"></i>
                     </a>
                 </div>
             </div>
@@ -26,15 +26,23 @@
                             </div>
 
                             <div class="badges bg-priamry offer-badge">
-                                @php $percentage = $course->retail_price/$course->price*100; @endphp
-                                <span>OFF<span>{{ (int)$percentage }}%</span></span>
+                                @if($course->discount_type=='percent')
+                                    @php 
+                                        $percentage = $course->discount;
+                                    @endphp
+                                @else 
+                                    @php 
+                                        $percentage = $course->discount/$course->retail_price*100; 
+                                    @endphp
+                                @endif
+                                <span>OFF<span>{{ round($percentage) }}%</span></span>
                             </div>
 
                             <div class="advance-badge">
                                 <span class="badge bg-info">On-sale</span>
                             </div>
                             <div class="view-user-img">
-                                <a href="#" title="">
+                                <a href="{{ route('user.profile', $course->hasInstructor->slug) }}" title="">
                                     @if($course->hasUserProfile)
                                         <img src="{{ asset('public/users') }}/{{ $course->hasUserProfile->profile_image }}" width="50px"  class="img-fluid user-img-one" alt="">
                                     @else
@@ -44,30 +52,22 @@
                             </div>
                             <div class="view-dtl">
                                 <div class="view-heading">
-                                    <a href="#">{{ $course->title }}</a>
+                                    <a href="{{ route('course.single', $course->slug) }}">{{ $course->title }}</a>
                                 </div>
                                 <div class="user-name">
-                                    <h6>By <span><a href="#">{{ $course->hasCreatedBy->roles->first()->name }}</a></span></h6>
+                                    <h6>By <span><a href="{{ route('user.profile', $course->hasInstructor->slug) }}">{{ $course->hasInstructor->name }}</a></span></h6>
                                 </div>
                                 <div class="rating">
                                     <ul>
                                         <li>
-
                                             <div class="pull-left">
                                                 <div class="star-ratings-sprite"><span
                                                         style="width:86.666666666667%"
                                                         class="star-ratings-sprite-rating"></span>
                                                 </div>
                                             </div>
-
-
-                                                                                </li>
-                                        <!-- overall rating-->
-
-                                                                                                                <!-- <li>
-                                                <b>4</b>
-                                            </li> -->
-                                                                            <li class="reviews">
+                                        </li>
+                                        <li class="reviews">
                                             (1 Reviews)
                                         </li>
 
@@ -84,8 +84,14 @@
                                         <div class="col-lg-6 col-md-6 col-sm-6 col-6">
                                             <div class="rate text-right">
                                                 <ul>
-                                                    <li><a><b>${{ number_format($course->sale_price, 2) }}</b></a></li>
-                                                    <li><a><b><strike>${{ number_format($course->price, 2) }}</strike></b></a></li>
+                                                    @if($course->is_paid)
+                                                        <li><a><b>${{ number_format($course->price, 2) }}</b></a></li>
+                                                        @if($course->discount != NULL)
+                                                            <li><a><b><strike>${{ number_format($course->retail_price, 2) }}</strike></b></a></li>
+                                                        @endif
+                                                    @else 
+                                                        <li>FREE</li>
+                                                    @endif
                                                 </ul>
                                             </div>
                                         </div>
@@ -121,16 +127,24 @@
                                     <li>
                                         <i data-feather="play-circle"></i>
                                         <div class="class-des">
-                                            Classes: 10
+                                            Classes: {{ count($course->haveClasses) }}
                                         </div>
                                     </li>
                                     &nbsp;
                                     <li>
                                         <div>
                                             <div class="time-des">
+                                                @php 
+                                                    $sum_minutes = 0;
+                                                    foreach ($course->haveClasses as $course_class){
+                                                        $explodedTime = array_map('intval', explode(':', $course_class->lecture_duration ));
+                                                        $sum_minutes += $explodedTime[0]*60+$explodedTime[1];
+                                                    }
+                                                    $lecture_duration_total_time = floor($sum_minutes/60).':'.floor($sum_minutes % 60);
+                                                @endphp 
                                                 <span class="">
                                                     <i data-feather="clock"></i>
-                                                    19 Minutes
+                                                    {{ $lecture_duration_total_time }}
                                                 </span>
                                             </div>
                                         </div>

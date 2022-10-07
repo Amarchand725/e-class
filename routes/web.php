@@ -23,10 +23,12 @@ Route::get('/', 'WebController@index');
 Route::post('/user/logout', [App\Http\Controllers\Auth\LoginController::class, 'userLogout'])->name('user.logout');
 Route::resource('crud', 'App\Http\Controllers\CrudController'); */
 
-//institute
+//web
 Route::get('/institute/{slug}/single', 'WebController@instituteSingle')->name('institute.single');
 Route::get('/course/{slug}/single', 'WebController@courseSingle')->name('course.single');
+Route::get('/bundle/{slug}/single', 'WebController@bundleSingle')->name('bundle.single');
 Route::get('/user/{slug}/profile', 'WebController@userProfile')->name('user.profile');
+Route::post('/user/store', 'WebController@userStore')->name('user.store');
 
 Route::group(['middleware' => 'guest'], function(){
     Route::view('/admin/login','admin.auth.login')->name('admin.login');
@@ -74,6 +76,8 @@ Route::group(['middleware' => 'auth'], function(){
 
     Route::get('admin/get_states', 'StateController@getStates')->name('admin.get_states');
     Route::get('admin/get_cities', 'CityController@getCities')->name('admin.get_cities');
+
+    Route::get('get_courses_price', 'bundleController@getCoursesPrice')->name('get_courses_price');
 });
 
 require __DIR__.'/auth.php';
@@ -88,3 +92,7 @@ Route::resource('admin/whatlearn', 'WhatLearnController');
 Route::resource('admin/coursechapter', 'CourseChapterController');
 Route::resource('admin/courseclass', 'CourseClassController');
 Route::resource('admin/coursequestion', 'CoursequestionController');
+Route::resource('admin/courseannouncement', 'CourseannouncementController');
+Route::resource('admin/follower', 'FollowerController');
+Route::resource('admin/wishlist', 'WishlistController');
+Route::resource('admin/bundle', 'BundleController');

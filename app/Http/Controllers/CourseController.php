@@ -16,6 +16,8 @@ use App\Models\User;
 use App\Models\Courseinclude;
 use App\Models\CourseChapter;
 use App\Models\CourseClass;
+use App\Models\Coursequestion;
+use App\Models\Courseannouncement;
 
 class CourseController extends Controller
 {
@@ -149,9 +151,11 @@ class CourseController extends Controller
         $whatlearns = WhatLearn::orderby('id', 'desc')->where('course_id', $id)->paginate(10);
         $coursechapters = CourseChapter::orderby('id', 'desc')->where('course_id', $id)->paginate(10);
         $courseclasses = CourseClass::orderby('id', 'desc')->where('course_id', $id)->paginate(10);
+        $coursequestions = Coursequestion::orderby('id', 'desc')->where('course_id', $id)->paginate(10);
+        $courseannouncements = Courseannouncement::orderby('id', 'desc')->where('course_id', $id)->paginate(10);
         return view('courses.edit', compact(
             'view_all_title', 'model', 'institutes', 'categories', 'instructors', 'includes', 'whatlearns', 
-            'coursechapters', 'courseclasses'
+            'coursechapters', 'courseclasses', 'coursequestions', 'courseannouncements'
         ));
     }
 
@@ -169,7 +173,7 @@ class CourseController extends Controller
             $this->validate($request, Course::getValidationRules());
         }else{
             $rules = [
-                'title' => 'unique:courses,title,'.$id,
+                'title' => 'required',
             ];
 
             $this->validate($request, $rules);
@@ -229,69 +233,6 @@ class CourseController extends Controller
             $model->duration = $request->duration;
             $model->status = isset($request->status)?$request->status:0;
             $model->save();
-
-            /* if (isset($request->thumbnail)) {
-                $thumbnail = date('d-m-Y-His').'.'.$request->file('thumbnail')->getClientOriginalExtension();
-                $request->thumbnail->move(public_path('/admin/images/courses'), $thumbnail);
-                $model->thumbnail = $thumbnail;
-            }
-
-            if (isset($request->video)) {
-                $video = date('d-m-Y-His').'.'.$request->file('video')->getClientOriginalExtension();
-                $request->video->move(public_path('/admin/images/courses'), $video);
-                $model->video = $video;
-            }
-
-            $model->instructor_slug = $request->instructor_slug;
-            $model->institute_slug = $request->institute_slug;
-            $model->category_slug = $request->category_slug;
-            $model->title = $request->title;
-            $model->slug = str::slug($request->title);
-            $model->price = $request->price;
-            $model->sale_price = $request->sale_price;
-            $model->is_featured = $request->is_featured;
-            $model->short_description = $request->short_description;
-            $model->requirements = $request->requirements;
-            $model->full_description = $request->full_description;
-            $model->status = $request->status;
-            $model->save(); */
-
-            /* if($model && count($request->learns) > 0){
-                WhatLearn::where('course_id', $model->id)->delete();
-                foreach($request->learns as $learn){
-                    if($learn != NULL){
-                        WhatLearn::create([
-                            'course_id' => $model->id,
-                            'title' => $learn,
-                        ]);
-                    }
-                }
-            }
-
-            if($model && count($request->includes) > 0){
-                CourseInclude::where('course_id', $model->id)->delete();
-                foreach($request->includes as $key=>$include){
-                    if($include != NULL){
-                        CourseInclude::create([
-                            'course_id' => $model->id,
-                            'icon' => $request->icons[$key],
-                            'title' => $include,
-                        ]);
-                    }
-                }
-            }
-
-            if($model && count($request->tags) > 0){
-                CourseTag::where('course_id', $model->id)->delete();
-                foreach($request->tags as $tag){
-                    if($tag != NULL){
-                        CourseTag::create([
-                            'course_id' => $model->id,
-                            'tag' => $tag,
-                        ]);
-                    }
-                }
-            } */
 
             return redirect()->route('course.index')->with('message', 'Course update Successfully !');
         } catch (\Exception $e) {

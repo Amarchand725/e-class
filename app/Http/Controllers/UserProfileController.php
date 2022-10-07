@@ -74,7 +74,7 @@ class UserProfileController extends Controller
             $slug = '';
             do{
                 $slug = Str::random(2);
-                $slug = Str::slug('amarchand').'-'.strtolower($slug);
+                $slug = Str::slug($name).'-'.strtolower($slug);
             }while(User::where('slug', $slug)->first());
 
             $user = User::create([

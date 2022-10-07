@@ -228,23 +228,92 @@
 
         <div class="modal fade" data-backdrop="" style="z-index: 99999999999999999;" id="myModalinstructor" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
             <div class="modal-dialog modal-lg" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-
-                <h4 class="modal-title" id="myModalLabel">Become An Instructor</h4>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                </div>
-                <div class="box box-primary">
-                <div class="panel panel-sum">
-                    <div class="modal-body">
-                                    <div class="box-footer">
-                        <button type="submit" onclick="window.location.href = 'login.html';" class="btn btn-lg col-md-3 btn-primary">Submit</button>
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title" id="myModalLabel">Become An Instructor</h4>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    </div>
+                    <div class="box box-primary">
+                        <div class="panel panel-sum">
+                            <div class="modal-body">
+                                <div class="box box-primary">
+                                    <div class="panel panel-sum">
+                                        <div class="modal-body">
+                                            <form id="become-instructor-form" method="post" data-action="{{ route('user.store') }}" data-parsley-validate="" class="form-horizontal form-label-left" enctype="multipart/form-data">
+                                                @csrf
+                                                <div class="row">
+                                                    <div class="col-md-6">
+                                                        <div class="form-group">
+                                                            <label for="first_name">First Name:<sup class="redstar">*</sup></label>
+                                                            <input type="text" class="form-control" name="first_name" id="title" placeholder="  Enter First Name" value="{{ old('first_name') }}" required="">
+                                                            <span class="text-danger" id="error-first_name">{{ $errors->first('first_name') }}</span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <div class="form-group">
+                                                            <label for="last_name">Last Name:<sup class="redstar">*</sup></label>
+                                                            <input type="text" class="form-control" name="last_name" id="title" placeholder="  Enter Last Name" value="{{ old('last_name') }}" required="">
+                                                            <span class="text-danger" id="error-last_name">{{ $errors->first('last_name') }}</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                
+                                                <div class="row">
+                                                    <div class="col-md-6">
+                                                        <div class="form-group">
+                                                            <label for="email">Email:<sup class="redstar">*</sup></label>
+                                                            <input type="email" value="{{ old('email') }}" class="form-control" name="email" id="title" placeholder="Enter Email">
+                                                            <span class="text-danger" id="error-email">{{ $errors->first('email') }}</span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <div class="form-group">
+                                                            <label for="contact">Mobile:<sup class="redstar">*</sup></label>
+                                                            <input type="text" class="form-control numberonly" name="mobile" id="contact" placeholder="Enter Mobile No" value="{{ old('mobile') }}" required="">
+                                                            <span class="text-danger" id="error-mobile">{{ $errors->first('mobile') }}</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                
+                                                <div class="row">
+                                                    <div class="col-md-6">
+                                                        <div class="form-group">
+                                                            <label for="detail">Detail:<sup class="redstar">*</sup></label>
+                                                            <textarea name="details" rows="5" class="form-control" placeholder="" required="">{{ old('details') }}</textarea>
+                                                            <span class="text-danger" id="error-details">{{ $errors->first('details') }}</span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <div class="form-group">
+                                                            <label for="file">Upload Resume:<sup class="redstar">*</sup></label>
+                                                            <input type="file" class="form-control" name="resume" id="file" accept="application/pdf" required="">
+                                                            <span class="text-danger" id="error-resume">{{ $errors->first('resume') }}</span>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label for="imgInput">Upload Image:<sup class="redstar">*</sup></label>
+                                                            <input type="file" class="form-control" name="profile_image" id="imgInput" accept="image/*" required="">
+                                                            <span class="text-danger" id="error-profile_image">{{ $errors->first('profile_image') }}</span>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label for="image" class="col-sm-2 control-label">Preview </label>
+                                                            <div class="col-sm-8">
+                                                                <img src="{{ asset('public/default.png') }}" id="preview"  width="100px" alt="">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <br>
+                                                <div class="box-footer">
+                                                    <button type="submit" class="btn btn-lg col-md-3 btn-primary">Submit</button>
+                                                </div>
+                                            </form>       
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
-
                     </div>
                 </div>
-                </div>
-            </div>
             </div>
         </div>
 

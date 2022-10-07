@@ -55,4 +55,19 @@ class User extends Authenticatable
     {
         return $this->hasOne(UserProfile::class, 'user_id', 'id');
     }
+
+    public function haveCourses()
+    {
+        return $this->hasMany(Course::class, 'slug', 'instructor_slug');
+    }
+
+    public function haveFollowers()
+    {
+        return $this->hasMany(Follower::class, 'user_id', 'id')->where('following_id', null);
+    }
+
+    function haveFollowings()
+    {
+        return $this->hasMany(Follower::class, 'user_id', 'id')->where('follower_id', null);
+    }
 }

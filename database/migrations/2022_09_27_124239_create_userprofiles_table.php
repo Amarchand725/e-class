@@ -26,6 +26,7 @@ class CreateUserProfilesTable extends Migration
             $table->string("password"); 
             $table->string("address")->nullable(); 
             $table->string("profile_image")->nullable(); 
+            $table->string("resume")->nullable(); 
             $table->text("facebook_url")->nullable(); 
             $table->text("twitter_url")->nullable(); 
             $table->text("youtube_url")->nullable(); 

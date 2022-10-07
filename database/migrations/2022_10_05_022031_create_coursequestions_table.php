@@ -14,6 +14,7 @@ class CreateCoursequestionsTable extends Migration
     {
         Schema::create('coursequestions', function (Blueprint $table) {
             $table->id();
+            $table->bigInteger("course_id");
             $table->text("question");
             $table->boolean('status')->default(1);
             $table->string('deleted_at')->nullable();

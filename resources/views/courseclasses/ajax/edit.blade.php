@@ -30,7 +30,7 @@
 		<label for="type" class="col-sm-3 control-label">Type <span style="color:red">*</span></label>
 		<div class="col-sm-8">
 			@php $types = ['Video', 'Audio', 'Image', 'Zip', 'Pdf / Powerpoint / Notepad'] @endphp 
-			<select id="type" class="form-control" name="type">
+			<select id="type" class="form-control edit-file-type" name="type">
 				<option value="" selected>Select Type</option>
 				@foreach ($types as $type)
 					<option value="{{ $type }}" {{ $model->type==$type?'selected':'' }}>{{ $type }}</option>
@@ -39,29 +39,36 @@
 			<span style="color: red" id="error-type">{{ $errors->first("type") }}</span>
 		</div>
 	</div>
-	<div class="form-group">
-		<label for="attachment" class="col-sm-3 control-label">Attachment</label>
-		<div class="col-sm-8">
-			<input type="file" class="form-control" id="imgInput" name="attachment" accept="image/*">
-			<span style="color: red">{{ $errors->first("attachment") }}</span>
-		</div>
-	</div>
+	
+	<span id="edit-class-custom">
+		@if($model->type=='Video')
+			<div class="form-group">
+				<label for="lecture" class="col-sm-3 control-label">Exist Lecture </label>
+				<div class="col-sm-8">
+					<video width="220" height="140" controls>
+						<source src="{{ asset('public/admin/course_class/lectures') }}/{{ $model->lecture }}" type="video/mp4">
+						<source src="{{ asset('public/admin/course_class/lectures') }}/{{ $model->lecture }}" type="video/ogg">
+						Your browser does not support the video tag.
+					</video>
+				</div>
+			</div>
+		@elseif($model->type=='Image')
+			<div class="form-group">
+				<label for="image" class="col-sm-3 control-label">Exist Image </label>
+				<div class="col-sm-8">
+					<img id="preview" src="{{ asset('public/admin/course_class/attachments') }}/{{ $model->attachment }}" width="100px" alt="">
+				</div>
+			</div>
+		@else 
+			<div class="form-group">
+				<label for="image" class="col-sm-3 control-label">Exist Attachment </label>
+				<div class="col-sm-8">
+					<a href="{{ asset('public/admin/course_class/attachments') }}/{{ $model->attachment }}" download><i class="fa fa-download"></i> {{ $model->attachment }}</a>
+				</div>
+			</div>
+		@endif
+	</span>
 
-	@if($model->attachment)
-		<div class="form-group">
-			<label for="image" class="col-sm-3 control-label">Exist Attachment </label>
-			<div class="col-sm-8">
-				<img id="preview" src="{{ asset('public/admin/course_class/attachments') }}/{{ $model->attachment }}" width="100px" alt="">
-			</div>
-		</div>
-	@else 
-		<div class="form-group">
-			<label for="image" class="col-sm-3 control-label">Preview</label>
-			<div class="col-sm-8">
-				<img id="preview" src="{{ asset('public/default.png') }}" width="100px" alt="">
-			</div>
-		</div>
-	@endif
 	<div class="form-group">
 		<label for="status" class="col-sm-3 control-label"></label>
 		<div class="col-sm-8">

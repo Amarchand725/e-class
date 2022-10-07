@@ -9,6 +9,8 @@ use App\Models\Course;
 use App\Models\Blog;
 use App\Models\TrustCompany;
 use App\Models\Institute;
+use App\Models\User;
+use App\Models\Bundle;
 
 function globalData()
 {
@@ -44,7 +46,7 @@ function topDiscountCourses(){
     return Course::where('status', 1)->where('discount', '!=', NULL)->get();
 }
 function featuredCourses(){
-    return Course::where('status', 1)->where('is_featured', 1)->latest();
+    return Course::orderby('id', 'desc')->where('status', 1)->where('is_featured', 1)->get();
 }
 function latestBlogs()
 {
@@ -55,4 +57,14 @@ function trustCompanies(){
 }
 function institutes(){
     return Institute::orderby('id', 'desc')->where('status', 1)->get();
+}
+
+function instructors()
+{
+    return User::role('Instructor')->get();
+}
+
+function bundles()
+{
+    return Bundle::orderby('id', 'desc')->where('status', 1)->get();
 }

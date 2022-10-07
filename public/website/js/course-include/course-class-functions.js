@@ -211,15 +211,19 @@ $('#update-course-class-form').on('submit',function(e){
 $('#add-course-class-form').on('submit',function(e){
     e.preventDefault();
     var course_class_store_url = $(this).attr('data-course-form');
-    var formData = $(this).serializeArray();
-    // console.log(formData);
+        
     $.ajax({
         headers: {
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
         },
         url: course_class_store_url,
         type:"POST",
-        data: formData,
+        // data: formData,
+        data: new FormData(this),
+        dataType: 'json',
+        contentType: false,
+        cache: false,
+        processData:false,
         success:function(response){
             $('#add-course-class-modal').modal('hide');
             if(response.code==200){
@@ -275,4 +279,76 @@ $(document).on('click', '.add-course-class-btn', function(){
     
     $('#add-course-class-form').find('#course-id').val($(this).attr('data-course-id'));
     $('#add-course-class-modal').modal('show');
+});
+
+$(document).on('change', '.file-type', function(){
+    var type = $(this).val();
+    var html = '';
+    if(type=='Video'){
+            html = '<div class="form-group">'+
+                        '<label for="lecture" class="col-sm-3 control-label">Lecture </label>'+
+                        '<div class="col-sm-8">'+
+                            '<input type="file" class="form-control" id="lecture" name="lecture" accept="video/*">'+
+                        '</div>'+
+                    '</div>';
+    }else if(type=='Audio'){
+        html = '<div class="form-group">'+
+                    '<label for="attachment" class="col-sm-3 control-label">Audio </label>'+
+                    '<div class="col-sm-8">'+
+                        '<input type="file" class="form-control" id="attachment" name="attachment" accept="audio/*">'+
+                    '</div>'+
+                '</div>';
+    }else if(type=='Image'){
+        html = '<div class="form-group">'+
+                    '<label for="attachment" class="col-sm-3 control-label">Image </label>'+
+                    '<div class="col-sm-8">'+
+                        '<input type="file" class="form-control" id="attachment" name="attachment" accept="image/*">'+
+                    '</div>'+
+                '</div>';
+    }else{
+        html = '<div class="form-group">'+
+                    '<label for="attachment" class="col-sm-3 control-label">Attachment Docs </label>'+
+                    '<div class="col-sm-8">'+
+                        '<input type="file" class="form-control" id="attachment" name="attachment" accept="application/pdf,application/msword">'+
+                    '</div>'+
+                '</div>';
+    }
+
+    $('#class-custom').html(html);
+});
+
+$(document).on('change', '.edit-file-type', function(){
+    var type = $(this).val();
+    var html = '';
+    if(type=='Video'){
+            html = '<div class="form-group">'+
+                        '<label for="lecture" class="col-sm-3 control-label">Lecture </label>'+
+                        '<div class="col-sm-8">'+
+                            '<input type="file" class="form-control" id="lecture" name="lecture" accept="video/*">'+
+                        '</div>'+
+                    '</div>';
+    }else if(type=='Audio'){
+        html = '<div class="form-group">'+
+                    '<label for="attachment" class="col-sm-3 control-label">Audio </label>'+
+                    '<div class="col-sm-8">'+
+                        '<input type="file" class="form-control" id="attachment" name="attachment" accept="audio/*">'+
+                    '</div>'+
+                '</div>';
+    }else if(type=='Image'){
+        html = '<div class="form-group">'+
+                    '<label for="attachment" class="col-sm-3 control-label">Image </label>'+
+                    '<div class="col-sm-8">'+
+                        '<input type="file" class="form-control" id="attachment" name="attachment" accept="image/*">'+
+                    '</div>'+
+                '</div>';
+    }else{
+        html = '<div class="form-group">'+
+                    '<label for="attachment" class="col-sm-3 control-label">Attachment Docs </label>'+
+                    '<div class="col-sm-8">'+
+                        '<input type="file" class="form-control" id="attachment" name="attachment" accept="application/pdf,application/msword">'+
+                    '</div>'+
+                '</div>';
+    }
+
+    $('#edit-class-custom').html(html);
 });

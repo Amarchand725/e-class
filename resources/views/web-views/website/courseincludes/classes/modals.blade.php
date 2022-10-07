@@ -45,7 +45,7 @@
                                     <label for="type" class="col-sm-3 control-label">Type <span style="color:red">*</span></label>
                                     <div class="col-sm-8">
                                         @php $types = ['Video', 'Audio', 'Image', 'Zip', 'Pdf / Powerpoint / Notepad'] @endphp 
-                                        <select id="type" class="form-control" name="type">
+                                        <select id="type" class="form-control file-type" name="type">
                                             <option value="" selected>Select Type</option>
                                             @foreach ($types as $type)
                                                 <option value="{{ $type }}" {{ old('type')==$type?'selected':'' }}>{{ $type }}</option>
@@ -54,20 +54,8 @@
                                         <span style="color: red" id="error-type">{{ $errors->first("type") }}</span>
                                     </div>
                                 </div>
-                                <div class="form-group">
-                                    <label for="attachment" class="col-sm-3 control-label">Attachment </label>
-                                    <div class="col-sm-8">
-                                        <input type="file" class="form-control" id="imgInput" name="attachment" accept="image/*">
-                                        <span style="color: red">{{ $errors->first("attachment") }}</span>
-                                    </div>
-                                </div>
-        
-                                <div class="form-group">
-                                    <label for="image" class="col-sm-3 control-label">Preview </label>
-                                    <div class="col-sm-8">
-                                        <img src="{{ asset('public/default.png') }}" id="preview"  width="100px" alt="">
-                                    </div>
-                                </div>
+                                <span id="class-custom"></span>
+                            
                                 <div class="form-group">
                                     <label for="" class="col-sm-3 control-label">Status</label>
                                     <div class="col-sm-8">

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 05, 2022 at 04:21 PM
+-- Generation Time: Oct 07, 2022 at 04:34 PM
 -- Server version: 10.4.20-MariaDB
 -- PHP Version: 7.4.22
 
@@ -51,6 +51,43 @@ INSERT INTO `blogs` (`id`, `created_by`, `title`, `description`, `attachment`, `
 (4, 11, 'Build a Successful Creative Blog', '<p>There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don&#39;t look even slightly believable. If you are going to use a passage of Lorem Ipsum, you need to be sure there isn&#39;t anything embarrassing hidden in the middle of text. All the Lorem Ipsum generators on the Internet tend to repeat predefined chunks as necessary, making this the first true generator on the Internet. It uses a dictionary of over 200 Latin words, combined with a handful of model sentence structures, to generate Lorem Ipsum which looks reasonable. The generated Lorem Ipsum is therefore always free from repetition, injected humour, or non-characteristic words etc.</p>', '25-09-2022-171335.jpg', 'jpg', 0, NULL, '2022-09-25 12:13:35', '2022-09-25 12:13:35'),
 (5, 11, 'Built to Blog', '<p>There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don&#39;t look even slightly believable. If you are going to use a passage of Lorem Ipsum, you need to be sure there isn&#39;t anything embarrassing hidden in the middle of text. All the Lorem Ipsum generators on the Internet tend to repeat predefined chunks as necessary, making this the first true generator on the Internet. It uses a dictionary of over 200 Latin words, combined with a handful of model sentence structures, to generate Lorem Ipsum which looks reasonable. The generated Lorem Ipsum is therefore always free from repetition, injected humour, or non-characteristic words etc.</p>', '25-09-2022-171417.jpg', 'jpg', 1, NULL, '2022-09-25 12:14:17', '2022-09-25 12:14:17'),
 (6, 11, 'Blogging for Your Business', '<p>There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don&#39;t look even slightly believable. If you are going to use a passage of Lorem Ipsum, you need to be sure there isn&#39;t anything embarrassing hidden in the middle of text. All the Lorem Ipsum generators on the Internet tend to repeat predefined chunks as necessary, making this the first true generator on the Internet. It uses a dictionary of over 200 Latin words, combined with a handful of model sentence structures, to generate Lorem Ipsum which looks reasonable. The generated Lorem Ipsum is therefore always free from repetition, injected humour, or non-characteristic words etc.</p>', '25-09-2022-171531.jpg', 'jpg', 1, NULL, '2022-09-25 12:15:31', '2022-09-25 12:15:31');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `bundles`
+--
+
+CREATE TABLE `bundles` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `user_slug` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `course_ids` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `title` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `slug` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `short_detail` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `details` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `banner` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `is_paid` tinyint(1) NOT NULL DEFAULT 0,
+  `is_featured` tinyint(1) DEFAULT 0,
+  `start_from` date NOT NULL,
+  `end_date` date NOT NULL,
+  `retail_price` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `price` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `status` tinyint(1) NOT NULL DEFAULT 1,
+  `deleted_at` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `bundles`
+--
+
+INSERT INTO `bundles` (`id`, `user_slug`, `course_ids`, `title`, `slug`, `short_detail`, `details`, `banner`, `is_paid`, `is_featured`, `start_from`, `end_date`, `retail_price`, `price`, `status`, `deleted_at`, `created_at`, `updated_at`) VALUES
+(1, 'claire-robertson-8u', '[null,\"11\",\"10\"]', 'Develop New Skills', 'develop-new-skills', 'New Skillis the procedure by which an individual scientist takes a snippet of data from enactment, strategy, or some other source and makes an interpretation of it into a lot of attributes that can be quantitatively investigated. For every nation, two specialists from our multilingual group coded information sources freely as indicated by pre-characterized coding rules and contrasted their outcomes with guarantee precision. At whatever point coding required an informed decision by the coder, the guidelines basic such choices were talked about, efficiently portrayed in a coding manual and applied reliably across nations.', '<ul>\r\n	<li>\r\n	<p>To incorporate new abilities as successfully as could be expected under the circumstances, it&#39;s fundamental to get ordinary input. Great input permits you to reflect all the more profoundly, which is essential to the learning procedure. Take the time each day to ponder the advancement you&#39;re making</p>\r\n	</li>\r\n</ul>', '07-10-2022-104156.jpg', 1, 1, '2022-10-05', '2022-10-10', '1890', '1500', 1, NULL, '2022-10-07 05:41:56', '2022-10-07 06:36:49'),
+(2, 'claire-robertson-8u', '[\"9\",\"8\"]', 'Fitness', 'fitness', 'Fitness is the procedure by which an individual scientist takes a snippet of data from enactment, strategy, or some other source and makes an interpretation of it into a lot of attributes that can be quantitatively investigated. For every nation, two specialists from our multilingual group coded information sources freely as indicated by pre-characterized coding rules and contrasted their outcomes with guarantee precision. At whatever point coding required an informed decision by the coder, the guidelines basic such choices were talked about, efficiently portrayed in a coding manual and applied reliably across nations.', '<ul>\r\n	<li>\r\n	<p>Physical wellness is a condition of well being and prosperity and, all the more explicitly, the capacity to perform parts of sports, occupations and day by day exercises. Physical wellness is commonly accomplished through appropriate sustenance, moderate-enthusiastic physical exercise, and adequate rest.</p>\r\n	</li>\r\n</ul>', '07-10-2022-110234.jpg', 1, 1, '2022-10-01', '2022-10-15', '2000', '400', 1, NULL, '2022-10-07 06:02:34', '2022-10-07 06:02:34'),
+(3, 'claire-robertson-8u', '[null,\"6\",\"5\"]', 'Designing', 'designing', 'A design is a plan or specification for the construction of an object or system or for the ... with a broad multidisciplinary knowledge required for such designs to also have a detailed specialized knowledge of how to produce the product.', '<ul>\r\n	<li>\r\n	<p>A&nbsp;<em>design</em>&nbsp;is a plan or specification for the construction of an object or system or for the ... with a broad multidisciplinary knowledge required for such&nbsp;<em>designs</em>&nbsp;to also have a&nbsp;<em>detailed</em>&nbsp;specialized knowledge of how to produce the product.</p>\r\n	</li>\r\n</ul>', '07-10-2022-110400.jpg', 1, 1, '2022-10-07', '2022-10-10', '2200', '2000', 1, NULL, '2022-10-07 06:04:00', '2022-10-07 06:35:31'),
+(4, 'claire-robertson-8u', '[null,\"2\",\"1\"]', 'Coding', 'coding', 'Coding is the procedure by which an individual scientist takes a snippet of data from enactment, strategy, or some other source and makes an interpretation of it into a lot of attributes that can be quantitatively investigated. For every nation, two specialists from our multilingual group coded information sources freely as indicated by pre-characterized coding rules and contrasted their outcomes with guarantee precision. At whatever point coding required an informed decision by the coder, the guidelines basic such choices were talked about, efficiently portrayed in a coding manual and applied reliably across nations.', '<p>Coding is the procedure by which an individual scientist takes a snippet of data from enactment, strategy, or some other source and makes an interpretation of it into a lot of attributes that can be quantitatively investigated. For every nation, two specialists from our multilingual group coded information sources freely as indicated by pre-characterized coding rules and contrasted their outcomes with guarantee precision. At whatever point coding required an informed decision by the coder, the guidelines basic such choices were talked about, efficiently portrayed in a coding manual and applied reliably across nations.</p>', '07-10-2022-110537.jpg', 1, 1, '2022-10-06', '2022-10-11', '1002', '800', 1, NULL, '2022-10-07 06:05:37', '2022-10-07 07:36:19');
 
 -- --------------------------------------------------------
 
@@ -142,6 +179,29 @@ INSERT INTO `countries` (`id`, `name`, `country_code`, `currency`, `currency_sym
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `courseannouncements`
+--
+
+CREATE TABLE `courseannouncements` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `course_id` bigint(20) NOT NULL,
+  `announcement` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `status` tinyint(1) NOT NULL DEFAULT 1,
+  `deleted_at` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `courseannouncements`
+--
+
+INSERT INTO `courseannouncements` (`id`, `course_id`, `announcement`, `status`, `deleted_at`, `created_at`, `updated_at`) VALUES
+(1, 11, 'tesetd -updated', 1, '2022-10-06 14:39:02', '2022-10-06 09:38:42', '2022-10-06 09:39:02');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `coursechapters`
 --
 
@@ -169,7 +229,8 @@ INSERT INTO `coursechapters` (`id`, `course_id`, `name`, `file`, `status`, `dele
 (6, 11, 'Amarchand', NULL, 0, '2022-10-05 09:03:01', '2022-10-05 03:38:40', '2022-10-05 04:03:01'),
 (8, 11, 'Amar', NULL, 0, '2022-10-05 08:47:28', '2022-10-05 03:39:34', '2022-10-05 03:47:28'),
 (9, 11, 'Amar', NULL, 0, '2022-10-05 08:47:25', '2022-10-05 03:41:19', '2022-10-05 03:47:25'),
-(10, 11, 'tested', NULL, 0, '2022-10-05 08:47:22', '2022-10-05 03:47:18', '2022-10-05 03:47:22');
+(10, 11, 'tested', NULL, 0, '2022-10-05 08:47:22', '2022-10-05 03:47:18', '2022-10-05 03:47:22'),
+(11, 11, 'test', NULL, 1, '2022-10-05 14:25:34', '2022-10-05 09:25:25', '2022-10-05 09:25:34');
 
 -- --------------------------------------------------------
 
@@ -185,7 +246,9 @@ CREATE TABLE `courseclasses` (
   `detail` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `type` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `attachment` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `is_featured` tinyint(1) NOT NULL,
+  `lecture` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `lecture_duration` time DEFAULT NULL,
+  `is_featured` tinyint(1) NOT NULL DEFAULT 0,
   `status` tinyint(1) NOT NULL DEFAULT 1,
   `deleted_at` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
@@ -196,9 +259,9 @@ CREATE TABLE `courseclasses` (
 -- Dumping data for table `courseclasses`
 --
 
-INSERT INTO `courseclasses` (`id`, `course_id`, `chapter_id`, `title`, `detail`, `type`, `attachment`, `is_featured`, `status`, `deleted_at`, `created_at`, `updated_at`) VALUES
-(1, 11, 3, 'Minim in quo sint r', 'Cupidatat dolores ut', 'Image', NULL, 0, 0, NULL, '2022-10-05 06:08:44', '2022-10-05 09:01:43'),
-(2, 11, 3, 'Dolore ea et quia do--updated', 'Et aut animi omnis--update', 'Audio', NULL, 1, 1, NULL, '2022-10-05 06:09:46', '2022-10-05 09:05:27');
+INSERT INTO `courseclasses` (`id`, `course_id`, `chapter_id`, `title`, `detail`, `type`, `attachment`, `lecture`, `lecture_duration`, `is_featured`, `status`, `deleted_at`, `created_at`, `updated_at`) VALUES
+(1, 11, 2, 'Ipsam aperiam sint', 'Dolore a do ut molli', 'Pdf / Powerpoint / Notepad', NULL, NULL, '13:05:00', 0, 0, NULL, '2022-10-06 05:50:06', '2022-10-06 05:50:06'),
+(2, 11, 4, 'Ipsam aperiam sint-updated', 'Dolore a do ut molli-updated', 'Video', NULL, '06-10-2022-130231.webm', '01:06:00', 0, 0, NULL, '2022-10-06 08:02:31', '2022-10-06 08:17:28');
 
 -- --------------------------------------------------------
 
@@ -222,7 +285,8 @@ CREATE TABLE `courseincludes` (
 --
 
 INSERT INTO `courseincludes` (`id`, `course_id`, `icon`, `detail`, `status`, `deleted_at`, `created_at`, `updated_at`) VALUES
-(1, 11, '<i class=\"fa fa-university\" aria-hidden=\"true\"></i>', 'teted', 1, NULL, '2022-10-05 02:07:11', '2022-10-05 08:05:01');
+(1, 11, '<i class=\"fa fa-university\" aria-hidden=\"true\"></i>', 'teted', 1, NULL, '2022-10-05 02:07:11', '2022-10-05 08:05:01'),
+(2, 11, '<i class=\"fa fa-window-restore\" aria-hidden=\"true\"></i>', 'Quisquam libero veri--90', 0, '2022-10-05 14:24:41', '2022-10-05 09:24:25', '2022-10-05 09:24:41');
 
 -- --------------------------------------------------------
 
@@ -232,12 +296,21 @@ INSERT INTO `courseincludes` (`id`, `course_id`, `icon`, `detail`, `status`, `de
 
 CREATE TABLE `coursequestions` (
   `id` bigint(20) UNSIGNED NOT NULL,
+  `course_id` bigint(20) NOT NULL,
   `question` text COLLATE utf8mb4_unicode_ci NOT NULL,
   `status` tinyint(1) NOT NULL DEFAULT 1,
   `deleted_at` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `coursequestions`
+--
+
+INSERT INTO `coursequestions` (`id`, `course_id`, `question`, `status`, `deleted_at`, `created_at`, `updated_at`) VALUES
+(1, 11, 'Pariatur Autem sequ updated ?', 1, NULL, '2022-10-06 01:11:57', '2022-10-06 01:39:03'),
+(2, 11, 'Eius occaecat offici-updated', 0, '2022-10-06 14:38:31', '2022-10-06 09:38:02', '2022-10-06 09:38:31');
 
 -- --------------------------------------------------------
 
@@ -279,8 +352,8 @@ CREATE TABLE `courses` (
 INSERT INTO `courses` (`id`, `created_by`, `instructor_slug`, `institute_slug`, `category_slug`, `title`, `slug`, `retail_price`, `discount_type`, `discount`, `price`, `short_description`, `requirements`, `full_description`, `is_paid`, `is_featured`, `thumbnail`, `video_url`, `video`, `duration`, `status`, `deleted_at`, `created_at`, `updated_at`) VALUES
 (1, 11, 'claire-robertson-8u', 'justina-moon', 'development', 'Travel Hacking -Smart & Fun Travel', 'travel-hacking-smart-fun-travel', NULL, NULL, NULL, '2.00', '60+ World Travel Tips: Cheap Travel. Fear of Flying. Travel Motivation & Safety. Negotiation. Social Success Abroad.', '<ul>\r\n	<li>Find the approaches to kill dejection and dread of voyaging and plan your movement for an astonishing travel encounters at a reasonable expense. The course will tell you the best way to deal with your cash and deal with your consumption effectively so you are never stuck anyplace with no cash during movement.</li>\r\n</ul>', '<p>At that point the course will cover how to discover nearby gatherings to hang out, neighborhood occasions to go to anyplace on the planet, how to meet different explorers simply like you, how to go to astonishing occasions that will transform yourself at a reasonable cost anyplace on the planet. Figure out how to get 100% confided in nearby astounding independently directed visits that you can do without anyone else in any piece of the world, stunning ventures applications to use to grow your voyaging experience, how to discover explicit concentrated data on neighborhood mystery occasions, and how to discover astonishing free nature areas around the globe to unwind in. We at that point proceed onward to the tips on the most proficient method to make durable fellowships with different voyagers. Likewise, something that many individuals don&#39;t consider is dating while at the same time voyaging. Well here in this course, we will cover the most ideal approaches to date while voyaging. You will find the probably the best dating applications. We need you can concentrate on movement first and dating second.</p>', 1, NULL, '25-09-2022-114104.jpg', NULL, NULL, NULL, 1, NULL, '2022-09-25 06:41:04', '2022-09-25 06:41:04'),
 (2, 11, 'claire-robertson-8u', 'zane-stuart', 'health-fitness', 'The Nail Art Tutorial - Modern Nail Designs', 'the-nail-art-tutorial-modern-nail-designs', NULL, NULL, NULL, '1000', 'Learn by creating amazing nail designs, create gorgeous GEL manicures and start your own nail business from home.', '<ul>\r\n	<li>In this course I will utilize stepping pack, acrylic hues, gel painting, hued gels and that&#39;s just the beginning. Subsequent to taking an interest in this course you will be capable, contingent upon the ability and expertise of every one, to make uncommon nail structures, to create and improve your aptitudes . Much obliged to you for your time and I trust this course will support you and fulfill e&nbsp;very one of your interests.</li>\r\n</ul>', '<p>This course incorporates an assortment of data to assist you with staying aware of nail workmanship news. At this course are welcome the two novices and propelled, the vital fixings are just the energy and the longing to learn. I will present and I will clarify in detail the materials we will brighten with, yet in addition all the important strides to finish the nail structure. In this course I will utilize stepping pack, acrylic hues, gel painting, hued gels and that&#39;s just the beginning. Subsequent to taking an interest in this course you will be capable, contingent upon the ability and expertise of every one, to make uncommon nail structures, to create and improve your aptitudes . Much obliged to you for your time and I trust this course will support you and fulfill every one of your interests.</p>', 1, NULL, '25-09-2022-125129.jpg', NULL, NULL, NULL, 1, NULL, '2022-09-25 07:51:29', '2022-09-25 07:51:29'),
-(5, 11, 'claire-robertson-8u', 'madison-mcgowan', 'lifestyle', 'Hair styling- The Ultimate Hair Course', 'hair-styling-the-ultimate-hair-course', NULL, NULL, NULL, '1200', 'You won\'t visit a hairdresser again! Cut, dye and style your hair yourself at home.', '<ul>\r\n	<li>Next, how about we talk about the apparatuses and the correct temperature to make solid twists. We are completing with a hair obsession. A large number of brands and varnishes. Be that as it may, many don&#39;t hold hair and make dust. Subsequently, the styling is messy.</li>\r\n</ul>', '<p>Voluminous, solid twists without backcombing/prodding or pleating, even the biggest length. Is it accurate to say that you are longing for radiant twists and a huge volume? However, your customers fear prodding or pleating... I know it all about twists. What&#39;s more, in this exercise I sincerely share every one of the privileged insights. You even didn&#39;t feel that everything is so straightforward. Anybody with any degree of preparing can ace the abilities. I will tell about hair arrangement. This is the most significant advance. Skirting this specific advance, you are committing a gross error.</p>', 1, NULL, '25-09-2022-143913.jpg', NULL, NULL, NULL, 1, NULL, '2022-09-25 09:39:13', '2022-09-25 09:39:13'),
-(6, 27, 'claire-robertson-8u', 'justina-moon', 'music', 'Art & Science of Drawing- Ultimate Drawing Course', 'art-science-of-drawing-ultimate-drawing-course', NULL, NULL, NULL, '1000', 'A comprehensive video and ebook course designed for people wanting to learn the core concepts of drawing.', '<p>This top of the line course is currently far and away superior with new substance as of late included just as improved picture and sound. This refreshed adaptation of the course currently incorporates long stretches of reward drawing exhibits that will tell you the best way to apply your new attracting abilities to a wide scope of topic including botanicals and feathered creatures. There&#39;s even a&nbsp;prologue to essential figure drawing.</p>', '<p>The Art and Science of Drawing is an exceptional program that will show you how to draw each day in turn. The program is straightforward, every day you&#39;ll watch one video exercise that will present a fundamental drawing ability, and afterward do the prescribed practice. The Art and Science of Drawing is flooding with ground-breaking bits of knowledge into the drawing procedure and offers the absolute most clear, most open drawing guidance accessible. A large number of the apparatuses and strategies you&#39;ll learn here are once in a while observed outside of private workmanship institutes. This course is enthusiastically suggested for anybody keen on painting too. Most ace painters concur that drawing is a key and fundamental expertise for all painters. Essential SKILLS is the ideal introduction for anybody needing to figure out how to draw. The abilities you&#39;ll learn here will significantly improve your specialty and configuration regardless of what medium you work in.</p>', 1, NULL, '25-09-2022-144244.jpg', NULL, NULL, NULL, 1, NULL, '2022-09-25 09:42:44', '2022-09-25 09:42:44'),
+(5, 11, 'claire-robertson-8u', 'madison-mcgowan', 'lifestyle', 'Hair styling- The Ultimate Hair Course', 'hair-styling-the-ultimate-hair-course', NULL, NULL, NULL, '1200', 'You won\'t visit a hairdresser again! Cut, dye and style your hair yourself at home.', '<ul>\r\n	<li>Next, how about we talk about the apparatuses and the correct temperature to make solid twists. We are completing with a hair obsession. A large number of brands and varnishes. Be that as it may, many don&#39;t hold hair and make dust. Subsequently, the styling is messy.</li>\r\n</ul>', '<p>Voluminous, solid twists without backcombing/prodding or pleating, even the biggest length. Is it accurate to say that you are longing for radiant twists and a huge volume? However, your customers fear prodding or pleating... I know it all about twists. What&#39;s more, in this exercise I sincerely share every one of the privileged insights. You even didn&#39;t feel that everything is so straightforward. Anybody with any degree of preparing can ace the abilities. I will tell about hair arrangement. This is the most significant advance. Skirting this specific advance, you are committing a gross error.</p>', 1, 1, '25-09-2022-143913.jpg', NULL, NULL, NULL, 1, NULL, '2022-09-25 09:39:13', '2022-09-25 09:39:13'),
+(6, 27, 'claire-robertson-8u', 'justina-moon', 'music', 'Art & Science of Drawing- Ultimate Drawing Course', 'art-science-of-drawing-ultimate-drawing-course', NULL, NULL, NULL, '1000', 'A comprehensive video and ebook course designed for people wanting to learn the core concepts of drawing.', '<p>This top of the line course is currently far and away superior with new substance as of late included just as improved picture and sound. This refreshed adaptation of the course currently incorporates long stretches of reward drawing exhibits that will tell you the best way to apply your new attracting abilities to a wide scope of topic including botanicals and feathered creatures. There&#39;s even a&nbsp;prologue to essential figure drawing.</p>', '<p>The Art and Science of Drawing is an exceptional program that will show you how to draw each day in turn. The program is straightforward, every day you&#39;ll watch one video exercise that will present a fundamental drawing ability, and afterward do the prescribed practice. The Art and Science of Drawing is flooding with ground-breaking bits of knowledge into the drawing procedure and offers the absolute most clear, most open drawing guidance accessible. A large number of the apparatuses and strategies you&#39;ll learn here are once in a while observed outside of private workmanship institutes. This course is enthusiastically suggested for anybody keen on painting too. Most ace painters concur that drawing is a key and fundamental expertise for all painters. Essential SKILLS is the ideal introduction for anybody needing to figure out how to draw. The abilities you&#39;ll learn here will significantly improve your specialty and configuration regardless of what medium you work in.</p>', 1, 1, '25-09-2022-144244.jpg', NULL, NULL, NULL, 1, NULL, '2022-09-25 09:42:44', '2022-09-25 09:42:44'),
 (7, 11, 'claire-robertson-8u', 'justina-moon', 'music', 'Guitar System - Ultimate Masterclass', 'guitar-system-ultimate-masterclass', NULL, NULL, NULL, '800', 'Beginner guitar lessons. Go from knowing nothing about the guitar and learn to play songs everbody loves in just weeks', '<ul>\r\n	<li>Each tune exercise accompanies a play-along highlight, so after you&#39;re finished learning the melody, I play it with you at a moderate and agreeable rhythm, and you&#39;ll generally have a simple time placing it into viable use. The course additionally accompanies a 42-page picture harmony book, so you&#39;ll have a simple time tracking with every one of the exercises.</li>\r\n</ul>', '<p>Envision whenever somebody requests that you get the guitar at a family assembling and NOW you can play melodies everybody knows and appreciates easily and certainty. You&#39;ll be the star at the gathering and everybody will adore you for it! After you join this course, you won&#39;t have to envision any longer. I make you stride by-step and note-by-note through every one of the components expected to make this a reality in an exceptionally short measure of time!!!</p>', 1, NULL, '25-09-2022-144450.jpg', NULL, NULL, NULL, 1, NULL, '2022-09-25 09:44:50', '2022-09-25 09:44:50'),
 (8, 11, 'claire-robertson-8u', 'justina-moon', 'design', 'SQL: Learn SQL for data analysis', 'sql-learn-sql-for-data-analysis', NULL, NULL, NULL, '1000', 'Step by Step SQL with MySQL Database for Beginners, Non-Techs, newbs - Quick way to learn SQL using MySQL Database', '<p>You needn&#39;t bother with long stretches of talks to learn SQL and MySQL, that is actually how I moved toward this course. I blended the data so it is snappy and straightforward. In this course I have rearranged the procedure without getting into all the perplexing specialized stand up so anyone can learn SQL. This course is intended to make each progression straightforward. I utilized similar t&nbsp;echniques that I use to show business experts and advertising investigators in my very own gathering.</p>', '<p>This is a novice level course. On the off chance that you have earlier information on SQL than this course may fill in as boost yet won&#39;t show you many propelled ideas. Why you ought to gain from me? I have been in Digital Marketing and Analytics for more than 15 years. I have prepared individuals from various foundations and have changed over them into high performing Digital Marketers and Analysts. I comprehend both the innovation and promoting side of business. I have managed numerous investigation advancements path before Google Tag chief existed and know the inward working of Digital Analytics. Likewise, I have created different course and showed understudies from everywhere throughout the world. I am online educator for University of British Columbia (Canada), University of Washington (USA), Bellevue College (USA) and Digital Analytics Association.</p>', 1, NULL, '25-09-2022-144657.jpg', NULL, NULL, NULL, 1, NULL, '2022-09-25 09:46:57', '2022-09-25 09:46:57'),
 (9, 11, 'claire-robertson-8u', 'justina-moon', 'design', 'The Mordern JavaScript - The Complete Guide', 'the-mordern-javascript-the-complete-guide', NULL, NULL, NULL, '1000', 'Modern JavaScript from the beginning - all the way up to JS expert level! THE must-have JavaScript resource in 2020.', '<p>This is the most far reaching and present day course you can discover on JavaScript - it depends on all my JavaScript information AND educating experience. It&#39;s both a total guide, beginning with the center essentials of the language, just as a broad reference of the JavaScript language and condition, guaranteeing that the two newcomers just as experienced JavaScript designers get a great deal out&nbsp;of this course!</p>', '<p>It&#39;s an enormous course since it&#39;s stuffed with significant information and supportive substance. From the center nuts and bolts, over cutting edge ideas and JavaScript strengths, as far as possible up to master points like execution enhancement and testing - this course has everything. My objective was to make your go-to asset for the JavaScript language, which you can use for learning it as well as an asset you can return to and look into significant themes. The course depends on my experience as a long haul JavaScript engineer just as an instructor with in excess of 1,000,000 understudies on Udemy just as on my YouTube channel Academind. It&#39;s stuffed with models, demos, ventures, assignments, tests and obviously recordings - all with the objective of giving you the most ideal method for learning JavaScript.</p>', 1, NULL, '25-09-2022-144841.jpg', NULL, NULL, NULL, 1, NULL, '2022-09-25 09:48:41', '2022-09-25 09:48:41'),
@@ -351,6 +424,23 @@ CREATE TABLE `failed_jobs` (
   `payload` longtext COLLATE utf8mb4_unicode_ci NOT NULL,
   `exception` longtext COLLATE utf8mb4_unicode_ci NOT NULL,
   `failed_at` timestamp NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `followers`
+--
+
+CREATE TABLE `followers` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `user_id` bigint(20) NOT NULL,
+  `follower_id` bigint(20) DEFAULT NULL,
+  `following_id` bigint(20) DEFAULT NULL,
+  `status` tinyint(1) NOT NULL DEFAULT 1,
+  `deleted_at` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
@@ -458,7 +548,11 @@ INSERT INTO `menus` (`id`, `menu_of`, `parent_id`, `menu`, `icon`, `label`, `url
 (69, 'admin', NULL, 'whatlearn', '<i class=\"fa fa-microchip\" aria-hidden=\"true\"></i>', 'WhatLearns', 'admin/whatlearn', 1, NULL, NULL, NULL),
 (70, 'admin', NULL, 'coursechapter', '<i class=\"fa fa-book\" aria-hidden=\"true\"></i>', 'Course Chapters', 'admin/coursechapter', 1, NULL, NULL, NULL),
 (71, 'admin', NULL, 'courseclass', '<i class=\"fa fa-credit-card-alt\" aria-hidden=\"true\"></i>', 'Course Classes', 'admin/courseclass', 1, NULL, NULL, NULL),
-(76, 'admin', NULL, 'coursequestion', '<i class=\"fa fa-bell-o\" aria-hidden=\"true\"></i>', 'Course Question & Answers', 'admin/coursequestion', 1, NULL, NULL, NULL);
+(76, 'admin', NULL, 'coursequestion', '<i class=\"fa fa-bell-o\" aria-hidden=\"true\"></i>', 'Course Question & Answers', 'admin/coursequestion', 1, NULL, NULL, NULL),
+(77, 'admin', NULL, 'courseannouncement', '<i class=\"fa fa-bullhorn\" aria-hidden=\"true\"></i>', 'Course Announcements', 'admin/courseannouncement', 1, NULL, NULL, NULL),
+(78, 'admin', NULL, 'follower', '<i class=\"fa fa-users\" aria-hidden=\"true\"></i>', 'Followers', 'admin/follower', 1, NULL, NULL, NULL),
+(79, 'admin', NULL, 'wishlist', '<i class=\"fa fa-heart\" aria-hidden=\"true\"></i>', 'WishList', 'admin/wishlist', 1, NULL, NULL, NULL),
+(80, 'admin', NULL, 'bundle', '<i class=\"fa fa-snowflake-o\" aria-hidden=\"true\"></i>', 'Course Bundles', 'admin/bundle', 1, NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -501,8 +595,12 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 (37, '2022_09_30_055602_create_courseincludes_table', 20),
 (39, '2022_10_05_055826_create_whatlearns_table', 21),
 (41, '2022_10_05_074442_create_coursechapters_table', 22),
-(43, '2022_10_05_091137_create_courseclasses_table', 23),
-(45, '2022_10_05_022031_create_coursequestions_table', 24);
+(46, '2022_10_05_022031_create_coursequestions_table', 24),
+(48, '2022_10_06_064941_create_courseannouncements_table', 25),
+(49, '2022_10_06_093722_create_followers_table', 26),
+(50, '2022_10_05_091137_create_courseclasses_table', 27),
+(51, '2022_10_07_055443_create_wishlists_table', 28),
+(52, '2022_10_07_074240_create_bundles_table', 29);
 
 -- --------------------------------------------------------
 
@@ -753,6 +851,7 @@ CREATE TABLE `userprofiles` (
   `mobile` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `address` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `profile_image` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `resume` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `facebook_url` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `twitter_url` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `youtube_url` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
@@ -768,8 +867,8 @@ CREATE TABLE `userprofiles` (
 -- Dumping data for table `userprofiles`
 --
 
-INSERT INTO `userprofiles` (`id`, `country_id`, `state_id`, `city_id`, `user_id`, `first_name`, `last_name`, `mobile`, `address`, `profile_image`, `facebook_url`, `twitter_url`, `youtube_url`, `linked_in_url`, `details`, `status`, `deleted_at`, `created_at`, `updated_at`) VALUES
-(1, 1, 1, 1, 27, 'Claire', 'Robertson', '23432432432', 'Et quidem laudantium', '28-09-2022-081749.jpg', 'Non earum aliquam re', 'Tenetur ducimus exe', 'Modi in et nisi quis', 'Ipsum aliqua Totam', '<p>tested</p>', 1, NULL, '2022-09-28 02:15:54', '2022-09-28 03:40:20');
+INSERT INTO `userprofiles` (`id`, `country_id`, `state_id`, `city_id`, `user_id`, `first_name`, `last_name`, `mobile`, `address`, `profile_image`, `resume`, `facebook_url`, `twitter_url`, `youtube_url`, `linked_in_url`, `details`, `status`, `deleted_at`, `created_at`, `updated_at`) VALUES
+(1, 1, 1, 1, 27, 'Claire', 'Robertson', '23432432432', 'Et quidem laudantium', '28-09-2022-081749.jpg', NULL, 'Non earum aliquam re', 'Tenetur ducimus exe', 'Modi in et nisi quis', 'Ipsum aliqua Totam', '<p>tested</p>', 1, NULL, '2022-09-28 02:15:54', '2022-09-28 03:40:20');
 
 -- --------------------------------------------------------
 
@@ -831,7 +930,25 @@ INSERT INTO `whatlearns` (`id`, `course_id`, `detail`, `status`, `deleted_at`, `
 (8, 11, 'TESTED amar', 0, NULL, '2022-10-05 02:09:47', '2022-10-05 02:33:19'),
 (9, 11, 'TESTE 2 tesd tedd ho', 1, '2022-10-05 07:33:12', '2022-10-05 02:09:52', '2022-10-05 02:33:12'),
 (10, 11, 'TESTE 3 ted tesd c g', 0, '2022-10-05 07:32:59', '2022-10-05 02:09:58', '2022-10-05 02:32:59'),
-(11, 11, 'TESTE 4 UPDATED b', 0, '2022-10-05 07:32:38', '2022-10-05 02:10:03', '2022-10-05 02:32:38');
+(11, 11, 'TESTE 4 UPDATED b', 0, '2022-10-05 07:32:38', '2022-10-05 02:10:03', '2022-10-05 02:32:38'),
+(12, 11, 'Itaque voluptates fu', 0, NULL, '2022-10-05 09:24:59', '2022-10-05 09:25:14');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `wishlists`
+--
+
+CREATE TABLE `wishlists` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `user_id` bigint(20) NOT NULL,
+  `course_id` bigint(20) DEFAULT NULL,
+  `live_meeting_id` bigint(20) DEFAULT NULL,
+  `status` tinyint(1) NOT NULL DEFAULT 1,
+  `deleted_at` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Indexes for dumped tables
@@ -841,6 +958,12 @@ INSERT INTO `whatlearns` (`id`, `course_id`, `detail`, `status`, `deleted_at`, `
 -- Indexes for table `blogs`
 --
 ALTER TABLE `blogs`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `bundles`
+--
+ALTER TABLE `bundles`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -859,6 +982,12 @@ ALTER TABLE `cities`
 -- Indexes for table `countries`
 --
 ALTER TABLE `countries`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `courseannouncements`
+--
+ALTER TABLE `courseannouncements`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -909,6 +1038,12 @@ ALTER TABLE `facts`
 ALTER TABLE `failed_jobs`
   ADD PRIMARY KEY (`id`),
   ADD UNIQUE KEY `failed_jobs_uuid_unique` (`uuid`);
+
+--
+-- Indexes for table `followers`
+--
+ALTER TABLE `followers`
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `institutes`
@@ -1033,6 +1168,12 @@ ALTER TABLE `whatlearns`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `wishlists`
+--
+ALTER TABLE `wishlists`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- AUTO_INCREMENT for dumped tables
 --
 
@@ -1041,6 +1182,12 @@ ALTER TABLE `whatlearns`
 --
 ALTER TABLE `blogs`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+
+--
+-- AUTO_INCREMENT for table `bundles`
+--
+ALTER TABLE `bundles`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `categories`
@@ -1061,10 +1208,16 @@ ALTER TABLE `countries`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
+-- AUTO_INCREMENT for table `courseannouncements`
+--
+ALTER TABLE `courseannouncements`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
 -- AUTO_INCREMENT for table `coursechapters`
 --
 ALTER TABLE `coursechapters`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT for table `courseclasses`
@@ -1076,13 +1229,13 @@ ALTER TABLE `courseclasses`
 -- AUTO_INCREMENT for table `courseincludes`
 --
 ALTER TABLE `courseincludes`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `coursequestions`
 --
 ALTER TABLE `coursequestions`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `courses`
@@ -1109,6 +1262,12 @@ ALTER TABLE `failed_jobs`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
+-- AUTO_INCREMENT for table `followers`
+--
+ALTER TABLE `followers`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
 -- AUTO_INCREMENT for table `institutes`
 --
 ALTER TABLE `institutes`
@@ -1124,13 +1283,13 @@ ALTER TABLE `learnings`
 -- AUTO_INCREMENT for table `menus`
 --
 ALTER TABLE `menus`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=77;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=81;
 
 --
 -- AUTO_INCREMENT for table `migrations`
 --
 ALTER TABLE `migrations`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=46;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=53;
 
 --
 -- AUTO_INCREMENT for table `pages`
@@ -1196,7 +1355,13 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `whatlearns`
 --
 ALTER TABLE `whatlearns`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+
+--
+-- AUTO_INCREMENT for table `wishlists`
+--
+ALTER TABLE `wishlists`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- Constraints for dumped tables

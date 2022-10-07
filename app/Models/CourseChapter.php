@@ -16,4 +16,9 @@ class CourseChapter extends Model
 		];
 		return $rules;
     }
+
+    public function haveChapterClasses()
+    {
+        return $this->hasMany(CourseClass::class, 'chapter_id', 'id');
+    }
 }

@@ -186,71 +186,6 @@
                             </div>
                         </div>
 
-
-
-                        {{-- <div class="form-group">
-                            <label for="learn" class="col-sm-2 control-label">Whatlearn</label>
-                            <div class="col-sm-8">
-                                <div class="col-sm-12">
-                                    <div class="col-sm-11">
-                                        <input type="text" class="form-control" name="learns[]" placeholder="Enter whatlearn">
-                                    </div>
-                                    <div class="col-sm-1">
-                                        <button type="button" class="btn btn-success" id="add-more-learns-btn"><i class="fa fa-plus"></i></button>
-                                    </div>
-                                </div>
-
-                                <span id="custom-learn-fields"></span>
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <label for="learn" class="col-sm-2 control-label">Course Includes</label>
-                            <div class="col-sm-8">
-                                <div class="col-sm-12">
-                                    <div class="col-sm-6">
-                                        <div class="form-group">
-                                            <div class="col-sm-12">
-                                                <label for="" class="control-label">Icon <span style="color:red">*</span></label>
-                                                <input type="text" class="form-control" name="icons[]" value="{{ old('icon') }}" placeholder="e.g <i class='fa fa-user' aria-hidden='true'></i>" required>
-                                                <a href="https://fontawesome.com/v4/icons/" style="margin-top: 5px" target="_blank" class="btn btn-success">Choose Icon</a><br />
-                                                <span style="color: red">{{ $errors->first('icons') }}</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-sm-5">
-                                        <label for="" class="control-label">Include <span style="color:red">*</span></label>
-                                        <input type="text" class="form-control" name="includes[]" placeholder="Enter what include this course">
-                                    </div>
-                                    <div class="col-sm-1">
-                                        <label for=""> </label>
-                                        <button style="margin-top:6px" type="button" class="btn btn-success" id="add-more-include-btn"><i class="fa fa-plus"></i></button>
-                                    </div>
-                                </div>
-
-                                <span id="custom-course-include-fields"></span>
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <label for="tags" class="col-sm-2 control-label">Tags</label>
-                            <div class="col-sm-8 input-group">
-                                <input type="text" class="form-control" name="tags[]" data-role="tagsinput" placeholder="Write tag label press enter">
-                                <span style="color: red">{{ $errors->first("tags") }}</span>
-                            </div>
-                        </div> --}}
-
-                        {{--  <div class="form-group">
-                            <label for="status" class="col-sm-2 control-label">Status <span style="color:red">*</span></label>
-                            <div class="col-sm-8">
-                                <select class="form-control" name="status">
-                                    <option value="1" {{ old("status")==1?"selected":"" }}>Active</option>
-                                    <option value="0" {{ old("status")==0?"selected":"" }}>In Active</option>
-                                </select>
-                                <span style="color: red">{{ $errors->first("status") }}</span>
-                            </div>
-                        </div> --}}
-
                         <div class="form-group">
                             <label for="status" class="col-sm-2 control-label"></label>
                             <div class="col-sm-8">
@@ -318,43 +253,5 @@
                 $('.custome-discount').html("");    
             }
         });
-
-
-        /* $(document).on('click', '#add-more-learns-btn', function(){
-            var html = '';
-            html += '<div class="col-sm-12 custom" style="margin-top:5px !important" >'+
-                        '<div class="col-sm-11">'+
-                            '<input type="text" class="form-control" name="learns[]" placeholder="Enter whatlearn">'+
-                        '</div>'+
-                        '<div class="col-sm-1">'+
-                            '<button type="button" class="btn btn-danger" id="remove-more-learns-btn"><i class="fa fa-times"></i></button>'+
-                        '</div>'+
-                    '</div>';
-            $('#custom-learn-fields').append(html);
-        });
-
-        $(document).on('click', '#remove-more-learns-btn', function(){
-            $(this).parents('.custom').remove();
-        });
-
-        $(document).on('click', '#add-more-include-btn', function(){
-            var html = '';
-            html += '<div class="col-sm-12 custom" style="margin-top:5px !important">'+
-                        '<div class="col-sm-6">'+
-                            '<input type="text" class="form-control" name="icons[]" value="" placeholder="e.g <i class=fa fa-user aria-hidden=true></i>" required>'+
-                        '</div>'+
-                        '<div class="col-sm-5">'+
-                            '<input type="text" class="form-control" name="includes[]" placeholder="Enter what include this course">'+
-                        '</div>'+
-                        '<div class="col-sm-1">'+
-                            '<button type="button" class="btn btn-danger" id="remove-more-include-btn"><i class="fa fa-times"></i></button>'+
-                        '</div>'+
-                    '</div>';
-            $('#custom-course-include-fields').append(html);
-        });
-
-        $(document).on('click', '#remove-more-include-btn', function(){
-            $(this).parents('.custom').remove();
-        }); */
     </script>
 @endpush

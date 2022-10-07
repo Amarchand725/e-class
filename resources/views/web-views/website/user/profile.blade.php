@@ -30,11 +30,11 @@
                                            <h5 class="about-content-heading">{{ $model->name }}</h5>     
                                            <div class="instructor-follower">
                                                <div class="followers-status">
-                                                   <span class="followers-value">1</span>
+                                                   <span class="followers-value">{{ count($instructor->haveFollowers) }}</span>
                                                    <span class="followers-heading">Followers</span>
                                                </div>
                                                <div class="following-status">
-                                                   <span class="followers-value">1</span>
+                                                   <span class="followers-value">{{ count($instructor->haveFollowings) }}</span>
                                                    <span class="followers-heading">Following</span>
                                                </div>
                                            </div>

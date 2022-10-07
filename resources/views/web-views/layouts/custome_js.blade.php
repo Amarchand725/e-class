@@ -1,4 +1,89 @@
 <script>
+    $('#become-instructor-form').on('submit',function(e){
+        e.preventDefault();
+        var url = $(this).attr('data-action');
+        $.ajax({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
+            url: url,
+            type:"POST",
+            data: new FormData(this),
+            dataType: 'json',
+            contentType: false,
+            cache: false,
+            processData:false,
+            success:function(response){
+                $('#myModalinstructor').modal('hide');
+                if(response.code==200){
+                    Swal.fire({
+                        position: 'top-end',
+                        icon: 'success',
+                        title: 'You have sent request to become instructor successfully.',
+                        showConfirmButton: false,
+                        timer: 1500
+                    })
+                }else{
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Oops...',
+                        text: 'Something went wrong try again.',
+                    })
+                }
+            },
+            error: function(response) {
+                if(response.responseJSON.errors.first_name){
+                    $('#error-first_name').text(response.responseJSON.errors.first_name);
+                }else{
+                    $('#error-first_name').text('');
+                }
+                if(response.responseJSON.errors.last_name){
+                    $('#error-last_name').text(response.responseJSON.errors.last_name);
+                }else{
+                    $('#error-last_name').text('');
+                }
+                if(response.responseJSON.errors.email){
+                    $('#error-email').text(response.responseJSON.errors.email);
+                }else{
+                    $('#error-email').text('');
+                }
+                if(response.responseJSON.errors.mobile){
+                    $('#error-mobile').text(response.responseJSON.errors.mobile);
+                }else{
+                    $('#error-mobile').text('');
+                }
+                if(response.responseJSON.errors.details){
+                    $('#error-details').text(response.responseJSON.errors.details);
+                }else{
+                    $('#error-details').text('');
+                }
+                if(response.responseJSON.errors.resume){
+                    $('#error-resume').text(response.responseJSON.errors.resume);
+                }else{
+                    $('#error-resume').text('');
+                }
+                if(response.responseJSON.errors.profile_image){
+                    $('#error-profile_image').text(response.responseJSON.errors.profile_image);
+                }else{
+                    $('#error-profile_image').text('');
+                }
+            },
+        });
+    });
+
+    $('.numberonly').keypress(function (e) {
+        var charCode = (e.which) ? e.which : event.keyCode
+        if (String.fromCharCode(charCode).match(/[^0-9]/g))
+            return false;
+    });
+
+    imgInput.onchange = evt => {
+        const [file] = imgInput.files
+        if (file) {
+            preview.src = URL.createObjectURL(file)
+        }
+    }
+
     feather.replace()
 
     $(document).ready(function() {
