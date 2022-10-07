@@ -12,11 +12,11 @@
             </div>
         </div>
         <div id="discounted-view-slider" class="student-view-slider-main-block owl-carousel">
-            @foreach (topDiscountCourses() as $course)
+            @foreach (topDiscountCourses() as $key=>$course)
                 <div class="item student-view-block student-view-block-1">
                     <div class="genre-slide-image  protip "
                         data-pt-placement="outside" data-pt-interactive="false"
-                        data-pt-title="#prime-next-item-description-block{{ $course->id }}">
+                        data-pt-title="#prime-next-item-description-block-{{ $key }}{{ $course->id }}">
                         <div class="view-block">
                             <div class="view-img">
                                 <a href="{{ route('course.single', $course->slug) }}">
@@ -115,7 +115,7 @@
                             </div>
                         </div>
                     </div>
-                    <div id="prime-next-item-description-block{{ $course->id }}" class="prime-description-block">
+                    <div id="prime-next-item-description-block-{{ $key }}{{ $course->id }}" class="prime-description-block">
                         <div class="prime-description-under-block">
                             <div class="prime-description-under-block">
                                 <h5 class="description-heading">{{ $course->title }}</h5>

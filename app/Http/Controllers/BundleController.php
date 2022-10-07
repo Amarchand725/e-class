@@ -7,6 +7,8 @@ use App\Models\Bundle;
 use App\Models\Course;
 use DB;
 use Session;
+use Auth;
+use Illuminate\Support\Str;
 
 class BundleController extends Controller
 {
@@ -73,7 +75,9 @@ class BundleController extends Controller
                 $input['banner'] = $banner;
             }
 
+            $input['slug'] = Str::slug($request->title);
             $input['course_ids'] = json_encode($request->course_ids);
+            $input['user_slug'] = Auth::user()->slug;
 
 	        Bundle::create($input);
 
@@ -159,11 +163,11 @@ class BundleController extends Controller
                 $input['banner'] = $banner;
             }
 
+            $input['slug'] = Str::slug($request->title);
             $input['course_ids'] = json_encode($request->course_ids);
 
             $input = $request->except(['status']);
             $input = $request->except(['is_featured']);
-	        // Bundle::create($input);
 
             DB::commit();
             $model->fill( $input )->save();

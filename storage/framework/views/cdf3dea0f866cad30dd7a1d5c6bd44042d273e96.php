@@ -12,11 +12,11 @@
             </div>
         </div>
         <div id="discounted-view-slider" class="student-view-slider-main-block owl-carousel">
-            <?php $__currentLoopData = topDiscountCourses(); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $course): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+            <?php $__currentLoopData = topDiscountCourses(); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $key=>$course): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                 <div class="item student-view-block student-view-block-1">
                     <div class="genre-slide-image  protip "
                         data-pt-placement="outside" data-pt-interactive="false"
-                        data-pt-title="#prime-next-item-description-block<?php echo e($course->id); ?>">
+                        data-pt-title="#prime-next-item-description-block-<?php echo e($key); ?><?php echo e($course->id); ?>">
                         <div class="view-block">
                             <div class="view-img">
                                 <a href="<?php echo e(route('course.single', $course->slug)); ?>">
@@ -115,7 +115,7 @@
                             </div>
                         </div>
                     </div>
-                    <div id="prime-next-item-description-block<?php echo e($course->id); ?>" class="prime-description-block">
+                    <div id="prime-next-item-description-block-<?php echo e($key); ?><?php echo e($course->id); ?>" class="prime-description-block">
                         <div class="prime-description-under-block">
                             <div class="prime-description-under-block">
                                 <h5 class="description-heading"><?php echo e($course->title); ?></h5>
