@@ -1,5 +1,5 @@
 <script>
-    $('#become-instructor-form').on('submit',function(e){
+    $('.signup-form').on('submit',function(e){
         e.preventDefault();
         var url = $(this).attr('data-action');
         $.ajax({
@@ -16,6 +16,14 @@
             success:function(response){
                 $('#myModalinstructor').modal('hide');
                 if(response.code==200){
+                    $('.signup-form')
+                    .find("input,textarea")
+                    .val('')
+                    .end()
+                    .find("input[type=checkbox]")
+                    .prop("checked", "")
+                    .end();
+
                     Swal.fire({
                         position: 'top-end',
                         icon: 'success',
@@ -51,21 +59,6 @@
                     $('#error-mobile').text(response.responseJSON.errors.mobile);
                 }else{
                     $('#error-mobile').text('');
-                }
-                if(response.responseJSON.errors.details){
-                    $('#error-details').text(response.responseJSON.errors.details);
-                }else{
-                    $('#error-details').text('');
-                }
-                if(response.responseJSON.errors.resume){
-                    $('#error-resume').text(response.responseJSON.errors.resume);
-                }else{
-                    $('#error-resume').text('');
-                }
-                if(response.responseJSON.errors.profile_image){
-                    $('#error-profile_image').text(response.responseJSON.errors.profile_image);
-                }else{
-                    $('#error-profile_image').text('');
                 }
             },
         });
@@ -275,13 +268,13 @@
         /* Get iframe src attribute value i.e. YouTube video url
         and store it in a variable */
         var url = $("#elearningVideo").attr('src');
-        
+
         /* Assign empty url value to the iframe src attribute when
         modal hide, which stop the video playing */
         $("#video_modal").on('hide.bs.modal', function(){
             $("#elearningVideo").attr('src', '');
         });
-        
+
         /* Assign the initially stored url back to the iframe src
         attribute when modal is displayed again */
         $("#video_modal").on('show.bs.modal', function(){

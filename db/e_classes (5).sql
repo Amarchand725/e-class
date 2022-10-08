@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.1.1
+-- version 5.1.3
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 07, 2022 at 04:34 PM
--- Server version: 10.4.20-MariaDB
--- PHP Version: 7.4.22
+-- Generation Time: Oct 08, 2022 at 09:30 AM
+-- Server version: 10.4.24-MariaDB
+-- PHP Version: 7.4.29
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -18,7 +18,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `e_classes`
+-- Database: `e_class`
 --
 
 -- --------------------------------------------------------
@@ -632,7 +632,12 @@ CREATE TABLE `model_has_roles` (
 
 INSERT INTO `model_has_roles` (`role_id`, `model_type`, `model_id`) VALUES
 (2, 'App\\Models\\User', 11),
-(3, 'App\\Models\\User', 27);
+(3, 'App\\Models\\User', 27),
+(3, 'App\\Models\\User', 31),
+(4, 'App\\Models\\User', 34),
+(4, 'App\\Models\\User', 35),
+(4, 'App\\Models\\User', 36),
+(4, 'App\\Models\\User', 37);
 
 -- --------------------------------------------------------
 
@@ -868,7 +873,12 @@ CREATE TABLE `userprofiles` (
 --
 
 INSERT INTO `userprofiles` (`id`, `country_id`, `state_id`, `city_id`, `user_id`, `first_name`, `last_name`, `mobile`, `address`, `profile_image`, `resume`, `facebook_url`, `twitter_url`, `youtube_url`, `linked_in_url`, `details`, `status`, `deleted_at`, `created_at`, `updated_at`) VALUES
-(1, 1, 1, 1, 27, 'Claire', 'Robertson', '23432432432', 'Et quidem laudantium', '28-09-2022-081749.jpg', NULL, 'Non earum aliquam re', 'Tenetur ducimus exe', 'Modi in et nisi quis', 'Ipsum aliqua Totam', '<p>tested</p>', 1, NULL, '2022-09-28 02:15:54', '2022-09-28 03:40:20');
+(1, 1, 1, 1, 27, 'Claire', 'Robertson', '23432432432', 'Et quidem laudantium', '28-09-2022-081749.jpg', NULL, 'Non earum aliquam re', 'Tenetur ducimus exe', 'Modi in et nisi quis', 'Ipsum aliqua Totam', '<p>tested</p>', 1, NULL, '2022-09-28 02:15:54', '2022-09-28 03:40:20'),
+(2, NULL, NULL, NULL, 31, 'Alyssa', 'Chan', '123456789', NULL, '08-10-2022-064450.png', '08-10-2022-064450.pdf', NULL, NULL, NULL, NULL, 'Ea cum adipisicing c', 1, NULL, '2022-10-08 01:44:50', '2022-10-08 01:44:50'),
+(3, NULL, NULL, NULL, 34, 'Cassandra', 'Salas', '1234565432', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, NULL, '2022-10-08 02:17:22', '2022-10-08 02:17:22'),
+(4, NULL, NULL, NULL, 35, 'Moana', 'Massey', '12345', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, NULL, '2022-10-08 02:19:43', '2022-10-08 02:19:43'),
+(5, NULL, NULL, NULL, 36, 'Lesley', 'Rogers', '12345', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, NULL, '2022-10-08 02:20:48', '2022-10-08 02:20:48'),
+(6, NULL, NULL, NULL, 37, 'Duncan', 'Rodgers', '98789', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, NULL, '2022-10-08 02:21:27', '2022-10-08 02:21:27');
 
 -- --------------------------------------------------------
 
@@ -897,7 +907,12 @@ CREATE TABLE `users` (
 
 INSERT INTO `users` (`id`, `name`, `slug`, `email`, `email_verified_at`, `password`, `remember_token`, `status`, `is_featured`, `is_verified`, `created_at`, `updated_at`) VALUES
 (11, 'Admin', 'admin-ad', 'admin@gmail.com', NULL, '$2y$10$qyWbBZDGI/2z6iYevWZqzOczsUscw6aZI5S.Fb5i3gG0NgTnINnku', NULL, 0, 0, 0, '2022-09-23 09:04:12', '2022-09-23 09:04:12'),
-(27, 'Claire Robertson', 'claire-robertson-8u', 'wotovon@mailinator.com', NULL, '$2y$10$j1FUL1F9dJn.KhLzilFfkuMN81z2WmyeqN.FecAm14mG/E65feEVW', NULL, 1, 0, 0, '2022-09-28 02:15:54', '2022-09-28 03:20:27');
+(27, 'Claire Robertson', 'claire-robertson-8u', 'wotovon@mailinator.com', NULL, '$2y$10$j1FUL1F9dJn.KhLzilFfkuMN81z2WmyeqN.FecAm14mG/E65feEVW', NULL, 1, 0, 0, '2022-09-28 02:15:54', '2022-09-28 03:20:27'),
+(31, 'Alyssa Chan', 'alyssa-chan-6z', 'sosaqexem@mailinator.com', NULL, '$2y$10$xvylyQ9o9D7RfjzWmOlEBeU7rklIHpPZCp/U9Caj10ZrUduQW9pFm', NULL, 0, 0, 0, '2022-10-08 01:44:50', '2022-10-08 01:44:50'),
+(34, 'Cassandra Salas', 'cassandra-salas-gr', 'tofa@mailinator.com', NULL, '$2y$10$5zw5ApYlXgqHiGbo5F43p.hxh8kIUglllczfSMas5VAlEPm1YsuPO', NULL, 0, 0, 0, '2022-10-08 02:17:22', '2022-10-08 02:17:22'),
+(35, 'Moana Massey', 'moana-massey-pa', 'wamicyro@mailinator.com', NULL, '$2y$10$5ZQ4h3S9UwL0juNh/SzXbOKda3QPnrTk9215XDafuSgIk8wHwdNAC', NULL, 0, 0, 0, '2022-10-08 02:19:43', '2022-10-08 02:19:43'),
+(36, 'Lesley Rogers', 'lesley-rogers-e0', 'gyhyxeqot@mailinator.com', NULL, '$2y$10$P0HDy02MKz2qsgqH/0bQxOQl/zeTtv5nVhsVGVxGUaGzuKvgiSVfy', NULL, 0, 0, 0, '2022-10-08 02:20:48', '2022-10-08 02:20:48'),
+(37, 'Duncan Rodgers', 'duncan-rodgers-dq', 'cujyz@mailinator.com', NULL, '$2y$10$mQAwYlBwLP7yS3/bC8qS7.kHQ6IoME4CyayuBgAxgeCVe4bFeG7WO', NULL, 0, 0, 0, '2022-10-08 02:21:27', '2022-10-08 02:21:27');
 
 -- --------------------------------------------------------
 
@@ -1343,13 +1358,13 @@ ALTER TABLE `trustcompanies`
 -- AUTO_INCREMENT for table `userprofiles`
 --
 ALTER TABLE `userprofiles`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=38;
 
 --
 -- AUTO_INCREMENT for table `whatlearns`

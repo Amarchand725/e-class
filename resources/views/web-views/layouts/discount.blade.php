@@ -27,12 +27,12 @@
 
                             <div class="badges bg-priamry offer-badge">
                                 @if($course->discount_type=='percent')
-                                    @php 
+                                    @php
                                         $percentage = $course->discount;
                                     @endphp
-                                @else 
-                                    @php 
-                                        $percentage = $course->discount/$course->retail_price*100; 
+                                @else
+                                    @php
+                                        $percentage = $course->discount/$course->retail_price*100;
                                     @endphp
                                 @endif
                                 <span>OFF<span>{{ round($percentage) }}%</span></span>
@@ -89,7 +89,7 @@
                                                         @if($course->discount != NULL)
                                                             <li><a><b><strike>${{ number_format($course->retail_price, 2) }}</strike></b></a></li>
                                                         @endif
-                                                    @else 
+                                                    @else
                                                         <li>FREE</li>
                                                     @endif
                                                 </ul>
@@ -134,14 +134,14 @@
                                     <li>
                                         <div>
                                             <div class="time-des">
-                                                @php 
+                                                @php
                                                     $sum_minutes = 0;
                                                     foreach ($course->haveClasses as $course_class){
                                                         $explodedTime = array_map('intval', explode(':', $course_class->lecture_duration ));
                                                         $sum_minutes += $explodedTime[0]*60+$explodedTime[1];
                                                     }
                                                     $lecture_duration_total_time = floor($sum_minutes/60).':'.floor($sum_minutes % 60);
-                                                @endphp 
+                                                @endphp
                                                 <span class="">
                                                     <i data-feather="clock"></i>
                                                     {{ $lecture_duration_total_time }}
@@ -163,7 +163,7 @@
                                             <div class="product-learn-dtl">
                                                 <ul>
                                                     <li>
-                                                        <i data-feather="check-circle"></i>{{ $learn->title }}.
+                                                        <i data-feather="check-circle"></i>{{ $learn->detail }}.
                                                     </li>
                                                 </ul>
                                             </div>

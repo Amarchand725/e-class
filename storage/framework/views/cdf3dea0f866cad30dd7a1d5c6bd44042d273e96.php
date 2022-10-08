@@ -27,12 +27,12 @@
 
                             <div class="badges bg-priamry offer-badge">
                                 <?php if($course->discount_type=='percent'): ?>
-                                    <?php 
+                                    <?php
                                         $percentage = $course->discount;
                                     ?>
-                                <?php else: ?> 
-                                    <?php 
-                                        $percentage = $course->discount/$course->retail_price*100; 
+                                <?php else: ?>
+                                    <?php
+                                        $percentage = $course->discount/$course->retail_price*100;
                                     ?>
                                 <?php endif; ?>
                                 <span>OFF<span><?php echo e(round($percentage)); ?>%</span></span>
@@ -89,7 +89,7 @@
                                                         <?php if($course->discount != NULL): ?>
                                                             <li><a><b><strike>$<?php echo e(number_format($course->retail_price, 2)); ?></strike></b></a></li>
                                                         <?php endif; ?>
-                                                    <?php else: ?> 
+                                                    <?php else: ?>
                                                         <li>FREE</li>
                                                     <?php endif; ?>
                                                 </ul>
@@ -135,14 +135,14 @@
                                     <li>
                                         <div>
                                             <div class="time-des">
-                                                <?php 
+                                                <?php
                                                     $sum_minutes = 0;
                                                     foreach ($course->haveClasses as $course_class){
                                                         $explodedTime = array_map('intval', explode(':', $course_class->lecture_duration ));
                                                         $sum_minutes += $explodedTime[0]*60+$explodedTime[1];
                                                     }
                                                     $lecture_duration_total_time = floor($sum_minutes/60).':'.floor($sum_minutes % 60);
-                                                ?> 
+                                                ?>
                                                 <span class="">
                                                     <i data-feather="clock"></i>
                                                     <?php echo e($lecture_duration_total_time); ?>
@@ -165,7 +165,7 @@
                                             <div class="product-learn-dtl">
                                                 <ul>
                                                     <li>
-                                                        <i data-feather="check-circle"></i><?php echo e($learn->title); ?>.
+                                                        <i data-feather="check-circle"></i><?php echo e($learn->detail); ?>.
                                                     </li>
                                                 </ul>
                                             </div>

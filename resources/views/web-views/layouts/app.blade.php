@@ -239,7 +239,7 @@
                                 <div class="box box-primary">
                                     <div class="panel panel-sum">
                                         <div class="modal-body">
-                                            <form id="become-instructor-form" method="post" data-action="{{ route('user.store') }}" data-parsley-validate="" class="form-horizontal form-label-left" enctype="multipart/form-data">
+                                            <form id="become-instructor-form" method="post" data-action="{{ route('user.store') }}" data-parsley-validate="" class="form-horizontal form-label-left signup-form" enctype="multipart/form-data">
                                                 @csrf
                                                 <div class="row">
                                                     <div class="col-md-6">
@@ -257,7 +257,7 @@
                                                         </div>
                                                     </div>
                                                 </div>
-                                                
+
                                                 <div class="row">
                                                     <div class="col-md-6">
                                                         <div class="form-group">
@@ -274,7 +274,7 @@
                                                         </div>
                                                     </div>
                                                 </div>
-                                                
+
                                                 <div class="row">
                                                     <div class="col-md-6">
                                                         <div class="form-group">
@@ -306,7 +306,7 @@
                                                 <div class="box-footer">
                                                     <button type="submit" class="btn btn-lg col-md-3 btn-primary">Submit</button>
                                                 </div>
-                                            </form>       
+                                            </form>
                                         </div>
                                     </div>
                                 </div>

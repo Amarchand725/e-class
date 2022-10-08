@@ -13,10 +13,9 @@ use Session;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules;
-
 use App\Models\Role as UserRole;
 use Spatie\Permission\Models\Role;
-use Str;
+use Illuminate\Support\Str;
 
 class WebController extends Controller
 {
@@ -54,9 +53,11 @@ class WebController extends Controller
 
     public function userStore(Request $request)
     {
-        $request['password'] = 'password';
-        $request['confirmed'] = 'password';
-        $request['role_id'] = 'Instructor';
+        if(!isset($request->password)){
+            $request['password'] = 'password';
+            $request['confirmed'] = 'password';
+            $request['role_id'] = 'Instructor';
+        }
 
         $this->validate($request, User::getValidationRules());
         $this->validate($request, UserProfile::getValidationRules());
@@ -76,14 +77,13 @@ class WebController extends Controller
                 'name' => $name,
                 'slug' => $slug,
                 'email' => $request->email,
-                'password' => Hash::make('password'),
+                'password' => Hash::make($request->password),
             ]);
 
             $user->assignRole($request->role_id);
 
             if($user){
-                $input = $request->except(['_token', 'role_id', 'email', 'password', 'confirmed']);
-
+                $input = $request->except(['_token', 'role_id', 'email', 'password', 'confirmed', 'term']);
                 if (isset($request->profile_image)) {
                     $profile_image = date('d-m-Y-His').'.'.$request->file('profile_image')->getClientOriginalExtension();
                     $request->profile_image->move(public_path('/admin/images/profiles'), $profile_image);
@@ -98,7 +98,7 @@ class WebController extends Controller
 
                 $input['user_id'] = $user->id;
 
-                UserProfile::create($input);    
+                UserProfile::create($input);
             }
 
             DB::commit();
@@ -107,7 +107,7 @@ class WebController extends Controller
             }
         } catch (\Exception $e) {
             DB::rollback();
-            return redirect()->back()->with('error', 'Error. '.$e->getMessage());
+            return response()->json(['code'=>500, 'Error'=> $e->getMessage()]);
         }
 
     }
