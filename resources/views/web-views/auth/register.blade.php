@@ -17,7 +17,7 @@
                         <div class="signup-heading">
                             Eclass Learning Management
                             <div class="signup-block">
-                                <form id="become-instructor-form" class="signup-form" method="POST" data-action="{{ route('user.store') }}">
+                                <form id="become-instructor-form" class="regisger-form signup-form" method="POST" data-action="{{ route('user.store') }}">
                                     @csrf
                                     <input type="hidden" name="role_id" value="Student"> <!-- default role from here is student -->
                                     <div class="row">

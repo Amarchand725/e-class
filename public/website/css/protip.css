@@ -58,7 +58,8 @@ body .protip-container.protip-mixin--css-no-style .protip-arrow {
     color: #fff;
     background: #1A1D32;
     font-family: sans-serif;
-    transition: opacity 0.2s ease-out
+    transition: opacity 0.2s ease-out;
+    min-width: 340px !important;
 }
 
 .protip-skin-default--scheme-pro[data-pt-position="top-left"] .protip-arrow,

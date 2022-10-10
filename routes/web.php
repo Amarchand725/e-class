@@ -36,6 +36,7 @@ Route::group(['middleware' => 'guest'], function(){
 });
 
 Route::group(['middleware' => 'auth'], function(){
+// Route::group(['middleware' => ['Admin'], function () use ($routes){
     Route::get('/dashboard',[App\Http\Controllers\DashboardController::class, 'dashboard'])->name('admin.dashboard');
     Route::get('/profile/edit', 'AdminController@editProfile')->name('admin.profile.edit');
     Route::post('/profile/update', 'AdminController@updateProfile')->name('admin.profile.update');
@@ -79,6 +80,7 @@ Route::group(['middleware' => 'auth'], function(){
 
     Route::get('get_courses_price', 'bundleController@getCoursesPrice')->name('get_courses_price');
 });
+// }]);
 
 require __DIR__.'/auth.php';
 

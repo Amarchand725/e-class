@@ -1,3 +1,5 @@
+
+
 <?php $__env->startSection('content'); ?>
     <section id="signup" class="signup-block-main-block register-page">
         <div class="container">
@@ -15,7 +17,7 @@
                         <div class="signup-heading">
                             Eclass Learning Management
                             <div class="signup-block">
-                                <form id="become-instructor-form" class="signup-form" method="POST" data-action="<?php echo e(route('user.store')); ?>">
+                                <form id="become-instructor-form" class="regisger-form signup-form" method="POST" data-action="<?php echo e(route('user.store')); ?>">
                                     <?php echo csrf_field(); ?>
                                     <input type="hidden" name="role_id" value="Student"> <!-- default role from here is student -->
                                     <div class="row">

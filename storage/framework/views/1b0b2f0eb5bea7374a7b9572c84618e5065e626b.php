@@ -9,7 +9,11 @@
             <span class="sr-only">Toggle navigation</span>
         </a>
 
-        <span style="float:left;line-height:50px;color:#fff;padding-left:15px;font-size:18px;">Admin Panel</span>
+        <?php if(Auth::check() && Auth::user()->hasRole('Admin')): ?>
+            <span style="float:left;line-height:50px;color:#fff;padding-left:15px;font-size:18px;">Admin Panel</span>
+        <?php else: ?> 
+            <span style="float:left;line-height:50px;color:#fff;padding-left:15px;font-size:18px;">Instructor Panel</span>
+        <?php endif; ?>
 
         <div class="navbar-custom-menu">
             <ul class="nav navbar-nav">

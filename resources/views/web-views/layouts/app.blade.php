@@ -239,7 +239,7 @@
                                 <div class="box box-primary">
                                     <div class="panel panel-sum">
                                         <div class="modal-body">
-                                            <form id="become-instructor-form" method="post" data-action="{{ route('user.store') }}" data-parsley-validate="" class="form-horizontal form-label-left signup-form" enctype="multipart/form-data">
+                                            <form id="become-instructor-form" method="post" data-action="{{ route('user.store') }}" data-parsley-validate="" class="form-horizontal form-label-left instructor-popup regisger-form signup-form" enctype="multipart/form-data">
                                                 @csrf
                                                 <div class="row">
                                                     <div class="col-md-6">

@@ -37,7 +37,7 @@
      <!-- Best Selling Bundle start -->
 
     <!-- Zoom start -->
-    <?php echo $__env->make('web-views.layouts.zoom-liv', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
+    
     <!-- Zoom end -->
 
     <!-- google class room start -->

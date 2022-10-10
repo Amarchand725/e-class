@@ -1,3 +1,5 @@
+
+
 <?php $__env->startSection('content'); ?>
 <section id="signup" class="signup-block-main-block">
     <div class="container">

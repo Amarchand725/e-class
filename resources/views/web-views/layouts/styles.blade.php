@@ -1,4 +1,4 @@
-<link rel="icon" type="image/icon" href="{{ asset('public/website/images/favicon/favicon.png') }}"> <!-- favicon-icon -->
+    <link rel="icon" type="image/icon" href="{{ asset('public/website/images/favicon/favicon.png') }}"> <!-- favicon-icon -->
     <!-- theme styles -->
     <link href="{{ asset('public/website/css/bootstrap.min.css') }}" rel="stylesheet" type="text/css"/> <!-- bootstrap css -->
     <link href="https://fonts.googleapis.com/css?family=Great+Vibes|Poppins:300,400,500,700" rel="stylesheet"> <!--  google fonts -->

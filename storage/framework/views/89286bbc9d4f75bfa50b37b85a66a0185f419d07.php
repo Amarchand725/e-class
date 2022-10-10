@@ -1,5 +1,5 @@
 <script>
-    $('.signup-form').on('submit',function(e){
+    $('.regisger-form').on('submit',function(e){
         e.preventDefault();
         var url = $(this).attr('data-action');
         $.ajax({
@@ -16,7 +16,7 @@
             success:function(response){
                 $('#myModalinstructor').modal('hide');
                 if(response.code==200){
-                    $('.signup-form')
+                    $('.regisger-form')
                     .find("input,textarea")
                     .val('')
                     .end()

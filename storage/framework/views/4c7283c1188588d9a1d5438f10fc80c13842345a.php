@@ -6,6 +6,7 @@
 		<title><?php echo $__env->yieldContent('title'); ?></title>
 		<meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
 		<meta name="csrf-token" id="token" content="<?php echo e(csrf_token()); ?>" />
+        <link rel="icon" type="image/x-icon" href="public/website/images/favicon/favicon.png">
 
         <!--css-->
 		<link rel="stylesheet" href="<?php echo e(asset('public/admin/css/bootstrap.min.css')); ?>">

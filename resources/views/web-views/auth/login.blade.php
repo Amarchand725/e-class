@@ -19,7 +19,7 @@
                         Eclass Learning Management
 
                         <div class="signup-block">
-                            <form method="POST" action="{{ route('login') }}">
+                            <form method="POST" class="signup-form" action="{{ route('login') }}">
                                 @csrf
                                 <div class="form-group">
                                     <i data-feather="mail"></i>

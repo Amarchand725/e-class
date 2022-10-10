@@ -437,7 +437,7 @@
         </div>
         <div class="col-lg-7">
             <div class="row">
-                <div class="col-lg-7 col-md-6">
+                <div class="col-lg-4 col-md-6">
                     <div class="learning-business"></div>
                 </div>
                 <div class="col-lg-1">
@@ -460,7 +460,7 @@
                         </form>
                     </div>
                 </div>
-                <div class="col-lg-3">
+                <div class="col-lg-6">
                     <div class="Login-btn">
                         <?php if(!Auth::check()): ?>
                             <?php if(!request()->is('login')): ?>
