@@ -42,7 +42,17 @@
 										<label>
 											{{ Form::checkbox('permission[]', $value->id, in_array($value->id, $rolePermissions) ? true : false, array('class' => 'name')) }} {{ ucfirst($value->name) }}
 										</label>
-										
+										<br />
+										<div class="col-sm-6">
+											@if(!empty($value->havePermissionUrls))
+												@foreach ($value->havePermissionUrls as $permission)
+												<div class="form-check">
+													<input class="form-check-input" name="permissions[]"  type="checkbox" value="" id="checkAll-"/>
+													<label class="form-check-label" for="checkAll-}">{{ $permission->permission }}</label>
+												</div>
+												@endforeach
+											@endif
+										</div>
 									</div>
 								@endforeach
 							</div>

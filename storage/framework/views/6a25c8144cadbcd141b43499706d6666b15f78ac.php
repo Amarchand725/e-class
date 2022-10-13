@@ -44,6 +44,17 @@
 											<?php echo e(Form::checkbox('permission[]', $value->id, in_array($value->id, $rolePermissions) ? true : false, array('class' => 'name'))); ?> <?php echo e(ucfirst($value->name)); ?>
 
 										</label>
+										<br />
+										<div class="col-sm-6">
+											<?php if(!empty($value->havePermissionUrls)): ?>
+												<?php $__currentLoopData = $value->havePermissionUrls; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $permission): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+												<div class="form-check">
+													<input class="form-check-input" name="permissions[]"  type="checkbox" value="" id="checkAll-"/>
+													<label class="form-check-label" for="checkAll-}"> <strong><?php echo e($permission->permission); ?></strong> </label>
+												</div>
+												<?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+											<?php endif; ?>
+										</div>
 									</div>
 								<?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
 							</div>
