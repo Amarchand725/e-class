@@ -25,7 +25,6 @@
                             <tr><th>Country</th><td>{{ $model->hasCountry->name }}</td></tr>
                             <tr><th>State</th><td>{{ $model->hasState->name }}</td></tr>
                             <tr><th>Name</th><td>{{ $model->name }}</td></tr>
-                            <tr><th>Status</th><td>@if($model->status)<span class="label label-success">Active</span>@else<span class="label label-danger">In-Active</span>@endif</td></tr></table>
                     </div>
                 </div>
             </div>

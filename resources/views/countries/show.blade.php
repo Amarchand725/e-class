@@ -23,21 +23,9 @@
                     <div class="box-body">
                         <table class="table">
                             <tr><th>Name</th><td>{{ $model->name }}</td></tr>
-                            <tr><th>Country_code</th><td>{{ $model->country_code }}</td></tr>
+                            <tr><th>Phone Code</th><td>{{ $model->phonecode }}</td></tr>
                             <tr><th>Currency</th><td>{{ $model->currency }}</td></tr>
                             <tr><th>Currency_symbol</th><td>{{ $model->currency_symbol }}</td></tr>
-                            <tr><th>Description</th><td>{{ $model->description }}</td></tr>
-                            <tr>
-                                <th>Flag</th>
-                                <td>
-                                    @if($model->flag)
-                                        <img style="border-radius: 50%;" src="{{ asset('public/admin/images/countries') }}/{{ $model->flag }}" width="50px" height="50px" alt="">
-                                    @else
-                                        <img style="border-radius: 50%;" src="{{ asset('public/default.png') }}" width="50px" height="50px" alt="">
-                                    @endif
-                                </td>
-                            </tr>
-                            <tr><th>Status</th><td>@if($model->status)<span class="label label-success">Active</span>@else<span class="label label-danger">In-Active</span>@endif</td></tr>
                         </table>
                     </div>
                 </div>

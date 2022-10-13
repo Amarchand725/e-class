@@ -33,17 +33,23 @@
                     <ul class="dropdown-menu">
                         <li class="user-footer">
                             <div>
-                                <a href="<?php echo e(route('admin.profile.edit')); ?>" class="btn btn-default btn-flat">Edit Profile</a>
+                                <?php if(Auth::user()->hasRole('Admin')): ?>
+                                    <a href="<?php echo e(route('admin.profile.edit')); ?>" class="btn btn-default btn-flat">Edit Profile</a>
+                                <?php elseif(Auth::user()->hasRole('Instructor')): ?>
+                                    <a href="<?php echo e(route('instructor.profile.edit')); ?>" class="btn btn-default btn-flat">Edit Profile</a>
+                                <?php else: ?> 
+                                    <a href="<?php echo e(route('user.profile.edit')); ?>" class="btn btn-default btn-flat">Edit Profile</a>
+                                <?php endif; ?>
                             </div>
                             <div>
-                                <a class="dropdown-item btn btn-default btn-flat" href="<?php echo e(route('admin.logout')); ?>"
+                                <a class="dropdown-item btn btn-default btn-flat" href="<?php echo e(route('logout')); ?>"
                                     onclick="event.preventDefault();
                                                     document.getElementById('logout-form').submit();">
                                     <?php echo e(__('Logout')); ?>
 
                                 </a>
 
-                                <form id="logout-form" action="<?php echo e(route('admin.logout')); ?>" method="POST" class="d-none">
+                                <form id="logout-form" action="<?php echo e(route('logout')); ?>" method="POST" class="d-none">
                                     <?php echo csrf_field(); ?>
                                 </form>
                             </div>

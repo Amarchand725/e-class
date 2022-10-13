@@ -469,8 +469,12 @@
                             @if(!request()->is('register'))
                                 <a href="{{ route('register') }}" class="btn btn-primary" title="register">Signup</a>
                             @endif
-                        @else 
+                        @elseif(Auth::user()->hasRole('Admin')) 
                             <a href="{{ route('admin.dashboard') }}" class="btn btn-primary" title="Dashboard">Dashboard</a>
+                        @elseif(Auth::user()->hasRole('Instructor'))
+                            <a href="{{ route('instructor.dashboard') }}" class="btn btn-primary" title="Dashboard">Dashboard</a>
+                        @else 
+                            <a href="{{ route('home') }}" class="btn btn-primary" title="Home">Home</a>
                         @endif
                     </div>
                 </div>

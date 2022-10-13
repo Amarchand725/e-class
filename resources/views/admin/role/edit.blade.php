@@ -42,6 +42,7 @@
 										<label>
 											{{ Form::checkbox('permission[]', $value->id, in_array($value->id, $rolePermissions) ? true : false, array('class' => 'name')) }} {{ ucfirst($value->name) }}
 										</label>
+										
 									</div>
 								@endforeach
 							</div>

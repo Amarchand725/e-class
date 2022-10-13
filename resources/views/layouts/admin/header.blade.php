@@ -33,16 +33,22 @@
                     <ul class="dropdown-menu">
                         <li class="user-footer">
                             <div>
-                                <a href="{{ route('admin.profile.edit') }}" class="btn btn-default btn-flat">Edit Profile</a>
+                                @if(Auth::user()->hasRole('Admin'))
+                                    <a href="{{ route('admin.profile.edit') }}" class="btn btn-default btn-flat">Edit Profile</a>
+                                @elseif(Auth::user()->hasRole('Instructor'))
+                                    <a href="{{ route('instructor.profile.edit') }}" class="btn btn-default btn-flat">Edit Profile</a>
+                                @else 
+                                    <a href="{{ route('user.profile.edit') }}" class="btn btn-default btn-flat">Edit Profile</a>
+                                @endif
                             </div>
                             <div>
-                                <a class="dropdown-item btn btn-default btn-flat" href="{{ route('admin.logout') }}"
+                                <a class="dropdown-item btn btn-default btn-flat" href="{{ route('logout') }}"
                                     onclick="event.preventDefault();
                                                     document.getElementById('logout-form').submit();">
                                     {{ __('Logout') }}
                                 </a>
 
-                                <form id="logout-form" action="{{ route('admin.logout') }}" method="POST" class="d-none">
+                                <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
                                     @csrf
                                 </form>
                             </div>

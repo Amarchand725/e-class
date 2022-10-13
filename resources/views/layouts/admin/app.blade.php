@@ -24,6 +24,7 @@
 		<link rel="stylesheet" href="{{asset('public/admin/css/bootstrap-tagsinput.css')}}">
 		<link rel="stylesheet" href="{{asset('public/admin/css/toastr.min.css')}}">
 		<link rel="stylesheet" href="{{asset('public/admin/css/custome.css')}}">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.3/css/bootstrap-select.css" />
 		@stack('css')
 	</head>
 
@@ -69,6 +70,7 @@
 	<script src="{{asset('public/admin/js/search.js')}}"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-tagsinput/0.8.0/bootstrap-tagsinput.min.js"></script>
     <script src="https://cdn.ckeditor.com/4.14.0/standard/ckeditor.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.3/js/bootstrap-select.js"></script>
 	@stack('js')
 
     <script>

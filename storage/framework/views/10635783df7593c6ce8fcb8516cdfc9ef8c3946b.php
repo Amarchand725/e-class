@@ -469,8 +469,12 @@
                             <?php if(!request()->is('register')): ?>
                                 <a href="<?php echo e(route('register')); ?>" class="btn btn-primary" title="register">Signup</a>
                             <?php endif; ?>
-                        <?php else: ?> 
+                        <?php elseif(Auth::user()->hasRole('Admin')): ?> 
                             <a href="<?php echo e(route('admin.dashboard')); ?>" class="btn btn-primary" title="Dashboard">Dashboard</a>
+                        <?php elseif(Auth::user()->hasRole('Instructor')): ?>
+                            <a href="<?php echo e(route('instructor.dashboard')); ?>" class="btn btn-primary" title="Dashboard">Dashboard</a>
+                        <?php else: ?> 
+                            <a href="<?php echo e(route('home')); ?>" class="btn btn-primary" title="Home">Home</a>
                         <?php endif; ?>
                     </div>
                 </div>
