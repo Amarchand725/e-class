@@ -7,6 +7,7 @@ use App\Http\Requests\Auth\LoginRequest;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Session;
 
 class AuthenticatedSessionController extends Controller
 {
@@ -36,7 +37,12 @@ class AuthenticatedSessionController extends Controller
         }elseif(Auth::user()->hasRole('Inscructor')){
             return redirect()->intended(RouteServiceProvider::INSTRUCTOR_HOME);
         }else{
-            return redirect()->intended(RouteServiceProvider::HOME);
+            if(Session::has('checkout')){
+                Session::forget('checkout');
+                return redirect()->route('checkout');
+            }
+            
+            return redirect()->intended(RouteServiceProvider::HOME);    
         }
     }
 

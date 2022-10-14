@@ -16,6 +16,11 @@
             <div class="col-lg-8 col-md-8">
                 <div class="about-home-block text-white">
                     <h1 class="about-home-heading text-white">{{ $model->title }}</h1>
+                    @if(Session()->has('success'))
+                        <div class="alert alert-success" role="alert">
+                        Item added to cart successfully.
+                        </div>
+                    @endif
                     <p>{{ $model->short_detail }}</p>
                     <ul>
                         <li>
@@ -38,7 +43,7 @@
                         </script>
 
                         <div class="video-device">
-                            <img src="{{ asset('public/admin/bundle/banners') }}/{{ $model->banner }}" class="bg_img img-fluid" alt="Background">
+                            <img src="{{ asset('public/admin/bundle/banners') }}/{{ $model->thumbnail }}" class="bg_img img-fluid" alt="Background">
                             <div class="video-preview">
                                 <a href="javascript:void(0);" class="btn-video-play"><i class="fa fa-play"></i></a>
                             </div>
@@ -54,9 +59,7 @@
                                 </ul>
                             </div>
                             <div class="about-home-btn btm-20">
-                                <a href="#" class="btn btn-primary">
-                                    <i class="fa fa-cart-plus" aria-hidden="true"></i>&nbsp;Subscribe Now
-                                </a>
+                                <a href="{{ route('add.to.cart', $model->slug) }}" class="btn btn-primary btn-block text-center" role="button"><i class="fa fa-cart-plus" aria-hidden="true"></i>&nbsp;Subscribe Now</a>
                             </div>                        
                             <hr>
 

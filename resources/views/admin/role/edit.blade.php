@@ -40,7 +40,7 @@
 								@foreach($permission as $value)
 									<div class="col-sm-3">
 										<label>
-											{{ Form::checkbox('permission[]', $value->id, in_array($value->id, $rolePermissions) ? true : false, array('class' => 'name')) }} {{ ucfirst($value->name) }}
+											{{ Form::checkbox('permission[]', $value->id, in_array($value->id, $rolePermissions) ? true : false, array('class' => 'name')) }} <strong>{{ ucfirst($value->name) }}</strong>
 										</label>
 										<br />
 										<div class="col-sm-6">

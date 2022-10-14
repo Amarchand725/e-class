@@ -2,14 +2,14 @@
     <div class="container-xl">
         <h4 class="student-heading">Subscription Bundles</h4>
         <div id="subscription-bundle-view-slider" class="student-view-slider-main-block owl-carousel">
-            <?php $__currentLoopData = bundles(); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $key=>$bundle): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+            <?php $__currentLoopData = bundles(); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $bundle_key=>$bundle): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                 <div class="item student-view-block student-view-block-1">
                     <div class="genre-slide-image protip" data-pt-placement="outside" data-pt-interactive="false"
-                        data-pt-title="#prime-next-item-description-block-<?php echo e($key); ?>">
+                        data-pt-title="#prime-next-item-description-block-bundle-<?php echo e($bundle_key); ?>">
                         <div class="view-block">
                             <div class="view-img">
                                 <a href="<?php echo e(route('bundle.single', $bundle->slug)); ?>">
-                                    <img data-src="<?php echo e(asset('public/admin/bundle/banners')); ?>/<?php echo e($bundle->banner); ?>" alt="bundle" class="img-fluid owl-lazy">
+                                    <img data-src="<?php echo e(asset('public/admin/bundle/banners')); ?>/<?php echo e($bundle->thumbnail); ?>" alt="bundle" class="img-fluid owl-lazy">
                                 </a>
                             </div>
 
@@ -64,7 +64,7 @@
                             </div>
                         </div>
                     </div>
-                    <div id="prime-next-item-description-block-<?php echo e($key); ?>" class="prime-description-block">
+                    <div id="prime-next-item-description-block-bundle-<?php echo e($bundle_key); ?>" class="prime-description-block">
                         <div class="prime-description-under-block">
                             <div class="prime-description-under-block">
                                 <h5 class="description-heading"><?php echo e($bundle->title); ?></h5>

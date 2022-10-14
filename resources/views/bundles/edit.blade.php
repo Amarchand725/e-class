@@ -81,18 +81,18 @@
 						</div>
 							
 						<div class="form-group">
-                            <label for="banner" class="col-sm-2 control-label">Banner @if(!$model->banner) <span style="color:red">*</span> @endif</label>
+                            <label for="banner" class="col-sm-2 control-label">Thumbnail @if(!$model->banner) <span style="color:red">*</span> @endif</label>
                             <div class="col-sm-8">
                                 <input type="file" class="form-control" id="imgInput" name="banner" accept="image/*">
                                 <span style="color: red">{{ $errors->first("banner") }}</span>
                             </div>
                         </div>
 
-                        @if($model->banner)
+                        @if($model->thumbnail)
 							<div class="form-group">
-								<label for="image" class="col-sm-2 control-label">Exist Banner </label>
+								<label for="image" class="col-sm-2 control-label">Exist Thumbnail </label>
 								<div class="col-sm-8">
-									<img id="preview" src="{{ asset('public/admin/bundle/banners') }}/{{ $model->banner }}" width="100px" alt="">
+									<img id="preview" src="{{ asset('public/admin/bundle/banners') }}/{{ $model->thumbnail }}" width="100px" alt="">
 								</div>
 							</div>
 						@else 

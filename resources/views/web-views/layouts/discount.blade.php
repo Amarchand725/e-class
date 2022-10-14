@@ -12,27 +12,27 @@
             </div>
         </div>
         <div id="discounted-view-slider" class="student-view-slider-main-block owl-carousel">
-            @foreach (topDiscountCourses() as $key=>$course)
+            @foreach (topDiscountCourses() as $discount_course_key=>$discount_course)
                 <div class="item student-view-block student-view-block-1">
                     <div class="genre-slide-image  protip "
                         data-pt-placement="outside" data-pt-interactive="false"
-                        data-pt-title="#prime-next-item-description-block-{{ $key }}{{ $course->id }}">
+                        data-pt-title="#prime-next-item-description-block-discount-{{ $discount_course_key }}{{ $discount_course->id }}">
                         <div class="view-block">
                             <div class="view-img">
-                                <a href="{{ route('course.single', $course->slug) }}">
-                                    <img data-src="{{ asset('public/admin/images/courses') }}/{{ $course->thumbnail }}" alt="course"
+                                <a href="{{ route('course.single', $discount_course->slug) }}">
+                                    <img data-src="{{ asset('public/admin/images/courses') }}/{{ $discount_course->thumbnail }}" alt="course"
                                             class="img-fluid owl-lazy">
                                 </a>
                             </div>
 
                             <div class="badges bg-priamry offer-badge">
-                                @if($course->discount_type=='percent')
+                                @if($discount_course->discount_type=='percent')
                                     @php
-                                        $percentage = $course->discount;
+                                        $percentage = $discount_course->discount;
                                     @endphp
                                 @else
                                     @php
-                                        $percentage = $course->discount/$course->retail_price*100;
+                                        $percentage = $discount_course->discount/$discount_course->retail_price*100;
                                     @endphp
                                 @endif
                                 <span>OFF<span>{{ round($percentage) }}%</span></span>
@@ -42,9 +42,9 @@
                                 <span class="badge bg-info">On-sale</span>
                             </div>
                             <div class="view-user-img">
-                                <a href="{{ route('user.profile', $course->hasInstructor->slug) }}" title="">
-                                    @if($course->hasUserProfile)
-                                        <img src="{{ asset('public/users') }}/{{ $course->hasUserProfile->profile_image }}" width="50px"  class="img-fluid user-img-one" alt="">
+                                <a href="{{ route('user.profile', $discount_course->hasInstructor->slug) }}" title="">
+                                    @if($discount_course->hasUserProfile)
+                                        <img src="{{ asset('public/users') }}/{{ $discount_course->hasUserProfile->profile_image }}" width="50px"  class="img-fluid user-img-one" alt="">
                                     @else
                                         <img src="{{ asset('public/default.png') }}" width="50px"  class="img-fluid user-img-one" alt="">
                                     @endif
@@ -52,10 +52,10 @@
                             </div>
                             <div class="view-dtl">
                                 <div class="view-heading">
-                                    <a href="{{ route('course.single', $course->slug) }}">{{ $course->title }}</a>
+                                    <a href="{{ route('course.single', $discount_course->slug) }}">{{ $discount_course->title }}</a>
                                 </div>
                                 <div class="user-name">
-                                    <h6>By <span><a href="{{ route('user.profile', $course->hasInstructor->slug) }}">{{ $course->hasInstructor->name }}</a></span></h6>
+                                    <h6>By <span><a href="{{ route('user.profile', $discount_course->hasInstructor->slug) }}">{{ $discount_course->hasInstructor->name }}</a></span></h6>
                                 </div>
                                 <div class="rating">
                                     <ul>
@@ -84,10 +84,10 @@
                                         <div class="col-lg-6 col-md-6 col-sm-6 col-6">
                                             <div class="rate text-right">
                                                 <ul>
-                                                    @if($course->is_paid)
-                                                        <li><a><b>${{ number_format($course->price, 2) }}</b></a></li>
-                                                        @if($course->discount != NULL)
-                                                            <li><a><b><strike>${{ number_format($course->retail_price, 2) }}</strike></b></a></li>
+                                                    @if($discount_course->is_paid)
+                                                        <li><a><b>${{ number_format($discount_course->price, 2) }}</b></a></li>
+                                                        @if($discount_course->discount != NULL)
+                                                            <li><a><b><strike>${{ number_format($discount_course->retail_price, 2) }}</strike></b></a></li>
                                                         @endif
                                                     @else
                                                         <li>FREE</li>
@@ -115,19 +115,19 @@
                             </div>
                         </div>
                     </div>
-                    <div id="prime-next-item-description-block-{{ $key }}{{ $course->id }}" class="prime-description-block">
+                    <div id="prime-next-item-description-block-discount-{{ $discount_course_key }}{{ $discount_course->id }}" class="prime-description-block">
                         <div class="prime-description-under-block">
                             <div class="prime-description-under-block">
-                                <h5 class="description-heading">{{ $course->title }}</h5>
+                                <h5 class="description-heading">{{ $discount_course->title }}</h5>
                                 <div class="main-des">
-                                    <p>Last Updated: {{ date('d F Y', strtotime($course->updated_at)) }}</p>
+                                    <p>Last Updated: {{ date('d F Y', strtotime($discount_course->updated_at)) }}</p>
                                 </div>
 
                                 <ul class="description-list">
                                     <li>
                                         <i data-feather="play-circle"></i>
                                         <div class="class-des">
-                                            Classes: {{ count($course->haveClasses) }}
+                                            Classes: {{ count($discount_course->haveClasses) }}
                                         </div>
                                     </li>
                                     &nbsp;
@@ -136,8 +136,8 @@
                                             <div class="time-des">
                                                 @php
                                                     $sum_minutes = 0;
-                                                    foreach ($course->haveClasses as $course_class){
-                                                        $explodedTime = array_map('intval', explode(':', $course_class->lecture_duration ));
+                                                    foreach ($discount_course->haveClasses as $discount_course_class){
+                                                        $explodedTime = array_map('intval', explode(':', $discount_course_class->lecture_duration ));
                                                         $sum_minutes += $explodedTime[0]*60+$explodedTime[1];
                                                     }
                                                     $lecture_duration_total_time = floor($sum_minutes/60).':'.floor($sum_minutes % 60);
@@ -155,11 +155,11 @@
                                 </ul>
 
                                 <div class="product-main-des">
-                                    <p>{{ $course->short_description }}</p>
+                                    <p>{{ $discount_course->short_description }}</p>
                                 </div>
                                 <div>
-                                    @if(!empty($course->haveWhatLearns))
-                                        @foreach ($course->haveWhatLearns as $learn)
+                                    @if(!empty($discount_course->haveWhatLearns))
+                                        @foreach ($discount_course->haveWhatLearns as $learn)
                                             <div class="product-learn-dtl">
                                                 <ul>
                                                     <li>

@@ -1,0 +1,1414 @@
+  <!DOCTYPE html>
+<!--
+**********************************************************************************************************
+    Copyright (c) 2022.
+**********************************************************************************************************  -->
+<!-- 
+Template Name: eClass - Learning Management System 
+Version: 5.0.0
+Author: Media City
+-->
+<!--[if IE 8]> <html lang="en" class="ie8 no-js"> <![endif]-->
+<!--[if IE 9]> <html lang="en" class="ie9 no-js"> <![endif]-->
+<!--[if !IE]> -->
+
+
+<html lang="en" >
+<!-- <![endif]-->
+<!-- head -->
+
+<!-- Mirrored from eclass.mediacity.co.in/demo/public/all/cart by HTTrack Website Copier/3.x [XR&CO'2014], Thu, 22 Sep 2022 11:49:27 GMT -->
+<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=UTF-8" /><!-- /Added by HTTrack -->
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+
+<meta name="csrf-token" content="leZ79T21enQSxfzfbeOTzvgubGXd6jlVMG4Ztrf9">
+
+<title>Cart | eClass-LearningManagementSystem</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="author" content="Media City" />
+<meta name="MobileOptimized" content="320" />
+
+<link rel="icon" type="image/icon" href="../images/favicon/favicon.png"> <!-- favicon-icon -->
+<!-- theme styles -->
+<link href="../css/bootstrap.min.css" rel="stylesheet" type="text/css"/> <!-- bootstrap css -->
+<link href="https://fonts.googleapis.com/css?family=Great+Vibes|Poppins:300,400,500,700" rel="stylesheet"> <!--  google fonts -->
+<link href="https://fonts.googleapis.com/css?family=Muli&amp;display=swap:400,500,600,700" rel="stylesheet"><!-- google fonts -->
+<link rel="stylesheet" href="../vendor/fontawesome/css/all.css" /> <!--  fontawesome css -->
+<link rel="stylesheet" href="../vendor/font/flaticon.css" /> <!-- fontawesome css -->
+<link rel="stylesheet" href="../vendor/navigation/menumaker.css" /> <!-- navigation css -->
+<link rel="stylesheet" href="../vendor/owl/css/owl.carousel.min.css" /> <!-- owl carousel css -->
+<link rel="stylesheet" href="../vendor/protip/protip.css" /> <!-- menu css -->
+
+
+<link href="../css/style.css" rel="stylesheet" type="text/css"/> <!-- custom css -->
+<link rel="stylesheet" href="../css/colorbox.css">
+<link rel="stylesheet" href="../css/bower_components/font-awesome/css/font-awesome.min.css"><!-- fontawesome css -->
+<link rel="stylesheet" href="../css/select2.min.css"> <!-- select2 css -->
+<link rel="stylesheet" href="../css/pace.min.css">
+<link rel="stylesheet" type="text/css" href="../css/protip.css" /> <!-- protip css -->
+
+<link rel="stylesheet" href="../css/custom-style.css"/>
+
+<link rel="stylesheet" href="../css/venom-button.min.css" />
+<link rel="stylesheet" href="../css/jquery-ui.min.css" />
+<link rel="stylesheet" href="../css/simple_line_icons/css/simple-line-icons.css"> 
+  <!-- Web Application Manifest -->
+<link rel="manifest" href="../manifest.json">
+<!-- Chrome for Android theme color -->
+<meta name="theme-color" content="#DA1616">
+
+<!-- Add to homescreen for Chrome on Android -->
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="application-name" content="eClass-LearningManagementSystem">
+<link rel="icon" sizes="512x512" href="../images/icons/icon-512x512.png">
+
+<!-- Add to homescreen for Safari on iOS -->
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<meta name="apple-mobile-web-app-title" content="eClass-LearningManagementSystem">
+<link rel="apple-touch-icon" href="../images/icons/icon-512x512.png">
+
+
+<link href="../images/icons/splash-640x1136.png" media="(device-width: 320px) and (device-height: 568px) and (-webkit-device-pixel-ratio: 2)" rel="apple-touch-startup-image" />
+<link href="../images/icons/splash-750x1334.png" media="(device-width: 375px) and (device-height: 667px) and (-webkit-device-pixel-ratio: 2)" rel="apple-touch-startup-image" />
+<link href="../images/icons/splash-1242x2208.png" media="(device-width: 621px) and (device-height: 1104px) and (-webkit-device-pixel-ratio: 3)" rel="apple-touch-startup-image" />
+<link href="../images/icons/splash-1125x2436.png" media="(device-width: 375px) and (device-height: 812px) and (-webkit-device-pixel-ratio: 3)" rel="apple-touch-startup-image" />
+<link href="../images/icons/splash-828x1792.png" media="(device-width: 414px) and (device-height: 896px) and (-webkit-device-pixel-ratio: 2)" rel="apple-touch-startup-image" />
+<link href="../images/icons/splash-1242x2688.png" media="(device-width: 414px) and (device-height: 896px) and (-webkit-device-pixel-ratio: 3)" rel="apple-touch-startup-image" />
+<link href="../images/icons/splash-1536x2048.png" media="(device-width: 768px) and (device-height: 1024px) and (-webkit-device-pixel-ratio: 2)" rel="apple-touch-startup-image" />
+<link href="../images/icons/splash-1668x2224.png" media="(device-width: 834px) and (device-height: 1112px) and (-webkit-device-pixel-ratio: 2)" rel="apple-touch-startup-image" />
+<link href="../images/icons/splash-1668x2388.png" media="(device-width: 834px) and (device-height: 1194px) and (-webkit-device-pixel-ratio: 2)" rel="apple-touch-startup-image" />
+<link href="../images/icons/splash-2048x2732.png" media="(device-width: 1024px) and (device-height: 1366px) and (-webkit-device-pixel-ratio: 2)" rel="apple-touch-startup-image" />
+
+<!-- Tile for Win8 -->
+<meta name="msapplication-TileColor" content="#3F3131">
+<meta name="msapplication-TileImage" content="../images/icons/icon-512x512.png">
+
+<script type="text/javascript">
+    // Initialize the service worker
+    if ('serviceWorker' in navigator) {
+        navigator.serviceWorker.register('../serviceworker.js', {
+            scope: '.'
+        }).then(function (registration) {
+            // Registration was successful
+            console.log('Laravel PWA: ServiceWorker registration successful with scope: ', registration.scope);
+        }, function (err) {
+            // registration failed :(
+            console.log('Laravel PWA: ServiceWorker registration failed: ', err);
+        });
+    }
+</script>
+
+<!-- end theme styles -->
+
+<style type="text/css">
+  
+  :root {
+  --linear-gradient-bg-color:linear-gradient(-45deg, #f44a4a 0, #6e1a52 100%);
+  --linear-gradient-reverse-bg-color:linear-gradient(-45deg, #6e1a52 0, #f44a4a 100%);
+  --linear-gradient-about-bg-color:linear-gradient(197.61deg, #f44a4a , #6e1a52);
+  --linear-gradient-about-blue-bg-color:linear-gradient(40deg, #1a263a 33%, #4a8394 84%);
+  --linear-gradient-career-bg-color:linear-gradient(22.72914987deg, #f5c252 4%, #6ac1d0);
+  --background-blue-bg-color: #0284a2;
+  --background-red-bg-color: #f44a4a; 
+  --background-grey-bg-color:#f7f8fa;
+  --background-light-grey-bg-color:#f9f9f9;
+  --background-black-bg-color:#29303b;
+  --background-white-bg-color:#ffffff;
+  --background-mehroon-bg-color:#992337;
+  --text-black-color:#29303b;
+  --text-light-grey-color:#777777;
+  --text-dark-grey-color:#686f7a;
+  --text-red-color:#f44a4a;
+  --text-blue-color:#0284a2;
+  --text-dark-blue-color:#003845;
+  --text-white-color:#ffffff;
+}
+</style>
+
+
+
+</head>
+<style type="text/css">
+  
+  :root {
+  --linear-gradient-bg-color:linear-gradient(-45deg, #f44a4a 0, #6e1a52 100%);
+  --linear-gradient-reverse-bg-color:linear-gradient(-45deg, #6e1a52 0, #f44a4a 100%);
+  --linear-gradient-about-bg-color:linear-gradient(197.61deg, #f44a4a , #6e1a52);
+  --linear-gradient-about-blue-bg-color:linear-gradient(40deg, #1a263a 33%, #4a8394 84%);
+  --linear-gradient-career-bg-color:linear-gradient(22.72914987deg, #f5c252 4%, #6ac1d0);
+  --background-blue-bg-color: #0284a2;
+  --background-red-bg-color: #f44a4a; 
+  --background-grey-bg-color:#f7f8fa;
+  --background-light-grey-bg-color:#f9f9f9;
+  --background-black-bg-color:#29303b;
+  --background-white-bg-color:#ffffff;
+  --background-mehroon-bg-color:#992337;
+  --text-black-color:#29303b;
+  --text-light-grey-color:#777777;
+  --text-dark-grey-color:#686f7a;
+  --text-red-color:#f44a4a;
+  --text-blue-color:#0284a2;
+  --text-dark-blue-color:#003845;
+  --text-white-color:#ffffff;
+}
+</style>
+
+
+<style>
+    #cookieWrapper {
+        position: fixed;
+        bottom: 0;
+        width: 100%;
+        z-index: 100;
+        margin: 0;
+        border-radius: 0;
+        background-color: var(--background-blue-bg-color) !important;
+    }
+
+    .bg-primary {
+	    background-color: var(--background-blue-bg-color) !important;
+	}
+	.btn-warning {
+	    background-color: var(--background-red-bg-color)!important;
+	    border: 1px solid var(--background-red-bg-color)!important;
+	    color: var(--text-white-color);
+	}
+    .cookie-consent__message {
+        color: var(--text-white-color);
+    }
+</style>
+
+
+
+<div id="cookieWrapper" class="bg-primary text-white w-100 py-3 text-center cookierbar js-cookie-consent cookie-consent">
+    <span class="cookie-consent__message">
+        Your experience on this site will be improved by allowing cookies.&nbsp;&nbsp;
+    </span>
+    <button class="btn btn-sm btn-warning js-cookie-consent-agree cookie-consent__agree">
+        Allow cookies
+    </button>
+</div>
+
+    <script>
+
+        window.laravelCookieConsent = (function () {
+
+            const COOKIE_VALUE = 1;
+            const COOKIE_DOMAIN = '';
+
+            function consentWithCookies() {
+                setCookie('laravel_cookie_consent', COOKIE_VALUE, 7300);
+                hideCookieDialog();
+            }
+
+            function cookieExists(name) {
+                return (document.cookie.split('; ').indexOf(name + '=' + COOKIE_VALUE) !== -1);
+            }
+
+            function hideCookieDialog() {
+                const dialogs = document.getElementsByClassName('js-cookie-consent');
+
+                for (let i = 0; i < dialogs.length; ++i) {
+                    dialogs[i].style.display = 'none';
+                }
+            }
+
+            function setCookie(name, value, expirationInDays) {
+                const date = new Date();
+                date.setTime(date.getTime() + (expirationInDays * 24 * 60 * 60 * 1000));
+                document.cookie = name + '=' + value
+                    + ';expires=' + date.toUTCString()
+                    + ';domain=' + COOKIE_DOMAIN
+                    + ';path=/'
+                    + '';
+            }
+
+            if (cookieExists('laravel_cookie_consent')) {
+                hideCookieDialog();
+            }
+
+            const buttons = document.getElementsByClassName('js-cookie-consent-agree');
+
+            for (let i = 0; i < buttons.length; ++i) {
+                buttons[i].addEventListener('click', consentWithCookies);
+            }
+
+            return {
+                consentWithCookies: consentWithCookies,
+                hideCookieDialog: hideCookieDialog
+            };
+        })();
+    </script>
+
+<!-- end head -->
+<!-- body start-->
+<body>
+<!-- preloader --> 
+
+
+
+<div class="preloader">
+    <div class="status">
+              <div class="status-message">
+        	<img src="../images/logo/preloader_logo.png" alt="logo" class="img-fluid">
+        </div>
+          </div>
+</div>
+
+<!-- whatsapp chat button -->
+<div id="myButton"></div>
+
+
+<!-- end preloader -->
+<!-- top-nav bar start-->
+<div id="promo-outer">
+    <div id="promo-inner">
+        <a href="#">Keep your skills on point| Stay logged in to see your latest course recommendations, promos, and more.</a>
+        <span id="close">x</span>
+    </div>
+</div>
+<div id="promo-tab" class="display-none">SHOW</div>
+
+<section id="nav-bar" class="nav-bar-main-block" data-toggle="sticky-onscroll">
+    <div class="container-xl">
+        <!-- start navigation -->
+        <div class="navigation fullscreen-search-block">
+            <span style="font-size:30px;cursor:pointer" onclick="openNav()" class="hamburger">&#9776; </span>
+            <div class="logo">
+                                      <a href="https://eclass.mediacity.co.in/demo/public" ><img src="../images/logo/logo.png" class="img-fluid" alt="logo"></a>
+                            </div>
+            <div class="nav-search nav-wishlist">
+                
+                <a href="#find"><i data-feather="search"></i></a>
+            </div>
+                        
+
+            <div id="mySidenav" class="sidenav">
+              <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+                                <div class="login-block">
+                    <a href="../register.html" class="btn btn-primary" title="register">Signup</a>
+                    <a href="../login.html" class="btn btn-secondary" title="login">Login</a>
+                </div>
+                                
+                                
+                <div class="wrapper center-block">
+                    
+                    <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+                                          <div class="panel panel-default">
+                        <div class="panel-heading active" role="tab" id="headingOne">
+                            <h4 class="panel-title">
+                            <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne2" aria-expanded="true" aria-controls="collapseOne">
+                                <i class="fa fa-connectdevelop rgt-10"></i> <label class="prime-cat" data-url="../browse/categorya943.html?id=2&amp;category=devlopment">Devlopment</label> 
+                            </a>
+                            </h4>
+                        </div>
+
+                        
+                        <div id="collapseOne2" class="subcate-collapse panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
+                                                                            <div class="panel-body">
+                            <div class="panel panel-default">
+                                <div class="panel-heading" role="tab" id="headingeleven">
+                                  <h4 class="panel-title">
+                                    <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseeleven5" aria-expanded="false" aria-controls="collapseeleven">
+                                      <i class="fa fa-codepen rgt-10"></i> <label class="sub-cate" data-url="../browse/subcategory1462.html?id=5&amp;category=webdevlopment">Web Devlopment</label>
+
+                                    </a>
+                                  </h4>
+                                </div>
+
+                                <div id="collapseeleven5" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingeleven">
+                                                                                                      <div class="panel-body sub-cat">
+                                    <i class="fa fa-language rgt-10"></i> <label class="child-cate" data-url="../browse/childcategory2b8d.html?id=5&amp;category=allwebdevlopment">All Web Devlopment </label>
+                                  </div>
+                                                                                                    </div>
+                                
+                            </div>
+                          </div>
+                                                                                                      <div class="panel-body">
+                            <div class="panel panel-default">
+                                <div class="panel-heading" role="tab" id="headingeleven">
+                                  <h4 class="panel-title">
+                                    <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseeleven6" aria-expanded="false" aria-controls="collapseeleven">
+                                      <i class="fa fa-language rgt-10"></i> <label class="sub-cate" data-url="../browse/subcategory682a.html?id=6&amp;category=programminglanguage">Programming Lan..</label>
+
+                                    </a>
+                                  </h4>
+                                </div>
+
+                                <div id="collapseeleven6" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingeleven">
+                                                                                                      <div class="panel-body sub-cat">
+                                    <i class="fa fa-commenting-o rgt-10"></i> <label class="child-cate" data-url="../browse/childcategory99b3.html?id=6&amp;category=javascript">JavaScript </label>
+                                  </div>
+                                                                                                                                        <div class="panel-body sub-cat">
+                                    <i class="fa fa-object-ungroup rgt-10"></i> <label class="child-cate" data-url="../browse/childcategory2f5f.html?id=7&amp;category=c">C++ </label>
+                                  </div>
+                                                                                                    </div>
+                                
+                            </div>
+                          </div>
+                                                                                                      <div class="panel-body">
+                            <div class="panel panel-default">
+                                <div class="panel-heading" role="tab" id="headingeleven">
+                                  <h4 class="panel-title">
+                                    <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseeleven7" aria-expanded="false" aria-controls="collapseeleven">
+                                      <i class="fa fa-database rgt-10"></i> <label class="sub-cate" data-url="../browse/subcategory2083.html?id=7&amp;category=databases">Databases</label>
+
+                                    </a>
+                                  </h4>
+                                </div>
+
+                                <div id="collapseeleven7" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingeleven">
+                                                                                                      <div class="panel-body sub-cat">
+                                    <i class="fa fa-square-o rgt-10"></i> <label class="child-cate" data-url="../browse/childcategoryee8c.html?id=8&amp;category=mysql">MySql </label>
+                                  </div>
+                                                                                                                                        <div class="panel-body sub-cat">
+                                    <i class="fa fa-database rgt-10"></i> <label class="child-cate" data-url="../browse/childcategoryc4c6.html?id=9&amp;category=oraclesql">Oracle SQL </label>
+                                  </div>
+                                                                                                    </div>
+                                
+                            </div>
+                          </div>
+                                                                          </div>
+                        
+                      </div>
+                                          <div class="panel panel-default">
+                        <div class="panel-heading active" role="tab" id="headingOne">
+                            <h4 class="panel-title">
+                            <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne6" aria-expanded="true" aria-controls="collapseOne">
+                                <i class="fa fa-heartbeat rgt-10"></i> <label class="prime-cat" data-url="../browse/categoryf18b.html?id=6&amp;category=healthfitness">Health &amp; Fitness</label> 
+                            </a>
+                            </h4>
+                        </div>
+
+                        
+                        <div id="collapseOne6" class="subcate-collapse panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
+                                                                            <div class="panel-body">
+                            <div class="panel panel-default">
+                                <div class="panel-heading" role="tab" id="headingeleven">
+                                  <h4 class="panel-title">
+                                    <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseeleven0" aria-expanded="false" aria-controls="collapseeleven">
+                                      <i class="fa fa-anchor rgt-10"></i> <label class="sub-cate" data-url="../browse/subcategorya529.html?id=0&amp;category=daily-yoga">Yoga</label>
+
+                                    </a>
+                                  </h4>
+                                </div>
+
+                                <div id="collapseeleven0" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingeleven">
+                                                                  </div>
+                                
+                            </div>
+                          </div>
+                                                                                                      <div class="panel-body">
+                            <div class="panel panel-default">
+                                <div class="panel-heading" role="tab" id="headingeleven">
+                                  <h4 class="panel-title">
+                                    <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseeleven10" aria-expanded="false" aria-controls="collapseeleven">
+                                      <i class="fa fa-anchor rgt-10"></i> <label class="sub-cate" data-url="../browse/subcategorye6c0.html?id=10&amp;category=daily-yoga">Art &amp; Craft</label>
+
+                                    </a>
+                                  </h4>
+                                </div>
+
+                                <div id="collapseeleven10" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingeleven">
+                                                                                                      <div class="panel-body sub-cat">
+                                    <i class="fa fa-pencil rgt-10"></i> <label class="child-cate" data-url="../browse/childcategory23fe.html?id=14&amp;category=drawing">Drawing </label>
+                                  </div>
+                                                                                                                                        <div class="panel-body sub-cat">
+                                    <i class="fa fa-paint-brush rgt-10"></i> <label class="child-cate" data-url="../browse/childcategory442c.html?id=15&amp;category=painting">Painting </label>
+                                  </div>
+                                                                                                    </div>
+                                
+                            </div>
+                          </div>
+                                                                                                      <div class="panel-body">
+                            <div class="panel panel-default">
+                                <div class="panel-heading" role="tab" id="headingeleven">
+                                  <h4 class="panel-title">
+                                    <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseeleven12" aria-expanded="false" aria-controls="collapseeleven">
+                                      <i class="fa fa-anchor rgt-10"></i> <label class="sub-cate" data-url="../browse/subcategoryfa62.html?id=12&amp;category=daily-yoga">Travel</label>
+
+                                    </a>
+                                  </h4>
+                                </div>
+
+                                <div id="collapseeleven12" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingeleven">
+                                                                                                      <div class="panel-body sub-cat">
+                                    <i class="fa fa-train rgt-10"></i> <label class="child-cate" data-url="../browse/childcategoryd84d.html?id=19&amp;category=traveltips">Travel Tips </label>
+                                  </div>
+                                                                                                    </div>
+                                
+                            </div>
+                          </div>
+                                                                          </div>
+                        
+                      </div>
+                                          <div class="panel panel-default">
+                        <div class="panel-heading active" role="tab" id="headingOne">
+                            <h4 class="panel-title">
+                            <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne4" aria-expanded="true" aria-controls="collapseOne">
+                                <i class="fa fa-yelp rgt-10"></i> <label class="prime-cat" data-url="../browse/category8e7e.html?id=4&amp;category=lifestyle">Lifestyle</label> 
+                            </a>
+                            </h4>
+                        </div>
+
+                        
+                        <div id="collapseOne4" class="subcate-collapse panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
+                                                                            <div class="panel-body">
+                            <div class="panel panel-default">
+                                <div class="panel-heading" role="tab" id="headingeleven">
+                                  <h4 class="panel-title">
+                                    <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseeleven11" aria-expanded="false" aria-controls="collapseeleven">
+                                      <i class="fa fa-ravelry rgt-10"></i> <label class="sub-cate" data-url="../browse/subcategoryfdb3.html?id=11&amp;category=beautymakeup">Beauty &amp; Makeup</label>
+
+                                    </a>
+                                  </h4>
+                                </div>
+
+                                <div id="collapseeleven11" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingeleven">
+                                                                                                      <div class="panel-body sub-cat">
+                                    <i class="fa fa-scissors rgt-10"></i> <label class="child-cate" data-url="../browse/childcategory63d0.html?id=16&amp;category=hairstyling">Hair Styling </label>
+                                  </div>
+                                                                                                                                        <div class="panel-body sub-cat">
+                                    <i class="fa fa-hand-paper-o rgt-10"></i> <label class="child-cate" data-url="../browse/childcategory940d.html?id=18&amp;category=nailart">Nail Art </label>
+                                  </div>
+                                                                                                    </div>
+                                
+                            </div>
+                          </div>
+                                                                          </div>
+                        
+                      </div>
+                                          <div class="panel panel-default">
+                        <div class="panel-heading active" role="tab" id="headingOne">
+                            <h4 class="panel-title">
+                            <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne3" aria-expanded="true" aria-controls="collapseOne">
+                                <i class="fa fa-music rgt-10"></i> <label class="prime-cat" data-url="../browse/category43bf.html?id=3&amp;category=music">Music</label> 
+                            </a>
+                            </h4>
+                        </div>
+
+                        
+                        <div id="collapseOne3" class="subcate-collapse panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
+                                                                            <div class="panel-body">
+                            <div class="panel panel-default">
+                                <div class="panel-heading" role="tab" id="headingeleven">
+                                  <h4 class="panel-title">
+                                    <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseeleven8" aria-expanded="false" aria-controls="collapseeleven">
+                                      <i class="fa fa-deviantart rgt-10"></i> <label class="sub-cate" data-url="../browse/subcategoryfb98.html?id=8&amp;category=musicsoftware">Music Software</label>
+
+                                    </a>
+                                  </h4>
+                                </div>
+
+                                <div id="collapseeleven8" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingeleven">
+                                                                                                      <div class="panel-body sub-cat">
+                                    <i class="fa fa-gg rgt-10"></i> <label class="child-cate" data-url="../browse/childcategory97fe.html?id=11&amp;category=allmusicsoftware">All Music Software </label>
+                                  </div>
+                                                                                                    </div>
+                                
+                            </div>
+                          </div>
+                                                                                                      <div class="panel-body">
+                            <div class="panel panel-default">
+                                <div class="panel-heading" role="tab" id="headingeleven">
+                                  <h4 class="panel-title">
+                                    <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseeleven9" aria-expanded="false" aria-controls="collapseeleven">
+                                      <i class="fa fa-bullhorn rgt-10"></i> <label class="sub-cate" data-url="../browse/subcategory0635.html?id=9&amp;category=instruments">Instruments</label>
+
+                                    </a>
+                                  </h4>
+                                </div>
+
+                                <div id="collapseeleven9" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingeleven">
+                                                                                                      <div class="panel-body sub-cat">
+                                    <i class="fa fa-forumbee rgt-10"></i> <label class="child-cate" data-url="../browse/childcategorye8e6.html?id=12&amp;category=guitar">Guitar </label>
+                                  </div>
+                                                                                                                                        <div class="panel-body sub-cat">
+                                    <i class="fa fa-pied-piper rgt-10"></i> <label class="child-cate" data-url="../browse/childcategoryaaea.html?id=13&amp;category=piano">Piano </label>
+                                  </div>
+                                                                                                    </div>
+                                
+                            </div>
+                          </div>
+                                                                          </div>
+                        
+                      </div>
+                                          <div class="panel panel-default">
+                        <div class="panel-heading active" role="tab" id="headingOne">
+                            <h4 class="panel-title">
+                            <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne1" aria-expanded="true" aria-controls="collapseOne">
+                                <i class="fa fa-slideshare rgt-10"></i> <label class="prime-cat" data-url="../browse/category15bc.html?id=1&amp;category=design">Design</label> 
+                            </a>
+                            </h4>
+                        </div>
+
+                        
+                        <div id="collapseOne1" class="subcate-collapse panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
+                                                                            <div class="panel-body">
+                            <div class="panel panel-default">
+                                <div class="panel-heading" role="tab" id="headingeleven">
+                                  <h4 class="panel-title">
+                                    <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseeleven1" aria-expanded="false" aria-controls="collapseeleven">
+                                      <i class="fa fa-anchor rgt-10"></i> <label class="sub-cate" data-url="../browse/subcategory9eb2.html?id=1&amp;category=web-designing">Web Design</label>
+
+                                    </a>
+                                  </h4>
+                                </div>
+
+                                <div id="collapseeleven1" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingeleven">
+                                                                                                      <div class="panel-body sub-cat">
+                                    <i class="fa fa-apple rgt-10"></i> <label class="child-cate" data-url="../browse/childcategoryf7b6.html?id=1&amp;category=allwebdesign-completed">All Web Design </label>
+                                  </div>
+                                                                                                    </div>
+                                
+                            </div>
+                          </div>
+                                                                                                      <div class="panel-body">
+                            <div class="panel panel-default">
+                                <div class="panel-heading" role="tab" id="headingeleven">
+                                  <h4 class="panel-title">
+                                    <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseeleven2" aria-expanded="false" aria-controls="collapseeleven">
+                                      <i class="fa fa-grav rgt-10"></i> <label class="sub-cate" data-url="../browse/subcategorya62a.html?id=2&amp;category=graphicdesign">Graphic Design</label>
+
+                                    </a>
+                                  </h4>
+                                </div>
+
+                                <div id="collapseeleven2" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingeleven">
+                                                                                                      <div class="panel-body sub-cat">
+                                    <i class="fa fa-address-book rgt-10"></i> <label class="child-cate" data-url="../browse/childcategory4313.html?id=2&amp;category=photoshop">photoshop </label>
+                                  </div>
+                                                                                                    </div>
+                                
+                            </div>
+                          </div>
+                                                                                                      <div class="panel-body">
+                            <div class="panel panel-default">
+                                <div class="panel-heading" role="tab" id="headingeleven">
+                                  <h4 class="panel-title">
+                                    <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseeleven4" aria-expanded="false" aria-controls="collapseeleven">
+                                      <i class="fa fa-firefox rgt-10"></i> <label class="sub-cate" data-url="../browse/subcategory595b.html?id=4&amp;category=interiordesign">Interior Design</label>
+
+                                    </a>
+                                  </h4>
+                                </div>
+
+                                <div id="collapseeleven4" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingeleven">
+                                                                                                      <div class="panel-body sub-cat">
+                                    <i class="fa fa-asterisk rgt-10"></i> <label class="child-cate" data-url="../browse/childcategory9800.html?id=4&amp;category=sketchup">SketchUp </label>
+                                  </div>
+                                                                                                    </div>
+                                
+                            </div>
+                          </div>
+                                                                          </div>
+                        
+                      </div>
+                                          <div class="panel panel-default">
+                        <div class="panel-heading active" role="tab" id="headingOne">
+                            <h4 class="panel-title">
+                            <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne5" aria-expanded="true" aria-controls="collapseOne">
+                                <i class="fa fa-file-photo-o rgt-10"></i> <label class="prime-cat" data-url="../browse/categoryc2e2.html?id=5&amp;category=photogarphy">Photogarphy</label> 
+                            </a>
+                            </h4>
+                        </div>
+
+                        
+                        <div id="collapseOne5" class="subcate-collapse panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
+                                                                            <div class="panel-body">
+                            <div class="panel panel-default">
+                                <div class="panel-heading" role="tab" id="headingeleven">
+                                  <h4 class="panel-title">
+                                    <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseeleven13" aria-expanded="false" aria-controls="collapseeleven">
+                                      <i class="fa fa-address-book-o rgt-10"></i> <label class="sub-cate" data-url="../browse/subcategory1cf7.html?id=13&amp;category=digitalphptography">Digital Phptogr..</label>
+
+                                    </a>
+                                  </h4>
+                                </div>
+
+                                <div id="collapseeleven13" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingeleven">
+                                                                                                      <div class="panel-body sub-cat">
+                                    <i class="fa fa-photo rgt-10"></i> <label class="child-cate" data-url="../browse/childcategory9c67.html?id=20&amp;category=alldigitalphotography">All Digital Photography </label>
+                                  </div>
+                                                                                                    </div>
+                                
+                            </div>
+                          </div>
+                                                                                                      <div class="panel-body">
+                            <div class="panel panel-default">
+                                <div class="panel-heading" role="tab" id="headingeleven">
+                                  <h4 class="panel-title">
+                                    <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseeleven14" aria-expanded="false" aria-controls="collapseeleven">
+                                      <i class="fa fa-address-book-o rgt-10"></i> <label class="sub-cate" data-url="../browse/subcategory906f.html?id=14&amp;category=digitalphptography">Photography Too..</label>
+
+                                    </a>
+                                  </h4>
+                                </div>
+
+                                <div id="collapseeleven14" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingeleven">
+                                                                                                      <div class="panel-body sub-cat">
+                                    <i class="fa fa-file-image-o rgt-10"></i> <label class="child-cate" data-url="../browse/childcategory35b5.html?id=21&amp;category=imageediting">Image Editing </label>
+                                  </div>
+                                                                                                    </div>
+                                
+                            </div>
+                          </div>
+                                                                                                      <div class="panel-body">
+                            <div class="panel panel-default">
+                                <div class="panel-heading" role="tab" id="headingeleven">
+                                  <h4 class="panel-title">
+                                    <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseeleven15" aria-expanded="false" aria-controls="collapseeleven">
+                                      <i class="fa fa-address-book-o rgt-10"></i> <label class="sub-cate" data-url="../browse/subcategory5bd1.html?id=15&amp;category=digitalphptography">Sports</label>
+
+                                    </a>
+                                  </h4>
+                                </div>
+
+                                <div id="collapseeleven15" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingeleven">
+                                                                                                      <div class="panel-body sub-cat">
+                                    <i class="fa fa-spotify rgt-10"></i> <label class="child-cate" data-url="../browse/childcategory698a.html?id=22&amp;category=allsports">All Sports </label>
+                                  </div>
+                                                                                                    </div>
+                                
+                            </div>
+                          </div>
+                                                                          </div>
+                        
+                      </div>
+                                      </div>
+                      
+                </div>
+                <div>
+                                                                                    <ul>
+                        <li>
+                            <ul>
+                                                                                                                                <li><a href="../pages/demo-puropse.html" title="Home"><i data-feather="align-justify"></i>Menu-1</a></li>
+                                                                                                                                <li><a href="https://www.lipsum.com/feed/html" title="Home"><i data-feather="align-justify"></i>Menu-2</a></li>
+                                                                                                                            </ul>
+                        </li>
+                    </ul>
+                                    </div>
+                            </div>
+        </div>
+        
+        <!-- end navigation -->
+        <div class="row smallscreen-search-block">
+            <div class="col-lg-5">
+                <div class="row">
+                    <div class="col-lg-5 col-md-4 col-sm-12">
+                        <div class="logo">
+                                                            <a href="https://eclass.mediacity.co.in/demo/public" ><img src="../images/logo/logo.png" class="img-fluid" alt="logo"></a>
+                                                    </div>
+                    </div>
+                    <div class="col-lg-7 col-md-4 col-sm-12">
+                        <div class="navigation">
+                            <div id="cssmenu">
+                                <ul>
+                                    <li><a href="#" title="Categories"><i data-feather="grid"></i>Categories</a>
+                                       
+                                        <ul>
+                                                                                                                                    <li><a href="../browse/category8e65.html?id=2&amp;category=Devlopment" title="Devlopment"><i class="fa fa-connectdevelop rgt-20"></i>Devlopment <i data-feather="chevron-right" class="float-right"></i></a>
+                                            <ul>   
+                                                                                                                                                <li><a href="../browse/subcategory9e1a.html?id=5&amp;category=Web%20Devlopment" title="Web Devlopment"><i class="fa fa-codepen rgt-20"></i>Web Devlopment
+                                                    <i data-feather="chevron-right" class="float-right"></i></a>
+                                                    <ul>
+                                                                                                                                                                        <li>
+                                                            <a href="../browse/childcategorye62f.html?id=5&amp;category=All%20Web%20Devlopment" title="All Web Devlopment"><i class="fa fa-language rgt-20"></i>All Web Devlopment</a>
+                                                        </li>
+                                                                                                                                                                    </ul>
+                                                </li>
+                                                                                                                                                                                               <li><a href="../browse/subcategory666d.html?id=6&amp;category=Programming%20Language" title="Programming Language"><i class="fa fa-language rgt-20"></i>Programming Language
+                                                    <i data-feather="chevron-right" class="float-right"></i></a>
+                                                    <ul>
+                                                                                                                                                                        <li>
+                                                            <a href="../browse/childcategory916c.html?id=6&amp;category=JavaScript" title="JavaScript"><i class="fa fa-commenting-o rgt-20"></i>JavaScript</a>
+                                                        </li>
+                                                                                                                                                                                                                                <li>
+                                                            <a href="../browse/childcategory45ec.html?id=7&amp;category=C%2B%2B" title="C++"><i class="fa fa-object-ungroup rgt-20"></i>C++</a>
+                                                        </li>
+                                                                                                                                                                    </ul>
+                                                </li>
+                                                                                                                                                                                               <li><a href="../browse/subcategoryc48b.html?id=7&amp;category=Databases" title="Databases"><i class="fa fa-database rgt-20"></i>Databases
+                                                    <i data-feather="chevron-right" class="float-right"></i></a>
+                                                    <ul>
+                                                                                                                                                                        <li>
+                                                            <a href="../browse/childcategory7c9b.html?id=8&amp;category=MySql" title="MySql"><i class="fa fa-square-o rgt-20"></i>MySql</a>
+                                                        </li>
+                                                                                                                                                                                                                                <li>
+                                                            <a href="../browse/childcategory950e.html?id=9&amp;category=Oracle%20SQL" title="Oracle SQL"><i class="fa fa-database rgt-20"></i>Oracle SQL</a>
+                                                        </li>
+                                                                                                                                                                    </ul>
+                                                </li>
+                                                                                                                                           </ul>
+                                            </li>
+                                                                                                                                                                                <li><a href="../browse/category43ed.html?id=6&amp;category=Health%20%26%20Fitness" title="Health &amp; Fitness"><i class="fa fa-heartbeat rgt-20"></i>Health &amp; Fitness <i data-feather="chevron-right" class="float-right"></i></a>
+                                            <ul>   
+                                                                                                                                                <li><a href="../browse/subcategory2da6.html?id=0&amp;category=Yoga" title="Yoga"><i class="fa fa-anchor rgt-20"></i>Yoga
+                                                    <i data-feather="chevron-right" class="float-right"></i></a>
+                                                    <ul>
+                                                                                                            </ul>
+                                                </li>
+                                                                                                                                                                                               <li><a href="../browse/subcategorya888.html?id=10&amp;category=Art%20%26%20Craft" title="Art &amp; Craft"><i class="fa fa-anchor rgt-20"></i>Art &amp; Craft
+                                                    <i data-feather="chevron-right" class="float-right"></i></a>
+                                                    <ul>
+                                                                                                                                                                        <li>
+                                                            <a href="../browse/childcategory5bf3.html?id=14&amp;category=Drawing" title="Drawing"><i class="fa fa-pencil rgt-20"></i>Drawing</a>
+                                                        </li>
+                                                                                                                                                                                                                                <li>
+                                                            <a href="../browse/childcategory46a3.html?id=15&amp;category=Painting" title="Painting"><i class="fa fa-paint-brush rgt-20"></i>Painting</a>
+                                                        </li>
+                                                                                                                                                                    </ul>
+                                                </li>
+                                                                                                                                                                                               <li><a href="../browse/subcategorye2a6.html?id=12&amp;category=Travel" title="Travel"><i class="fa fa-anchor rgt-20"></i>Travel
+                                                    <i data-feather="chevron-right" class="float-right"></i></a>
+                                                    <ul>
+                                                                                                                                                                        <li>
+                                                            <a href="../browse/childcategory30a3.html?id=19&amp;category=Travel%20Tips" title="Travel Tips"><i class="fa fa-train rgt-20"></i>Travel Tips</a>
+                                                        </li>
+                                                                                                                                                                    </ul>
+                                                </li>
+                                                                                                                                           </ul>
+                                            </li>
+                                                                                                                                                                                <li><a href="../browse/category2463.html?id=4&amp;category=Lifestyle" title="Lifestyle"><i class="fa fa-yelp rgt-20"></i>Lifestyle <i data-feather="chevron-right" class="float-right"></i></a>
+                                            <ul>   
+                                                                                                                                                <li><a href="../browse/subcategory4eee.html?id=11&amp;category=Beauty%20%26%20Makeup" title="Beauty &amp; Makeup"><i class="fa fa-ravelry rgt-20"></i>Beauty &amp; Makeup
+                                                    <i data-feather="chevron-right" class="float-right"></i></a>
+                                                    <ul>
+                                                                                                                                                                        <li>
+                                                            <a href="../browse/childcategoryeb8a.html?id=16&amp;category=Hair%20Styling" title="Hair Styling"><i class="fa fa-scissors rgt-20"></i>Hair Styling</a>
+                                                        </li>
+                                                                                                                                                                                                                                <li>
+                                                            <a href="../browse/childcategorye8cc.html?id=18&amp;category=Nail%20Art" title="Nail Art"><i class="fa fa-hand-paper-o rgt-20"></i>Nail Art</a>
+                                                        </li>
+                                                                                                                                                                    </ul>
+                                                </li>
+                                                                                                                                           </ul>
+                                            </li>
+                                                                                                                                                                                <li><a href="../browse/category57c6.html?id=3&amp;category=Music" title="Music"><i class="fa fa-music rgt-20"></i>Music <i data-feather="chevron-right" class="float-right"></i></a>
+                                            <ul>   
+                                                                                                                                                <li><a href="../browse/subcategoryf46a.html?id=8&amp;category=Music%20Software" title="Music Software"><i class="fa fa-deviantart rgt-20"></i>Music Software
+                                                    <i data-feather="chevron-right" class="float-right"></i></a>
+                                                    <ul>
+                                                                                                                                                                        <li>
+                                                            <a href="../browse/childcategoryc7c9.html?id=11&amp;category=All%20Music%20Software" title="All Music Software"><i class="fa fa-gg rgt-20"></i>All Music Software</a>
+                                                        </li>
+                                                                                                                                                                    </ul>
+                                                </li>
+                                                                                                                                                                                               <li><a href="../browse/subcategory2b15.html?id=9&amp;category=Instruments" title="Instruments"><i class="fa fa-bullhorn rgt-20"></i>Instruments
+                                                    <i data-feather="chevron-right" class="float-right"></i></a>
+                                                    <ul>
+                                                                                                                                                                        <li>
+                                                            <a href="../browse/childcategoryf336.html?id=12&amp;category=Guitar" title="Guitar"><i class="fa fa-forumbee rgt-20"></i>Guitar</a>
+                                                        </li>
+                                                                                                                                                                                                                                <li>
+                                                            <a href="../browse/childcategory562f.html?id=13&amp;category=Piano" title="Piano"><i class="fa fa-pied-piper rgt-20"></i>Piano</a>
+                                                        </li>
+                                                                                                                                                                    </ul>
+                                                </li>
+                                                                                                                                           </ul>
+                                            </li>
+                                                                                                                                                                                <li><a href="../browse/categoryaf2a.html?id=1&amp;category=Design" title="Design"><i class="fa fa-slideshare rgt-20"></i>Design <i data-feather="chevron-right" class="float-right"></i></a>
+                                            <ul>   
+                                                                                                                                                <li><a href="../browse/subcategory56ba.html?id=1&amp;category=Web%20Design" title="Web Design"><i class="fa fa-anchor rgt-20"></i>Web Design
+                                                    <i data-feather="chevron-right" class="float-right"></i></a>
+                                                    <ul>
+                                                                                                                                                                        <li>
+                                                            <a href="../browse/childcategorybd57.html?id=1&amp;category=All%20Web%20Design" title="All Web Design"><i class="fa fa-apple rgt-20"></i>All Web Design</a>
+                                                        </li>
+                                                                                                                                                                    </ul>
+                                                </li>
+                                                                                                                                                                                               <li><a href="../browse/subcategorya24f.html?id=2&amp;category=Graphic%20Design" title="Graphic Design"><i class="fa fa-grav rgt-20"></i>Graphic Design
+                                                    <i data-feather="chevron-right" class="float-right"></i></a>
+                                                    <ul>
+                                                                                                                                                                        <li>
+                                                            <a href="../browse/childcategory4313.html?id=2&amp;category=photoshop" title="photoshop"><i class="fa fa-address-book rgt-20"></i>photoshop</a>
+                                                        </li>
+                                                                                                                                                                    </ul>
+                                                </li>
+                                                                                                                                                                                               <li><a href="../browse/subcategory1899.html?id=4&amp;category=Interior%20Design" title="Interior Design"><i class="fa fa-firefox rgt-20"></i>Interior Design
+                                                    <i data-feather="chevron-right" class="float-right"></i></a>
+                                                    <ul>
+                                                                                                                                                                        <li>
+                                                            <a href="../browse/childcategory3f28.html?id=4&amp;category=SketchUp" title="SketchUp"><i class="fa fa-asterisk rgt-20"></i>SketchUp</a>
+                                                        </li>
+                                                                                                                                                                    </ul>
+                                                </li>
+                                                                                                                                           </ul>
+                                            </li>
+                                                                                                                                                                                <li><a href="../browse/categorya661.html?id=5&amp;category=Photogarphy" title="Photogarphy"><i class="fa fa-file-photo-o rgt-20"></i>Photogarphy <i data-feather="chevron-right" class="float-right"></i></a>
+                                            <ul>   
+                                                                                                                                                <li><a href="../browse/subcategorybc81.html?id=13&amp;category=Digital%20Phptography" title="Digital Phptography"><i class="fa fa-address-book-o rgt-20"></i>Digital Phptography
+                                                    <i data-feather="chevron-right" class="float-right"></i></a>
+                                                    <ul>
+                                                                                                                                                                        <li>
+                                                            <a href="../browse/childcategorybcd7.html?id=20&amp;category=All%20Digital%20Photography" title="All Digital Photography"><i class="fa fa-photo rgt-20"></i>All Digital Photography</a>
+                                                        </li>
+                                                                                                                                                                    </ul>
+                                                </li>
+                                                                                                                                                                                               <li><a href="../browse/subcategory95fa.html?id=14&amp;category=Photography%20Tools" title="Photography Tools"><i class="fa fa-address-book-o rgt-20"></i>Photography Tools
+                                                    <i data-feather="chevron-right" class="float-right"></i></a>
+                                                    <ul>
+                                                                                                                                                                        <li>
+                                                            <a href="../browse/childcategory368f.html?id=21&amp;category=Image%20Editing" title="Image Editing"><i class="fa fa-file-image-o rgt-20"></i>Image Editing</a>
+                                                        </li>
+                                                                                                                                                                    </ul>
+                                                </li>
+                                                                                                                                                                                               <li><a href="../browse/subcategoryf5da.html?id=15&amp;category=Sports" title="Sports"><i class="fa fa-address-book-o rgt-20"></i>Sports
+                                                    <i data-feather="chevron-right" class="float-right"></i></a>
+                                                    <ul>
+                                                                                                                                                                        <li>
+                                                            <a href="../browse/childcategory4bcb.html?id=22&amp;category=All%20Sports" title="All Sports"><i class="fa fa-spotify rgt-20"></i>All Sports</a>
+                                                        </li>
+                                                                                                                                                                    </ul>
+                                                </li>
+                                                                                                                                           </ul>
+                                            </li>
+                                                                                                                                </ul>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    
+                </div>
+            </div>
+            <div class="col-lg-7">
+                                <div class="row">
+                    <div class="col-lg-7 col-md-6">
+                        <div class="learning-business">
+                            
+                        </div>
+                    </div>
+                    <div class="col-lg-1">
+                        <div class="shopping-cart">
+                            <a href="cart.html" title="Cart"><i data-feather="shopping-cart"></i></a>
+                            <span class="red-menu-badge red-bg-success">
+                                0                            </span>
+                        </div>
+                    </div>
+                    <div class="col-lg-1">
+                        <div class="search search-one" id="search">
+                            <form method="GET" id="searchform" action="https://eclass.mediacity.co.in/demo/public/search">
+                              <div class="search-input-wrap">
+                                <input class="search-input" name="searchTerm" placeholder="Search in Site" type="text" id="course_name" autocomplete="off" />
+                              </div>
+                              <input class="search-submit" type="submit" id="go" value="">
+                              <div class="icon"><i data-feather="search"></i></div>
+                              <div id="course_data"></div>
+                            </form>
+                        </div>
+                    </div>
+                    <div class="col-lg-3">
+                        <div class="Login-btn">
+                            <a href="../login.html" class="btn btn-secondary" title="login">Login</a>
+                            <a href="../register.html" class="btn btn-primary" title="register">Signup</a>
+                            
+                        </div> 
+                    </div>
+                
+                            </div>
+        </div>
+        
+    </div>
+</section>
+
+<!-- start search -->
+<div id="find" class="small-screen-navigation">
+    <button type="button" class="close">×</button>
+     <form action="https://eclass.mediacity.co.in/demo/public/search" class="form-inline search-form" method="GET">
+         <input type="find" name="searchTerm" class="form-control" id="search"  placeholder="Searchforcourses" value="">
+         <button type="submit" class="btn btn-outline-info btn_sm">Search</button> 
+     </form>
+</div>
+<!-- start end -->
+
+
+<!-- side navigation  -->
+<script>
+function openNav() {
+  document.getElementById("mySidenav").style.width = "250px";
+}
+
+function closeNav() {
+  document.getElementById("mySidenav").style.width = "0";
+}
+</script>
+
+
+<div class="modal fade" data-backdrop="" style="z-index: 99999999999999999;" id="myModalinstructor" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog modal-lg" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+
+          <h4 class="modal-title" id="myModalLabel">Become An Instructor</h4>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        </div>
+        <div class="box box-primary">
+          <div class="panel panel-sum">
+            <div class="modal-body">
+                              <div class="box-footer">
+                  <button type="submit" onclick="window.location.href = '../login.html';" class="btn btn-lg col-md-3 btn-primary">Submit</button>
+                </div>
+                
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+</div>
+
+<!-- top-nav bar end-->
+<!-- home start -->
+
+<!-- about-home start -->
+<section id="business-home" class="business-home-main-block">
+    <div class="business-img">
+                <img src="../images/breadcum/1643952051bredcrumbs.jpg" class="img-fluid" alt="" />
+            </div>
+    <div class="overlay-bg"></div>
+    <div class="container-xl">
+        <div class="business-dtl">
+            <div class="row">
+                <div class="col-lg-6">
+                    <div class="bredcrumb-dtl">
+                        <h1 class="wishlist-home-heading">Shopping Cart</h1>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- about-home end -->
+<section id="cart-block" class="cart-main-block">
+	<div class="container-xl">
+		<div class="cart-items btm-30">
+			<h4 class="cart-heading">
+        		0            	
+            	Courses in Cart
+            </h4>
+            		    	<div class="cart-no-result">
+		    		<i class="fa fa-shopping-cart"></i>
+			    	<div class="no-result-courses btm-10">cart empty</div>
+			    	<div class="recommendation-btn text-white text-center">
+		                <a href="https://eclass.mediacity.co.in/demo/public" class="btn btn-primary" title="Keep Shopping"><b>Keep Shopping</b></a>
+		            </div> 
+				</div>
+		    	    </div>
+	</div>
+
+	<!--Model start-->
+		<!--Model close -->
+</section>
+
+
+<!-- testimonial end -->
+<!-- footer start -->
+<footer id="footer" class="footer-main-block">
+        <section id="newsletter" class="newsletter-main-block">
+        <div class="container-xl">
+            <div class="newsletter-block">
+                <div class="row">
+                    <div class="col-lg-6 col-md-5">
+                        <h1 class="newsletter-heading">Join our mailing list</h1>
+                    </div>
+                    <div class="col-lg-6 col-md-7">
+                        <form method="post" action="https://eclass.mediacity.co.in/demo/public/store-newsletter">
+                            <input type="hidden" name="_token" value="leZ79T21enQSxfzfbeOTzvgubGXd6jlVMG4Ztrf9">                            <input type="email" required placeholder="Enter your email address" name=subscribed_email>
+                        <button type="submit" class="btn btn-primary">Subscribe</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+        <div class="container-xl">
+        <div class="footer-block">
+            <div class="row">
+                                <div class="col-lg-4 col-md-4 col-12">
+                   
+                    <div class="footer-logo">
+                                                                                <a href="https://eclass.mediacity.co.in/demo/public" title="logo"><img src="../images/logo/footer_logo.png" alt="logo" class="img-fluid" ></a>
+                                                                        </div>
+
+                    
+
+                    <div class="mobile-btn">
+                                                    <a href="https://facebook.com/" title=""><img src="../images/icons/download-google-play.png" alt="logo"></a>
+                                                                            <a href="https://facebook.com/" title=""><img src="../images/icons/app-download-ios.png" alt="logo"></a>
+                                            </div>
+
+
+                </div>
+                
+                <div class="col-lg-2 col-md-2 col-4">
+                    
+                    <div class="widget"><b>Demo 01</b></div>
+                    <div class="footer-link">
+                        <ul>
+                                                                                                <li><a href="../login.html" title="Become An Instructor">Become An Instructor</a></li>
+                                                            
+                                                        <li><a href="../about/show.html" title="About us">About us</a></li>
+                                                        
+                                                        <li><a href="../user_contact.html" title="Contact us">Contact us</a></li>
+                                                                                    <li>
+                                <ul>
+                                                                                                                                                                                                                    </ul>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-lg-2 col-md-2 col-4">
+                    <div class="widget"><b>Demo 02</b></div>
+                    <div class="footer-link">
+                        <ul>
+                                                        <li><a href="../show/careers.html" title="Careers">Careers</a></li>
+                            
+                                                        <li><a href="blog.html" title="Blog">Blog</a></li>
+                            
+                                                        <li><a href="../show/help.html" title="Help&amp;Support">Help&amp;Support</a></li>
+                                                                                    <li>
+                                <ul>
+                                                                                                                                                                                                                        <li><a href="https://www.lipsum.com/feed/html">Menu-2</a></li>
+                                                                                                                                                                                </ul>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-lg-2 col-md-2 col-4">
+                    <div class="widget"><b>Demo 03</b></div>
+                    <div class="footer-link">
+                        <ul>
+                            
+                                                        
+                                                                                                                        <li><a href="../pages/%e0%b8%ab%e0%b8%99%e0%b9%89%e0%b8%b2%e0%b9%80%e0%b8%9e%e0%b8%b4%e0%b9%88%e0%b8%a1%e0%b9%80%e0%b8%95%e0%b8%b4%e0%b8%a1.html" title="test">test</a></li>
+                                                                                                                            <li><a href="../pages/test.html" title="testt">testt</a></li>
+                                                                                                                                                                                        <li><a href="../pages/demo-puropse.html" title="demo purpose">demo purpose</a></li>
+                                                                                                                            <li><a href="../pages/test.html" title="Test">Test</a></li>
+                                                                                                                                                <li>
+                                <ul>
+                                                                                                                                                                                                                    </ul>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                
+                <div class="col-lg-2 col-md-2">
+
+                                                            <div class="footer-dropdown">
+                        <a href="#" class="a" data-toggle="dropdown"><i data-feather="globe"></i>En<i class="fa fa-angle-up lft-10"></i></a>
+                        
+                       
+                        <ul class="dropdown-menu">
+                          
+                                                        <a href="cart.html"><li>English</li></a>
+                                                        <a href="cart.html"><li>Arabic</li></a>
+                                                        <a href="cart.html"><li>Urdu</li></a>
+                                                        <a href="cart.html"><li>Hindi</li></a>
+                                                        <a href="cart.html"><li>French</li></a>
+                                                        <a href="cart.html"><li>Chinese</li></a>
+                                                        <a href="cart.html"><li>Bengali</li></a>
+                                                        <a href="cart.html"><li>Farsi</li></a>
+                                                    </ul>
+                    </div>
+                    
+
+                                                            <div class="footer-dropdown footer-dropdown-two">
+                        <a href="#" class="a" data-toggle="dropdown"><i class="icon-wallet icons mr-2"></i> INR<i class="fa fa-angle-up lft-10"></i></a>
+                        
+                       
+                        <ul class="dropdown-menu">
+                          
+                                                        <a href="cart.html"><li>USD</li></a>
+                                                        <a href="cart.html"><li>INR</li></a>
+                                                        <a href="cart.html"><li>BDT</li></a>
+                                                        <a href="cart.html"><li>TRY</li></a>
+                                                        <a href="cart.html"><li>NGN</li></a>
+                                                        <a href="cart.html"><li>KES</li></a>
+                                                        <a href="cart.html"><li>IDR</li></a>
+                                                        <a href="cart.html"><li>NPR</li></a>
+                                                        <a href="cart.html"><li>XOF</li></a>
+                                                        <a href="cart.html"><li>ZAR</li></a>
+                                                        <a href="cart.html"><li>RWF</li></a>
+                                                    </ul>
+                    </div>
+                    
+                </div>
+                
+                
+            </div>
+        </div>
+    </div>
+    <hr>
+    <div class="tiny-footer">
+        <div class="container-xl">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="logo-footer">
+                        <ul>
+
+                            <li>Copyright © 2022 eClass.</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="copyright-social">
+                        <ul>
+                           
+                            <li>
+                                                                <a href="../terms_condition.html" title="Terms &amp; Condition">Terms &amp; Condition</a>
+                                                            </li> 
+                            <li>
+                                                                <a href="../privacy_policy.html" title="Privacy Policy">Privacy Policy</a>
+                                                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
+
+
+<div class="modal fade" data-backdrop="" style="z-index: 99999999999999999;" id="myModalinstructor" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog modal-lg" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+
+          <h4 class="modal-title" id="myModalLabel">Become An Instructor</h4>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        </div>
+        <div class="box box-primary">
+          <div class="panel panel-sum">
+            <div class="modal-body">
+                              <div class="box-footer">
+                  <button type="submit" onclick="window.location.href = '../login.html';" class="btn btn-lg col-md-3 btn-primary">Submit</button>
+                </div>
+                
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+</div>
+
+<!-- footer end -->
+<!-- jquery -->
+<script src="../js/jquery-2.min.js"></script> <!-- jquery library js -->
+<script src="../js/colorbox.js"></script> <!-- colorbox js -->
+<script src="../js/bootstrap.bundle.js"></script> <!-- bootstrap js -->
+<script src="../vendor/counter/waypoints.min.js"></script> <!-- facts count js required for jquery.counterup.js file -->
+<script src="../vendor/counter/jquery.counterup.js"></script> <!-- facts count js-->
+<script src="../vendor/owl/js/owl.carousel.min.js"></script> <!-- owl carousel js --> 
+<script src="../vendor/smoothscroll/smooth-scroll.js"></script> <!-- smooth scroll js -->
+<script src="../vendor/popup/jquery.magnific-popup.min.js"></script> <!-- popup js-->
+<script src="../vendor/navigation/menumaker.js"></script> <!-- navigation js--> 
+<script src="../vendor/mailchimp/jquery.ajaxchimp.js"></script> <!-- mail chimp js --> 
+<script src="../vendor/protip/protip.js"></script> <!-- protip js -->
+<script src="../js/theme.js"></script> <!-- custom js -->
+<script src="../js/FWDUVPlayer.js"></script> <!-- player js --> 
+<script src="../js/jquery.owl-filter.js"></script> <!-- filter js --> 
+<script src="../js/fontawesome-iconpicker.js"></script><!-- iconpicker js -->
+<script src="../js/tinymce.min.js"></script>
+<script src="../js/protip.js"></script> <!-- protip js -->
+<script src="../js/select2.min.js"></script> <!-- select2 -->
+<script src="../js/pace.min.js"></script>
+<script src="../js/custom-js.js"></script>
+<script src="../js/jquery.lazy.min.js"></script>
+<script src="../js/jquery.lazy.plugins.min.js"></script>
+<script src="../js/jquery-ui.js"></script>
+<script>var sendurl = "cart.html\/\/eclass.mediacity.co.in\/demo\/public\/autocomplete\/fetch";</script>
+<script src="../js/search.js"></script>
+
+
+<script src="../js/share.js"></script>
+
+<script src="../../../../www.google.com/recaptcha/api.js"></script>
+<script src="../js/sweetalert2%409.js"></script>
+
+<script src="../js/venom-button.min.js"></script>
+
+<script src="../../../../unpkg.com/feather-icons%404.29.0/dist/feather.min.js"></script>
+<script src="../js/chart.js"></script>
+<script src="../js/chart.min.js"></script>
+
+<script>
+  feather.replace()
+</script>
+<script>
+  $(document).ready(function() {
+  $('#list').click(function(event){
+    event.preventDefault();
+    $('#posts .item').addClass('col-lg-12');
+    $('#posts .course-bought-block-one').addClass('col-lg-3');
+    $('#posts .course-bought-block-one').removeClass('col-md-12');
+    $('#posts .course-bought-block-one img').removeClass('grid-img');
+    $('#posts .course-bought-block-one .img-wishlist').addClass('img-wishlist-btm');
+    // $('#posts .course-bought-block-one .img-wishlist').removeClass('d-block');
+    $('#posts .course-bought-block-one .view-user-img .user-img-one').addClass('d-none');
+    $('#posts .course-bought-block-one .view-user-img .user-img-one').removeClass('d-block');
+    $('#posts .categories-popularity-dtl-block').addClass('col-lg-7');
+    $('#posts .categories-popularity-dtl-block').removeClass('col-md-12');
+    $('#posts .categories-popularity-dtl-block').removeClass('mb-3');
+    $('#posts .course-rate-block').addClass('col-lg-2');
+    $('#posts .course-rate-block').removeClass('col-lg-12');
+    $('#posts .rate').removeClass('text-left');
+    $('#posts .rate').addClass('text-right');
+    $('#grid').removeClass('active');
+    $('#list').addClass('active');
+  });
+
+  $('#grid').click(function(event){
+    event.preventDefault();
+    $('#posts .item').removeClass('col-lg-12');
+    $('#posts .item').addClass('col-lg-6');
+    $('#posts .course-bought-block-one').removeClass('col-lg-3');
+    $('#posts .course-bought-block-one').addClass('col-md-12');
+    $('#posts .course-bought-block-one img').addClass('grid-img');
+    // $('#posts .course-bought-block-one .img-wishlist').addClass('d-block');
+    $('#posts .course-bought-block-one .img-wishlist').removeClass('img-wishlist-btm');
+    $('#posts .course-bought-block-one .view-user-img .user-img-one').removeClass('d-none');
+    $('#posts .course-bought-block-one .view-user-img .user-img-one').addClass('d-block');
+    $('#posts .categories-popularity-dtl-block').removeClass('col-lg-7');
+    $('#posts .categories-popularity-dtl-block').addClass('col-md-12');
+    $('#posts .categories-popularity-dtl-block').addClass('mb-3');
+    $('#posts .course-rate-block').removeClass('col-lg-2');
+    $('#posts .course-rate-block').addClass('col-lg-12');
+    $('#posts .rate').addClass('text-left');
+    $('#posts .rate').removeClass('text-right');
+    // $('#posts .img-wishlist').addClass('text-left');
+    // $('#posts .img-wishlist').removeClass('text-right');
+    $('#list').removeClass('active');
+    $('#grid').addClass('active');
+  });
+});
+</script>
+<script>
+  $(document).ready(function () {
+      // Custom function which toggles between sticky class (is-sticky)
+      var stickyToggle = function (sticky, stickyWrapper, scrollElement) {
+          var stickyHeight = sticky.outerHeight();
+          var stickyTop = stickyWrapper.offset().top;
+          if (scrollElement.scrollTop() >= stickyTop) {
+              stickyWrapper.height(stickyHeight);
+              sticky.addClass("is-sticky");
+          }
+          else {
+              sticky.removeClass("is-sticky");
+              stickyWrapper.height('auto');
+          }
+      };
+
+      // Find all data-toggle="sticky-onscroll" elements
+      $('[data-toggle="sticky-onscroll"]').each(function () {
+          var sticky = $(this);
+          var stickyWrapper = $('<div>').addClass('sticky-wrapper'); // insert hidden element to maintain actual top offset on page
+          sticky.before(stickyWrapper);
+          sticky.addClass('sticky');
+
+          // Scroll & resize events
+          $(window).on('scroll.sticky-onscroll resize.sticky-onscroll', function () {
+              stickyToggle(sticky, stickyWrapper, $(this));
+          });
+
+          // On page load
+          stickyToggle(sticky, stickyWrapper, $(window));
+      });
+  });
+</script>
+
+
+<script>
+  $(function(){
+
+    "use strict";
+
+    $('.lazy').lazy({
+
+        effect: "fadeIn",
+        effectTime: 1000,
+        scrollDirection: 'both',
+        threshold: 0
+
+    });
+
+  });
+</script>
+
+
+<script src="https://facebook/" async></script>
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-31923653-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-31923653-1');
+</script>
+
+
+
+
+
+
+
+<script>
+    $('.prime-cat').on('click',function(){
+
+        var url = $(this).data('url');
+
+        location.href = url;
+
+    });
+
+    $('.sub-cate').on('click',function(){
+
+        var url = $(this).data('url');
+
+        location.href = url;
+
+    });
+
+    $('.child-cate').on('click',function(){
+
+        var url = $(this).data('url');
+
+        location.href = url;
+
+    });
+</script>
+
+
+<script type="text/javascript">
+
+    $('#myButton').venomButton({
+        phone: '911234567890',
+        popupMessage: 'hiii',
+        message: "",
+        showPopup: true,
+        position: "left",
+        linkButton: false,
+        showOnIE: false,
+        headerTitle: 'welcome',
+        headerColor: '#000000',
+        backgroundColor: '#25d366',
+        zIndex: 999999999999,
+        buttonImage: '<img src="https://eclass.mediacity.co.in/demo/public/images/icons/whatsapp.svg" />',
+        size:'60px',
+    });
+
+</script>
+
+
+
+
+<!-- end jquery -->
+</body>
+<!-- body end -->
+
+<!-- Mirrored from eclass.mediacity.co.in/demo/public/all/cart by HTTrack Website Copier/3.x [XR&CO'2014], Thu, 22 Sep 2022 11:49:39 GMT -->
+</html> 

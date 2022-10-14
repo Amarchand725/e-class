@@ -442,9 +442,14 @@
                 </div>
                 <div class="col-lg-1">
                     <div class="shopping-cart">
-                        <a href="all/cart.html" title="Cart"><i data-feather="shopping-cart"></i></a>
+                        <a href="<?php echo e(route('cart')); ?>" title="Cart"><i data-feather="shopping-cart"></i></a>
                         <span class="red-menu-badge red-bg-success">
-                            0
+                            <?php if(session('cart')): ?>
+                                <?php echo e(count(session('cart'))); ?>
+
+                            <?php else: ?> 
+                                0          	
+                            <?php endif; ?>
                         </span>
                     </div>
                 </div>

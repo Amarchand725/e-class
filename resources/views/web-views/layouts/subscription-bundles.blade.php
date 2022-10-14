@@ -2,14 +2,14 @@
     <div class="container-xl">
         <h4 class="student-heading">Subscription Bundles</h4>
         <div id="subscription-bundle-view-slider" class="student-view-slider-main-block owl-carousel">
-            @foreach (bundles() as $key=>$bundle)
+            @foreach (bundles() as $bundle_key=>$bundle)
                 <div class="item student-view-block student-view-block-1">
                     <div class="genre-slide-image protip" data-pt-placement="outside" data-pt-interactive="false"
-                        data-pt-title="#prime-next-item-description-block-{{ $key }}">
+                        data-pt-title="#prime-next-item-description-block-bundle-{{ $bundle_key }}">
                         <div class="view-block">
                             <div class="view-img">
                                 <a href="{{ route('bundle.single', $bundle->slug) }}">
-                                    <img data-src="{{ asset('public/admin/bundle/banners') }}/{{ $bundle->banner }}" alt="bundle" class="img-fluid owl-lazy">
+                                    <img data-src="{{ asset('public/admin/bundle/banners') }}/{{ $bundle->thumbnail }}" alt="bundle" class="img-fluid owl-lazy">
                                 </a>
                             </div>
 
@@ -64,7 +64,7 @@
                             </div>
                         </div>
                     </div>
-                    <div id="prime-next-item-description-block-{{ $key }}" class="prime-description-block">
+                    <div id="prime-next-item-description-block-bundle-{{ $bundle_key }}" class="prime-description-block">
                         <div class="prime-description-under-block">
                             <div class="prime-description-under-block">
                                 <h5 class="description-heading">{{ $bundle->title }}</h5>

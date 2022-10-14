@@ -12,27 +12,27 @@
             </div>
         </div>
         <div id="discounted-view-slider" class="student-view-slider-main-block owl-carousel">
-            <?php $__currentLoopData = topDiscountCourses(); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $key=>$course): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+            <?php $__currentLoopData = topDiscountCourses(); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $discount_course_key=>$discount_course): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                 <div class="item student-view-block student-view-block-1">
                     <div class="genre-slide-image  protip "
                         data-pt-placement="outside" data-pt-interactive="false"
-                        data-pt-title="#prime-next-item-description-block-<?php echo e($key); ?><?php echo e($course->id); ?>">
+                        data-pt-title="#prime-next-item-description-block-discount-<?php echo e($discount_course_key); ?><?php echo e($discount_course->id); ?>">
                         <div class="view-block">
                             <div class="view-img">
-                                <a href="<?php echo e(route('course.single', $course->slug)); ?>">
-                                    <img data-src="<?php echo e(asset('public/admin/images/courses')); ?>/<?php echo e($course->thumbnail); ?>" alt="course"
+                                <a href="<?php echo e(route('course.single', $discount_course->slug)); ?>">
+                                    <img data-src="<?php echo e(asset('public/admin/images/courses')); ?>/<?php echo e($discount_course->thumbnail); ?>" alt="course"
                                             class="img-fluid owl-lazy">
                                 </a>
                             </div>
 
                             <div class="badges bg-priamry offer-badge">
-                                <?php if($course->discount_type=='percent'): ?>
+                                <?php if($discount_course->discount_type=='percent'): ?>
                                     <?php
-                                        $percentage = $course->discount;
+                                        $percentage = $discount_course->discount;
                                     ?>
                                 <?php else: ?>
                                     <?php
-                                        $percentage = $course->discount/$course->retail_price*100;
+                                        $percentage = $discount_course->discount/$discount_course->retail_price*100;
                                     ?>
                                 <?php endif; ?>
                                 <span>OFF<span><?php echo e(round($percentage)); ?>%</span></span>
@@ -42,9 +42,9 @@
                                 <span class="badge bg-info">On-sale</span>
                             </div>
                             <div class="view-user-img">
-                                <a href="<?php echo e(route('user.profile', $course->hasInstructor->slug)); ?>" title="">
-                                    <?php if($course->hasUserProfile): ?>
-                                        <img src="<?php echo e(asset('public/users')); ?>/<?php echo e($course->hasUserProfile->profile_image); ?>" width="50px"  class="img-fluid user-img-one" alt="">
+                                <a href="<?php echo e(route('user.profile', $discount_course->hasInstructor->slug)); ?>" title="">
+                                    <?php if($discount_course->hasUserProfile): ?>
+                                        <img src="<?php echo e(asset('public/users')); ?>/<?php echo e($discount_course->hasUserProfile->profile_image); ?>" width="50px"  class="img-fluid user-img-one" alt="">
                                     <?php else: ?>
                                         <img src="<?php echo e(asset('public/default.png')); ?>" width="50px"  class="img-fluid user-img-one" alt="">
                                     <?php endif; ?>
@@ -52,10 +52,10 @@
                             </div>
                             <div class="view-dtl">
                                 <div class="view-heading">
-                                    <a href="<?php echo e(route('course.single', $course->slug)); ?>"><?php echo e($course->title); ?></a>
+                                    <a href="<?php echo e(route('course.single', $discount_course->slug)); ?>"><?php echo e($discount_course->title); ?></a>
                                 </div>
                                 <div class="user-name">
-                                    <h6>By <span><a href="<?php echo e(route('user.profile', $course->hasInstructor->slug)); ?>"><?php echo e($course->hasInstructor->name); ?></a></span></h6>
+                                    <h6>By <span><a href="<?php echo e(route('user.profile', $discount_course->hasInstructor->slug)); ?>"><?php echo e($discount_course->hasInstructor->name); ?></a></span></h6>
                                 </div>
                                 <div class="rating">
                                     <ul>
@@ -84,10 +84,10 @@
                                         <div class="col-lg-6 col-md-6 col-sm-6 col-6">
                                             <div class="rate text-right">
                                                 <ul>
-                                                    <?php if($course->is_paid): ?>
-                                                        <li><a><b>$<?php echo e(number_format($course->price, 2)); ?></b></a></li>
-                                                        <?php if($course->discount != NULL): ?>
-                                                            <li><a><b><strike>$<?php echo e(number_format($course->retail_price, 2)); ?></strike></b></a></li>
+                                                    <?php if($discount_course->is_paid): ?>
+                                                        <li><a><b>$<?php echo e(number_format($discount_course->price, 2)); ?></b></a></li>
+                                                        <?php if($discount_course->discount != NULL): ?>
+                                                            <li><a><b><strike>$<?php echo e(number_format($discount_course->retail_price, 2)); ?></strike></b></a></li>
                                                         <?php endif; ?>
                                                     <?php else: ?>
                                                         <li>FREE</li>
@@ -115,19 +115,19 @@
                             </div>
                         </div>
                     </div>
-                    <div id="prime-next-item-description-block-<?php echo e($key); ?><?php echo e($course->id); ?>" class="prime-description-block">
+                    <div id="prime-next-item-description-block-discount-<?php echo e($discount_course_key); ?><?php echo e($discount_course->id); ?>" class="prime-description-block">
                         <div class="prime-description-under-block">
                             <div class="prime-description-under-block">
-                                <h5 class="description-heading"><?php echo e($course->title); ?></h5>
+                                <h5 class="description-heading"><?php echo e($discount_course->title); ?></h5>
                                 <div class="main-des">
-                                    <p>Last Updated: <?php echo e(date('d F Y', strtotime($course->updated_at))); ?></p>
+                                    <p>Last Updated: <?php echo e(date('d F Y', strtotime($discount_course->updated_at))); ?></p>
                                 </div>
 
                                 <ul class="description-list">
                                     <li>
                                         <i data-feather="play-circle"></i>
                                         <div class="class-des">
-                                            Classes: <?php echo e(count($course->haveClasses)); ?>
+                                            Classes: <?php echo e(count($discount_course->haveClasses)); ?>
 
                                         </div>
                                     </li>
@@ -137,8 +137,8 @@
                                             <div class="time-des">
                                                 <?php
                                                     $sum_minutes = 0;
-                                                    foreach ($course->haveClasses as $course_class){
-                                                        $explodedTime = array_map('intval', explode(':', $course_class->lecture_duration ));
+                                                    foreach ($discount_course->haveClasses as $discount_course_class){
+                                                        $explodedTime = array_map('intval', explode(':', $discount_course_class->lecture_duration ));
                                                         $sum_minutes += $explodedTime[0]*60+$explodedTime[1];
                                                     }
                                                     $lecture_duration_total_time = floor($sum_minutes/60).':'.floor($sum_minutes % 60);
@@ -157,11 +157,11 @@
                                 </ul>
 
                                 <div class="product-main-des">
-                                    <p><?php echo e($course->short_description); ?></p>
+                                    <p><?php echo e($discount_course->short_description); ?></p>
                                 </div>
                                 <div>
-                                    <?php if(!empty($course->haveWhatLearns)): ?>
-                                        <?php $__currentLoopData = $course->haveWhatLearns; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $learn): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                    <?php if(!empty($discount_course->haveWhatLearns)): ?>
+                                        <?php $__currentLoopData = $discount_course->haveWhatLearns; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $learn): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                                             <div class="product-learn-dtl">
                                                 <ul>
                                                     <li>

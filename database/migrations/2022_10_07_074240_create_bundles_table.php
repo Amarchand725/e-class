@@ -18,7 +18,7 @@ class CreateBundlesTable extends Migration
             $table->string("course_ids"); 
             $table->string("title");
             $table->string("slug"); 
-            $table->text("short_detail"); $table->text("details")->nullable(); $table->string("banner"); $table->boolean("is_paid"); $table->boolean("is_featured"); $table->date("start_from"); $table->date("end_date"); $table->string("retail_price")->nullable(); $table->string("price")->nullable();
+            $table->text("short_detail"); $table->text("details")->nullable(); $table->string("thumbnail"); $table->boolean("is_paid"); $table->boolean("is_featured"); $table->date("start_from"); $table->date("end_date"); $table->string("retail_price")->nullable(); $table->string("price")->nullable();
             $table->boolean('status')->default(1);
             $table->string('deleted_at')->nullable();
             $table->timestamps();

@@ -51,7 +51,7 @@
                                     <td>{{  $models->firstItem()+$key }}.</td>
                                     <td>
                                         @if($model->banner)
-                                            <img style="border-radius: 50%;" src="{{ asset('public/admin/bundle/banners') }}/{{ $model->banner }}" width="50px" height="50px" alt="">
+                                            <img style="border-radius: 50%;" src="{{ asset('public/admin/bundle/banners') }}/{{ $model->thumbnail }}" width="50px" height="50px" alt="">
                                         @else
                                             <img style="border-radius: 50%;" src="{{ asset('public/default.png') }}" width="50px" height="50px" alt="">
                                         @endif

@@ -31,10 +31,10 @@
                                 </td>
                             </tr>
                             <tr>
-                                <th>Banner</th>
+                                <th>Thumbnail</th>
                                 <td>
                                     @if($model->banner)
-                                        <img src="{{ asset('public/admin/bundle/banners') }}/{{ $model->banner }}" width="200px" alt="">
+                                        <img src="{{ asset('public/admin/bundle/banners') }}/{{ $model->thumbnail }}" width="200px" alt="">
                                     @else
                                         <img src="{{ asset('public/default.png') }}" width="200px" alt="">
                                     @endif

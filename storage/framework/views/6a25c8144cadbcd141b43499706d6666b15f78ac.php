@@ -41,8 +41,7 @@
 								<?php $__currentLoopData = $permission; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $value): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
 									<div class="col-sm-3">
 										<label>
-											<?php echo e(Form::checkbox('permission[]', $value->id, in_array($value->id, $rolePermissions) ? true : false, array('class' => 'name'))); ?> <?php echo e(ucfirst($value->name)); ?>
-
+											<?php echo e(Form::checkbox('permission[]', $value->id, in_array($value->id, $rolePermissions) ? true : false, array('class' => 'name'))); ?> <strong><?php echo e(ucfirst($value->name)); ?></strong>
 										</label>
 										<br />
 										<div class="col-sm-6">
@@ -50,7 +49,7 @@
 												<?php $__currentLoopData = $value->havePermissionUrls; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $permission): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
 												<div class="form-check">
 													<input class="form-check-input" name="permissions[]"  type="checkbox" value="" id="checkAll-"/>
-													<label class="form-check-label" for="checkAll-}"> <strong><?php echo e($permission->permission); ?></strong> </label>
+													<label class="form-check-label" for="checkAll-}"><?php echo e($permission->permission); ?></label>
 												</div>
 												<?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
 											<?php endif; ?>

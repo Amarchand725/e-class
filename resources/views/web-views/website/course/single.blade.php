@@ -15,6 +15,11 @@
             <div class="col-lg-8 col-md-8">
                 <div class="about-home-block">
                     <h1 class="about-home-heading">{{ $model->title }}</h1>
+                    @if(Session()->has('success'))
+                        <div class="alert alert-success" role="alert">
+                        Item added to cart successfully.
+                        </div>
+                    @endif
                     <p>{{ $model->short_description }}</p>
                     <ul>
                         <li>                                                        
@@ -76,7 +81,7 @@
                                         data-parsley-validate class="form-horizontal form-label-left">
                                         <input type="hidden" name="_token" value="leZ79T21enQSxfzfbeOTzvgubGXd6jlVMG4Ztrf9">
                                         <div class="box-footer">
-                                            <button type="submit" class="btn btn-primary"><i class="fa fa-cart-plus" aria-hidden="true"></i>&nbsp;Add To Cart</button>
+                                            <a href="{{ route('add.to.cart', $model->slug) }}" class="btn btn-primary btn-block text-center" role="button"><i class="fa fa-cart-plus" aria-hidden="true"></i>&nbsp;Add To Cart</a>
                                         </div>
                                     </form>
                                 </div>

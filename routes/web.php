@@ -26,6 +26,15 @@ Route::get('/bundle/{slug}/single', 'WebController@bundleSingle')->name('bundle.
 Route::get('/user/{slug}/profile', 'WebController@userProfile')->name('user.profile');
 Route::post('/user/store', 'WebController@userStore')->name('user.store');
 
+//cart
+Route::get('cart', 'CartController@cart')->name('cart');
+Route::get('add-to-cart/{id}', 'CartController@addToCart')->name('add.to.cart');
+Route::patch('update-cart', 'CartController@update')->name('update.cart');
+Route::delete('remove-from-cart', 'CartController@remove')->name('remove.from.cart');
+
+Route::get('checkout', 'CartController@checkout')->name('checkout');
+Route::post('complete-order', 'CartController@completeOrder')->name('complete-orrder');
+
 Route::group(['middleware' => 'guest'], function(){
     Route::get('/admin/login','DashboardController@login')->name('admin.login');
     Route::post('/admin/login', 'DashboardController@authenticate')->name('admin.login');

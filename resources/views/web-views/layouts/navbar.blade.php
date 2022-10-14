@@ -442,9 +442,13 @@
                 </div>
                 <div class="col-lg-1">
                     <div class="shopping-cart">
-                        <a href="all/cart.html" title="Cart"><i data-feather="shopping-cart"></i></a>
+                        <a href="{{ route('cart') }}" title="Cart"><i data-feather="shopping-cart"></i></a>
                         <span class="red-menu-badge red-bg-success">
-                            0
+                            @if(session('cart'))
+                                {{ count(session('cart')) }}
+                            @else 
+                                0          	
+                            @endif
                         </span>
                     </div>
                 </div>
