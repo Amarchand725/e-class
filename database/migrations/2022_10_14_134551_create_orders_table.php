@@ -21,7 +21,7 @@ class CreateOrdersTable extends Migration
             $table->string('discount');
             $table->string('discount_type')->nullable();
             $table->string('total_items');
-            $table->string('paid');
+            $table->string('grand_total');
             $table->string('payment_type');
             $table->string('payment_status');
             $table->timestamps();

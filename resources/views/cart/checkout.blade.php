@@ -17,19 +17,25 @@
                         <hr>
                         <div class="checkout-items">
                             @php 
-                            $sub_total = 0; 
                             $total = 0;
                             $original_total = 0;
                             @endphp
                             @if(session('cart'))
                                 @foreach(session('cart') as $id => $details)
                                     @php 
+                                        $sub_total = 0; 
                                         $sub_total += $details['price'] * $details['quantity'];
-                                        $total += $sub_total; 
-                                        $original_total = $details['retail_price'] * $details['quantity'];
+
+                                        if(!empty($details['retail_price'])){
+                                            $total += $sub_total;
+                                            $original_total += $details['retail_price'] * $details['quantity'];
+                                        }else{
+                                            $total += $sub_total;
+                                            $original_total += $sub_total;
+                                        }
                                     @endphp	            		
                                     <div class="row btm-10">
-                                        <div class="col-lg-3 col-4">
+                                        <div class="col-lg-3 col-3">
                                             <div class="checkout-course-img">
                                                 @if($details['product_type']=='course')
                                                     <a href="{{ route('course.single', $details['slug']) }}">
@@ -42,14 +48,18 @@
                                                 @endif
                                             </div>
                                         </div>
-                                        <div class="col-lg-9 col-8">
+                                        <div class="col-lg-9 col-9">
                                             <table class="table">
                                                 <tr>
                                                     <td>
                                                         @if($details['product_type']=='course')
-                                                            <a href="{{ route('course.single', $details['slug']) }}">{{ $details['name'] }}</a>
+                                                            <a href="{{ route('course.single', $details['slug']) }}">
+                                                                {{ Str::limit($details['name'], 15) }}
+                                                            </a>
                                                         @else 
-                                                            <a href="{{ route('bundle.single', $details['slug']) }}">{{ $details['name'] }}</a>
+                                                            <a href="{{ route('bundle.single', $details['slug']) }}">
+                                                                {{ Str::limit($details['name'], 15) }}
+                                                            </a>
                                                         @endif
                                                     </td>
                                                 
@@ -58,13 +68,17 @@
                                                             <li class="checkout-course-price">
                                                                 <b>$ {{ number_format($details['price'], 2) }}</b>  
                                                             </li>
-                                                            <li>
-                                                                <s>${{ number_format($details['retail_price'], 2) }}</s>
-                                                            </li>	
+                                                            @if(!empty($details['retail_price']))
+                                                                <li>
+                                                                    <s>${{ number_format($details['retail_price'], 2) }}</s>
+                                                                </li>	
+                                                            @endif
                                                         </ul>
                                                     </td>
                                                
-                                                    <td>{{ $details['quantity'] }}</td>
+                                                    <td>
+                                                        <span class="badge badge-warning">{{ $details['quantity'] }}</span>
+                                                    </td>
                                                 
                                                     <td>$ {{ number_format($sub_total, 2) }}</td>
                                                 </tr>
@@ -78,15 +92,18 @@
                                     <div class="col-lg 5"></div>
                                     <div class="col-lg-7 col-4">
                                         <table class="table">
-                                            <tr>
-                                                <th>Total</th>
-                                                <td>$ {{ number_format($original_total, 2) }}</td>
-                                            </tr>
-                                            <tr>
-                                                <th>Offer Discount</th>
-                                                @php $offer_discount = $original_total-$total; @endphp 
-                                                <td>$ {{ number_format($offer_discount, 2) }}</td>
-                                            </tr>
+                                            @if($original_total > 0)
+                                                <tr>
+                                                    <th>Total</th>
+                                                    <td>$ {{ number_format($original_total, 2) }}</td>
+                                                </tr>
+                                            
+                                                <tr>
+                                                    <th>Offer Discount</th>
+                                                    @php $offer_discount = $original_total-$total; @endphp 
+                                                    <td>$ {{ number_format($offer_discount, 2) }}</td>
+                                                </tr>
+                                            @endif
                                             <tr>
                                                 <th>Grand Total </th>
                                                 <td>$ {{ number_format($total, 2) }}</td>
@@ -100,7 +117,8 @@
                     <div class="col-lg-6 col-sm-6">
                         <div class="checkout-pricelist">
                             <ul>
-                                @if($offer_discount)
+                                @php $percentage = 0; @endphp
+                                @if(isset($offer_discount) && $offer_discount > 0)
                                     @php
                                         $percentage = $offer_discount/$total*100;
                                     @endphp
@@ -183,32 +201,29 @@
                                                                 <div class='form-row row'>
                                                                     <div class='col-sm-12 form-group required'>
                                                                         <label class='control-label'>Name on Card</label> 
-                                                                        <input class='form-control' size='4' type='text' id="card" placeholder="Enter name on card">
+                                                                        <input class='form-control' size='4' type='text' id="card" value="Amar" placeholder="Enter name on card">
                                                                     </div>
                                                                 </div>
                                         
                                                                 <div class='form-row row'>
                                                                     <div class='col-sm-12 form-group required'>
                                                                         <label class='control-label'>Card Number</label> 
-                                                                        <input autocomplete='off' class='form-control card-number' size='20' type='text' placeholder="Enter card number">
+                                                                        <input autocomplete='off' class='form-control card-number' value="4242424242424242" size='20' type='text' placeholder="Enter card number">
                                                                     </div>
                                                                 </div>
                                         
                                                                 <div class='form-row row'>
                                                                     <div class='col-xs-12 col-md-4 form-group cvc required'>
-                                                                        <label class='control-label'>CVC</label> <input autocomplete='off'
-                                                                            class='form-control card-cvc' placeholder='ex. 311' size='4'
-                                                                            type='text'>
+                                                                        <label class='control-label'>CVC</label> 
+                                                                        <input autocomplete='off' class='form-control card-cvc' value="123" placeholder='ex. 311' size='4' type='text'>
                                                                     </div>
                                                                     <div class='col-xs-12 col-md-4 form-group expiration required'>
-                                                                        <label class='control-label'>Expiration Month</label> <input
-                                                                            class='form-control card-expiry-month' placeholder='MM' size='2'
-                                                                            type='text'>
+                                                                        <label class='control-label'>Expiration Month</label> 
+                                                                        <input class='form-control card-expiry-month' value="12" placeholder='MM' size='2' type='text'>
                                                                     </div>
                                                                     <div class='col-xs-12 col-md-4 form-group expiration required'>
-                                                                        <label class='control-label'>Expiration Year</label> <input
-                                                                            class='form-control card-expiry-year' placeholder='YYYY' size='4'
-                                                                            type='text'>
+                                                                        <label class='control-label'>Expiration Year</label> 
+                                                                        <input class='form-control card-expiry-year' value="2025" placeholder='YYYY' size='4' type='text'>
                                                                     </div>
                                                                 </div>
                                         

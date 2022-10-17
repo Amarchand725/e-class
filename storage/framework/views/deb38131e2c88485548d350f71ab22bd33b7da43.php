@@ -180,15 +180,9 @@
                                 <div class="des-btn-block">
                                     <div class="row">
                                         <div class="col-lg-8">
-                                            <form id="demo-form2" method="post"
-                                                action="https://eclass.mediacity.co.in/demo/public/guest/addtocart/21" data-parsley-validate
-                                                class="form-horizontal form-label-left">
-                                                <input type="hidden" name="_token" value="leZ79T21enQSxfzfbeOTzvgubGXd6jlVMG4Ztrf9">
-
-                                                <div class="box-footer">
-                                                    <button type="submit" class="btn btn-primary"><i data-feather="shopping-cart"></i>&nbsp;Add To Cart</button>
-                                                </div>
-                                            </form>
+                                            <div class="box-footer">
+                                                <a href="<?php echo e(route('add.to.cart', $featured_course->slug)); ?>" class="btn btn-primary btn-block text-center" role="button"><i class="fa fa-cart-plus" aria-hidden="true"></i>&nbsp;Add To Cart</a>
+                                            </div>
                                         </div>
                                         <div class="col-lg-4">
                                             <div class="img-wishlist">

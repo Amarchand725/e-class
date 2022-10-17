@@ -82,36 +82,50 @@ class CartController extends Controller
 
     public function completeOrder(Request $request)
     {
-        Stripe\Stripe::setApiKey(env('STRIPE_SECRET'));
-        $payment = Stripe\Charge::create ([
-                "amount" => 100 * 100,
-                "currency" => "usd",
-                "source" => $request->stripeToken,
-                "description" => "Order payment" 
-        ]);
-
         $total = 0;
         $original_total = 0;
         $total_items = 0;
         if(session('cart')){
             $total_items = count(session('cart'));
             foreach(session('cart') as $id => $details){
-                $original_total = $details['retail_price'] * $details['quantity'];
+                $sub_total = 0; 
+                $sub_total += $details['price'] * $details['quantity'];
+
+                if(!empty($details['retail_price'])){
+                    $total += $sub_total;
+                    $original_total += $details['retail_price'] * $details['quantity'];
+                }else{
+                    $total += $sub_total;
+                    $original_total += $sub_total;
+                }
             }
         }
+
+        Stripe\Stripe::setApiKey(env('STRIPE_SECRET'));
+        $payment = Stripe\Charge::create ([
+            "amount" => 100 * $total,
+            "currency" => "usd",
+            "source" => $request->stripeToken,
+            "description" => "Order payment" 
+        ]);
 
         do{
             $order_number = random_int(100000, 999999);
         }while(Order::where('order_number', $order_number)->first());
 
-        if($payment->status=='succeed'){
+        $discount = 0;
+        $discount = $original_total-$total;
+        if($discount > 0){
+            $discount = $discount;
+        }
+        if($payment->status=='succeeded'){
             $order = Order::create([
                 'user_slug' => Auth::user()->slug,
                 'order_number' => $order_number,
                 'total' => $original_total,
-                'discount' => $original_total-$total,
+                'discount' => $discount,
                 'total_items' => $total_items,
-                'paid' => $total,
+                'grand_total' => $total,
                 'payment_type' => 'stripe',
                 'payment_status' => $payment->status,
             ]);
@@ -119,15 +133,21 @@ class CartController extends Controller
             if($order){
                 if(session('cart')){
                     $total_items = count(session('cart'));
-                    $sub_total = 0;
                     foreach(session('cart') as $id => $details){
-                        $sub_total += $details['price'] * $details['quantity'];
+                        $item_discount = 0;
+                        $sub_total = 0;
+                        $sub_total = $details['price'] * $details['quantity'];
+                        $price = $details['price'];
+                        if(!empty($details['retail_price'])){
+                            $price = $details['retail_price'];
+                            $item_discount = $details['retail_price']-$details['price'];   
+                        }
                         OrderDetails::create([
                             'order_number' => $order->order_number,
                             'product_slug' => $details['slug'],
-                            'discount' => $original_total-$total,
+                            'price' => $price,
+                            'discount' => $item_discount,
                             'discount_type' => 'default',
-                            'quantity' => $details['price'],
                             'quantity' => $details['quantity'],
                             'subtotal' => $sub_total,
                         ]);
@@ -136,7 +156,9 @@ class CartController extends Controller
                     Payment::create([
                         'order_number' => $order->order_number,
                         'payment_method' => 'stripe',
-                        'payable' => $total,
+                        'total' => $original_total,
+                        'discount' => $discount,
+                        'grand_total' => $total,
                         'paid' => $total,
                         'dues' => $total-$total,
                         'status' => $payment->status,
@@ -145,13 +167,12 @@ class CartController extends Controller
                         'name_on_card' => $request->nameOnCard,
                         'card_last_four_digit' => $payment->source->last4,
                         'expire_month' => $payment->source->exp_month,
-                        'expire_year' => $payment->source->exp_year,
+                        'expire_year' => $payment->source->exp_year,    
                     ]);
                 }
             }
 
-            // Cart::content('empty');
-            Cart::destroy();
+            session()->forget('cart');
         }
   
         Session::flash('success', 'Payment successful!');

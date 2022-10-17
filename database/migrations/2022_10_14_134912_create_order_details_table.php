@@ -17,9 +17,9 @@ class CreateOrderDetailsTable extends Migration
             $table->id();
             $table->string('order_number');
             $table->string('product_slug');
+            $table->string('price');
             $table->string('discount');
             $table->string('discount_type');
-            $table->string('price');
             $table->integer('quantity');
             $table->string('subtotal');
             $table->timestamps();

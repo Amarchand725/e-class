@@ -1,5 +1,5 @@
 <!-- jquery -->
-<script data-cfasync="false" src="cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script>
+{{-- <script data-cfasync="false" src="cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script> --}}
 <script src="{{ asset('public/website/js/jquery-2.min.js') }}"></script> <!-- jquery library js -->
 <script src="{{ asset('public/website/js/colorbox.js') }}"></script> <!-- colorbox js -->
 <script src="{{ asset('public/website/js/bootstrap.bundle.js') }}"></script> <!-- bootstrap js -->

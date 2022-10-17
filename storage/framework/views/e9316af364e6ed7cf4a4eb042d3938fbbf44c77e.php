@@ -79,16 +79,23 @@
                     <div class="row">
                         <div class="col-lg-9 col-md-9">
                             <?php 
-                            $sub_total = 0; 
+                           
                             $total = 0;
                             $original_total = 0;
                             ?>
                             <?php if(session('cart')): ?>
                                 <?php $__currentLoopData = session('cart'); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $id => $details): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                                     <?php 
+                                        $sub_total = 0; 
                                         $sub_total += $details['price'] * $details['quantity'];
-                                        $total += $sub_total; 
-                                        $original_total = $details['retail_price'] * $details['quantity'];
+                                        
+                                        if(!empty($details['retail_price'])){
+                                            $total += $sub_total;
+                                            $original_total += $details['retail_price'] * $details['quantity'];
+                                        }else{
+                                            $total += $sub_total;
+                                            $original_total += $sub_total;
+                                        }
                                     ?>
                                     <div class="cart-add-block">
                                         <div class="row">
@@ -114,7 +121,6 @@
                                                             <a href="<?php echo e(route('bundle.single', $details['slug'])); ?>"><?php echo e($details['name']); ?></a>
                                                         <?php endif; ?>
                                                     </div>
-                                                    
                                                 </p>
                                             </div>
                                             
@@ -179,23 +185,26 @@
                         <div class="col-lg-3 col-md-3">
                             <div class="cart-total">
                                 <div class="cart-price-detail">
-                                    <h4 class="cart-heading">Total:</h4>
+                                    <h4 class="cart-heading">Cart Details:</h4>
                                     <ul>
                                         <li>Total Price<span class="categories-count">$ <?php echo e(number_format($original_total, 2)); ?></span></li>
                                         <?php $offer_discount = $original_total-$total; ?> 
-                                        <li>Offer Discount<span class="categories-count">&nbsp;$ <?php echo e(number_format($offer_discount, 2)); ?></span></li>
-                                        <li>Coupon Discount
-                                            <span class="categories-count"><a href="#" data-toggle="modal" data-target="#myModalCoupon" title="report">ApplyCoupon</a></span>
-                                        </li>
-                                        <?php $percentage = 0 ?> 
                                         <?php if($offer_discount > 0): ?>
+                                            <li>Offer Discount<span class="categories-count">&nbsp;$ <?php echo e(number_format($offer_discount, 2)); ?></span></li>
+                                        <?php else: ?>
+                                            <li>Coupon Discount
+                                                <span class="categories-count"><a href="#" data-toggle="modal" data-target="#myModalCoupon" title="report">ApplyCoupon</a></span>
+                                            </li>
+                                        <?php endif; ?>
+                                        <?php $percentage = 0 ?> 
+                                        <?php if(isset($offer_discount) && $offer_discount > 0): ?>
                                             <?php
                                                 $percentage = $offer_discount/$total*100;
                                             ?>
                                         <?php endif; ?>
                                         <li>Discount Percent<span class="categories-count"><?php echo e(round($percentage)); ?>% off</span></li>
                                         <hr>
-                                        <li class="cart-total-two"><b>Total:<span class="categories-count">$ <?php echo e(number_format($total, 2)); ?></span></b></li>
+                                        <li class="cart-total-two"><b>Grand Total:<span class="categories-count">$ <?php echo e(number_format($total, 2)); ?></span></b></li>
                                     </ul>
                                 </div>
                                 <hr>

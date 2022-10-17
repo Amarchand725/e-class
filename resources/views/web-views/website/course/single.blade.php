@@ -77,13 +77,9 @@
                                 </div>
 
                                 <div class="about-home-btn btm-20">                                        
-                                    <form id="demo-form2" method="post" action="#"
-                                        data-parsley-validate class="form-horizontal form-label-left">
-                                        <input type="hidden" name="_token" value="leZ79T21enQSxfzfbeOTzvgubGXd6jlVMG4Ztrf9">
-                                        <div class="box-footer">
-                                            <a href="{{ route('add.to.cart', $model->slug) }}" class="btn btn-primary btn-block text-center" role="button"><i class="fa fa-cart-plus" aria-hidden="true"></i>&nbsp;Add To Cart</a>
-                                        </div>
-                                    </form>
+                                    <div class="box-footer">
+                                        <a href="{{ route('add.to.cart', $model->slug) }}" class="btn btn-primary btn-block text-center" role="button"><i class="fa fa-cart-plus" aria-hidden="true"></i>&nbsp;Add To Cart</a>
+                                    </div>
                                 </div>
 
                                 <div class="about-home-includes-list btm-40">

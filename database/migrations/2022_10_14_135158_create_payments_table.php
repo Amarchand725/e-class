@@ -17,7 +17,9 @@ class CreatePaymentsTable extends Migration
             $table->id();
             $table->string('order_number');
             $table->string('payment_method');
-            $table->string('payable');
+            $table->string('total');
+            $table->string('discount')->nullable();
+            $table->string('grand_total');
             $table->string('paid');
             $table->string('dues');
             $table->string('status');

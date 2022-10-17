@@ -75,7 +75,7 @@
                                     <div class="row">
                                         <div class="col-lg-12">
                                             <div class="protip-btn">
-                                                <a href="#" class="btn btn-primary">
+                                                <a href="{{ route('add.to.cart', $bundle->slug) }}" class="btn btn-primary">
                                                     <i class="fa fa-cart-plus" aria-hidden="true"></i>&nbsp;Subscribe Now
                                                 </a>
                                             </div>

@@ -25,6 +25,8 @@ Route::get('/course/{slug}/single', 'WebController@courseSingle')->name('course.
 Route::get('/bundle/{slug}/single', 'WebController@bundleSingle')->name('bundle.single');
 Route::get('/user/{slug}/profile', 'WebController@userProfile')->name('user.profile');
 Route::post('/user/store', 'WebController@userStore')->name('user.store');
+Route::get('/user/my_courses', 'WebController@myCourses')->name('user.my_courses');
+Route::get('/user/my_course_details', 'WebController@myCourseDetails')->name('user.my_course_details');
 
 //cart
 Route::get('cart', 'CartController@cart')->name('cart');

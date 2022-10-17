@@ -109,6 +109,13 @@ class WebController extends Controller
             DB::rollback();
             return response()->json(['code'=>500, 'Error'=> $e->getMessage()]);
         }
-
+    }
+    public function myCourses()
+    {
+        return view('web-views.website.user.my-courses');
+    }
+    public function myCourseDetails()
+    {
+        return view('web-views.website.user.my-course-details');
     }
 }
