@@ -101,13 +101,13 @@
                                 <div class="img-wishlist">
                                     <div class="protip-wishlist">
                                         <ul>
-                                            <li class="protip-wish-btn">
+                                            {{-- <li class="protip-wish-btn">
                                                 <a href="https://calendar.google.com/calendar/r/eventedit?text=Travel%20Hacking%20-Smart%20&amp;%20Fun%20Travel"
                                                     target="__blank" title="reminder"><i data-feather="bell"></i>
                                                 </a>
-                                            </li>
-                                            <li class="protip-wish-btn">
-                                                <a href="login.html" title="heart"><i data-feather="heart"></i></a>
+                                            </li> --}}
+                                            <li class="protip-wish-btn add-wish-btn" data-url="{{ route('user.wishlist.store') }}" data-product-slug="{{ $discount_course->slug }}">
+                                                <span title="heart"><i data-feather="heart"></i></span>
                                             </li>
                                         </ul>
                                     </div>
@@ -174,7 +174,9 @@
                                     <div class="row">
                                         <div class="col-lg-8">
                                             <div class="box-footer">
-                                                <a href="{{ route('add.to.cart', $discount_course->slug) }}" class="btn btn-primary btn-block text-center" role="button"><i class="fa fa-cart-plus" aria-hidden="true"></i>&nbsp;Add To Cart</a>
+                                                <a href="{{ route('add.to.cart', $discount_course->slug) }}" class="btn btn-primary btn-block text-center" role="button">
+                                                    <i class="fa fa-cart-plus" aria-hidden="true"></i>&nbsp;Add To Cart
+                                                </a>
                                             </div>
                                         </div>
                                         <div class="col-lg-4">

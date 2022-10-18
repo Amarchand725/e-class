@@ -40,10 +40,10 @@
                                            </div>
                                                                                        
                                            <div class="about-reward-badges">
-                                               <img src="{{ asset('public/website/images/badges/1.png') }}" class="img-fluid" alt="" data-toggle="tooltip" data-placement="bottom" title="Member Since 2020">
+                                                <img src="{{ asset('public/website/images/badges/1.png') }}" class="img-fluid" alt="" data-toggle="tooltip" data-placement="bottom" title="Member Since 2020">
                                                 <img src="{{ asset('public/website/images/badges/2.png') }}" class="img-fluid" alt="" data-toggle="tooltip" data-placement="bottom" title="Has 13 courses">
                                                 <img src="{{ asset('public/website/images/badges/3.png') }}" class="img-fluid" alt="" data-toggle="tooltip" data-placement="bottom" title="rating from 4 to 5">
-                                               <img src="{{ asset('public/website/images/badges/4.png') }}" class="img-fluid" alt="" data-toggle="tooltip" data-placement="bottom" title=" 20 users has enrolled">
+                                                <img src="{{ asset('public/website/images/badges/4.png') }}" class="img-fluid" alt="" data-toggle="tooltip" data-placement="bottom" title=" 20 users has enrolled">
                                            </div>
                                        </div>
                                    </div>

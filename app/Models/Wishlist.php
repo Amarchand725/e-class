@@ -12,8 +12,13 @@ class Wishlist extends Model
 
     static function getValidationRules(){
     	$rules = [
-		    'user_id' => 'required'
+            'product_slug' => ['required', 'string', 'max:191', 'unique:wishlists'],
 		];
 		return $rules;
+    }
+
+    public function hasProduct()
+    {
+        return $this->hasOne(Course::class, 'slug', 'product_slug');
     }
 }

@@ -105,13 +105,13 @@
                                 <div class="img-wishlist">
                                     <div class="protip-wishlist">
                                         <ul>
-                                            <li class="protip-wish-btn">
+                                            {{-- <li class="protip-wish-btn">
                                                 <a href="https://calendar.google.com/calendar/r/eventedit?text=Travel%20Hacking%20-Smart%20&amp;%20Fun%20Travel"
                                                     target="__blank" title="reminder"><i data-feather="bell"></i>
                                                 </a>
-                                            </li>
-                                            <li class="protip-wish-btn">
-                                                <a href="login.html" title="heart"><i data-feather="heart"></i></a>
+                                            </li> --}}
+                                            <li class="protip-wish-btn add-wish-btn" data-url="{{ route('user.wishlist.store') }}" data-product-slug="{{ $featured_course->slug }}">
+                                                <span title="heart"><i data-feather="heart"></i></span>
                                             </li>
                                         </ul>
                                     </div>

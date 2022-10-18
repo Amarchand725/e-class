@@ -14,7 +14,9 @@ class CreateWishlistsTable extends Migration
     {
         Schema::create('wishlists', function (Blueprint $table) {
             $table->id();
-            $table->bigInteger("user_id"); $table->bigInteger("course_id")->nullable(); $table->bigInteger("live_meeting_id")->nullable();
+            $table->string("user_slug"); 
+            $table->string("product_slug")->nullable(); 
+            $table->bigInteger("live_meeting_id")->nullable();
             $table->boolean('status')->default(1);
             $table->string('deleted_at')->nullable();
             $table->timestamps();

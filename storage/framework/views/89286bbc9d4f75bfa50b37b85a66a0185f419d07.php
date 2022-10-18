@@ -1,4 +1,91 @@
 <script>
+    $(document).on('click', '.add-wish-btn', function(){
+        var slug = $(this).attr('data-product-slug');
+        var url = $(this).attr('data-url');
+        $.ajax({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
+            url: url,
+            type:"POST",
+            data: {slug:slug},
+            success:function(response){
+                if(response=='success'){
+                    Swal.fire({
+                        position: 'top-end',
+                        icon: 'success',
+                        title: 'You have added to wishlist.',
+                        showConfirmButton: false,
+                        timer: 1500
+                    })
+                }else if(response=='failed'){
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Oops...',
+                        text: 'Something went wrong try again.',
+                    })
+                }else{
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Exist',
+                        text: 'You have available already in your wishlist.',
+                    })
+                }
+            },
+            error: function(response) {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Exist',
+                    text: 'You have available already in your wishlist.',
+                })
+            },
+        });
+    });
+    
+    $(document).on('click', '.remove-wish-list-btn', function(){
+        var slug = $(this).attr('data-product-slug');
+        var url = $(this).attr('data-url');
+        Swal.fire({
+            title: 'Are you sure?',
+            text: "You won't be able to revert this!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, Remove it!'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                $.ajax({
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    },
+                    url: url,
+                    type:"POST",
+                    data: {slug:slug},
+                    success:function(response){
+                        console.log(response);
+                        if(response=='success'){
+                            $('#'+slug).remove();
+                            Swal.fire({
+                                position: 'top-end',
+                                icon: 'success',
+                                title: 'You have removed successfully.',
+                                showConfirmButton: false,
+                                timer: 1500
+                            })
+                        }else{
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Oops...',
+                                text: 'Something went wrong try again.',
+                            })
+                        }
+                    }
+                });
+            }
+        })
+    });
+
     $('.regisger-form').on('submit',function(e){
         e.preventDefault();
         var url = $(this).attr('data-action');

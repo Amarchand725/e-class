@@ -22,7 +22,9 @@
                                 <ul>
                                     <li>
                                         <div class="instructor-home-btn">
-                                            <a href="ins/16/1.html" class="btn btn-primary" title="View Page"><i data-feather="eye"></i></a>
+                                            <a href="<?php echo e(route('institute.single', $institute->slug)); ?>" class="btn btn-primary" title="View Page">
+                                                <i data-feather="eye"></i>
+                                            </a>
                                         </div>
                                     </li>
                                 </ul>
@@ -40,8 +42,6 @@
                     </div>
                 </div>
             <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
-
-            
         </div>
     </div>
 </section><?php /**PATH C:\xampp\htdocs\e-class\resources\views/web-views/layouts/institutes.blade.php ENDPATH**/ ?>

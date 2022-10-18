@@ -8,7 +8,15 @@
         <div class="container-xl">
             <div class="row">
                 <div class="col-lg-7 col-md-6 col-12">
-                <div class="class-nav-heading">Learn C++ Programming</div>
+                    <div class="class-nav-heading">
+                        <?php if(!empty($model->hasCourse)): ?>
+                            <?php echo e($model->hasCourse->title); ?>
+
+                        <?php elseif(!empty($model->hasBundle)): ?>
+                            <?php echo e($model->hasBundle->title); ?>
+
+                        <?php endif; ?>
+                    </div>
                 </div>
                 <div class="col-lg-5 col-md-6 col-12">
                     <div class="class-button certificate-button">
@@ -43,20 +51,45 @@
                     <div class="learning-courses-home-video text-white btm-30">
                         <div class="video-item hidden-xs">
                             <div class="video-device">
-                                <img src="https://eclass.mediacity.co.in/demo/public/images/course/app-development-concept-with-programming-languages_23-2148688949.jpg" class="img-fluid" alt="Background">
-                                <div class="video-preview">                                                        
-                                    <a href="https://eclass.mediacity.co.in/demo/public/watch/course/11" class="btn-video-play "><i class="fa fa-play"></i></a>
-                                </div>
+                                <?php if(!empty($model->hasCourse)): ?>
+                                    <img src="<?php echo e(asset('public/admin/images/courses')); ?>/<?php echo e($model->hasCourse->thumbnail); ?>" class="img-fluid" alt="Background">
+                                <?php elseif(!empty($model->hasBundle)): ?>
+                                    <img src="<?php echo e(asset('public/admin/bundle/banners')); ?>/<?php echo e($model->hasBundle->banner); ?>" class="img-fluid" alt="Background">
+                                <?php endif; ?>
+                                <?php if($model->hasCourse->type=="video"): ?>
+                                    <div class="video-preview">    
+                                        <a href="<?php echo e($model->hasCourse->video_url); ?>" class="btn-video-play "><i class="fa fa-play"></i></a>
+                                    </div>
+                                <?php endif; ?>
                             </div>
                         </div>
                     </div>
                 </div>
                 <div class="col-lg-8 col-md-8">
                     <div class="learning-courses-home-block">
-                        <h3 class="learning-courses-home-heading btm-20"><a href="https://eclass.mediacity.co.in/demo/public/course/11/learn-c-programming" title="heading">Learn C++ Programming</a></h3>
-                        <div class="learning-courses btm-20 display-inline">Admin</div>
-                        <br>
-                        <div class="learning-courses btm-20">Discover intermediate to advanced C++, including C++ 11's fantastic additions to the C++ standard.</div>
+                        <?php if(!empty($model->hasCourse)): ?>
+                            <h3 class="learning-courses-home-heading btm-20">
+                                <a href="<?php echo e(route('course.single', $model->hasCourse->slug)); ?>" title="heading">
+                                    <?php echo e($model->hasCourse->title); ?>
+
+                                </a>
+                            </h3>
+                            <div class="learning-courses btm-20 display-inline">By <?php echo e($model->hasCourse->hasInstructor->name); ?></div>
+                            <br>
+                            <div class="learning-courses btm-20"><?php echo e($model->hasCourse->short_description); ?></div>
+                        <?php elseif(!empty($model->hasBundle)): ?>
+                            <h3 class="learning-courses-home-heading btm-20">
+                                <a href="<?php echo e(route('bundle.single', $model->hasBundle->slug)); ?>" title="heading">
+                                    <?php echo e($model->hasBundle->title); ?>
+
+                                </a>
+                            </h3>
+                            <div class="learning-courses btm-20 display-inline">By <?php echo e($model->hasBundle->hasCreatedBy->name); ?></div>
+                            <br>
+                            <div class="learning-courses btm-20"><?php echo e($model->hasBundle->short_detail); ?></div>
+                        <?php endif; ?>
+                        
+                        
                         <div class="progress-block">
                             <div class="one histo-rate">
                                 <span class="bar-block" style="width: 100%">
@@ -81,12 +114,10 @@
                     <div class="nav nav-tabs" id="nav-tab" role="tablist">
                         <a class="nav-item nav-link text-center" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="false">Overview</a>
                         <a class="nav-item nav-link text-center active show" id="nav-profile-tab" data-toggle="tab" href="#nav-profile" role="tab" aria-controls="nav-profile" aria-selected="true">Course Content</a>
-                        <a class="nav-item nav-link text-center" id="nav-live-tab" data-toggle="tab" href="#nav-live" role="tab" aria-controls="nav-live" aria-selected="false">Live Class</a>
+                        
                         <a class="nav-item nav-link text-center" id="nav-contact-tab" data-toggle="tab" href="#nav-contact" role="tab" aria-controls="nav-contact" aria-selected="false">Q &amp; A</a>
-                        <a class="nav-item nav-link text-center" id="nav-quiz-tab" data-toggle="tab" href="#nav-quiz" role="tab" aria-controls="nav-quiz" aria-selected="false">Quiz</a>
-                        <!-- Homework tab start -->
-                        <a class="nav-item nav-link text-center" id="nav-homework-tab" data-toggle="tab" href="#nav-homework" role="tab" aria-controls="nav-homework" aria-selected="false">Homework</a>
-                        <!-- Homework tab end -->
+                        
+                        
                     </div>
                 </nav>
                 
@@ -110,7 +141,15 @@
                             </div>
                             <div class="content-course-block">
                                 <h4 class="content-course">About this course</h4>
-                                <p class="btm-40">Discover intermediate to advanced C++, including C++ 11's fantastic additions to the C++ standard.</p>
+                                <p class="btm-40">
+                                    <?php if(!empty($model->hasCourse)): ?>
+                                        <?php echo e($model->hasCourse->short_description); ?>
+
+                                    <?php elseif(!empty($model->hasBundle)): ?>
+                                        <?php echo e($model->hasBundle->short_detail); ?>
+
+                                    <?php endif; ?>
+                                </p>
                             </div>
                             <hr>
                             <div class="content-course-number-block">
@@ -121,9 +160,7 @@
                                     <div class="col-lg-6 col-sm-5">
                                         <div class="content-course-number">
                                             <ul>
-                                                <li>students enrolled: 
-                                                    1                     
-                                                </li>
+                                                <li>students enrolled: 1 </li>
                                                 <li>Languages: English</li>
                                             </ul>
                                         </div>
@@ -131,9 +168,20 @@
                                     <div class="col-lg-3 col-sm-3">
                                         <div class="content-course-number">
                                             <ul>
-                                                <li>Classes:
-                                                    4                                            
-                                                </li>
+                                                <?php if(!empty($model->hasCourse)): ?>
+                                                    <?php 
+                                                        $sum_minutes = 0;
+                                                        foreach ($model->hasCourse->haveClasses as $course_class){
+                                                            $explodedTime = array_map('intval', explode(':', $course_class->lecture_duration ));
+                                                            $sum_minutes += $explodedTime[0]*60+$explodedTime[1];
+                                                        }
+                                                        $lecture_duration_total_time = floor($sum_minutes/60).':'.floor($sum_minutes % 60);
+                                                    ?> 
+                                                <?php elseif(!empty($model->hasBundle)): ?>
+                                                    <?php echo e($model->hasBundle->short_detail); ?>
+
+                                                <?php endif; ?>
+                                                <li>Classes: <?php echo e(count($model->hasCourse->haveClasses)); ?> </li>
                                             </ul>
                                         </div>
                                     </div>
@@ -145,12 +193,19 @@
                                     </div>
                                     <div class="col-lg-9 col-md-9">
                                         <div class="content-course-number content-course-one">
-                                            <h5 class="content-course-number-heading">About this course</h5>
-                                            <p>Discover intermediate to advanced C++, including C++ 11's fantastic additions to the C++ standard.</p><p>
-                                            </p><h5 class="content-course-number-heading">Description</h5>
-                                            <p>
-                                                We'll begin with a glance at C++ record taking care of and travel through STL, layout classes, administrator over-burdening, lambda articulations, move constructors and substantially more other than. Toward the finish of the course I'll tell you the best way to make a program that produces fractal pictures, utilizing an a couple of the language highlights we've found in the course and giving you an extraordinary work out with savvy pointers and exhibits. I'll give you practices all through the course, going from simple close to the beginning, to very dubious (yet discretionary!) close to the finish of the course.
-                                            </p>
+                                            <?php if(!empty($model->hasCourse)): ?>
+                                                <h5 class="content-course-number-heading">About this course</h5>
+                                                <p><?php echo e($model->hasCourse->short_description); ?></p>
+                                                <h5 class="content-course-number-heading">Description</h5>
+                                                <p><?php echo $model->hasCourse->full_description; ?></p>
+                                            <?php elseif(!empty($model->hasBundle)): ?>
+                                                <h5 class="content-course-number-heading">About this Bundle</h5>
+                                                <p>Discover intermediate to advanced C++, including C++ 11's fantastic additions to the C++ standard.</p><p>
+                                                </p><h5 class="content-course-number-heading">Description</h5>
+                                                <p>
+                                                    We'll begin with a glance at C++ record taking care of and travel through STL, layout classes, administrator over-burdening, lambda articulations, move constructors and substantially more other than. Toward the finish of the course I'll tell you the best way to make a program that produces fractal pictures, utilizing an a couple of the language highlights we've found in the course and giving you an extraordinary work out with savvy pointers and exhibits. I'll give you practices all through the course, going from simple close to the beginning, to very dubious (yet discretionary!) close to the finish of the course.
+                                                </p>
+                                            <?php endif; ?>
                                         </div>
                                     </div>
                                 </div>
@@ -163,23 +218,28 @@
                                         <div class="content-course-number content-course-number-one">
                                             <div class="content-img-block btm-20">
                                                 <div class="content-img">
-                                                    <a href="https://eclass.mediacity.co.in/demo/public/instructor/1/AdminExample" title="profile"><img src="https://eclass.mediacity.co.in/demo/public/images/user_img/1653992825cute-freelance-girl-using-laptop-sitting-floor-smiling.jpg" class="img-fluid" alt="instructor"></a>
+                                                    <a href="<?php echo e(route('user.profile', $model->hasCourse->hasInstructor->slug)); ?>" title="">
+                                                        <?php if($model->hasCourse->hasInstructor->hasUserProfile->profile_image): ?>
+                                                            <img src="<?php echo e(asset('public/users')); ?>/<?php echo e($model->hasCourse->hasInstructor->hasUserProfile->profile_image); ?>" width="50px"  class="img-fluid user-img-one" alt="">
+                                                        <?php else: ?>
+                                                            <img src="<?php echo e(asset('public/default.png')); ?>" width="50px"  class="img-fluid user-img-one" alt="">
+                                                        <?php endif; ?>
+                                                    </a>
                                                 </div>
                                                 <div class="content-img-dtl">
                                                     <div class="profile">
-                                                        <a href="#" title="profile">Admin Example </a>
+                                                        <a href="<?php echo e(route('user.profile', $model->hasCourse->hasInstructor->slug)); ?>" title="profile"><?php echo e($model->hasCourse->hasInstructor->name); ?> </a>
                                                     </div>
-                                                    <p>admin@mediacity.co.in</p>
+                                                    <p><?php echo e($model->hasCourse->hasInstructor->email); ?></p>
                                                 </div>
                                             </div>
                                             <ul>
-                                                <li class="rgt-10"><a href="https://facebook.com" target="_blank" title="facebook"><i class="fa fa-facebook"></i></a></li>
-                                                <li class="rgt-10"><a href="https://www.youtube.com/watch?v=ImtZ5yENzgE" target="_blank" title="linkedin"><i class="fa fa-linkedin"></i></a></li>
-                                                <li class="rgt-10"><a href="https://www.youtube.com/watch?v=2cbvZf1jIJM" target="_blank" title="twitter"><i class="fa fa-youtube"></i></a></li>
+                                                <li class="rgt-10"><a href="<?php echo e($model->hasCourse->hasInstructor->hasUserProfile->facebook_url??''); ?>" target="_blank" title="facebook"><i class="fa fa-facebook"></i></a></li>
+                                                <li class="rgt-10"><a href="<?php echo e($model->hasCourse->hasInstructor->hasUserProfile->linked_in_url??''); ?>" target="_blank" title="linkedin"><i class="fa fa-linkedin"></i></a></li>
+                                                <li class="rgt-10"><a href="<?php echo e($model->hasCourse->hasInstructor->hasUserProfile->twitter_url??''); ?>" target="_blank" title="twitter"><i class="fa fa-youtube"></i></a></li>
                                             </ul>
                                             <p>
-                                                <strong style="margin: 0px; padding: 0px; font-family: 'Open Sans', Arial, sans-serif; text-align: justify;">Lorem Ipsum</strong>
-                                                <span style="font-family: 'Open Sans', Arial, sans-serif; text-align: justify;">&nbsp;is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</span>
+                                                <span style="font-family: 'Open Sans', Arial, sans-serif; text-align: justify;">&nbsp;<?php echo $model->hasCourse->hasInstructor->hasUserProfile->details; ?></span>
                                             </p>
                                         </div>
                                     </div>
@@ -191,342 +251,213 @@
                     <div class="tab-pane fade active show" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
                         <div class="profile-block">
                             <form method="post" action="https://eclass.mediacity.co.in/demo/public/course/checked/11" data-parsley-validate="" class="form-horizontal form-label-left">
-                                <input type="hidden" name="_token" value="dQ0sl1GbHxZTV3Zwr46UBZ2AmklNC4gkIfbUeGdq">
-                            
                                 <div id="ck-button">
-                                <label>
-                                    <input type="checkbox" name="select-all" class="hidden" id="select-all"><span>Select All</span>
-                                </label>
+                                    <label>
+                                        <input type="checkbox" name="select-all" class="hidden" id="select-all"><span>Select All</span>
+                                    </label>
                                 </div>
                                                    
                                 <div id="accordion" class="second-accordion">
-                                    <div class="card btm-10">
-                                        <div class="card-header" id="headingChapter44">
-                                            <div class="mb-0">
-                                                <button type="button" class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseChapter44" aria-expanded="false" aria-controls="collapseChapter">
-                                                    <div class="course-check-table">
+                                    <?php if(!empty($model->hasCourse)): ?>
+                                        <?php $counter = 0 ?> 
+                                        <?php $__currentLoopData = $model->hasCourse->haveChapters; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $chapter): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                            <?php $counter++ ?> 
+                                            <div class="card btm-10">
+                                                <div class="card-header" id="headingChapter44">
+                                                    <div class="mb-0">
+                                                        <button type="button" class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseChapter-<?php echo e($chapter->name); ?>" aria-expanded="false" aria-controls="collapseChapter">
+                                                            <div class="course-check-table">
+                                                                <table class="table">  
+                                                                    <tbody>
+                                                                        <tr>
+                                                                            <td width="10px">
+                                                                                <div class="form-check">
+                                                                                    <input class="form-check-input filled-in material-checkbox-input" type="checkbox" name="checked[]" value="44" id="checkbox44">
+                                                                                    <label class="form-check-label" for="invalidCheck">
+                                                                                    </label>
+                                                                                </div>
+                                                                            </td>
+                                                                            
+                                                                            <td>
+                                                                                <div class="row">
+                                                                                    <div class="col-lg-6 col-6">
+                                                                                        <div class="section">Chapter: <?php echo e($counter); ?></div>
+                                                                                    </div>
+                                                                                    <div class="col-lg-6 col-6">
+                                                                                        <div class="section-dividation text-right">
+                                                                                            <?php echo e(count($chapter->haveChapterClasses)); ?> Classes
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+                                                                                <div class="row">
+                                                                                    <div class="col-lg-10 col-8">
+                                                                                        <div class="profile-heading"><?php echo e($chapter->name); ?></div>
+                                                                                    </div>
+                                                                                    <div class="col-lg-2 col-4">
+                                                                                        <div class="text-right">
+                                                                                            <?php 
+                                                                                                $sum_chapter_class_minutes = 0;
+                                                                                                foreach ($chapter->haveChapterClasses as $chapter_class){
+                                                                                                    $explodedTime = array_map('intval', explode(':', $chapter_class->lecture_duration ));
+                                                                                                    $sum_chapter_class_minutes += $explodedTime[0]*60+$explodedTime[1];
+                                                                                                }
+                                                                                                $chapter_total_lectures_duration = floor($sum_chapter_class_minutes/60).':'.floor($sum_chapter_class_minutes % 60);
+                                                                                            ?>
+                                                                                            <?php echo e($chapter_total_lectures_duration); ?>
+
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </td>
+                                                                        </tr>
+                                                                    </tbody>
+                                                                </table>
+                                                            </div>
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                                <div id="collapseChapter-<?php echo e($chapter->name); ?>" class="collapse" aria-labelledby="headingChapter" data-parent="#accordion" style="">
+                                                    <div class="card-body">
+                                                        <table class="table">  
+                                                            <tbody>
+                                                                <?php $__currentLoopData = $chapter->haveChapterClasses; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $chapter_class): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                                                    <tr>
+                                                                        <?php if($chapter_class->type=="Video"): ?>
+                                                                            <td class="class-type">
+                                                                                <a href="<?php echo e(asset('public/admin/course_class/lectures')); ?>/<?php echo e($chapter_class->lecture); ?>" title="Course">
+                                                                                    <i class="fa fa-play-circle"></i>&nbsp; <?php echo e($chapter_class->title); ?>
+
+                                                                                </a>   
+                                                                            </td>
+                                                                        <?php else: ?> 
+                                                                            <td class="class-type">
+                                                                                <a href="<?php echo e(asset('public/admin/images/courses')); ?>/<?php echo e($chapter_class->attachment); ?>" title="Course" download>
+                                                                                    <i class="fa fa-circle"></i>&nbsp; <?php echo e($chapter_class->title); ?>
+
+                                                                                </a>
+                                                                            </td>
+                                                                        <?php endif; ?>
+
+                                                                        <td class="class-name">
+                                                                            <div class="koh-tab-content">
+                                                                                <div class="koh-tab-content-body">
+                                                                                    <div class="koh-faq">
+                                                                                    <div class="koh-faq-question">
+                                                                                        <span class="koh-faq-question-span"> 
+                                                                                            <?php if(!empty($model->hasCourse)): ?>
+                                                                                                <?php echo e($model->hasCourse->title); ?>
+
+                                                                                            <?php elseif(!empty($model->hasBundle)): ?>
+                                                                                                <?php echo e($model->hasBundle->title); ?>
+
+                                                                                            <?php endif; ?>    
+                                                                                        </span>
+                                                                                    </div>
+                                                                                    <div class="koh-faq-answer"></div>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                        </td>
+
+                                                                        <td class="class-size txt-rgt">
+                                                                            <?php 
+                                                                                $explodedTime = array_map('intval', explode(':', $chapter_class->lecture_duration ));
+                                                                                $sum_chapter_class_minutes = $explodedTime[0]*60+$explodedTime[1];
+                                                                                $chapter_total_lectures_duration = floor($sum_chapter_class_minutes/60).':'.floor($sum_chapter_class_minutes % 60);
+                                                                            ?>
+                                                                            <?php echo e($chapter_total_lectures_duration); ?>                       
+                                                                        </td>
+                                                                    </tr>
+                                                                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                                                            </tbody>
+                                                        </table>
+                                                    </div>            
+                                                </div>
+                                            </div>                           
+                                        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                                    <?php elseif(!empty($model->hasBundle)): ?>
+                                        <div class="card btm-10">
+                                            <div class="card-header" id="headingChapter44">
+                                                <div class="mb-0">
+                                                    <button type="button" class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseChapter44" aria-expanded="false" aria-controls="collapseChapter">
+                                                        <div class="course-check-table">
+                                                        <table class="table">  
+                                                            <tbody>
+                                                                <tr>
+                                                                <td width="10px">
+                                                                    <div class="form-check">
+                                                                        <input class="form-check-input filled-in material-checkbox-input" type="checkbox" name="checked[]" value="44" id="checkbox44">
+                                                                        <label class="form-check-label" for="invalidCheck">
+                                                                        </label>
+                                                                    </div>
+                                                                </td>
+                                                                
+                                                                <td>
+                                                                    <div class="row">
+                                                                        <div class="col-lg-6 col-6">
+                                                                            <div class="section">Section: 1</div>
+                                                                        </div>
+                                                                        <div class="col-lg-6 col-6">
+                                                                            <div class="section-dividation text-right">
+                                                                                1                                        Classes
+                                                                                
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="row">
+                                                                        <div class="col-lg-10 col-8">
+                                                                            <div class="profile-heading">Introduction
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="col-lg-2 col-4">
+                                                                            <div class="text-right">
+                                                                                4                                        
+                                                                                min
+
+                                                                                                                    </div>
+
+                                                                        </div>
+                                                                    </div>
+                                                                </td>
+                                                                </tr>
+                                                            </tbody>
+                                                        </table>
+                                                        </div>
+                                                    </button>
+                                                </div>
+                                            </div>
+                                            <div id="collapseChapter44" class="collapse" aria-labelledby="headingChapter" data-parent="#accordion" style="">
+                                                <div class="card-body">
                                                     <table class="table">  
                                                         <tbody>
                                                             <tr>
-                                                            <td width="10px">
-                                                                <div class="form-check">
-                                                                    <input class="form-check-input filled-in material-checkbox-input" type="checkbox" name="checked[]" value="44" id="checkbox44">
-                                                                    <label class="form-check-label" for="invalidCheck">
-                                                                    </label>
-                                                                </div>
-                                                            </td>
-                                                            
-                                                            <td>
-                                                                <div class="row">
-                                                                    <div class="col-lg-6 col-6">
-                                                                        <div class="section">Section: 1</div>
-                                                                    </div>
-                                                                    <div class="col-lg-6 col-6">
-                                                                        <div class="section-dividation text-right">
-                                                                            1                                        Classes
-                                                                            
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                                <div class="row">
-                                                                    <div class="col-lg-10 col-8">
-                                                                        <div class="profile-heading">Introduction
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="col-lg-2 col-4">
-                                                                        <div class="text-right">
-                                                                            4                                        
-                                                                            min
+                                                                <td class="class-type">
+                                                                    <a href="https://eclass.mediacity.co.in/demo/public/watch/courseclass/69" title="Course" class=""><i class="fa fa-play-circle"></i>&nbsp;class</a>
+                                                                </td>
 
-                                                                                                                </div>
-
-                                                                    </div>
-                                                                </div>
-                                                            </td>
-                                                            </tr>
-                                                        </tbody>
-                                                    </table>
-                                                    </div>
-                                                </button>
-                                            </div>
-                                        </div>
-                                        <div id="collapseChapter44" class="collapse" aria-labelledby="headingChapter" data-parent="#accordion" style="">
-                                            <div class="card-body">
-                                                <table class="table">  
-                                                    <tbody>
-                                                        <tr>
-                                                            <td class="class-type">
-                                                                <a href="https://eclass.mediacity.co.in/demo/public/watch/courseclass/69" title="Course" class=""><i class="fa fa-play-circle"></i>&nbsp;class</a>
-                                                            </td>
-
-                                                            <td class="class-name">
-                                                                <div class="koh-tab-content">
-                                                                    <div class="koh-tab-content-body">
-                                                                        <div class="koh-faq">
-                                                                        <div class="koh-faq-question">
-                                                                            <span class="koh-faq-question-span"> Learn Advanced C++ </span>
-                                                                        </div>
-                                                                        <div class="koh-faq-answer"></div>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                            </td>
-
-                                                            <td class="class-size txt-rgt">
-                                                                4:36 min                        
-                                                            </td>
-                                                        </tr>
-                                                    </tbody>
-                                                </table>
-                                            </div>            
-                                        </div>
-                                    </div>                           
-                                    
-                                    <div class="card btm-10">
-                                        <div class="card-header" id="headingChapter45">
-                                            <div class="mb-0">
-                                                <button type="button" class="btn btn-link" data-toggle="collapse" data-target="#collapseChapter45" aria-expanded="true" aria-controls="collapseChapter">
-                                                    <div class="course-check-table">
-                                                    <table class="table">  
-                                                        <tbody>
-                                                            <tr>
-                                                            <td width="10px">
-                                                                <div class="form-check">
-                                                                    <input class="form-check-input filled-in material-checkbox-input" type="checkbox" name="checked[]" value="45" id="checkbox45">
-                                                                    <label class="form-check-label" for="invalidCheck">
-                                                                    </label>
-                                                                </div>
-                                                            </td>
-                                                            
-                                                            <td>
-                                                                <div class="row">
-                                                                    <div class="col-lg-6 col-6">
-                                                                        <div class="section">Section: 2</div>
-                                                                    </div>
-                                                                    <div class="col-lg-6 col-6">
-                                                                        <div class="section-dividation text-right">
-                                                                            1                                        Classes
-                                                                            
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                                <div class="row">
-                                                                    <div class="col-lg-10 col-8">
-                                                                        <div class="profile-heading">Operator Overloading
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="col-lg-2 col-4">
-                                                                        <div class="text-right">
-                                                                            9                                        
-                                                                            min
-
-                                                                                                                </div>
-
-                                                                    </div>
-                                                                </div>
-                                                            </td>
-                                                            </tr>
-                                                        </tbody>
-                                                    </table>
-                                                    </div>
-                                                </button>
-                                            </div>
-                                        </div>
-                                        <div id="collapseChapter45" class="collapse" aria-labelledby="headingChapter" data-parent="#accordion">
-                                            <div class="card-body">
-                                                <table class="table">  
-                                                    <tbody>
-                                                        <tr>
-                                                            <td class="class-type">                            
-                                                                <a href="https://eclass.mediacity.co.in/demo/public/watch/courseclass/70" title="Course" class=""><i class="fa fa-play-circle"></i>&nbsp;class</a>
-                                                            </td>
-
-                                                            <td class="class-name">
-                                                                <div class="koh-tab-content">
-                                                                    <div class="koh-tab-content-body">
-                                                                        <div class="koh-faq">
+                                                                <td class="class-name">
+                                                                    <div class="koh-tab-content">
+                                                                        <div class="koh-tab-content-body">
+                                                                            <div class="koh-faq">
                                                                             <div class="koh-faq-question">
                                                                                 <span class="koh-faq-question-span"> Learn Advanced C++ </span>
                                                                             </div>
                                                                             <div class="koh-faq-answer"></div>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                            </td>
-
-                                                            <td class="class-size txt-rgt">
-                                                                9 min                        
-                                                            </td>
-                                                        </tr>
-                                                    </tbody>
-                                                </table>
-                                            </div>            
-                                        </div>
-                                    </div>                       
-                                    
-                                    <div class="card btm-10">
-                                        <div class="card-header" id="headingChapter46">
-                                            <div class="mb-0">
-                                                <button type="button" class="btn btn-link" data-toggle="collapse" data-target="#collapseChapter46" aria-expanded="true" aria-controls="collapseChapter">
-                                                    <div class="course-check-table">
-                                                    <table class="table">  
-                                                        <tbody>
-                                                            <tr>
-                                                            <td width="10px">
-                                                                <div class="form-check">
-                                                                    <input class="form-check-input filled-in material-checkbox-input" type="checkbox" name="checked[]" value="46" id="checkbox46">
-                                                                    <label class="form-check-label" for="invalidCheck">
-                                                                    </label>
-                                                                </div>
-                                                            </td>
-                                                            
-                                                            <td>
-                                                                <div class="row">
-                                                                    <div class="col-lg-6 col-6">
-                                                                        <div class="section">Section: 3</div>
-                                                                    </div>
-                                                                    <div class="col-lg-6 col-6">
-                                                                        <div class="section-dividation text-right">
-                                                                            1                                        Classes
-                                                                            
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                                <div class="row">
-                                                                    <div class="col-lg-10 col-8">
-                                                                        <div class="profile-heading">Conditional Statements
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="col-lg-2 col-4">
-                                                                        <div class="text-right">
-                                                                            5                                        
-                                                                            min
-
-                                                                                                                </div>
-
-                                                                    </div>
-                                                                </div>
-                                                            </td>
-                                                            </tr>
-                                                        </tbody>
-                                                    </table>
-                                                    </div>
-                                                </button>
-                                            </div>
-                                        </div>
-                                        <div id="collapseChapter46" class="collapse" aria-labelledby="headingChapter" data-parent="#accordion">
-                                            <div class="card-body">
-                                                <table class="table">  
-                                                    <tbody>
-                                                        <tr>
-                                                            <td class="class-type">                             
-                                                                <a href="https://eclass.mediacity.co.in/demo/public/watch/courseclass/71" title="Course" class=""><i class="fa fa-play-circle"></i>&nbsp;class</a>                                                                                    
-                                                            </td>
-
-                                                            <td class="class-name">
-                                                                <div class="koh-tab-content">
-                                                                    <div class="koh-tab-content-body">
-                                                                        <div class="koh-faq">
-                                                                        <div class="koh-faq-question">
-                                                                            <span class="koh-faq-question-span"> Learn Advanced C++ </span>
-                                                                        </div>
-                                                                        <div class="koh-faq-answer"></div>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                            </td>
-
-                                                            <td class="class-size txt-rgt">
-                                                                5:44 min                        
-                                                            </td>
-                                                        </tr>
-                                                    </tbody>
-                                                </table>
-                                            </div>
-                                        </div>
-                                    </div>                         
-                                    
-                                    <div class="card btm-10">
-                                        <div class="card-header" id="headingChapter47">
-                                            <div class="mb-0">
-                                                <button type="button" class="btn btn-link" data-toggle="collapse" data-target="#collapseChapter47" aria-expanded="true" aria-controls="collapseChapter">
-                                                    <div class="course-check-table">
-                                                    <table class="table">  
-                                                        <tbody>
-                                                            <tr>
-                                                            <td width="10px">
-                                                                <div class="form-check">
-                                                                    <input class="form-check-input filled-in material-checkbox-input" type="checkbox" name="checked[]" value="47" id="checkbox47">
-                                                                    <label class="form-check-label" for="invalidCheck">
-                                                                    </label>
-                                                                </div>
-                                                            </td>
-                                                            
-                                                            <td>
-                                                                <div class="row">
-                                                                    <div class="col-lg-6 col-6">
-                                                                        <div class="section">Section: 4</div>
-                                                                    </div>
-                                                                    <div class="col-lg-6 col-6">
-                                                                        <div class="section-dividation text-right">
-                                                                            1                                        Classes
-                                                                            
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                                <div class="row">
-                                                                    <div class="col-lg-10 col-8">
-                                                                        <div class="profile-heading">Loops
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="col-lg-2 col-4">
-                                                                        <div class="text-right">
-                                                                            7                                        
-                                                                            min
-
-                                                                                                                </div>
-
-                                                                    </div>
-                                                                </div>
-                                                            </td>
-                                                            </tr>
-                                                        </tbody>
-                                                    </table>
-                                                    </div>
-                                                </button>
-                                            </div>
-                                        </div>
-                                        <div id="collapseChapter47" class="collapse" aria-labelledby="headingChapter" data-parent="#accordion">
-                                            <div class="card-body">
-                                                <table class="table">  
-                                                    <tbody>
-                                                        <tr>
-                                                            <td class="class-type">               
-                                                                <a href="https://eclass.mediacity.co.in/demo/public/watch/courseclass/72" title="Course" class=""><i class="fa fa-play-circle"></i>&nbsp;class</a>
-                                                            </td>
-
-                                                            <td class="class-name">
-                                                                <div class="koh-tab-content">
-                                                                    <div class="koh-tab-content-body">
-                                                                        <div class="koh-faq">
-                                                                            <div class="koh-faq-question">
-                                                                                <span class="koh-faq-question-span"> Learn Advanced C++ </span>
                                                                             </div>
-                                                                            <div class="koh-faq-answer"></div>
                                                                         </div>
                                                                     </div>
-                                                                </div>
-                                                            </td>
+                                                                </td>
 
-                                                            <td class="class-size txt-rgt">
-                                                                7 min                        
-                                                            </td>
-                                                        </tr>
-                                                    </tbody>
-                                                </table>
+                                                                <td class="class-size txt-rgt">
+                                                                    4:36 min                        
+                                                                </td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                </div>            
                                             </div>
-                                        </div>
-                                    </div>                         
+                                        </div>                    
+                                    <?php endif; ?>                     
                                 </div>
                                 <div class="row">
                                     <div class="col-lg-6">
@@ -832,7 +763,6 @@
                         </div>
                     </div>
                     
-                    <!-- homework tab start--> 
                     <div class="tab-pane fade" id="nav-homework" role="tabpanel" aria-labelledby="nav-homework-tab">
                         <div class="assignment-main-block">
                             <!-- row start --> 
@@ -846,7 +776,6 @@
                             <!-- row end --> 
                         </div> 
                     </div>
-                    <!-- homework tab  end-->
                 </div>
             </div>
         </div>

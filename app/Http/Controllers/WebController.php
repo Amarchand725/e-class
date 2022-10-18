@@ -8,6 +8,9 @@ use App\Models\Course;
 use App\Models\User;
 use App\Models\Bundle;
 use App\Models\UserProfile;
+use App\Models\Order;
+use App\Models\OrderDetails;
+use App\Models\Wishlist;
 use DB;
 use Session;
 use Illuminate\Support\Facades\Auth;
@@ -112,10 +115,58 @@ class WebController extends Controller
     }
     public function myCourses()
     {
-        return view('web-views.website.user.my-courses');
+        $orders = Order::with('haveOrderDetails')->orderby('id', 'desc')->where('user_slug', Auth::user()->slug)->get();
+        return view('web-views.website.user.my-courses', compact('orders'));
     }
-    public function myCourseDetails()
+    public function myCourseDetails($slug)
     {
-        return view('web-views.website.user.my-course-details');
+        $model = OrderDetails::where('product_slug', $slug)->first();
+        return view('web-views.website.user.my-course-details', compact('model'));
+    }
+    public function wishListStore(Request $request)
+    {
+        $model = Wishlist::where('user_slug', Auth::user()->slug)->where('product_slug', $request->slug)->first();
+        if(empty($model)){
+            $inserted = Wishlist::create([
+                'user_slug' => Auth::user()->slug,
+                'product_slug' => $request->slug,
+            ]);
+
+            if($inserted){
+                return 'success';
+            }else{
+                return 'failed';
+            }
+        }else{
+            return 'exist';
+        }
+    }
+    public function wishList()
+    {
+        $wishes = Wishlist::orderby('id', 'desc')->where('user_slug', Auth::user()->slug)->get();
+        return view('web-views.website.user.wishlist', compact('wishes'));
+    }
+    public function wishListDestroy(Request $request)
+    {
+        $model = Wishlist::where('user_slug', Auth::user()->slug)->where('product_slug', $request->slug)->delete();
+        if($model){
+            return 'success';
+        }else{
+            return 'failed';
+        }
+    }
+    public function purchaseHistory()
+    {
+        $orders = Order::where('user_slug', Auth::user()->slug)->get();
+        return view('web-views.website.user.purchase-history', compact('orders'));
+    }
+    public function orderInvoice($order_number)
+    {
+        $order = Order::where('order_number', $order_number)->first();
+        return view('web-views.website.user.order-invoice', compact('order'));
+    }
+    public function editProfile()
+    {
+        return 'good';
     }
 }

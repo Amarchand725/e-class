@@ -201,7 +201,7 @@ class CourseController extends Controller
                 }
 
                 $video = date('d-m-Y-His').'.'.$request->file('video')->getClientOriginalExtension();
-                $request->video->move(public_path('/admin/images/courses'), $video);
+                $request->video->move(public_path('/`admin/images/courses`'), $video);
                 $model->video = $video;
             }
 

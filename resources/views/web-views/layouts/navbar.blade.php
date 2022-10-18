@@ -30,7 +30,6 @@
                                 </h4>
                             </div>
 
-
                             <div id="collapseOne2" class="subcate-collapse panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
                                 <div class="panel-body">
                                     <div class="panel panel-default">
@@ -440,6 +439,22 @@
                 <div class="col-lg-4 col-md-6">
                     <div class="learning-business"></div>
                 </div>
+                <div class="col-lg-1 col-md-1 col-sm-2 col-2">
+                    <div class="nav-wishlist">
+                        <a href="{{ route('user.wishlist') }}" title="Go to Wishlist">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-heart">
+                                <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
+                            </svg>
+                        </a>
+                        <span class="red-menu-badge red-bg-success">
+                            @if(Auth::check())
+                            {{ count(Auth::user()->haveWishList) }}
+                            @else 
+                            0     
+                            @endif                       
+                        </span>
+                    </div>
+                </div>
                 <div class="col-lg-1">
                     <div class="shopping-cart">
                         <a href="{{ route('cart') }}" title="Cart"><i data-feather="shopping-cart"></i></a>
@@ -464,16 +479,20 @@
                         </form>
                     </div>
                 </div>
-                <div class="col-lg-2 col-md-3 col-sm-6 col-6">
-                    <div class="my-container">
-                        @if(!Auth::check())
+                @if(!Auth::check())
+                    <div class="col-lg-6">
+                        <div class="Login-btn">
                             @if(!request()->is('login'))
                                 <a href="{{ route('login') }}" class="btn btn-primary" title="login">Login</a>
                             @endif
                             @if(!request()->is('register'))
                                 <a href="{{ route('register') }}" class="btn btn-primary" title="register">Signup</a>
                             @endif
-                        @else 
+                        </div>
+                    </div>
+                @else
+                    <div class="col-lg-2 col-md-3 col-sm-6 col-6">
+                        <div class="my-container">
                             <div class="dropdown">
                                 <button class="btn btn-default dropdown-toggle  my-dropdown" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                     @if(Auth::user()->hasUserProfile->profile_image)
@@ -502,14 +521,19 @@
                                         <a href="{{ route('user.my_courses') }}">
                                             <li><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-book-open"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"></path><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"></path></svg>MyCourses</li>
                                         </a>
-                                        <a href="https://eclass.mediacity.co.in/demo/public/all/wishlist">
+                                        <a href="{{ route('user.wishlist') }}">
                                             <li><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-heart"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg>MyWishlist</li>
                                         </a>
-                                        <a href="https://eclass.mediacity.co.in/demo/public/all/purchase">
+                                        <a href="{{ route('user.purchase_history') }}">
                                             <li><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-shopping-cart"><circle cx="9" cy="21" r="1"></circle><circle cx="20" cy="21" r="1"></circle><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path></svg>PurchaseHistory</li>
                                         </a>
-                                        <a href="https://eclass.mediacity.co.in/demo/public/profile/show/13">
-                                            <li><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-user"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>UserProfile</li>
+                                        <a href="{{ route('instructor.profile.edit') }}">
+                                            <li>
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-user">
+                                                    <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle>
+                                                </svg>
+                                                UserProfile
+                                            </li>
                                         </a>
                                         <a href="#" data-toggle="modal" data-target="#myModalinstructor" title="Become An Instructor">
                                             <li><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-shield"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>BecomeAnInstructor</li>
@@ -531,9 +555,9 @@
                                     </form>
                                 </ul>
                             </div>
-                        @endif
+                        </div>
                     </div>
-                </div>
+                @endif
             </div>
         </div>
     </div>

@@ -26,7 +26,12 @@ Route::get('/bundle/{slug}/single', 'WebController@bundleSingle')->name('bundle.
 Route::get('/user/{slug}/profile', 'WebController@userProfile')->name('user.profile');
 Route::post('/user/store', 'WebController@userStore')->name('user.store');
 Route::get('/user/my_courses', 'WebController@myCourses')->name('user.my_courses');
-Route::get('/user/my_course_details', 'WebController@myCourseDetails')->name('user.my_course_details');
+Route::get('/user/my_course/{slug}/single', 'WebController@myCourseDetails')->name('user.my_course.single');
+Route::post('/user/wishlist/store', 'WebController@wishListStore')->name('user.wishlist.store');
+Route::get('/user/wishlist', 'WebController@wishList')->name('user.wishlist');
+Route::post('/user/wishlist/destroy', 'WebController@wishListDestroy')->name('user.wishlist.destroy');
+Route::get('/user/purchase_history', 'WebController@purchaseHistory')->name('user.purchase_history');
+Route::get('/order/{order_number}/invoice', 'WebController@orderInvoice')->name('order.invoice');
 
 //cart
 Route::get('cart', 'CartController@cart')->name('cart');
@@ -46,8 +51,8 @@ Route::post('/logout', 'DashboardController@logout')->name('logout');
 
 Route::middleware(['auth','role:Instructor'])->group(function () {
     Route::get('instructor/dashboard', 'DashboardController@dashboard')->name('instructor.dashboard');
-    Route::get('instructor/profile/edit', 'InstructorController@editProfile')->name('instructor.profile.edit');
-    Route::post('instructor/profile/update', 'InstructorController@updateProfile')->name('instructor.profile.update');
+    Route::get('instructor/profile/edit', 'instructor\InstructorController@editProfile')->name('instructor.profile.edit');
+    Route::post('instructor/profile/update', 'instructor\InstructorController@updateProfile')->name('instructor.profile.update');
 });
 
 //Admin

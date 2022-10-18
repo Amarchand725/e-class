@@ -73,4 +73,8 @@ class User extends Authenticatable
     {
         return $this->hasMany(Follower::class, 'user_id', 'id')->where('follower_id', null);
     }
+    public function haveWishList()
+    {
+        return $this->hasMany(Wishlist::class, 'user_slug', 'slug');
+    }
 }
