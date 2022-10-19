@@ -34,9 +34,6 @@ class DashboardController extends Controller
         }elseif(Auth::check() && Auth::user()->hasRole('Instructor')){
             $page_title = 'Instructor-Dashboard';
             return view('instructor.dashboard.dashboard', compact('page_title'));
-        }else{
-            $page_title = 'Instructor-Dashboard';
-            return view('instructor.dashboard.dashboard', compact('page_title'));
         }
     }
 

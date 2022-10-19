@@ -20,41 +20,17 @@
 				<div class="box box-info">
 					<div class="box-body">
 						<div class="form-group">
-							<label for="" class="col-sm-2 control-label">Group Name <span style="color: red">*</span></label>
+							<label for="" class="col-sm-2 control-label">Name <span style="color: red">*</span></label>
 							<div class="col-sm-4">
-								<input type="text" class="form-control" name="name" value="{{ Str::ucfirst($permission->name) }}">
-								<span style="color: red">{{ $errors->first('name') }}</span>
-							</div>
-						</div>
-						<div class="form-group">
-							<label for="" class="col-sm-2 control-label">Sub Permissions</label>
-							<div class="col-sm-4">
-								@php $basic_permissions = ['all', 'create', 'edit', 'delete'] @endphp 
-								@foreach ($basic_permissions as $basic_permission)
-									@php $bool = true @endphp 
-									@foreach ($permission->havePermissionUrls as $permission_url)
-										@if($basic_permission==$permission_url->permission)
-											@php $bool = false @endphp
-											<div class="form-check">
-												<input class="form-check-input" name="permissions[]" checked  type="checkbox" value="{{ $basic_permission }}" id="checkAll-{{ $basic_permission }}"/>
-												<label class="form-check-label" for="checkAll-{{ $basic_permission }}"> <strong>{{ Str::ucfirst($basic_permission) }}</strong> </label>
-											</div>
-										@endif
-									@endforeach
-
-									@if($bool)
-										<div class="form-check">
-											<input class="form-check-input" name="permissions[]" type="checkbox" value="{{ $basic_permission }}" id="checkAll-{{ $basic_permission }}"/>
-											<label class="form-check-label" for="checkAll-{{ $basic_permission }}"> <strong>{{ Str::ucfirst($basic_permission) }}</strong> </label>
-										</div>
-									@endif
-								@endforeach
+								<input type="text" class="form-control" name="permission" value="{{$permission->permission}}">
+								<input type="hidden" name="permission" value="{{ $permission->permission }}">
+								<span style="color: red">{{ $errors->first('permission') }}</span>
 							</div>
 						</div>
 						<div class="form-group">
 							<label for="" class="col-sm-2 control-label"></label>
 							<div class="col-sm-6">
-								<button type="submit" class="btn btn-success pull-left">Submit</button>
+								<button type="submit" class="btn btn-success pull-left" name="form1">Submit</button>
 							</div>
 						</div>
 					</div>
@@ -63,16 +39,4 @@
 		</div>
 	</div>
 </section>
-
-<script>
-	$(document).ready(function() {
-		$("#regform").validate({
-			rules: {
-				name: "required",
-				guard_name: "required",
-			}
-		});
-	});
-</script>
-
 @endsection

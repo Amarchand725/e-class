@@ -25,6 +25,7 @@
 <script src="{{ asset('public/website/js/jquery-ui.js') }}"></script>
 <script>var sendurl = "index.html\/\/eclass.mediacity.co.in\/demo\/public\/autocomplete\/fetch";</script>
 <script src="{{ asset('public/website/js/search.js') }}"></script>
+<script src="https://cdn.ckeditor.com/4.14.0/standard/ckeditor.js"></script>
 
 
 <script src="{{ asset('public/website/js/share.js') }}"></script>

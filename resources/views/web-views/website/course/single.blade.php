@@ -181,7 +181,7 @@
                     <div class="about-content-sidebar">
                         <div class="container-xl">
                             <div class="about-content-img">
-                                @if($model->hasInstructor)
+                                @if($model->hasInstructor->profile_image)
                                     <img src="{{ asset('public/admin/images/profiles') }}/{{  $model->hasInstructor->hasUserProfile->profile_image }}" class="img-fluid user-img-one" alt="">
                                 @else
                                     <img src="{{ asset('public/default.png') }}" width="50px"  class="img-fluid user-img-one" alt="">
@@ -265,10 +265,6 @@
                                 <small>{{ count($model->haveChapters) }} sections • {{ count($model->haveClasses) }} lectures • {{ $lecture_duration_total_time }} total length</small>
                             </div>
                         </div>
-                        {{-- <div class="col-lg-3 col-6 col-xs-6 nopadding">
-                            <button type="button" onclick="toggleAllSections()" class="btn btn-link courseToggle"><span style="color:#0384a3">Expand all sections</span></button>
-                            <button type="button" onclick="toggleAllSections()" class="btn btn-link courseToggle" style="display:none"><span style="color:#0384a3">Collapse all sections</span></button>
-                        </div> --}}
                     </div>
                     <!-- FSMS -->
 
@@ -454,7 +450,7 @@
                             <div class="col-lg-2 col-md-3 col-4">
                                 <div class="instructor-img btm-30">
                                     <a href="{{ route('user.profile', $model->hasInstructor->slug) }}" title="instructor">
-                                        @if($model->hasInstructor)
+                                        @if($model->hasInstructor->profile_image)
                                             <img src="{{ asset('public/admin/images/profiles') }}/{{ $model->hasInstructor->hasUserProfile->profile_image }}" class="img-fluid user-img-one" alt="">
                                         @else
                                             <img src="{{ asset('public/default.png') }}" width="50px"  class="img-fluid user-img-one" alt="">
@@ -580,7 +576,7 @@
                                             </div>
                                             <div class="view-user-img">
                                                 <a href=".{{ route('user.profile', $relate_course->hasInstructor->slug) }}" title="">
-                                                    @if($relate_course->hasInstructor->hasUserProfile)
+                                                    @if($relate_course->hasInstructor->hasUserProfile->profile_image)
                                                         <img src="{{ asset('public/admin/images/profiles') }}/{{ $relate_course->hasInstructor->hasUserProfile->profile_image }}" width="50px"  class="img-fluid user-img-one" alt="">
                                                     @else
                                                         <img src="{{ asset('public/default.png') }}" width="50px"  class="img-fluid user-img-one" alt="">
@@ -591,9 +587,11 @@
                                             <div class="img-wishlist">
                                                 <div class="protip-wishlist">
                                                     <ul>
-                                                        <li class="protip-wish-btn"><a
-                                                                href="https://calendar.google.com/calendar/r/eventedit?text=The%20Complete%20Web%20Developer%20Bootcamp"
-                                                                target="__blank" title="reminder"><i data-feather="bell"></i></a></li>
+                                                        <li class="protip-wish-btn">
+                                                            <a href="https://calendar.google.com/calendar/r/eventedit?text=The%20Complete%20Web%20Developer%20Bootcamp"
+                                                                target="__blank" title="reminder"><i data-feather="bell"></i>
+                                                            </a>
+                                                        </li>
                                                         <li class="protip-wish-btn">
                                                             <a href="../../login.html" title="heart"><i data-feather="heart"></i></a>
                                                         </li>

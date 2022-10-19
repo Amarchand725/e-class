@@ -117,6 +117,13 @@
         .cookie-consent__message {
             color: var(--text-white-color);
         }
+        .select2-container .select2-selection--single{
+            height:34px !important;
+        }
+        .select2-container--default .select2-selection--single{
+                border: 1px solid #ccc !important; 
+            border-radius: 0px !important; 
+        }
     </style>
 
     <!-- custom css -->
@@ -323,7 +330,7 @@
                 <div id="categories-tab-slider" class="categories-tab-block owl-carousel">
                     <?php $__currentLoopData = mainCategories(); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $category): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                         <div class="item categories-tab-dtl">
-                            <a href="browse/categorya943.html?id=2&amp;category=devlopment"
+                            <a href="<?php echo e(route('user.category-wise-course', $category->slug)); ?>"
                                 title="Devlopment"><?php echo $category->icon; ?> <?php echo e($category->name); ?></a>
                         </div>
                     <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>

@@ -13,41 +13,47 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-/* Route::get('/', function () {
-    return view('welcome');
-}); */
-
-Route::get('/', 'WebController@index')->name('home');
-
 //Frontend
+Route::get('/', 'WebController@index')->name('home');
 Route::get('/institute/{slug}/single', 'WebController@instituteSingle')->name('institute.single');
 Route::get('/course/{slug}/single', 'WebController@courseSingle')->name('course.single');
 Route::get('/bundle/{slug}/single', 'WebController@bundleSingle')->name('bundle.single');
-Route::get('/user/{slug}/profile', 'WebController@userProfile')->name('user.profile');
-Route::post('/user/store', 'WebController@userStore')->name('user.store');
-Route::get('/user/my_courses', 'WebController@myCourses')->name('user.my_courses');
-Route::get('/user/my_course/{slug}/single', 'WebController@myCourseDetails')->name('user.my_course.single');
-Route::post('/user/wishlist/store', 'WebController@wishListStore')->name('user.wishlist.store');
-Route::get('/user/wishlist', 'WebController@wishList')->name('user.wishlist');
-Route::post('/user/wishlist/destroy', 'WebController@wishListDestroy')->name('user.wishlist.destroy');
-Route::get('/user/purchase_history', 'WebController@purchaseHistory')->name('user.purchase_history');
-Route::get('/order/{order_number}/invoice', 'WebController@orderInvoice')->name('order.invoice');
-
-//cart
-Route::get('cart', 'CartController@cart')->name('cart');
-Route::get('add-to-cart/{id}', 'CartController@addToCart')->name('add.to.cart');
-Route::patch('update-cart', 'CartController@update')->name('update.cart');
-Route::delete('remove-from-cart', 'CartController@remove')->name('remove.from.cart');
-
-Route::get('checkout', 'CartController@checkout')->name('checkout');
-Route::post('complete-order', 'CartController@completeOrder')->name('complete-orrder');
 
 Route::group(['middleware' => 'guest'], function(){
+    //cart
+    Route::get('cart', 'CartController@cart')->name('cart');
+    Route::get('add-to-cart/{id}', 'CartController@addToCart')->name('add.to.cart');
+    Route::patch('update-cart', 'CartController@update')->name('update.cart');
+    Route::delete('remove-from-cart', 'CartController@remove')->name('remove.from.cart');
+    Route::get('checkout', 'CartController@checkout')->name('checkout');
+    Route::post('complete-order', 'CartController@completeOrder')->name('complete-orrder');
+
+    //login/signup
     Route::get('/admin/login','DashboardController@login')->name('admin.login');
     Route::post('/admin/login', 'DashboardController@authenticate')->name('admin.login');
+
+    //logout
+    Route::post('/logout', 'DashboardController@logout')->name('logout');
+    Route::post('user/email_subscribe', 'WebController@emailSubscribe')->name('user.email_subscribe');
+    Route::get('user/{slug}/category-wise-course', 'WebController@categoryWiseCourses')->name('user.category-wise-course');
+
+    //get states/cities
+    Route::get('get_states', 'admin\StateController@getStates')->name('get_states');
+    Route::get('get_cities', 'admin\CityController@getCities')->name('get_cities');
 });
 
-Route::post('/logout', 'DashboardController@logout')->name('logout');
+Route::middleware(['auth','role:Student'])->group(function () {
+    Route::get('/user/{slug}/profile', 'WebController@userProfile')->name('user.profile');
+    Route::post('/user/store', 'WebController@userStore')->name('user.store');
+    Route::get('/user/my_courses', 'WebController@myCourses')->name('user.my_courses');
+    Route::get('/user/my_course/{slug}/single', 'WebController@myCourseDetails')->name('user.my_course.single');
+    Route::post('/user/wishlist/store', 'WebController@wishListStore')->name('user.wishlist.store');
+    Route::get('/user/wishlist', 'WebController@wishList')->name('user.wishlist');
+    Route::post('/user/wishlist/destroy', 'WebController@wishListDestroy')->name('user.wishlist.destroy');
+    Route::get('/user/purchase_history', 'WebController@purchaseHistory')->name('user.purchase_history');
+    Route::get('/order/{order_number}/invoice', 'WebController@orderInvoice')->name('order.invoice');
+    Route::get('user/profile/edit', 'WebController@userEditProfile')->name('user.profile.edit');
+});
 
 Route::middleware(['auth','role:Instructor'])->group(function () {
     Route::get('instructor/dashboard', 'DashboardController@dashboard')->name('instructor.dashboard');
@@ -59,7 +65,7 @@ Route::middleware(['auth','role:Instructor'])->group(function () {
 Route::middleware(['auth','role:Admin'])->group(function () {
     Route::get('admin/dashboard', 'DashboardController@dashboard')->name('admin.dashboard');
     Route::get('/profile/edit', 'AdminController@editProfile')->name('admin.profile.edit');
-    Route::post('/profile/update', 'AdminController@updateProfile')->name('admin.profile.update');
+    Route::post('/profile/update', 'AdminController@updateProfile')->name('admin.profile.update');  
 
     //admin reset password
     Route::get('forgot_password', 'AdminController@forgotPassword')->name('admin.forgot_password');
@@ -79,20 +85,21 @@ Route::middleware(['auth','role:Admin'])->group(function () {
     Route::resource('admin/category', 'admin\CategoryController');
     Route::resource('admin/learning', 'admin\LearningController');
     Route::resource('admin/fact', 'admin\FactController');
-    Route::resource('admin/course', 'admin\CourseController');
-    Route::resource('admin/blog', 'admin\BlogController');
     Route::resource('admin/trustcompany', 'admin\TrustCompanyController');
     Route::resource('admin/country', 'admin\CountryController');
     Route::resource('admin/state', 'admin\StateController');
     Route::resource('admin/city', 'admin\CityController');
-    Route::resource('admin/userprofile', 'admin\UserProfileController');
-    Route::resource('admin/institute', 'admin\InstituteController');
+    
+    
     Route::resource('admin/bundle', 'admin\BundleController');
     Route::resource('admin/follower', 'admin\FollowerController');
-
-    Route::get('admin/get_states', 'admin\StateController@getStates')->name('admin.get_states');
-    Route::get('admin/get_cities', 'admin\CityController@getCities')->name('admin.get_cities');
     Route::get('get_courses_price', 'admin\bundleController@getCoursesPrice')->name('get_courses_price');
 });
+
+Route::resource('institute', 'admin\InstituteController');
+Route::resource('course', 'admin\CourseController');
+Route::resource('blog', 'admin\BlogController');
+Route::resource('userprofile', 'admin\UserProfileController');
+Route::resource('enrollstudent', 'EnrollstudentController');
 
 require __DIR__.'/auth.php';

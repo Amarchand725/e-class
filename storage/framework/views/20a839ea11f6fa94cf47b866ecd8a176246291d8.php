@@ -70,7 +70,7 @@
                                     To:
                                     <address>
                                         <strong><?php echo e(Auth::user()->name); ?></strong><br>
-                                        address: xyz<br><br />
+                                        address: <?php echo e(Auth::user()->hasUserProfile->address); ?><br><br />
                                         Phone: <?php echo e(Auth::user()->hasUserProfile->mobile); ?><br>
                                         Email: <?php echo e(Auth::user()->email); ?>
 
@@ -95,6 +95,9 @@
                                     <tr>
                                         <th>Courses</th>
                                         <th>Instructor</th>
+                                        <th>Price</th>
+                                        <th>Discount</th>
+                                        <th>Qty</th>
                                         <th>Currency</th>
                                         <th class="txt-rgt">Total</th>
                                     </tr>
@@ -102,7 +105,9 @@
                                 <tbody>
                                     <?php $grand_toal = 0 ?> 
                                     <?php $__currentLoopData = $order->haveOrderDetails; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $order_detail): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                                        <?php $grand_toal += $order_detail->subtotal ?> 
+                                        <?php 
+                                            $grand_toal += $order_detail->subtotal;
+                                        ?> 
                                         <tr>
                                             <td>
                                                 <?php if($order_detail->hasCourse): ?>
@@ -122,13 +127,15 @@
 
                                                 <?php endif; ?>
                                             </td>
+                                            <td>$<?php echo e(number_format($order_detail->price, 2)); ?></td>
+                                            <td>$<?php echo e(number_format($order_detail->discount, 2)); ?></td>
+                                            <td><?php echo e($order_detail->quantity); ?></td>
                                             <td>USD</td>
                                             <td class="txt-rgt">$ <?php echo e(number_format($order_detail->subtotal, 2)); ?></td>
                                         </tr>
                                     <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                                     <tr>
-                                        <td></td>
-                                        <td></td>
+                                        <td colspan="5"></td>
                                         <td>Grand Total</td>
                                         <td class="txt-rgt">$ <?php echo e(number_format($grand_toal, 2)); ?></td>
                                     </tr>

@@ -2,10 +2,9 @@
 
 namespace App\Http\Controllers\admin;
 
-use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 use App\Models\Permission;
-use App\Models\PermissionUrl;
 use DB;
 use Illuminate\Support\Str;
 
@@ -16,13 +15,13 @@ class PermissionController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    /* function __construct()
+    function __construct()
     {
-        $this->middleware('permission:permission-list|permission-create|permission-edit|permission-delete', ['only' => ['index','store']]);
-        $this->middleware('permission:permission-create', ['only' => ['create','store']]);
-        $this->middleware('permission:permission-edit', ['only' => ['edit','update']]);
-        $this->middleware('permission:permission-delete', ['only' => ['destroy']]);
-    } */
+         $this->middleware('permission:permission-list|permission-create|permission-edit|permission-delete', ['only' => ['index','show']]);
+         $this->middleware('permission:permission-create', ['only' => ['create','store']]);
+         $this->middleware('permission:permission-edit', ['only' => ['edit','update']]);
+         $this->middleware('permission:permission-delete', ['only' => ['destroy']]);
+    }
     public function index(Request $request)
     {
         if($request->ajax()){
@@ -62,54 +61,36 @@ class PermissionController extends Controller
             'name' => 'required',
         ]);
 
-        DB::beginTransaction();
-        
         $bool = false;
-
-        try{
-            if(!empty($request->permissions)){
-                $ifnotfound = Permission::where('name', Str::lower($request->name))->first();
+        if(!empty($request->permissions)){
+            foreach($request->permissions as $permission){
+                $ifnotfound = Permission::where('name', Str::lower($request->name).'-'.$permission)->first();
                 if(empty($ifnotfound)){
-                    $model = Permission::create([
-                        'name' =>  Str::lower($request->name),
+                    Permission::create([
+                        'name' =>  str_replace(' ', '-', Str::lower($request->name)).'-'.$permission,
                         'guard_name' => 'web',
+                        'permission' => $permission,
                     ]);
                 }else{
                     $bool = true;
                 }
-
-                if($model){
-                    foreach($request->permissions as $permission){
-                        PermissionUrl::create([
-                            'permission_id' =>  $model->id,
-                            'permission' => $permission,
-                        ]);
-                    }
-                }
-            }else{
-                $bool = false;
-                $model = Permission::create([
-                    'name' =>  Str::lower($request->name),
-                    'guard_name' => 'web',
-                ]);
-                if($model){
-                    PermissionUrl::create([
-                        'permission_id' =>  $model->id,
-                        'permission' => $permission,
-                    ]);
-                }
             }
-
-            DB::commit();
-            if($bool){
-                return redirect()->route('permission.index')
-                ->with('message','Avaialable this permission already.');
-            }
-            return redirect()->route('permission.index')->with('message','Permission created successfully');
-        } catch (\Exception $e) {
-            DB::rollback();
-            return redirect()->back()->with('error', 'Error. '.$e->getMessage());
+        }else{
+            $bool = false;
+            Permission::create([
+                'name' =>  str_replace(' ', '-', Str::lower($request->name)).'-'.$permission,
+                'guard_name' => $request->name,
+                'permission' => $permission,
+            ]);
         }
+
+        if($bool){
+            return redirect()->route('permission.index')
+            ->with('message','You have already available these permissions.');
+        }
+
+        return redirect()->route('permission.index')
+                        ->with('message','Permission created successfully');
     }
     /**
      * Display the specified resource.
@@ -148,25 +129,15 @@ class PermissionController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, $permission_id)
     {
         $this->validate($request, [
-            'name' => 'required',
+            'permission' => 'required',
         ]);
 
-        $permission = Permission::find($id);
-        $permission->name = Str::lower($request->name);
+        $permission = Permission::find($permission_id);
+        $permission->name = str_replace(' ', '-', Str::lower(explode('-', $permission->name)[0])).'-'.$request->permission;
         $permission->save();
-
-        if(count($permission->havePermissionUrls) != count($request->permissions)){
-            PermissionUrl::where('permission_id', $permission->id)->delete();
-            foreach($request->permissions as $permission_val){
-                PermissionUrl::create([
-                    'permission_id' =>  $permission->id,
-                    'permission' => $permission_val,
-                ]);
-            }
-        }
 
         return redirect()->route('permission.index')
                         ->with('message','Permission updated successfully');
@@ -179,13 +150,9 @@ class PermissionController extends Controller
      */
     public function destroy($id)
     {
-        $model = Permission::findOrFail($id);
-	    $model->delete();
-
-        if($model){
-            return 1;
-        }else{
-            return 0;
+        $ifdeleted = DB::table("permissions")->where('id', $id)->delete();
+        if($ifdeleted){
+            return true;
         }
     }
 }

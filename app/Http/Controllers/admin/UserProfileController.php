@@ -147,33 +147,33 @@ class UserProfileController extends Controller
      */
     public function update($id, Request $request)
     {
+        // return $request;
+
         $user = User::findOrFail($id);
         $model = UserProfile::where('user_id', $user->id)->first();
 
         $this->validate($request, UserProfile::getValidationRules());
-        
         $rules = [
             'email' => 'unique:users,email,'.$id,
 		];
 
-        if($request->password){
+        if(!empty($request->password)){
             $rules['password'] = 'required|same:confirmed';
         }
 
         $this->validate($request, $rules);
         DB::beginTransaction();
-
         try{
-            $user->email = $request->email;
+            $name = $request->first_name.' '.$request->last_name;
             if(!empty($request->password)){
                 $user->password = $request->password;
             }
+            $user->name = $name;
             $user->status = $request->status;
             $user->save();
             $user->assignRole($request->input('role_id'));
-
             if($user){
-                $input = $request->except(['_method', 'role_id', 'email', 'password', 'confirmed']);
+                $input = $request->except(['_method', 'role_id', 'email', 'password', 'confirmed', 'user_profile']);
                 if (isset($request->profile_image)) {
                     $exist_image = public_path('/admin/images/profiles');
                     if($model->profile_image){
@@ -192,9 +192,13 @@ class UserProfileController extends Controller
             }
 
             DB::commit();
-
-            return redirect()->route('userprofile.index')->with('message', 'User update Successfully !');
+            if(isset($request->user_profile)){
+                return redirect()->back()->with('message', 'You have updated profile Successfully !');
+            }else{
+                return redirect()->route('userprofile.index')->with('message', 'User update Successfully !');
+            }
         } catch (\Exception $e) {
+            // return $e->getMessage();
             return redirect()->back()->with('error', 'Error. '.$e->getMessage());
         }
     }

@@ -28,10 +28,11 @@
                     <thead>
                         <tr>
                             <th class="purchase-history-heading">Purchase History</th>
-                            <th class="purchase-text">Enroll on</th>
-                            <th class="purchase-text">Enroll End</th>
-                            <th class="purchase-text">Payment Mode</th>
-                            <th class="purchase-text">Total Price</th>
+                            <th class="purchase-text">Order No#</th>
+                            <th class="purchase-text">Date</th>
+                            <th class="purchase-text">Total</th>
+                            <th class="purchase-text">Discount</th>
+                            <th class="purchase-text">Grand Total</th>
                             <th class="purchase-text">Payment Status</th>
                             <th class="purchase-text">Actions</th>
                         </tr>
@@ -60,24 +61,33 @@
                                     </div>
                                 </td>
                                 <td>
-                                    <div class="purchase-text">18th October 2022</div>			                   	
+                                    <div class="purchase-text">#Inv-{{ $order->order_number }}</div>			                   	
+                                </td>
+                                <td>
+                                    <div class="purchase-text">{{ date('d F Y', strtotime($order->created_at)) }}</div>
                                 </td>
                                 <td>
                                     <div class="purchase-text">
-                                        -
-                                    </div>
-                                </td>
-                                <td>   
-                                    <div class="purchase-text"></div>
-                                </td>
-                                <td>
-                                    <div class="purchase-text">
-                                        <b>Free</b>
+                                        <span class="badge badge-info">${{ number_format($order->total, 2) }}</span>
                                     </div>
                                 </td>
                                 <td>
                                     <div class="purchase-text">
-                                        Received
+                                        <span class="badge badge-primary">${{ number_format($order->discount, 2) }}</span>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="purchase-text">
+                                        <span class="badge badge-info">${{ number_format($order->grand_total, 2) }}</span>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="purchase-text">
+                                        @if($order->payment_status=='succeeded')
+                                            <span class="badge badge-success">Completed</span>
+                                        @else 
+                                            <span class="badge badge-danger">Failed</span>
+                                        @endif
                                     </div>
                                 </td>
                                 <td>

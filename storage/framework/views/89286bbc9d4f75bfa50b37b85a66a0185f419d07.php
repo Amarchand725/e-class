@@ -86,6 +86,51 @@
         })
     });
 
+    $('.email-subscribe').on('submit',function(e){
+        e.preventDefault();
+        var url = $(this).attr('data-action');
+        var subscribed_email = $('#subscribed_email').val();
+        $.ajax({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
+            url: url,
+            type:"POST",
+            data: {subscribed_email:subscribed_email},
+            success:function(response){
+                if(response=='success'){
+                    $('#subscribed_email').val('');
+                    Swal.fire({
+                        position: 'top-end',
+                        icon: 'success',
+                        title: 'You have subscribed successfully.',
+                        showConfirmButton: false,
+                        timer: 1500
+                    })
+                }else if(response=='exist'){
+                    Swal.fire({
+                        icon: 'top-end',
+                        title: 'Oops...',
+                        text: 'This email is already subscribed.',
+                    })
+                }else{
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Oops...',
+                        text: 'Something went wrong try again.',
+                    })
+                }
+            },
+            error: function(response) {
+                if(response.responseJSON.errors.subscribed_email){
+                    $('#error-subscribed_email').text(response.responseJSON.errors.subscribed_email);
+                }else{
+                    $('#error-subscribed_email').text('');
+                }
+            },
+        });
+    });
+
     $('.regisger-form').on('submit',function(e){
         e.preventDefault();
         var url = $(this).attr('data-action');
@@ -256,6 +301,7 @@
             threshold: 0
         });
     });
+    
 </script>
 
 <script src="https://www.facebook.com/" async></script>
@@ -325,6 +371,10 @@
             }
         });
     }
+
+    $(document).ready(function() {
+        $('.ckeditor').ckeditor();
+    });
 </script>
 
 <script src="<?php echo e(asset('public/website/js/colorbox-script.js')); ?>"></script>

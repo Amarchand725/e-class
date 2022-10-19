@@ -181,7 +181,7 @@
                     <div class="about-content-sidebar">
                         <div class="container-xl">
                             <div class="about-content-img">
-                                <?php if($model->hasInstructor): ?>
+                                <?php if($model->hasInstructor->profile_image): ?>
                                     <img src="<?php echo e(asset('public/admin/images/profiles')); ?>/<?php echo e($model->hasInstructor->hasUserProfile->profile_image); ?>" class="img-fluid user-img-one" alt="">
                                 <?php else: ?>
                                     <img src="<?php echo e(asset('public/default.png')); ?>" width="50px"  class="img-fluid user-img-one" alt="">
@@ -265,7 +265,6 @@
                                 <small><?php echo e(count($model->haveChapters)); ?> sections • <?php echo e(count($model->haveClasses)); ?> lectures • <?php echo e($lecture_duration_total_time); ?> total length</small>
                             </div>
                         </div>
-                        
                     </div>
                     <!-- FSMS -->
 
@@ -457,7 +456,7 @@
                             <div class="col-lg-2 col-md-3 col-4">
                                 <div class="instructor-img btm-30">
                                     <a href="<?php echo e(route('user.profile', $model->hasInstructor->slug)); ?>" title="instructor">
-                                        <?php if($model->hasInstructor): ?>
+                                        <?php if($model->hasInstructor->profile_image): ?>
                                             <img src="<?php echo e(asset('public/admin/images/profiles')); ?>/<?php echo e($model->hasInstructor->hasUserProfile->profile_image); ?>" class="img-fluid user-img-one" alt="">
                                         <?php else: ?>
                                             <img src="<?php echo e(asset('public/default.png')); ?>" width="50px"  class="img-fluid user-img-one" alt="">
@@ -583,7 +582,7 @@
                                             </div>
                                             <div class="view-user-img">
                                                 <a href=".<?php echo e(route('user.profile', $relate_course->hasInstructor->slug)); ?>" title="">
-                                                    <?php if($relate_course->hasInstructor->hasUserProfile): ?>
+                                                    <?php if($relate_course->hasInstructor->hasUserProfile->profile_image): ?>
                                                         <img src="<?php echo e(asset('public/admin/images/profiles')); ?>/<?php echo e($relate_course->hasInstructor->hasUserProfile->profile_image); ?>" width="50px"  class="img-fluid user-img-one" alt="">
                                                     <?php else: ?>
                                                         <img src="<?php echo e(asset('public/default.png')); ?>" width="50px"  class="img-fluid user-img-one" alt="">
@@ -594,9 +593,11 @@
                                             <div class="img-wishlist">
                                                 <div class="protip-wishlist">
                                                     <ul>
-                                                        <li class="protip-wish-btn"><a
-                                                                href="https://calendar.google.com/calendar/r/eventedit?text=The%20Complete%20Web%20Developer%20Bootcamp"
-                                                                target="__blank" title="reminder"><i data-feather="bell"></i></a></li>
+                                                        <li class="protip-wish-btn">
+                                                            <a href="https://calendar.google.com/calendar/r/eventedit?text=The%20Complete%20Web%20Developer%20Bootcamp"
+                                                                target="__blank" title="reminder"><i data-feather="bell"></i>
+                                                            </a>
+                                                        </li>
                                                         <li class="protip-wish-btn">
                                                             <a href="../../login.html" title="heart"><i data-feather="heart"></i></a>
                                                         </li>

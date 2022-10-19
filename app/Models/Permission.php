@@ -11,9 +11,4 @@ class Permission extends Model
     use HasFactory, SoftDeletes;
 
     protected $guarded = [];
-
-    public function havePermissionUrls()
-    {
-        return $this->hasMany(PermissionUrl::class, 'permission_id', 'id');
-    }
 }

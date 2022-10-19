@@ -11,6 +11,11 @@ use App\Models\UserProfile;
 use App\Models\Order;
 use App\Models\OrderDetails;
 use App\Models\Wishlist;
+use App\Models\Country;
+use App\Models\State;
+use App\Models\City;
+use App\Models\EmailSubscription;
+use App\Models\Category;
 use DB;
 use Session;
 use Illuminate\Support\Facades\Auth;
@@ -165,8 +170,41 @@ class WebController extends Controller
         $order = Order::where('order_number', $order_number)->first();
         return view('web-views.website.user.order-invoice', compact('order'));
     }
-    public function editProfile()
+    public function userEditProfile()
     {
-        return 'good';
+        $countries = Country::get();
+        $states = State::where('country_id', Auth::user()->hasUserProfile->country_id)->get();
+        $cities = City::where('state_id', Auth::user()->hasUserProfile->state_id)->get();
+        return view('web-views.website.user.edit-profile', compact('countries', 'states', 'cities'));
+    }
+    public function emailSubscribe(Request $request)
+    {
+        $rules = [
+            'subscribed_email' => 'required',
+        ];
+
+        $this->validate($request, $rules);
+        
+        $model = EmailSubscription::where('email', $request->subscribed_email)->first();
+        if(empty($model)){
+            $success = EmailSubscription::create([
+                'email' => $request->subscribed_email,
+            ]);
+
+            if($success){
+                return 'success';
+            }else{
+                return 'failed';
+            }
+        }else{
+            return 'exist';   
+        }
+    }
+
+    public function categoryWiseCourses($slug)
+    {
+        $models = Course::where('category_slug', $slug)->get();
+        $category = Category::where('slug', $slug)->first();
+        return view('web-views.website.category.category-wise-list', compact('models', 'category'));
     }
 }

@@ -69,7 +69,7 @@
                                     To:
                                     <address>
                                         <strong>{{ Auth::user()->name }}</strong><br>
-                                        address: xyz<br><br />
+                                        address: {{ Auth::user()->hasUserProfile->address }}<br><br />
                                         Phone: {{ Auth::user()->hasUserProfile->mobile }}<br>
                                         Email: {{ Auth::user()->email }}
                                     </address>
@@ -93,6 +93,9 @@
                                     <tr>
                                         <th>Courses</th>
                                         <th>Instructor</th>
+                                        <th>Price</th>
+                                        <th>Discount</th>
+                                        <th>Qty</th>
                                         <th>Currency</th>
                                         <th class="txt-rgt">Total</th>
                                     </tr>
@@ -100,7 +103,9 @@
                                 <tbody>
                                     @php $grand_toal = 0 @endphp 
                                     @foreach ($order->haveOrderDetails as $order_detail)
-                                        @php $grand_toal += $order_detail->subtotal @endphp 
+                                        @php 
+                                            $grand_toal += $order_detail->subtotal;
+                                        @endphp 
                                         <tr>
                                             <td>
                                                 @if($order_detail->hasCourse)
@@ -116,13 +121,15 @@
                                                     {{ $order_detail->hasBundle->hasCreatedBy->email }}
                                                 @endif
                                             </td>
+                                            <td>${{ number_format($order_detail->price, 2) }}</td>
+                                            <td>${{ number_format($order_detail->discount, 2) }}</td>
+                                            <td>{{ $order_detail->quantity }}</td>
                                             <td>USD</td>
                                             <td class="txt-rgt">$ {{ number_format($order_detail->subtotal, 2) }}</td>
                                         </tr>
                                     @endforeach
                                     <tr>
-                                        <td></td>
-                                        <td></td>
+                                        <td colspan="5"></td>
                                         <td>Grand Total</td>
                                         <td class="txt-rgt">$ {{ number_format($grand_toal, 2) }}</td>
                                     </tr>

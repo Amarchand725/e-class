@@ -420,7 +420,11 @@
                                     <ul>
                                         @foreach (mainCategories() as $category)
                                             <li>
-                                                <a href="browse/category8e65.html?id=2&amp;category=Devlopment" title="Devlopment">{!! $category->icon !!} {{ $category->name }} @if(count($category->haveChildren)) <i data-feather="chevron-right" class="float-right"></i> @endif</a>
+                                                <a href="{{ route('user.category-wise-course', $category->slug) }}" title="Devlopment">{!! $category->icon !!} {{ $category->name }} 
+                                                    @if(count($category->haveChildren)) 
+                                                        <i data-feather="chevron-right" class="float-right"></i> 
+                                                    @endif
+                                                </a>
                                                 @if(count($category->haveChildren))
                                                     @include('web-views.layouts.manage-child-categories',['childs' => $category->haveChildren])
                                                 @endif
@@ -480,7 +484,7 @@
                     </div>
                 </div>
                 @if(!Auth::check())
-                    <div class="col-lg-6">
+                    <div class="col-lg-5">
                         <div class="Login-btn">
                             @if(!request()->is('login'))
                                 <a href="{{ route('login') }}" class="btn btn-primary" title="login">Login</a>
@@ -496,7 +500,7 @@
                             <div class="dropdown">
                                 <button class="btn btn-default dropdown-toggle  my-dropdown" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                     @if(Auth::user()->hasUserProfile->profile_image)
-                                        <img src="{{ asset('public/users') }}/{{ Auth::user()->hasUserProfile->profile_image }}" class="circle" alt="">
+                                        <img src="{{ asset('public/admin/images/profiles') }}/{{ Auth::user()->hasUserProfile->profile_image }}" class="circle" alt="">
                                     @else
                                         <img src="{{ asset('public/default.png') }}" class="circle" alt="">
                                     @endif
@@ -507,7 +511,7 @@
                                 <ul class="dropdown-menu dropdown-menu-right User-Dropdown U-open" aria-labelledby="dropdownMenu1" x-placement="bottom-end" style="position: absolute; transform: translate3d(110px, 39px, 0px); top: 0px; left: 0px; will-change: transform;">
                                     <div id="notificationTitle">
                                         @if(Auth::user()->hasUserProfile->profile_image)
-                                            <img src="{{ asset('public/users') }}/{{ Auth::user()->hasUserProfile->profile_image }}" class="dropdown-user-circle" alt="">
+                                            <img src="{{ asset('public/admin/images/profiles') }}/{{ Auth::user()->hasUserProfile->profile_image }}" class="dropdown-user-circle" alt="">
                                         @else
                                             <img src="{{ asset('public/default.png') }}" class="dropdown-user-circle" alt="">
                                         @endif
@@ -518,29 +522,51 @@
                                         </div>
                                     </div>
                                     <div class="scroll-down">
-                                        <a href="{{ route('user.my_courses') }}">
-                                            <li><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-book-open"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"></path><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"></path></svg>MyCourses</li>
-                                        </a>
-                                        <a href="{{ route('user.wishlist') }}">
-                                            <li><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-heart"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg>MyWishlist</li>
-                                        </a>
-                                        <a href="{{ route('user.purchase_history') }}">
-                                            <li><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-shopping-cart"><circle cx="9" cy="21" r="1"></circle><circle cx="20" cy="21" r="1"></circle><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path></svg>PurchaseHistory</li>
-                                        </a>
-                                        <a href="{{ route('instructor.profile.edit') }}">
-                                            <li>
-                                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-user">
-                                                    <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle>
-                                                </svg>
-                                                UserProfile
-                                            </li>
-                                        </a>
-                                        <a href="#" data-toggle="modal" data-target="#myModalinstructor" title="Become An Instructor">
-                                            <li><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-shield"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>BecomeAnInstructor</li>
-                                        </a>
-                                        <a href="https://eclass.mediacity.co.in/demo/public/wallet">
-                                            <li><i class="icon-wallet icons"></i>MyWallet</li>
-                                        </a>
+                                        @if(Auth::user()->roles[0]->name=='Admin')
+                                            <a href="{{ route('admin.dashboard') }}">
+                                                <li>
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-book-open">
+                                                        <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"></path>
+                                                        <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"></path>
+                                                    </svg>
+                                                    Dashboard
+                                                </li>
+                                            </a>
+                                        @elseif(Auth::user()->roles[0]->name=='Instructor')
+                                            <a href="{{ route('instructor.dashboard') }}">
+                                                <li>
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-book-open">
+                                                        <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"></path>
+                                                        <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"></path>
+                                                    </svg>
+                                                    Dashboard
+                                                </li>
+                                            </a>
+                                        @else
+                                            <a href="{{ route('user.my_courses') }}">
+                                                <li><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-book-open"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"></path><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"></path></svg>MyCourses</li>
+                                            </a>
+                                            <a href="{{ route('user.wishlist') }}">
+                                                <li><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-heart"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg>MyWishlist</li>
+                                            </a>
+                                            <a href="{{ route('user.purchase_history') }}">
+                                                <li><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-shopping-cart"><circle cx="9" cy="21" r="1"></circle><circle cx="20" cy="21" r="1"></circle><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path></svg>PurchaseHistory</li>
+                                            </a>
+                                            <a href="{{ route('user.profile.edit') }}">
+                                                <li>
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-user">
+                                                        <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle>
+                                                    </svg>
+                                                    UserProfile
+                                                </li>
+                                            </a>
+                                            <a href="#" data-toggle="modal" data-target="#myModalinstructor" title="Become An Instructor">
+                                                <li><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-shield"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>BecomeAnInstructor</li>
+                                            </a>
+                                            {{-- <a href="">
+                                                <li><i class="icon-wallet icons"></i>MyWallet</li>
+                                            </a> --}}
+                                        @endif
                                     </div>
 
                                     <a href="{{ route('logout') }}"

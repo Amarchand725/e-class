@@ -15,9 +15,11 @@
 <section class="content">
     <div class="row">
         <div class="col-md-12">
-            @if (session('success'))
+            @if (Session()->has('success'))
                 <div class="callout callout-success">
-                    {{ session('success') }}
+                    <div class="alert alert-success" role="alert">
+                        Product added to cart successfully
+                    </div>
                 </div>
             @endif
 
