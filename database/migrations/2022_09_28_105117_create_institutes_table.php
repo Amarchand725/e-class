@@ -14,7 +14,16 @@ class CreateInstitutesTable extends Migration
     {
         Schema::create('institutes', function (Blueprint $table) {
             $table->id();
-            $table->string("logo"); $table->string("name"); $table->string("email"); $table->string("mobile"); $table->string("skill"); $table->text("address")->nullable(); $table->string("affilated_by")->nullable(); $table->text("about"); $table->boolean("is_verified");
+            $table->string("user_slug");
+            $table->string("logo"); 
+            $table->string("name"); 
+            $table->string("email"); 
+            $table->string("mobile"); 
+            $table->string("skill"); 
+            $table->text("address")->nullable(); 
+            $table->string("affilated_by")->nullable(); 
+            $table->text("about"); 
+            $table->boolean("is_verified");
             $table->boolean('status')->default(1);
             $table->string('deleted_at')->nullable();
             $table->timestamps();

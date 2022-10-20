@@ -21,7 +21,7 @@
     <!-- Discount -->
 
     <!-- learning-courses start -->
-    @include('web-views.layouts.recent-courses')
+    {{-- @include('web-views.layouts.recent-courses') --}}
     <!-- learning-courses end -->
 
     <!-- Featured Courses -->

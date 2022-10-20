@@ -576,7 +576,7 @@
                                             </div>
                                             <div class="view-user-img">
                                                 <a href=".{{ route('user.profile', $relate_course->hasInstructor->slug) }}" title="">
-                                                    @if($relate_course->hasInstructor->hasUserProfile->profile_image)
+                                                    @if(isset($relate_course->hasInstructor->hasUserProfile->profile_image))
                                                         <img src="{{ asset('public/admin/images/profiles') }}/{{ $relate_course->hasInstructor->hasUserProfile->profile_image }}" width="50px"  class="img-fluid user-img-one" alt="">
                                                     @else
                                                         <img src="{{ asset('public/default.png') }}" width="50px"  class="img-fluid user-img-one" alt="">

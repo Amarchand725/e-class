@@ -14,7 +14,14 @@ class CreateEnrollstudentsTable extends Migration
     {
         Schema::create('enrollstudents', function (Blueprint $table) {
             $table->id();
-            $table->bigInteger("created_by"); $table->bigInteger("user_id"); $table->string("course_slug"); $table->string("bundle_slug")->nullable();
+            $table->bigInteger("created_by"); 
+            $table->bigInteger("order_number"); 
+            $table->string("instructor_slug");
+            $table->string("user_slug");
+            $table->string("product_type")->comment('course or bundle'); 
+            $table->string("product_slug")->nullable();
+            $table->date("enroll_start_date")->nullable();
+            $table->date("enroll_end_date")->nullable();
             $table->boolean('status')->default(1);
             $table->string('deleted_at')->nullable();
             $table->timestamps();

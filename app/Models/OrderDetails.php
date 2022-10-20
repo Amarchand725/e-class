@@ -18,4 +18,12 @@ class OrderDetails extends Model
     {
         return $this->hasOne(Bundle::class, 'slug', 'product_slug');
     }
+    public function hasPayment()
+    {
+        return $this->hasOne(Payment::class, 'order_number', 'order_number');
+    }
+    public function hasOrder()
+    {
+        return $this->hasOne(Order::class, 'order_number', 'order_number');
+    }
 }

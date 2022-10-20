@@ -18,6 +18,7 @@ Route::get('/', 'WebController@index')->name('home');
 Route::get('/institute/{slug}/single', 'WebController@instituteSingle')->name('institute.single');
 Route::get('/course/{slug}/single', 'WebController@courseSingle')->name('course.single');
 Route::get('/bundle/{slug}/single', 'WebController@bundleSingle')->name('bundle.single');
+Route::get('/user/{slug}/profile', 'WebController@userProfile')->name('user.profile');
 
 Route::group(['middleware' => 'guest'], function(){
     //cart
@@ -43,7 +44,6 @@ Route::group(['middleware' => 'guest'], function(){
 });
 
 Route::middleware(['auth','role:Student'])->group(function () {
-    Route::get('/user/{slug}/profile', 'WebController@userProfile')->name('user.profile');
     Route::post('/user/store', 'WebController@userStore')->name('user.store');
     Route::get('/user/my_courses', 'WebController@myCourses')->name('user.my_courses');
     Route::get('/user/my_course/{slug}/single', 'WebController@myCourseDetails')->name('user.my_course.single');
@@ -59,6 +59,7 @@ Route::middleware(['auth','role:Instructor'])->group(function () {
     Route::get('instructor/dashboard', 'DashboardController@dashboard')->name('instructor.dashboard');
     Route::get('instructor/profile/edit', 'instructor\InstructorController@editProfile')->name('instructor.profile.edit');
     Route::post('instructor/profile/update', 'instructor\InstructorController@updateProfile')->name('instructor.profile.update');
+    Route::get('instructor/get-user-courses', 'EnrollstudentController@getUserCourses')->name('instructor.get-user-courses');
 });
 
 //Admin
@@ -101,5 +102,13 @@ Route::resource('course', 'admin\CourseController');
 Route::resource('blog', 'admin\BlogController');
 Route::resource('userprofile', 'admin\UserProfileController');
 Route::resource('enrollstudent', 'EnrollstudentController');
+Route::resource('courseinclude', 'CourseincludeController');
+Route::resource('whatlearn', 'WhatLearnController');
+Route::resource('coursechapter', 'CourseChapterController');
+Route::resource('courseclass', 'CourseClassController');
+Route::resource('coursequestion', 'CoursequestionController');
+Route::resource('courseannouncement', 'CourseannouncementController');
+Route::resource('payoutsetting', 'PayoutSettingController');
+Route::resource('follower', 'FollowerController');
 
 require __DIR__.'/auth.php';

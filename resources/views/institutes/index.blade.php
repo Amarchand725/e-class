@@ -6,9 +6,11 @@
     <div class="content-header-left">
         <h1>{{ $page_title }}</h1>
     </div>
+    @can('institute-create')
     <div class="content-header-right">
         <a href="{{ route('institute.create') }}" data-toggle="tooltip" data-placement="left" title="Add New Institute" class="btn btn-primary btn-sm">Add New Institute</a>
     </div>
+    @endcan
 </section>
 
 <section class="content">
@@ -81,8 +83,12 @@
                                     </td>
                                     <td width="250px">
                                         <a href="{{ route("institute.show", $model->id) }}" data-toggle="tooltip" data-placement="top" title="Show Institute" class="btn btn-info btn-xs"><i class="fa fa-eye"></i> Show</a>
+                                        @can('institute-edit')
                                         <a href="{{ route("institute.edit", $model->id) }}" data-toggle="tooltip" data-placement="top" title="Edit Institute" class="btn btn-primary btn-xs" style="margin-left: 3px;"><i class="fa fa-edit"></i> Edit</a>
+                                        @endcan
+                                        @can('institute-delete')
                                         <button data-toggle="tooltip" data-placement="top" title="Delete Institute" class="btn btn-danger btn-xs delete" data-slug="{{ $model->id }}" data-del-url="{{ route("institute.destroy", $model->id) }}" style="margin-left: 3px;"><i class="fa fa-trash"></i> Delete</button>
+                                        @endcan
                                     </td>
                                 </tr>
                             @endforeach

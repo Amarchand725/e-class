@@ -64,6 +64,7 @@ class InstituteController extends Controller
                 $input['logo'] = $logo;
             }
             $input['skill'] = json_encode($skills);
+            $input['user_slug'] = Str::slug(Auth::user()->slug);
             $input['slug'] = Str::slug($request->name);
 	        Institute::create($input);
 

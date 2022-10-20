@@ -6,9 +6,11 @@
     <div class="content-header-left">
         <h1>{{ $page_title }}</h1>
     </div>
+    @can('blog-create')
     <div class="content-header-right">
         <a href="{{ route('blog.create') }}" data-toggle="tooltip" data-placement="left" title="Add New Blog" class="btn btn-primary btn-sm">Add New Blog</a>
     </div>
+    @endcan
 </section>
 
 <section class="content">
@@ -64,8 +66,12 @@
                                     </td>
                                     <td width="250px">
                                         <a href="{{ route("blog.show", $model->id) }}" data-toggle="tooltip" data-placement="top" title="Show Blog" class="btn btn-info btn-xs"><i class="fa fa-eye"></i> Show</a>
+                                        @can('blog-edit')
                                         <a href="{{ route("blog.edit", $model->id) }}" data-toggle="tooltip" data-placement="top" title="Edit Blog" class="btn btn-primary btn-xs" style="margin-left: 3px;"><i class="fa fa-edit"></i> Edit</a>
+                                        @endcan
+                                        @can('blog-delete')
                                         <button data-toggle="tooltip" data-placement="top" title="Delete Blog" class="btn btn-danger btn-xs delete" data-slug="{{ $model->id }}" data-del-url="{{ route("blog.destroy", $model->id) }}" style="margin-left: 3px;"><i class="fa fa-trash"></i> Delete</button>
+                                        @endcan
                                     </td>
                                 </tr>
                             @endforeach

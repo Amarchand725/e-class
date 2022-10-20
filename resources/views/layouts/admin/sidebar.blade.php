@@ -41,85 +41,38 @@
                 @can('institute-list')
                 <li class="treeview">
                     <a href="{{ route('institute.index') }}" class="{{ request()->is('institute') || request()->is('institute/create') || request()->is('institute/*/edit') ? 'active' : '' }}">
-                        <i class="fa fa-sticky-note"></i> <span>institutes</span>
+                        <i class="fa fa-building"></i> <span>institutes</span>
                     </a>
                 </li>
                 @endcan
-                @can('enrollstudent-list')
+                @can('enroll-list')
                 <li class="treeview">
                     <a href="{{ route('enrollstudent.index') }}" class="{{ request()->is('enrollstudent') || request()->is('enrollstudent/create') || request()->is('enrollstudent/*/edit') ? 'active' : '' }}">
-                        <i class="fa fa-sticky-note"></i> <span>User Entroled</span>
+                        <i class="fa fa-user"></i> <span>User Entroled</span>
                     </a>
                 </li>
                 @endcan
+                @php 
+                $account = App\Models\PayoutSetting::where('user_slug', Auth::user()->slug)->first();
+                @endphp 
+                @if(empty($account))
+                    @can('payoutsetting-create')
+                    <li class="treeview">
+                        <a href="{{ route('payoutsetting.create') }}" class="{{ request()->is('payoutsetting') || request()->is('payoutsetting/create') || request()->is('payoutsetting/*/edit') ? 'active' : '' }}">
+                            <i class="fa fa-money"></i> <span>Payout Setting</span>
+                        </a>
+                    </li>
+                    @endcan
+                @else 
+                    @can('payoutsetting-edit')
+                    <li class="treeview">
+                        <a href="{{ route('payoutsetting.edit', $account->id) }}" class="{{ request()->is('payoutsetting') || request()->is('payoutsetting/create') || request()->is('payoutsetting/*/edit') ? 'active' : '' }}">
+                            <i class="fa fa-money"></i> <span>Payout Setting</span>
+                        </a>
+                    </li>
+                    @endcan
+                @endif
             @endif
-
-            {{-- 
-            <li class="treeview">
-                    <a href="{{ route('page.index') }}" class="{{ request()->is('page') || request()->is('page/*') || request()->is('page_setting/*') ? 'active' : '' }}">
-                        <i class="fa fa-cog"></i> <span>Settings</span>
-                    </a>
-                </li>
-                <li class="treeview">
-                    <a href="{{ route('menu.index') }}" class="{{ request()->is('menu') || request()->is('menu/*') ? 'active' : '' }}">
-                        <i class="fa fa-bars"></i> <span>Menus</span>
-                    </a>
-                </li>
-                <li class="treeview">
-                    <a href="{{ route('role.index') }}" class="{{ request()->is('role') || request()->is('role/create') || request()->is('role/*/edit') ? 'active' : '' }}">
-                        <i class="fa fa-tasks"></i> <span>Roles</span>
-                    </a>
-                </li>    
-            @can('user-list')
-            <li class="treeview">
-                <a href="{{ route('user.index') }}" class="{{ request()->is('user') || request()->is('user/create') || request()->is('user/*/edit') ? 'active' : '' }}">
-                    <i class="fa fa-users"></i> <span>Users</span>
-                </a>
-            </li>
-            @endcan
-            @can('permission-list')
-            <li class="treeview">
-                <a href="{{ route('permission.index') }}" class="{{ request()->is('permission') || request()->is('permission/create') || request()->is('permission/*/edit') ? 'active' : '' }}">
-                    <i class="fa fa-lock"></i> <span>Permissions</span>
-                </a>
-            </li>
-            @endcan
-            
-            @can('slider-list')
-            <li class="treeview">
-                <a href="{{ route('slider.index') }}" class="{{ request()->is('slider') || request()->is('slider/create') || request()->is('slider/*/edit') || request()->is('slider/*') ? 'active' : '' }}">
-                    <i class="fa fa-sliders"></i> <span>Sliders</span>
-                </a>
-            </li>
-            @endcan
-            @can('category-list')
-            <li class="treeview">
-                <a href="{{ route('category.index') }}" class="{{ request()->is('category') || request()->is('category/create') || request()->is('category/*/edit') ? 'active' : '' }}">
-                    <i class="fa fa-list-alt"></i> <span>Category</span>
-                </a>
-            </li>
-            @endcan
-            @can('course-list')
-            <li class="treeview">
-                <a href="{{ route('course.index') }}" class="{{ request()->is('course') || request()->is('course/create') || request()->is('course/*/edit') ? 'active' : '' }}">
-                    <i class="fa fa-list-alt"></i> <span>Course</span>
-                </a>
-            </li>
-            @endcan
-            @can('blog-list')
-            <li class="treeview">
-                <a href="{{ route('blog.index') }}" class="{{ request()->is('blog') || request()->is('blog/create') || request()->is('blog/*/edit') ? 'active' : '' }}">
-                    <i class="fa fa-sticky-note"></i> <span>Blogs</span>
-                </a>
-            </li>
-            @endcan
-            @can('testimonial-list')
-            <li class="treeview">
-                <a href="{{ route('testimonial.index') }}" class="{{ request()->is('testimonial') || request()->is('testimonial/create') || request()->is('testimonial/*/edit') ? 'active' : '' }}">
-                    <i class="fa fa-quote-right"></i> <span>Testimonial</span>
-                </a>
-            </li>
-            @endcan --}}
         </ul>
     </section>
 </aside>

@@ -34,12 +34,21 @@ class CourseController extends Controller
             if($request['search'] != ""){
                 $query->where("created_by", "like", "%". $request["search"] ."%");$query->orWhere("title", "like", "%". $request["search"] ."%");$query->orWhere("slug", "like", "%". $request["search"] ."%");$query->orWhere("price", "like", "%". $request["search"] ."%");$query->orWhere("short_description", "like", "%". $request["search"] ."%");$query->orWhere("requirements", "like", "%". $request["search"] ."%");$query->orWhere("full_description", "like", "%". $request["search"] ."%");$query->orWhere("is_featured", "like", "%". $request["search"] ."%");$query->orWhere("thumbnail", "like", "%". $request["search"] ."%");$query->orWhere("video", "like", "%". $request["search"] ."%");
             }
-            $models = $query->paginate(10);
+            if(Auth::user()->roles[0]->name=='Admin'){
+                $models = $query->paginate(10);
+            }else{
+                $models = $query->where('instructor_slug', Auth::user()->slug)->paginate(10);
+            }
+
             return (string) view('courses._search', compact('models'));
         }
 
         $page_title = Menu::where('menu', 'course')->first()->label;
-        $models = Course::orderby('id', 'desc')->paginate(10);
+        if(Auth::user()->roles[0]->name=='Admin'){
+            $models = Course::orderby('id', 'desc')->paginate(10);
+        }else{
+            $models = Course::orderby('id', 'desc')->where('instructor_slug', Auth::user()->slug)->paginate(10);
+        }
         return view('courses.index', compact('models', 'page_title'));
     }
 

@@ -77,4 +77,8 @@ class User extends Authenticatable
     {
         return $this->hasMany(Wishlist::class, 'user_slug', 'slug');
     }
+    public function haveStudents()
+    {
+        return $this->hasMany(EnrollStudent::class, 'instructor_slug', 'slug');
+    }
 }

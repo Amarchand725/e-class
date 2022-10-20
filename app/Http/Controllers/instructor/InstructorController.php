@@ -8,6 +8,7 @@ use App\Models\Country;
 use App\Models\State;
 use App\Models\City;
 use Auth;
+use DB;
 
 class InstructorController extends Controller
 {

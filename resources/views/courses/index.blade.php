@@ -6,9 +6,11 @@
     <div class="content-header-left">
         <h1>{{ $page_title }}</h1>
     </div>
+    @can('course-create')
     <div class="content-header-right">
         <a href="{{ route('course.create') }}" data-toggle="tooltip" data-placement="left" title="Add New Course" class="btn btn-primary btn-sm">Add New Course</a>
     </div>
+    @endcan
 </section>
 
 <section class="content">
@@ -75,8 +77,12 @@
                                     <td width="250px">  
                                         <a href="{{ route("course.show", $model->id) }}" data-toggle="tooltip" data-placement="top" title="Course Classes" class="btn btn-primary btn-xs"><i class="fa fa-snowflake-o"></i></a>
                                         <a href="{{ route("course.show", $model->id) }}" data-toggle="tooltip" data-placement="top" title="Show Course" class="btn btn-info btn-xs"><i class="fa fa-eye"></i></a>
+                                        @can('course-edit')
                                         <a href="{{ route("course.edit", $model->id) }}" data-toggle="tooltip" data-placement="top" title="Edit Course" class="btn btn-primary btn-xs" style="margin-left: 3px;"><i class="fa fa-edit"></i></a>
+                                        @endcan
+                                        @can('course-delete')
                                         <button data-toggle="tooltip" data-placement="top" title="Delete Course" class="btn btn-danger btn-xs delete" data-slug="{{ $model->id }}" data-del-url="{{ route("course.destroy", $model->id) }}" style="margin-left: 3px;"><i class="fa fa-trash"></i></button>
+                                        @endcan
                                     </td>
                                 </tr>
                             @endforeach

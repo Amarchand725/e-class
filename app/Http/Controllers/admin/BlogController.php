@@ -23,12 +23,21 @@ class BlogController extends Controller
             if($request['search'] != ""){
                 $query->where("created_by", "like", "%". $request["search"] ."%");$query->orWhere("title", "like", "%". $request["search"] ."%");$query->orWhere("description", "like", "%". $request["search"] ."%");$query->orWhere("attachment", "like", "%". $request["search"] ."%");$query->orWhere("extension", "like", "%". $request["search"] ."%");
             }
-            $models = $query->paginate(10);
+            if(Auth::user()->roles[0]->name=='Admin'){
+                $models = $query->paginate(10);
+            }else{
+                $models = $query->where('created_by', Auth::user()->id)->paginate(10);
+            }
+            
             return (string) view('blogs._search', compact('models'));
         }
 
         $page_title = Menu::where('menu', 'blog')->first()->label;
-        $models = Blog::orderby('id', 'desc')->paginate(10);
+        if(Auth::user()->roles[0]->name=='Admin'){
+            $models = Blog::orderby('id', 'desc')->paginate(10);
+        }else{
+            $models = Blog::orderby('id', 'desc')->where('created_by', Auth::user()->id)->paginate(10);
+        }
         return view('blogs.index', compact('models', 'page_title'));
     }
 

@@ -16,7 +16,7 @@
                         <div class="instructor-student">
                             <div class="total-students">Total Students</div>
                             <div class="total-number">
-                                20               
+                                {{ isset($model->haveStudents)?count($model->haveStudents):0 }}               
                             </div>
                         </div>    
                     </div>
@@ -30,11 +30,11 @@
                                            <h5 class="about-content-heading">{{ $model->name }}</h5>     
                                            <div class="instructor-follower">
                                                <div class="followers-status">
-                                                   <span class="followers-value">{{ count($instructor->haveFollowers) }}</span>
+                                                   <span class="followers-value">{{ isset($instructor->haveFollowers)?count($instructor->haveFollowers):0 }}</span>
                                                    <span class="followers-heading">Followers</span>
                                                </div>
                                                <div class="following-status">
-                                                   <span class="followers-value">{{ count($instructor->haveFollowings) }}</span>
+                                                   <span class="followers-value">{{ isset($instructor->haveFollowings)?count($instructor->haveFollowings):0 }}</span>
                                                    <span class="followers-heading">Following</span>
                                                </div>
                                            </div>
@@ -49,12 +49,11 @@
                                    </div>
                                    <div class="col-lg-4 col-md-5 col-12">
                                        <div class="instructor-btn">
-                                            <form id="demo-form2" method="post" action="#" data-parsley-validate="" class="form-horizontal form-label-left">
-                                                @csrf
-                                                <input type="hidden" name="user_id" value="2">
-                                                <input type="hidden" name="instructor_id" value="2">
-                                                <button type="submit" class="btn btn-secondary">&nbsp;Unfollow</button>
-                                            </form>
+                                            @if(isset($instructor->haveFollowings))
+                                                <button type="button" data-instructor-slug="{{ $model->slug }}" class="btn btn-secondary follow-btn">&nbsp;Unfollow</button>
+                                            @else 
+                                                <button type="button" data-instructor-slug="{{ $model->slug }}" class="btn btn-secondary follow-btn">&nbsp;Follow</button>
+                                            @endif
                                        </div>
                                    </div>
                                </div>
@@ -93,7 +92,7 @@
                                                             </div>
                                                         <div class="view-user-img">
                                                                 <a href="{{ route('user.profile', $course->hasInstructor->slug) }}" title="{{ $course->hasInstructor->name }}">
-                                                                    @if($course->hasInstructor)
+                                                                    @if(isset($course->hasInstructor->hasUserProfile->profile_image))
                                                                         <img src="{{ asset('public/admin/images/profiles') }}/{{  $course->hasInstructor->hasUserProfile->profile_image }}" class="img-fluid user-img-one" alt="">
                                                                     @else
                                                                         <img src="{{ asset('public/default.png') }}" width="50px"  class="img-fluid user-img-one" alt="">
@@ -190,7 +189,7 @@
             </div>
             <div class="col-xl-4 col-lg-4 col-md-4">
                 <div class="instructor-img">
-                    @if($model->hasUserProfile)
+                    @if(isset($model->hasUserProfile->profile_image))
                         <img src="{{ asset('public/admin/images/profiles') }}/{{  $model->hasUserProfile->profile_image }}" class="img-fluid user-img-one" alt="">
                     @else
                         <img src="{{ asset('public/default.png') }}" width="50px"  class="img-fluid user-img-one" alt="">
@@ -220,3 +219,11 @@
     </div>
 </section>
 @endsection
+@push('js')
+    <script>
+        $(document).on('click', '.follow-btn', function(){
+            var slug = $(this).attr('data-instructor-slug');
+            alert(slug);
+        });
+    </script>
+@endpush
