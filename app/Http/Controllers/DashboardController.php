@@ -3,6 +3,13 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Course;
+use App\Models\Institute;
+use App\Models\EnrollStudent;
+use App\Models\Follower;
+use App\Models\Blog;
+use App\Models\User;
+use App\Models\Order;
 use Auth;
 
 class DashboardController extends Controller
@@ -30,10 +37,26 @@ class DashboardController extends Controller
     {
         if(Auth::check() && Auth::user()->hasRole('Admin')){
             $page_title = 'Admin-Dashboard';
-            return view('admin.dashboard.dashboard', compact('page_title'));
+            $data = [];
+            $data['total_instructors'] = User::role('Instructor')->count();
+            $data['total_orders'] = Order::count();
+            $data['total_courses'] = Course::count();
+            $data['total_institutes'] = Institute::count();
+            $data['total_enrolled_users'] = EnrollStudent::count();
+            $data['total_followers'] = Follower::where('user_slug', Auth::user()->slug)->count();
+            $data['total_followings'] = Follower::where('follower_slug', Auth::user()->slug)->count();
+            $data['total_blogs'] = Blog::count();
+            return view('admin.dashboard.dashboard', compact('page_title', 'data'));
         }elseif(Auth::check() && Auth::user()->hasRole('Instructor')){
             $page_title = 'Instructor-Dashboard';
-            return view('instructor.dashboard.dashboard', compact('page_title'));
+            $data = [];
+            $data['total_courses'] = Course::where('instructor_slug', Auth::user()->slug)->count();
+            $data['total_institutes'] = Institute::where('user_slug', Auth::user()->slug)->count();
+            $data['total_enrolled_users'] = EnrollStudent::where('instructor_slug', Auth::user()->slug)->count();
+            $data['total_followers'] = Follower::where('user_slug', Auth::user()->slug)->count();
+            $data['total_followings'] = Follower::where('follower_slug', Auth::user()->slug)->count();
+            $data['total_blogs'] = Blog::where('created_by', Auth::user()->id)->count();
+            return view('instructor.dashboard.dashboard', compact('page_title', 'data'));
         }
     }
 

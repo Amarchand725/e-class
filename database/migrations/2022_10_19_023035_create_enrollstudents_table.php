@@ -22,6 +22,7 @@ class CreateEnrollstudentsTable extends Migration
             $table->string("product_slug")->nullable();
             $table->date("enroll_start_date")->nullable();
             $table->date("enroll_end_date")->nullable();
+            $table->boolean("is_completed")->defafult(0);
             $table->boolean('status')->default(1);
             $table->string('deleted_at')->nullable();
             $table->timestamps();

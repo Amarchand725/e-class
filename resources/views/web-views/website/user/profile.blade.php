@@ -30,11 +30,11 @@
                                            <h5 class="about-content-heading">{{ $model->name }}</h5>     
                                            <div class="instructor-follower">
                                                <div class="followers-status">
-                                                   <span class="followers-value">{{ isset($instructor->haveFollowers)?count($instructor->haveFollowers):0 }}</span>
+                                                   <span class="followers-value">{{ isset($model->haveFollowers)?count($model->haveFollowers):0 }}</span>
                                                    <span class="followers-heading">Followers</span>
                                                </div>
                                                <div class="following-status">
-                                                   <span class="followers-value">{{ isset($instructor->haveFollowings)?count($instructor->haveFollowings):0 }}</span>
+                                                   <span class="followers-value">{{ isset($model->haveFollowings)?count($model->haveFollowings):0 }}</span>
                                                    <span class="followers-heading">Following</span>
                                                </div>
                                            </div>
@@ -49,10 +49,12 @@
                                    </div>
                                    <div class="col-lg-4 col-md-5 col-12">
                                        <div class="instructor-btn">
-                                            @if(isset($instructor->haveFollowings))
-                                                <button type="button" data-instructor-slug="{{ $model->slug }}" class="btn btn-secondary follow-btn">&nbsp;Unfollow</button>
-                                            @else 
-                                                <button type="button" data-instructor-slug="{{ $model->slug }}" class="btn btn-secondary follow-btn">&nbsp;Follow</button>
+                                            @if(Auth::check())
+                                                @if(count(Auth::user()->haveFollowings))
+                                                    <button type="button" value="unfollow" data-instructor-slug="{{ $model->slug }}" class="btn btn-secondary follow-btn">&nbsp;Unfollow</button>
+                                                @else 
+                                                    <button type="button" value="follow" data-instructor-slug="{{ $model->slug }}" class="btn btn-secondary follow-btn">&nbsp;Follow</button>
+                                                @endif
                                             @endif
                                        </div>
                                    </div>
@@ -222,8 +224,43 @@
 @push('js')
     <script>
         $(document).on('click', '.follow-btn', function(){
-            var slug = $(this).attr('data-instructor-slug');
-            alert(slug);
+            var instructor_slug = $(this).attr('data-instructor-slug');
+            var value = $(this).val();
+            $.ajax({
+                type:'POST',
+                url:'{{ route("follower.store") }}',
+                data:{_token: "{{ csrf_token() }}", following:instructor_slug, value:value},
+                success: function( response ) {
+                    if(response.status=='followed'){
+                        Swal.fire({
+                            position: 'top-end',
+                            icon: 'success',
+                            title: 'You are following now',
+                            showConfirmButton: false,
+                            timer: 1500
+                        })
+
+                        location.reload();
+                    }else if(response.status=='unfollowed'){
+                        Swal.fire({
+                            position: 'top-end',
+                            icon: 'success',
+                            title: 'You have unfollowed him',
+                            showConfirmButton: false,
+                            timer: 1500
+                        })
+                        location.reload();
+                    }else{
+                        Swal.fire({
+                            position: 'top-end',
+                            icon: 'danger',
+                            title: 'Something went wrong',
+                            showConfirmButton: false,
+                            timer: 1500
+                        })
+                    }
+                }
+            });
         });
     </script>
 @endpush

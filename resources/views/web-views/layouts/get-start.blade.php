@@ -7,8 +7,8 @@
             </div>
             <div class="get-started-dtl text-center">
                 <h1 class="get-started-title text-white mb-2">Get Started..</h1>
-                <h4 class="get-started-sub-title text-white">Loreum ipsum text editor</h4>
-                <a href="https://www.lipsum.com/" type="button" class="btn btn-primary">Get Started</a>
+                {{-- <h4 class="get-started-sub-title text-white">Loreum ipsum text editor</h4> --}}
+                <a href="{{ route('home') }}" type="button" class="btn btn-primary">Get Started</a>
             </div>
         </div>
     </div>

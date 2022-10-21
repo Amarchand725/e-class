@@ -56,4 +56,8 @@ class Course extends Model
     {
         return $this->hasMany(CourseClass::class, 'course_id', 'id');
     }
+    public function haveEnrolledStudents()
+    {
+        return $this->hasMany(EnrollStudent::class, 'product_slug', 'slug');
+    }
 }

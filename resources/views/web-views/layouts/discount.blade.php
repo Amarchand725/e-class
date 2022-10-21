@@ -6,7 +6,7 @@
             </div>
             <div class="col-lg-6 col-md-6 col-5">
                 <div class="view-button txt-rgt">
-                    <a href="#" class="btn btn-secondary" title="View More">View More<i data-feather="chevron-right"></i>
+                    <a href="{{ route('course.all-discount.courses') }}" class="btn btn-secondary" title="View More">View More<i data-feather="chevron-right"></i>
                     </a>
                 </div>
             </div>

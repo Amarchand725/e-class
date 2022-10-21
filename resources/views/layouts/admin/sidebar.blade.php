@@ -1,13 +1,12 @@
 <aside class="main-sidebar">
     <section class="sidebar">
         <ul class="sidebar-menu">
-            <li class="treeview">
-                <a href="{{ route('admin.dashboard') }}" class="{{ request()->is('dashboard') || request()->is('profile/*') ? 'active' : '' }}">
-                    <i class="fa fa-laptop"></i> <span>Dashboard</span>
-                </a>
-            </li>
-
             @if(Auth::user()->roles[0]->name=='Admin')
+                <li class="treeview">
+                    <a href="{{ route('admin.dashboard') }}" class="{{ request()->is('dashboard') || request()->is('profile/*') ? 'active' : '' }}">
+                        <i class="fa fa-laptop"></i> <span>Dashboard</span>
+                    </a>
+                </li>
                 @foreach (menus() as $menu)
                     @if(Auth::user()->hasRole(Str::ucfirst($menu->menu_of)) || $menu->menu_of=='general')
                         <li class="treeview id-{{ $menu->id }}">
@@ -23,7 +22,22 @@
                         </li>
                     @endif
                 @endforeach
+                <li class="treeview">
+                    <a href="{{ route('admin.orders') }}" class="{{ request()->is('orders') ? 'active' : '' }}">
+                        <i class="fa fa-list-alt"></i> <span>Orders</span>
+                    </a>
+                </li>
+                <li class="treeview">
+                    <a href="{{ route('follower.index') }}" class="{{ request()->is('follower') ? 'active' : '' }}">
+                        <i class="fa fa-list-alt"></i> <span>Followers</span>
+                    </a>
+                </li>
             @else 
+                <li class="treeview">
+                    <a href="{{ route('instructor.dashboard') }}" class="{{ request()->is('dashboard') || request()->is('profile/*') ? 'active' : '' }}">
+                        <i class="fa fa-laptop"></i> <span>Dashboard</span>
+                    </a>
+                </li>
                 @can('course-list')
                 <li class="treeview">
                     <a href="{{ route('course.index') }}" class="{{ request()->is('course') || request()->is('course/create') || request()->is('course/*/edit') ? 'active' : '' }}">
@@ -72,6 +86,11 @@
                     </li>
                     @endcan
                 @endif
+                <li class="treeview">
+                    <a href="{{ route('follower.index') }}" class="{{ request()->is('follower') ? 'active' : '' }}">
+                        <i class="fa fa-list-alt"></i> <span>Followers</span>
+                    </a>
+                </li>
             @endif
         </ul>
     </section>

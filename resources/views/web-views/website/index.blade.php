@@ -33,7 +33,7 @@
     <!-- Subscription Bundle end -->
 
     <!-- Best Selling Bundle start -->
-    @include('web-views.layouts.best-selling-bundles')
+    {{-- @include('web-views.layouts.best-selling-bundles') --}}
      <!-- Best Selling Bundle start -->
 
     <!-- Zoom start -->

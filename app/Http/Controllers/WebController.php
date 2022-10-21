@@ -16,6 +16,7 @@ use App\Models\State;
 use App\Models\City;
 use App\Models\EmailSubscription;
 use App\Models\Category;
+use App\Models\EnrollStudent;
 use DB;
 use Session;
 use Illuminate\Support\Facades\Auth;
@@ -37,7 +38,16 @@ class WebController extends Controller
         $model = Institute::where('slug', $slug)->first();
         return view('web-views.website.institutes.single', compact('model'));
     }
-
+    public function allDiscountCourses()
+    {
+        $models = Course::where('status', 1)->where('discount', '!=', NULL)->get();
+        return view('web-views.website.course.discount', compact('models'));
+    }
+    public function allFeatureCourses()
+    {
+        $models = Course::orderby('id', 'desc')->where('status', 1)->where('is_featured', 1)->get();
+        return view('web-views.website.course.featured', compact('models'));
+    }
     public function courseSingle($slug)
     {
         $model = Course::where('slug', $slug)->first();
@@ -206,5 +216,23 @@ class WebController extends Controller
         $models = Course::where('category_slug', $slug)->get();
         $category = Category::where('slug', $slug)->first();
         return view('web-views.website.category.category-wise-list', compact('models', 'category'));
+    }
+
+    public function userCompleteCourse(Request $request)
+    {
+        $model = EnrollStudent::where('product_slug', $request->product_slug)->where('user_slug', Auth::user()->slug)->first();
+        $model->is_completed = 1;
+        $model->save();
+
+        if($model){
+            return 'success';
+        }else{
+            return 'failed';
+        }
+    }
+
+    public function userRate(Request $request)
+    {
+        return $request;
     }
 }

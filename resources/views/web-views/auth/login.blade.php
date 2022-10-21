@@ -54,7 +54,7 @@
                                 </div>
                             </form>
 
-                            <div class="social-link btm-10">
+                            {{-- <div class="social-link btm-10">
                                 <h2><span>Or Sign Up Using</span></h2>
                                 <div class="row">
                                     <div class="col-lg-2 col-4">
@@ -91,14 +91,14 @@
                                         </div>
                                     </div>
                                 </div>
-                            </div>
+                            </div> --}}
 
                             <div class="sign-up text-center">
                                 Donothaveanaccount?<a href="register.html" title="sign-up"> Signup</a>
                             </div>
                             <hr>
                             <div class="signin-link text-center">
-                               Bysigningup <a href="terms_condition.html" title="Policy">Terms&amp;Condition </a>, <a href="privacy_policy.html" title="Policy">PrivacyPolicy.</a>
+                               Bysigningup <a href="#" title="Policy">Terms&amp;Condition </a>, <a href="#" title="Policy">PrivacyPolicy.</a>
                             </div>
                           </div>
                     </div>

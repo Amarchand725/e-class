@@ -28,4 +28,8 @@ class Bundle extends Model
     {
         return $this->hasOne(User::class, 'slug', 'user_slug');
     }
+    public function haveEnrolledStudents()
+    {
+        return $this->hasMany(EnrollStudent::class, 'product_slug', 'slug');
+    }
 }

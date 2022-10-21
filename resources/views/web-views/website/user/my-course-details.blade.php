@@ -1,6 +1,47 @@
 @extends('web-views.layouts.app')
 
 @push('css')
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+        }
+        .rate {
+            float: left;
+            height: 46px;
+            padding: 0 10px;
+        }
+        .rate:not(:checked) > input {
+            position:absolute;
+            top:-9999px;
+        }
+        .rate:not(:checked) > label {
+            float:right;
+            width:1em;
+            overflow:hidden;
+            white-space:nowrap;
+            cursor:pointer;
+            font-size:30px;
+            color:#ccc;
+        }
+        .rate:not(:checked) > label:before {
+            content: '★ ';
+        }
+        .rate > input:checked ~ label {
+            color: #ffc700;    
+        }
+        .rate:not(:checked) > label:hover,
+        .rate:not(:checked) > label:hover ~ label {
+            color: #deb217;  
+        }
+        .rate > input:checked + label:hover,
+        .rate > input:checked + label:hover ~ label,
+        .rate > input:checked ~ label:hover,
+        .rate > input:checked ~ label:hover ~ label,
+        .rate > label:hover ~ input:checked ~ label {
+            color: #c59b08;
+        }
+    </style>
 @endpush
 
 @section('content')
@@ -19,22 +60,29 @@
                 <div class="col-lg-5 col-md-6 col-12">
                     <div class="class-button certificate-button">
                         <ul>
-                            <li>
+                            {{-- <li>
                                 <div class="dropdown">
                                     <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                         <i class="fas fa-trophy"></i>&nbsp; Get Certificate
                                     </button>
                                     <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                                         <a class="dropdown-item"> 
-                                            0 of 
-                                            4 
+                                            0 of   4 
                                             complete 
                                         </a>
                                     </div>
                                 </div>
-                            </li>
+                            </li> --}}
                             <li>
-                                <a href="https://eclass.mediacity.co.in/demo/public/course/11/learn-c-programming" class="course_btn"> Course details <i class="fa fa-chevron-right"></i></a>
+                                @if($model->hasCourse)
+                                    <a href="{{ route('course.single', $model->product_slug) }}" class="course_btn">
+                                        Course details <i class="fa fa-chevron-right"></i>
+                                    </a>
+                                @else 
+                                    <a href="{{ route('bundle.single', $model->product_slug) }}" class="course_btn">
+                                        Bundle details <i class="fa fa-chevron-right"></i>
+                                    </a>
+                                @endif
                             </li>
                         </ul>
                     </div>
@@ -85,7 +133,6 @@
                             <div class="learning-courses btm-20">{{ $model->hasBundle->short_detail }}</div>
                         @endif
                         
-                        
                         <div class="progress-block">
                             <div class="one histo-rate">
                                 <span class="bar-block" style="width: 100%">
@@ -96,7 +143,9 @@
                         </div>
                                         
                         <div class="learning-courses-home-btn">
-                            <a href="https://eclass.mediacity.co.in/demo/public/watch/course/11" class=" btn btn-primary" title="Continue">Continue to Lecture</a>
+                            @if($model->hasCourse->video)
+                                <a href="{{ asset('public/admin/images/courses') }}/{{ $model->hasCourse->video }}" class=" btn btn-primary" title="Continue">Continue to Lecture</a>
+                            @endif
                         </div>
                     </div>
                 </div>
@@ -112,7 +161,7 @@
                         <a class="nav-item nav-link text-center active show" id="nav-profile-tab" data-toggle="tab" href="#nav-profile" role="tab" aria-controls="nav-profile" aria-selected="true">Course Content</a>
                         {{-- <a class="nav-item nav-link text-center" id="nav-live-tab" data-toggle="tab" href="#nav-live" role="tab" aria-controls="nav-live" aria-selected="false">Live Class</a> --}}
                         <a class="nav-item nav-link text-center" id="nav-contact-tab" data-toggle="tab" href="#nav-contact" role="tab" aria-controls="nav-contact" aria-selected="false">Q &amp; A</a>
-                        {{-- <a class="nav-item nav-link text-center" id="nav-quiz-tab" data-toggle="tab" href="#nav-quiz" role="tab" aria-controls="nav-quiz" aria-selected="false">Quiz</a> --}}
+                        <a class="nav-item nav-link text-center" id="nav-rating-review-tab" data-toggle="tab" href="#nav-rating-review" role="tab" aria-controls="nav-rating-review" aria-selected="false">Review & Rate</a>
                         {{-- <a class="nav-item nav-link text-center" id="nav-homework-tab" data-toggle="tab" href="#nav-homework" role="tab" aria-controls="nav-homework" aria-selected="false">Homework</a> --}}
                     </div>
                 </nav>
@@ -154,7 +203,13 @@
                                     <div class="col-lg-6 col-sm-5">
                                         <div class="content-course-number">
                                             <ul>
-                                                <li>students enrolled: 1 </li>
+                                                <li>students enrolled:
+                                                    @if($model->hasCourse) 
+                                                        {{ isset($model->hasCourse->haveEnrolledStudents)?count($model->hasCourse->haveEnrolledStudents):0 }} 
+                                                    @else 
+                                                        {{ isset($model->hasBundle->haveEnrolledStudents)?count($model->hasCourse->haveEnrolledStudents):0 }} 
+                                                    @endif
+                                                </li>
                                                 <li>Languages: English</li>
                                             </ul>
                                         </div>
@@ -193,11 +248,9 @@
                                                 <p>{!! $model->hasCourse->full_description !!}</p>
                                             @elseif(!empty($model->hasBundle))
                                                 <h5 class="content-course-number-heading">About this Bundle</h5>
-                                                <p>Discover intermediate to advanced C++, including C++ 11's fantastic additions to the C++ standard.</p><p>
-                                                </p><h5 class="content-course-number-heading">Description</h5>
-                                                <p>
-                                                    We'll begin with a glance at C++ record taking care of and travel through STL, layout classes, administrator over-burdening, lambda articulations, move constructors and substantially more other than. Toward the finish of the course I'll tell you the best way to make a program that produces fractal pictures, utilizing an a couple of the language highlights we've found in the course and giving you an extraordinary work out with savvy pointers and exhibits. I'll give you practices all through the course, going from simple close to the beginning, to very dubious (yet discretionary!) close to the finish of the course.
-                                                </p>
+                                                <p>{{ $model->hasBundle->short_detail }}</p>
+                                                <h5 class="content-course-number-heading">Description</h5>
+                                                <p>{!! $model->hasBundle->details !!}/p>
                                             @endif
                                         </div>
                                     </div>
@@ -243,220 +296,222 @@
 
                     <div class="tab-pane fade active show" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
                         <div class="profile-block">
-                            <form method="post" action="https://eclass.mediacity.co.in/demo/public/course/checked/11" data-parsley-validate="" class="form-horizontal form-label-left">
-                                <div id="ck-button">
-                                    <label>
-                                        <input type="checkbox" name="select-all" class="hidden" id="select-all"><span>Select All</span>
-                                    </label>
-                                </div>
-                                                   
-                                <div id="accordion" class="second-accordion">
-                                    @if(!empty($model->hasCourse))
-                                        @php $counter = 0 @endphp 
-                                        @foreach ($model->hasCourse->haveChapters as $chapter)
-                                            @php $counter++ @endphp 
-                                            <div class="card btm-10">
-                                                <div class="card-header" id="headingChapter44">
-                                                    <div class="mb-0">
-                                                        <button type="button" class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseChapter-{{ $chapter->name }}" aria-expanded="false" aria-controls="collapseChapter">
-                                                            <div class="course-check-table">
-                                                                <table class="table">  
-                                                                    <tbody>
-                                                                        <tr>
-                                                                            <td width="10px">
-                                                                                <div class="form-check">
-                                                                                    <input class="form-check-input filled-in material-checkbox-input" type="checkbox" name="checked[]" value="44" id="checkbox44">
-                                                                                    <label class="form-check-label" for="invalidCheck">
-                                                                                    </label>
-                                                                                </div>
-                                                                            </td>
-                                                                            
-                                                                            <td>
-                                                                                <div class="row">
-                                                                                    <div class="col-lg-6 col-6">
-                                                                                        <div class="section">Chapter: {{ $counter }}</div>
-                                                                                    </div>
-                                                                                    <div class="col-lg-6 col-6">
-                                                                                        <div class="section-dividation text-right">
-                                                                                            {{ count($chapter->haveChapterClasses) }} Classes
-                                                                                        </div>
-                                                                                    </div>
-                                                                                </div>
-                                                                                <div class="row">
-                                                                                    <div class="col-lg-10 col-8">
-                                                                                        <div class="profile-heading">{{ $chapter->name }}</div>
-                                                                                    </div>
-                                                                                    <div class="col-lg-2 col-4">
-                                                                                        <div class="text-right">
-                                                                                            @php 
-                                                                                                $sum_chapter_class_minutes = 0;
-                                                                                                foreach ($chapter->haveChapterClasses as $chapter_class){
-                                                                                                    $explodedTime = array_map('intval', explode(':', $chapter_class->lecture_duration ));
-                                                                                                    $sum_chapter_class_minutes += $explodedTime[0]*60+$explodedTime[1];
-                                                                                                }
-                                                                                                $chapter_total_lectures_duration = floor($sum_chapter_class_minutes/60).':'.floor($sum_chapter_class_minutes % 60);
-                                                                                            @endphp
-                                                                                            {{ $chapter_total_lectures_duration }}
-                                                                                        </div>
-                                                                                    </div>
-                                                                                </div>
-                                                                            </td>
-                                                                        </tr>
-                                                                    </tbody>
-                                                                </table>
-                                                            </div>
-                                                        </button>
-                                                    </div>
-                                                </div>
-                                                <div id="collapseChapter-{{ $chapter->name }}" class="collapse" aria-labelledby="headingChapter" data-parent="#accordion" style="">
-                                                    <div class="card-body">
-                                                        <table class="table">  
-                                                            <tbody>
-                                                                @foreach ($chapter->haveChapterClasses as $chapter_class)
-                                                                    <tr>
-                                                                        @if($chapter_class->type=="Video")
-                                                                            <td class="class-type">
-                                                                                <a href="{{ asset('public/admin/course_class/lectures') }}/{{ $chapter_class->lecture }}" title="Course">
-                                                                                    <i class="fa fa-play-circle"></i>&nbsp; {{ $chapter_class->title }}
-                                                                                </a>   
-                                                                            </td>
-                                                                        @else 
-                                                                            <td class="class-type">
-                                                                                <a href="{{ asset('public/admin/images/courses') }}/{{ $chapter_class->attachment }}" title="Course" download>
-                                                                                    <i class="fa fa-circle"></i>&nbsp; {{ $chapter_class->title }}
-                                                                                </a>
-                                                                            </td>
-                                                                        @endif
-
-                                                                        <td class="class-name">
-                                                                            <div class="koh-tab-content">
-                                                                                <div class="koh-tab-content-body">
-                                                                                    <div class="koh-faq">
-                                                                                    <div class="koh-faq-question">
-                                                                                        <span class="koh-faq-question-span"> 
-                                                                                            @if(!empty($model->hasCourse))
-                                                                                                {{ $model->hasCourse->title }}
-                                                                                            @elseif(!empty($model->hasBundle))
-                                                                                                {{ $model->hasBundle->title }}
-                                                                                            @endif    
-                                                                                        </span>
-                                                                                    </div>
-                                                                                    <div class="koh-faq-answer"></div>
-                                                                                    </div>
-                                                                                </div>
-                                                                            </div>
-                                                                        </td>
-
-                                                                        <td class="class-size txt-rgt">
-                                                                            @php 
-                                                                                $explodedTime = array_map('intval', explode(':', $chapter_class->lecture_duration ));
-                                                                                $sum_chapter_class_minutes = $explodedTime[0]*60+$explodedTime[1];
-                                                                                $chapter_total_lectures_duration = floor($sum_chapter_class_minutes/60).':'.floor($sum_chapter_class_minutes % 60);
-                                                                            @endphp
-                                                                            {{ $chapter_total_lectures_duration }}                       
-                                                                        </td>
-                                                                    </tr>
-                                                                @endforeach
-                                                            </tbody>
-                                                        </table>
-                                                    </div>            
-                                                </div>
-                                            </div>                           
-                                        @endforeach
-                                    @elseif(!empty($model->hasBundle))
+                            @if(Auth::check())
+                                @php $ifenrolled = App\Models\EnrollStudent::where('product_slug', $model->product_slug)->where('user_slug', Auth::user()->slug)->first(); @endphp 
+                            @endif
+                            <div id="ck-button">
+                                <label>
+                                    <input type="checkbox" @if($ifenrolled->is_completed) checked disabled @endif name="select-all" class="hidden" id="select-all"><span>Select All</span>
+                                </label>
+                            </div>
+                                                
+                            <div id="accordion" class="second-accordion">
+                                @if(!empty($model->hasCourse))
+                                    @php $counter = 0 @endphp 
+                                    @foreach ($model->hasCourse->haveChapters as $chapter)
+                                        @php $counter++ @endphp 
                                         <div class="card btm-10">
                                             <div class="card-header" id="headingChapter44">
                                                 <div class="mb-0">
-                                                    <button type="button" class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseChapter44" aria-expanded="false" aria-controls="collapseChapter">
+                                                    <button type="button" class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseChapter-{{ $chapter->name }}" aria-expanded="false" aria-controls="collapseChapter">
                                                         <div class="course-check-table">
-                                                        <table class="table">  
-                                                            <tbody>
-                                                                <tr>
-                                                                <td width="10px">
-                                                                    <div class="form-check">
-                                                                        <input class="form-check-input filled-in material-checkbox-input" type="checkbox" name="checked[]" value="44" id="checkbox44">
-                                                                        <label class="form-check-label" for="invalidCheck">
-                                                                        </label>
-                                                                    </div>
-                                                                </td>
-                                                                
-                                                                <td>
-                                                                    <div class="row">
-                                                                        <div class="col-lg-6 col-6">
-                                                                            <div class="section">Section: 1</div>
-                                                                        </div>
-                                                                        <div class="col-lg-6 col-6">
-                                                                            <div class="section-dividation text-right">
-                                                                                1                                        Classes
-                                                                                
+                                                            <table class="table">  
+                                                                <tbody>
+                                                                    <tr>
+                                                                        <td width="10px">
+                                                                            <div class="form-check">
+                                                                                <input class="form-check-input filled-in material-checkbox-input" @if($ifenrolled->is_completed) checked disabled @endif type="checkbox" name="checked[]" value="44" id="checkbox44">
+                                                                                <label class="form-check-label" for="invalidCheck"></label>
                                                                             </div>
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="row">
-                                                                        <div class="col-lg-10 col-8">
-                                                                            <div class="profile-heading">Introduction
+                                                                        </td>
+                                                                        
+                                                                        <td>
+                                                                            <div class="row">
+                                                                                <div class="col-lg-6 col-6">
+                                                                                    <div class="section">Chapter: {{ $counter }}</div>
+                                                                                </div>
+                                                                                <div class="col-lg-6 col-6">
+                                                                                    <div class="section-dividation text-right">
+                                                                                        {{ count($chapter->haveChapterClasses) }} Classes
+                                                                                    </div>
+                                                                                </div>
                                                                             </div>
-                                                                        </div>
-                                                                        <div class="col-lg-2 col-4">
-                                                                            <div class="text-right">
-                                                                                4                                        
-                                                                                min
-
-                                                                                                                    </div>
-
-                                                                        </div>
-                                                                    </div>
-                                                                </td>
-                                                                </tr>
-                                                            </tbody>
-                                                        </table>
+                                                                            <div class="row">
+                                                                                <div class="col-lg-10 col-8">
+                                                                                    <div class="profile-heading">{{ $chapter->name }}</div>
+                                                                                </div>
+                                                                                <div class="col-lg-2 col-4">
+                                                                                    <div class="text-right">
+                                                                                        @php 
+                                                                                            $sum_chapter_class_minutes = 0;
+                                                                                            foreach ($chapter->haveChapterClasses as $chapter_class){
+                                                                                                $explodedTime = array_map('intval', explode(':', $chapter_class->lecture_duration ));
+                                                                                                $sum_chapter_class_minutes += $explodedTime[0]*60+$explodedTime[1];
+                                                                                            }
+                                                                                            $chapter_total_lectures_duration = floor($sum_chapter_class_minutes/60).':'.floor($sum_chapter_class_minutes % 60);
+                                                                                        @endphp
+                                                                                        {{ $chapter_total_lectures_duration }}
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                        </td>
+                                                                    </tr>
+                                                                </tbody>
+                                                            </table>
                                                         </div>
                                                     </button>
                                                 </div>
                                             </div>
-                                            <div id="collapseChapter44" class="collapse" aria-labelledby="headingChapter" data-parent="#accordion" style="">
+                                            <div id="collapseChapter-{{ $chapter->name }}" class="collapse" aria-labelledby="headingChapter" data-parent="#accordion" style="">
                                                 <div class="card-body">
                                                     <table class="table">  
                                                         <tbody>
-                                                            <tr>
-                                                                <td class="class-type">
-                                                                    <a href="https://eclass.mediacity.co.in/demo/public/watch/courseclass/69" title="Course" class=""><i class="fa fa-play-circle"></i>&nbsp;class</a>
-                                                                </td>
+                                                            @foreach ($chapter->haveChapterClasses as $chapter_class)
+                                                                <tr>
+                                                                    @if($chapter_class->type=="Video")
+                                                                        <td class="class-type">
+                                                                            <a href="{{ asset('public/admin/course_class/lectures') }}/{{ $chapter_class->lecture }}" title="Course">
+                                                                                <i class="fa fa-play-circle"></i>&nbsp; {{ $chapter_class->title }}
+                                                                            </a>   
+                                                                        </td>
+                                                                    @else 
+                                                                        <td class="class-type">
+                                                                            <a href="{{ asset('public/admin/images/courses') }}/{{ $chapter_class->attachment }}" title="Course" download>
+                                                                                <i class="fa fa-circle"></i>&nbsp; {{ $chapter_class->title }}
+                                                                            </a>
+                                                                        </td>
+                                                                    @endif
 
-                                                                <td class="class-name">
-                                                                    <div class="koh-tab-content">
-                                                                        <div class="koh-tab-content-body">
-                                                                            <div class="koh-faq">
-                                                                            <div class="koh-faq-question">
-                                                                                <span class="koh-faq-question-span"> Learn Advanced C++ </span>
-                                                                            </div>
-                                                                            <div class="koh-faq-answer"></div>
+                                                                    <td class="class-name">
+                                                                        <div class="koh-tab-content">
+                                                                            <div class="koh-tab-content-body">
+                                                                                <div class="koh-faq">
+                                                                                <div class="koh-faq-question">
+                                                                                    <span class="koh-faq-question-span"> 
+                                                                                        @if(!empty($model->hasCourse))
+                                                                                            {{ $model->hasCourse->title }}
+                                                                                        @elseif(!empty($model->hasBundle))
+                                                                                            {{ $model->hasBundle->title }}
+                                                                                        @endif    
+                                                                                    </span>
+                                                                                </div>
+                                                                                <div class="koh-faq-answer"></div>
+                                                                                </div>
                                                                             </div>
                                                                         </div>
-                                                                    </div>
-                                                                </td>
+                                                                    </td>
 
-                                                                <td class="class-size txt-rgt">
-                                                                    4:36 min                        
-                                                                </td>
-                                                            </tr>
+                                                                    <td class="class-size txt-rgt">
+                                                                        @php 
+                                                                            $explodedTime = array_map('intval', explode(':', $chapter_class->lecture_duration ));
+                                                                            $sum_chapter_class_minutes = $explodedTime[0]*60+$explodedTime[1];
+                                                                            $chapter_total_lectures_duration = floor($sum_chapter_class_minutes/60).':'.floor($sum_chapter_class_minutes % 60);
+                                                                        @endphp
+                                                                        {{ $chapter_total_lectures_duration }}                       
+                                                                    </td>
+                                                                </tr>
+                                                            @endforeach
                                                         </tbody>
                                                     </table>
                                                 </div>            
                                             </div>
-                                        </div>                    
-                                    @endif                     
-                                </div>
-                                <div class="row">
-                                    <div class="col-lg-6">
+                                        </div>                           
+                                    @endforeach
+                                @elseif(!empty($model->hasBundle))
+                                    <div class="card btm-10">
+                                        <div class="card-header" id="headingChapter44">
+                                            <div class="mb-0">
+                                                <button type="button" class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseChapter44" aria-expanded="false" aria-controls="collapseChapter">
+                                                    <div class="course-check-table">
+                                                    <table class="table">  
+                                                        <tbody>
+                                                            <tr>
+                                                            <td width="10px">
+                                                                <div class="form-check">
+                                                                    <input class="form-check-input filled-in material-checkbox-input" type="checkbox" name="checked[]" value="44" id="checkbox44">
+                                                                    <label class="form-check-label" for="invalidCheck">
+                                                                    </label>
+                                                                </div>
+                                                            </td>
+                                                            
+                                                            <td>
+                                                                <div class="row">
+                                                                    <div class="col-lg-6 col-6">
+                                                                        <div class="section">Section: 1</div>
+                                                                    </div>
+                                                                    <div class="col-lg-6 col-6">
+                                                                        <div class="section-dividation text-right">
+                                                                            1                                        Classes
+                                                                            
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="row">
+                                                                    <div class="col-lg-10 col-8">
+                                                                        <div class="profile-heading">Introduction
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col-lg-2 col-4">
+                                                                        <div class="text-right">
+                                                                            4                                        
+                                                                            min
+
+                                                                                                                </div>
+
+                                                                    </div>
+                                                                </div>
+                                                            </td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                    </div>
+                                                </button>
+                                            </div>
+                                        </div>
+                                        <div id="collapseChapter44" class="collapse" aria-labelledby="headingChapter" data-parent="#accordion" style="">
+                                            <div class="card-body">
+                                                <table class="table">  
+                                                    <tbody>
+                                                        <tr>
+                                                            <td class="class-type">
+                                                                <a href="https://eclass.mediacity.co.in/demo/public/watch/courseclass/69" title="Course" class=""><i class="fa fa-play-circle"></i>&nbsp;class</a>
+                                                            </td>
+
+                                                            <td class="class-name">
+                                                                <div class="koh-tab-content">
+                                                                    <div class="koh-tab-content-body">
+                                                                        <div class="koh-faq">
+                                                                        <div class="koh-faq-question">
+                                                                            <span class="koh-faq-question-span"> Learn Advanced C++ </span>
+                                                                        </div>
+                                                                        <div class="koh-faq-answer"></div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </td>
+
+                                                            <td class="class-size txt-rgt">
+                                                                4:36 min                        
+                                                            </td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>            
+                                        </div>
+                                    </div>                    
+                                @endif                     
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    @if(isset($ifenrolled) && !empty($ifenrolled) && $ifenrolled->is_completed==0)
                                         <div class="mark-read-button">
-                                            <button type="submit" class="btn btn-md btn-primary">
+                                            <button type="button" data-product-slug="{{ $model->product_slug }}" class="btn btn-md btn-primary mark-complete-course-btn">
                                                 Mark as Complete
                                             </button>
                                         </div>
-                                    </div>
+                                    @endif
                                 </div>
-                            </form>
+                            </div>
                         </div>
                     </div>
 
@@ -540,26 +595,33 @@
                         </div>
                     </div>
 
-                    <div class="tab-pane fade" id="nav-quiz" role="tabpanel" aria-labelledby="nav-quiz-tab">
-                        <div class="container-xl">
-                            <div class="quiz-main-block">
-                                <h5>Objective</h5>
-                                <div class="row">                                
-                                    <div class="learning-quiz-null text-center">
-                                        <div class="col-lg-12">
-                                            <h1>No quiz</h1>
-                                            <p>No quizs detail</p>
+                    <div class="tab-pane fade" id="nav-rating-review" role="tabpanel" aria-labelledby="nav-rating-review-tab">
+                        <div class="overview-block">
+                            <h4>Review & Rate </h4>
+                            <div class="row">
+                                <div class="col-lg-6 col-md-6">
+                                    <div class="learning-questions-block btm-40">
+                                        <h5 class="learning-questions-heading">Review & Rate</h5>
+                                        <div class="learning-questions-content">
+                                            <div class="form-group">
+                                                <label for="">Rate</label><br />
+                                                <div class="rate">
+                                                    @for($i=1; $i<=5; $i++)
+                                                        <input type="radio" class="rating" id="star{{ $i }}" name="rate" value="{{ $i }}" />
+                                                        <label for="star{{ $i }}" title="{{ $i }} Stars">5 stars</label>
+                                                    @endfor
+                                                </div>
+                                            </div>
+                                            <br /><br />
+                                            <div class="form-group">
+                                                <label for="">Review</label>
+                                                <textarea name="review" id="product-review" rows="5" class="form-control" placeholder="Enter review here"></textarea>
+                                            </div>
+                                            <div class="form-group">
+                                                <button type="button" class="btn btn-success rate-btn">Submit</button>
+                                            </div>
                                         </div>
-                                    </div> 
-                                </div>
-                                <h5>Subjective</h5>
-                                <div class="row">                                                            
-                                    <div class="learning-quiz-null text-center">
-                                        <div class="col-lg-12">
-                                            <h1>No quiz</h1>
-                                            <p>No quiz detail</p>
-                                        </div>
-                                    </div> 
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -769,3 +831,78 @@
         </div>
     </section>
 @endsection
+@push('js')
+    <script>
+        /* $(document).on('click', 'rating-value', function(){
+            var rating_value = $(this).attr('data-rating-value');
+            var product_slug = $(this).attr('data-product-slug');
+            $.ajax({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                url : "{{ route('user.rate') }}",
+                data : {product_slug:product_slug, rating_value:rating_value},
+                type : 'POST',
+                success : function(response){
+                    console.log(response);
+                    if(response=='success'){
+                        Swal.fire(
+                            'Completed!',
+                            'Your have completed successfully.',
+                            'success',
+                        );
+
+                        location.reload();
+                    }else{
+                        Swal.fire(
+                            'Error!',
+                            'Sorry something went wrong.',
+                            'warning',
+                        );
+                    }
+                }
+            });
+        }); */
+
+        $(document).on('click', '.mark-complete-course-btn', function(){
+            var product_slug = $(this).attr('data-product-slug');
+            Swal.fire({
+                title: 'Are you sure?',
+                text: "You want to complete this course?!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Yes, complete it!'
+                }).then((result) => {
+                if (result.isConfirmed) {
+                    $.ajax({
+                        headers: {
+                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                        },
+                        url : "{{ route('user.complete-course') }}",
+                        data : {product_slug:product_slug},
+                        type : 'POST',
+                        success : function(response){
+                            if(response=='success'){
+                                Swal.fire(
+                                    'Completed!',
+                                    'Your have completed successfully.',
+                                    'success',
+                                );
+
+                                location.reload();
+                            }else{
+                                Swal.fire(
+                                    'Error!',
+                                    'Sorry something went wrong.',
+                                    'warning',
+                                );
+                            }
+                        }
+                    });
+                }
+            })
+        });
+    </script>
+@endpush

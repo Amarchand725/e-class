@@ -17,8 +17,11 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', 'WebController@index')->name('home');
 Route::get('/institute/{slug}/single', 'WebController@instituteSingle')->name('institute.single');
 Route::get('/course/{slug}/single', 'WebController@courseSingle')->name('course.single');
+Route::get('/course/all-discount/courses', 'WebController@allDiscountCourses')->name('course.all-discount.courses');
+Route::get('/course/all-feature/courses', 'WebController@allFeatureCourses')->name('course.all-feature.courses');
 Route::get('/bundle/{slug}/single', 'WebController@bundleSingle')->name('bundle.single');
 Route::get('/user/{slug}/profile', 'WebController@userProfile')->name('user.profile');
+Route::get('/following', 'FollowerController@following')->name('following');
 
 Route::group(['middleware' => 'guest'], function(){
     //cart
@@ -53,6 +56,8 @@ Route::middleware(['auth','role:Student'])->group(function () {
     Route::get('/user/purchase_history', 'WebController@purchaseHistory')->name('user.purchase_history');
     Route::get('/order/{order_number}/invoice', 'WebController@orderInvoice')->name('order.invoice');
     Route::get('user/profile/edit', 'WebController@userEditProfile')->name('user.profile.edit');
+    Route::post('user/complete-course', 'WebController@userCompleteCourse')->name('user.complete-course');
+    Route::post('user/rate', 'WebController@userRate')->name('user.rate');
 });
 
 Route::middleware(['auth','role:Instructor'])->group(function () {
@@ -65,14 +70,15 @@ Route::middleware(['auth','role:Instructor'])->group(function () {
 //Admin
 Route::middleware(['auth','role:Admin'])->group(function () {
     Route::get('admin/dashboard', 'DashboardController@dashboard')->name('admin.dashboard');
-    Route::get('/profile/edit', 'AdminController@editProfile')->name('admin.profile.edit');
-    Route::post('/profile/update', 'AdminController@updateProfile')->name('admin.profile.update');  
+    Route::get('/profile/edit', 'admin\AdminController@editProfile')->name('admin.profile.edit');
+    Route::post('/profile/update', 'admin\AdminController@updateProfile')->name('admin.profile.update');  
 
     //admin reset password
-    Route::get('forgot_password', 'AdminController@forgotPassword')->name('admin.forgot_password');
-    Route::get('send-password-reset-link', 'AdminController@passwordResetLink')->name('admin.send-password-reset-link');
-    Route::get('reset-password/{token}', 'AdminController@resetPassword')->name('admin.reset-password');
-    Route::post('change_password', 'AdminController@changePassword')->name('admin.change_password');
+    Route::get('forgot_password', 'admin\AdminController@forgotPassword')->name('admin.forgot_password');
+    Route::get('send-password-reset-link', 'admin\AdminController@passwordResetLink')->name('admin.send-password-reset-link');
+    Route::get('reset-password/{token}', 'admin\AdminController@resetPassword')->name('admin.reset-password');
+    Route::post('change_password', 'admin\AdminController@changePassword')->name('admin.change_password');
+    Route::get('admin/orders', 'admin\AdminController@orders')->name('admin.orders');
 
     //pages settings
     Route::resource('admin/page', 'PageController');
@@ -93,7 +99,7 @@ Route::middleware(['auth','role:Admin'])->group(function () {
     
     
     Route::resource('admin/bundle', 'admin\BundleController');
-    Route::resource('admin/follower', 'admin\FollowerController');
+    Route::resource('admin/follower', 'FollowerController');
     Route::get('get_courses_price', 'admin\bundleController@getCoursesPrice')->name('get_courses_price');
 });
 

@@ -66,12 +66,12 @@ class User extends Authenticatable
 
     public function haveFollowers()
     {
-        return $this->hasMany(Follower::class, 'user_id', 'id')->where('following_id', null);
+        return $this->hasMany(Follower::class, 'user_slug', 'slug');
     }
 
     function haveFollowings()
     {
-        return $this->hasMany(Follower::class, 'user_id', 'id')->where('follower_id', null);
+        return $this->hasMany(Follower::class, 'follower_slug', 'slug');
     }
     public function haveWishList()
     {

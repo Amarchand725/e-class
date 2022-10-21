@@ -10,10 +10,12 @@ class Follower extends Model
     protected $table = 'followers';
     protected $guarded = [];
 
-    static function getValidationRules(){
-    	$rules = [
-		    'user_id' => 'required'
-		];
-		return $rules;
+    public function hasFollower()
+    {
+        return $this->hasOne(User::class, 'slug', 'follower_slug');
+    }
+    public function hasUser()
+    {
+       return $this->hasOne(User::class, 'slug', 'user_slug');
     }
 }
