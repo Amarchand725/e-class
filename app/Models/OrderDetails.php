@@ -26,4 +26,8 @@ class OrderDetails extends Model
     {
         return $this->hasOne(Order::class, 'order_number', 'order_number');
     }
+    public function hasProductRating()
+    {
+        return $this->hasOne(ProductRate::class, 'product_slug', 'product_slug');
+    }
 }

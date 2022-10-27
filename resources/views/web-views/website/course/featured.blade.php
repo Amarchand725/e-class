@@ -63,9 +63,9 @@
                                     <div class="rating">
                                         <ul>
                                             <li>
-                                                    <div class="pull-left">No Rating</div>
-                                                </li>
-                                                <li class="reviews">
+                                                <div class="pull-left">No Rating</div>
+                                            </li>
+                                            <li class="reviews">
                                                 (0 Reviews)
                                             </li>
                                         </ul>

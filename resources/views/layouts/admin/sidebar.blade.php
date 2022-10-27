@@ -45,6 +45,13 @@
                     </a>
                 </li>
                 @endcan
+                @can('meeting-list')
+                <li class="treeview">
+                    <a href="{{ route('meeting.index') }}" class="{{ request()->is('meeting') || request()->is('meeting/create') || request()->is('meeting/*/edit') ? 'active' : '' }}">
+                        <i class="fa fa-list-alt"></i> <span>Meetings</span>
+                    </a>
+                </li>
+                @endcan
                 @can('blog-list')
                 <li class="treeview">
                     <a href="{{ route('blog.index') }}" class="{{ request()->is('blog') || request()->is('blog/create') || request()->is('blog/*/edit') ? 'active' : '' }}">

@@ -13,7 +13,7 @@
         }
         .rate:not(:checked) > input {
             position:absolute;
-            top:-9999px;
+            z-index: -1;
         }
         .rate:not(:checked) > label {
             float:right;
@@ -40,6 +40,9 @@
         .rate > input:checked ~ label:hover ~ label,
         .rate > label:hover ~ input:checked ~ label {
             color: #c59b08;
+        }
+        .rate .rated{
+            color: #c59b08 !important;
         }
     </style>
 @endpush
@@ -595,7 +598,7 @@
                         </div>
                     </div>
 
-                    <div class="tab-pane fade" id="nav-rating-review" role="tabpanel" aria-labelledby="nav-rating-review-tab">
+                    <div class="tab-pane" id="nav-rating-review" role="tabpanel" aria-labelledby="nav-rating-review-tab">
                         <div class="overview-block">
                             <h4>Review & Rate </h4>
                             <div class="row">
@@ -606,19 +609,24 @@
                                             <div class="form-group">
                                                 <label for="">Rate</label><br />
                                                 <div class="rate">
-                                                    @for($i=1; $i<=5; $i++)
-                                                        <input type="radio" class="rating" id="star{{ $i }}" name="rate" value="{{ $i }}" />
-                                                        <label for="star{{ $i }}" title="{{ $i }} Stars">5 stars</label>
+                                                    @for($i=5; $i>=1; $i--)
+                                                        @if($model->hasProductRating->rate>=$i)
+                                                            <input type="radio" class="rating rate-value" id="star{{ $i }}" name="rate" value="{{ $i }}" />
+                                                            <label class="rated" for="star{{ $i }}" title="{{ $i }} Stars">5 stars</label>
+                                                        @else 
+                                                            <input type="radio" class="rating" id="star{{ $i }}" name="rate" value="{{ $i }}" />
+                                                            <label for="star{{ $i }}" title="{{ $i }} Stars">5 stars</label>
+                                                        @endif
                                                     @endfor
                                                 </div>
                                             </div>
                                             <br /><br />
                                             <div class="form-group">
-                                                <label for="">Review</label>
-                                                <textarea name="review" id="product-review" rows="5" class="form-control" placeholder="Enter review here"></textarea>
+                                                <label for="product-review">Review</label>
+                                                <textarea name="review" id="product-review" rows="5" class="form-control" placeholder="Enter review here">@if($model->hasProductRating) {{ $model->hasProductRating->review }} @endif</textarea>
                                             </div>
                                             <div class="form-group">
-                                                <button type="button" class="btn btn-success rate-btn">Submit</button>
+                                                <button type="button" class="btn btn-success rate-btn" data-product-slug="{{ $model->product_slug }}">Submit</button>
                                             </div>
                                         </div>
                                     </div>
@@ -627,7 +635,7 @@
                         </div>
                     </div>
 
-                    <div class="tab-pane fade" id="nav-assign" role="tabpanel" aria-labelledby="nav-assign-tab">
+                    {{-- <div class="tab-pane fade" id="nav-assign" role="tabpanel" aria-labelledby="nav-assign-tab">
                         <div class="container-xl">
                             <div class="assignment-main-block">
                                 <h3>Your Assignments</h3>
@@ -825,7 +833,7 @@
                             </div>
                             <!-- row end --> 
                         </div> 
-                    </div>
+                    </div> --}}
                 </div>
             </div>
         </div>
@@ -833,26 +841,28 @@
 @endsection
 @push('js')
     <script>
-        /* $(document).on('click', 'rating-value', function(){
-            var rating_value = $(this).attr('data-rating-value');
+        $(document).on('click', '.rating', function(){
+            $(this).parents('.rate').find('.rate-value').removeClass("rate-value");
+            $(this).addClass('rate-value');
+        });
+        $(document).on('click', '.rate-btn', function(){
+            var rating_value = $('.rate-value').val();
+            var review = $('#product-review').val();
             var product_slug = $(this).attr('data-product-slug');
             $.ajax({
                 headers: {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 },
                 url : "{{ route('user.rate') }}",
-                data : {product_slug:product_slug, rating_value:rating_value},
+                data : {product_slug:product_slug, rating_value:rating_value, review:review},
                 type : 'POST',
                 success : function(response){
-                    console.log(response);
                     if(response=='success'){
                         Swal.fire(
-                            'Completed!',
-                            'Your have completed successfully.',
+                            'Rated!',
+                            'You have rated successfully Thanks.',
                             'success',
                         );
-
-                        location.reload();
                     }else{
                         Swal.fire(
                             'Error!',
@@ -862,7 +872,7 @@
                     }
                 }
             });
-        }); */
+        });
 
         $(document).on('click', '.mark-complete-course-btn', function(){
             var product_slug = $(this).attr('data-product-slug');

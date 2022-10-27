@@ -65,16 +65,34 @@
                                 </div>
                                 <div class="rating">
                                     <ul>
-                                        <li>
-                                            <div class="pull-left">
-                                                <div class="star-ratings-sprite">
-                                                    <span style="width:86.666666666667%" class="star-ratings-sprite-rating"></span>
+                                        @php 
+                                            $rate = 0;
+                                            $tot_reviews = 0;
+                                            if(count($featured_course->hasRating)>0){
+                                                $tot_reviews = $featured_course->hasRating->count();
+                                                $rate = ($featured_course->hasRating->sum('rate')/$featured_course->hasRating->count()*5)*5;
+                                            }
+                                        @endphp 
+                                        @if($rate>0) 
+                                            <li>
+                                                <div class="pull-left">
+                                                    <div class="star-ratings-sprite">
+                                                        <span style="width:{{ $rate }}%" class="star-ratings-sprite-rating"></span>
+                                                    </div>
                                                 </div>
-                                            </div>
-                                        </li>
-                                        <li class="reviews">
-                                            (1 Reviews)
-                                        </li>
+                                            </li>
+                                            <li class="reviews">
+                                                ({{ $tot_reviews }} Reviews)
+                                            </li>
+                                        @else 
+                                            <li>
+                                                <div class="pull-left no-rating">
+                                                    No Rating
+                                                </div>
+                                            </li> 
+                                        @endif  
+
+                                        
                                     </ul>
                                 </div>
                                 <div class="view-footer">
@@ -82,7 +100,13 @@
                                         <div class="col-lg-6 col-md-6 col-sm-6 col-6">
                                             <div class="count-user">
                                                 <i data-feather="user"></i>
-                                                <span>0</span>
+                                                @php 
+                                                    $enrolled = 0; 
+                                                    if(count($featured_course->haveEnrolledStudents)>0){
+                                                        $enrolled = count($featured_course->haveEnrolledStudents);
+                                                    }
+                                                @endphp 
+                                                <span>{{ $enrolled }}</span>
                                             </div>
                                         </div>
                                         <div class="col-lg-6 col-md-6 col-sm-6 col-6">

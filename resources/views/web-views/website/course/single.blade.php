@@ -24,18 +24,33 @@
                     <ul>
                         <li>                                                        
                             <div class="pull-left">
-                                <div class="star-ratings-sprite"><span style="width:100%" class="star-ratings-sprite-rating"></span>
+                                <div class="star-ratings-sprite">
+                                    @php 
+                                        $rate = 0;
+                                        $tot_reviews = 0;
+                                        if(count($model->hasRating)>0){
+                                            $tot_reviews = $model->hasRating->count();
+                                            $rate = ($model->hasRating->sum('rate')/$model->hasRating->count()*5)*5;
+                                        }
+                                    @endphp
+                                    <span style="width:{{ $rate }}%" class="star-ratings-sprite-rating"></span>
                                 </div>
                             </div>
                         </li>
                         <li>
-                            5 rating
+                            @if(round($rate/20)>5) 5 @else {{ round($rate/20) }} @endif rating
                         </li>
                         <li>
-                            (1 Reviews)
+                            ({{ $tot_reviews }} Reviews)
                         </li>
                         <li>
-                            5 students enrolled
+                            @php 
+                                $enrolled = 0; 
+                                if(count($model->haveEnrolledStudents)>0){
+                                    $enrolled = count($model->haveEnrolledStudents);
+                                }
+                            @endphp 
+                            {{ $enrolled }} students enrolled
                         </li>
                     </ul>
                     <ul>
@@ -189,7 +204,7 @@
                                 <h5 class="about-content-heading">{{ $model->hasInstructor->name }}</h5>
                             </div>
                             <div class="ratings">
-                                <div class="star-rating">Users Enrolled 20 </div>
+                                <div class="star-rating">Users Enrolled {{ $enrolled }} </div>
                             </div>
                             
                             <div class="about-reward-badges">
@@ -386,6 +401,7 @@
                         </li>
                     </ul>
                 </div>
+
                 <div class="description-block btm-30">
                     <h3>Description</h3>
                     <p>{!! $model->hasInstructor->hasUserProfile->details??'' !!}</p>
@@ -405,9 +421,9 @@
                                     <div class="course-rate txt-rgt">
                                         <ul>
                                             <li>
-                                                <div class="heart">
-                                                    <a href="#" title="heart"><i data-feather="heart"></i></a>
-                                                </div>
+                                                <li class="protip-wish-btn add-wish-btn" data-url="{{ route('user.wishlist.store') }}" data-product-slug="{{ $recent_course->slug }}">
+                                                    <span title="heart"><i data-feather="heart"></i></span>
+                                                </li>
                                             </li>
                                         </ul>
                                     </div>
@@ -443,6 +459,7 @@
                         </div>
                     @endforeach
                 </div>
+
                 <div class="about-instructor-block">
                     <h3>About Instructor</h3>
                     <div class="about-instructor btm-40">
@@ -475,10 +492,10 @@
                     <h3 class="student-feedback-heading">Student Feedback</h3>
                     <div class="student-feedback-block">
                         <div class="rating">
-                            <div class="rating-num">5</div>
+                            <div class="rating-num">@if(round($rate/20)>5) 5 @else {{ round($rate/20) }} @endif</div>
                                 <div class="pull-left">
                                     <div class="star-ratings-sprite star-ratings-center">
-                                        <span style="width:100%" class="star-ratings-sprite-rating"></span>
+                                        <span style="width:{{ $rate }}%" class="star-ratings-sprite-rating"></span>
                                     </div>
                                 </div>
                             <div class="rating-users">Course Rating</div>
@@ -488,12 +505,12 @@
                                 <span class="histo-star">
                                     <div class="pull-left">
                                         <div class="star-ratings-sprite star-ratings-center">
-                                            <span style="width:100%" class="star-ratings-sprite-rating"></span>
+                                            <span style="width:{{ $rate }}%" class="star-ratings-sprite-rating"></span>
                                         </div>
                                     </div>
                                 </span>
                                 <span class="histo-percent">
-                                    <a href="#" title="rate">100%</a>
+                                    <a href="#" title="rate">@if(round($rate/20)>5) 100 @else {{ round($rate/20) }}@endif%</a>
                                 </span>
                                 <span class="bar-block">
                                     <span id="bar-three" style=" width:100%;" class="bar bar-clr bar-radius">&nbsp;</span>
@@ -503,12 +520,12 @@
                                 <span class="histo-star">
                                     <div class="pull-left">
                                         <div class="star-ratings-sprite star-ratings-center">
-                                            <span style="width:100%" class="star-ratings-sprite-rating"></span>
+                                            <span style="width:{{ $rate }}%" class="star-ratings-sprite-rating"></span>
                                         </div>
                                     </div>
                                 </span>
                                 <span class="histo-percent">
-                                    <a href="#" title="rate">100%</a>
+                                    <a href="#" title="rate">@if(round($rate/20)>5) 100 @else {{ round($rate/20) }}@endif%</a>
                                 </span>
                                 <span class="bar-block">
                                     <span id="bar-two" style="width: 100%" class="bar bar-clr bar-radius">&nbsp;</span>
@@ -517,12 +534,13 @@
                             <div class="one histo-rate">
                                 <span class="histo-star">
                                     <div class="pull-left">
-                                        <div class="star-ratings-sprite star-ratings-center"><span style="width:100%" class="star-ratings-sprite-rating"></span>
+                                        <div class="star-ratings-sprite star-ratings-center">
+                                            <span style="width:{{ $rate }}%" class="star-ratings-sprite-rating"></span>
                                         </div>
                                     </div>
                                 </span>
                                 <span class="histo-percent">
-                                    <a href="#" title="rate">100%</a>
+                                    <a href="#" title="rate">@if(round($rate/20)>5) 100 @else {{ round($rate/20) }}@endif%</a>
                                 </span>
                                 <span class="bar-block">
                                     <span id="bar-one" style="width: 100%" class="bar bar-clr bar-radius">&nbsp;</span>
@@ -532,34 +550,41 @@
                     </div>
                 </div>
                 <hr>
-                
-                <div class="learning-review btm-40">
-                    <div class="review-dtl">
-                        <div class="row btm-20">
-                            <div class="col-lg-4">
-                                <div class="review-img text-white">
-                                    AE
-                                </div>
-                                <div class="review-img-block">
-                                    <div class="review-month">22-09-2022</div>
-                                    <div class="review-name">Admin Example</div>
-                                </div>
-                            </div>
-                            <div class="col-lg-8">
-                                <div class="review-rating">
-                                    <div class="pull-left-review">
-                                        <div class="star-ratings-sprite"><span style="width:100%" class="star-ratings-sprite-rating"></span>
+                @if(count($model->hasRating)>0)
+                    <div class="learning-review btm-40">
+                        <div class="review-dtl">
+                            @foreach ($model->hasRating as $rate_value)
+                                <div class="row btm-20">
+                                    <div class="col-lg-4">
+                                        <div class="review-img text-white">
+                                            {{ Str::upper(substr($rate_value->hasUser->name, 0, 2))  }}
+                                        </div>
+                                        <div class="review-img-block">
+                                            <div class="review-month">{{ date('d-m-Y', strtotime($rate_value->created_at)) }}</div>
+                                            <div class="review-name">{{ $rate_value->hasUser->name }}</div>
                                         </div>
                                     </div>
-                                    <div class="review-text">
-                                        <p>good<p>
+                                    <div class="col-lg-8">
+                                        <div class="review-rating">
+                                            <div class="pull-left-review">
+                                                <div class="star-ratings-sprite">
+                                                    @php 
+                                                        $rate = ($rate_value->sum('rate')/$model->hasRating->count()*5)*5;
+                                                    @endphp 
+                                                    <span style="width:{{ $rate }}%" class="star-ratings-sprite-rating"></span>
+                                                </div>
+                                            </div>
+                                            <div class="review-text">
+                                                <p>{{ $rate_value->review }}<p>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
+                            @endforeach
+                            <hr>
                         </div>
-                        <hr>
                     </div>
-                </div>
+                @endif
 
                 <div class="more-courses btm-30">
                     <h2 class="more-courses-heading">Related Courses</h2>
@@ -575,7 +600,7 @@
                                                 </a>
                                             </div>
                                             <div class="view-user-img">
-                                                <a href=".{{ route('user.profile', $relate_course->hasInstructor->slug) }}" title="">
+                                                <a href="{{ route('user.profile', $relate_course->hasInstructor->slug) }}" title="">
                                                     @if(isset($relate_course->hasInstructor->hasUserProfile->profile_image))
                                                         <img src="{{ asset('public/admin/images/profiles') }}/{{ $relate_course->hasInstructor->hasUserProfile->profile_image }}" width="50px"  class="img-fluid user-img-one" alt="">
                                                     @else
@@ -587,13 +612,13 @@
                                             <div class="img-wishlist">
                                                 <div class="protip-wishlist">
                                                     <ul>
-                                                        <li class="protip-wish-btn">
+                                                        {{-- <li class="protip-wish-btn">
                                                             <a href="https://calendar.google.com/calendar/r/eventedit?text=The%20Complete%20Web%20Developer%20Bootcamp"
                                                                 target="__blank" title="reminder"><i data-feather="bell"></i>
                                                             </a>
-                                                        </li>
-                                                        <li class="protip-wish-btn">
-                                                            <a href="../../login.html" title="heart"><i data-feather="heart"></i></a>
+                                                        </li> --}}
+                                                        <li class="protip-wish-btn add-wish-btn" data-url="{{ route('user.wishlist.store') }}" data-product-slug="{{ $relate_course->slug }}">
+                                                            <span title="heart"><i data-feather="heart"></i></span>
                                                         </li>
                                                     </ul>
                                                 </div>
@@ -608,11 +633,32 @@
                                                 </div>                                            
                                                 <div class="rating">
                                                     <ul>
-                                                        <li>
-                                                            <div class="pull-left no-rating">
-                                                                No Rating
-                                                            </div>
-                                                        </li>    
+                                                        @php 
+                                                            $rate = 0;
+                                                            $tot_reviews = 0;
+                                                            if(count($relate_course->hasRating)>0){
+                                                                $tot_reviews = $relate_course->hasRating->count();
+                                                                $rate = ($relate_course->hasRating->sum('rate')/$relate_course->hasRating->count()*5)*5;
+                                                            }
+                                                        @endphp
+                                                        @if($rate>0) 
+                                                            <li>
+                                                                <div class="pull-left">
+                                                                    <div class="star-ratings-sprite">
+                                                                        <span style="width:{{ $rate }}%" class="star-ratings-sprite-rating"></span>
+                                                                    </div>
+                                                                </div>
+                                                            </li>
+                                                            <li class="reviews">
+                                                                ({{ $tot_reviews }} Reviews)
+                                                            </li>
+                                                        @else 
+                                                            <li>
+                                                                <div class="pull-left no-rating">
+                                                                    No Rating
+                                                                </div>
+                                                            </li> 
+                                                        @endif   
                                                     </ul>
                                                 </div>
                                                 <div class="view-footer">
@@ -620,9 +666,13 @@
                                                         <div class="col-lg-6 col-md-6 col-sm-6 col-6">
                                                             <div class="count-user">
                                                                 <i data-feather="user"></i>
-                                                                <span>
-                                                                    1
-                                                                </span>
+                                                                @php 
+                                                                    $enrolled = 0; 
+                                                                    if(count($relate_course->haveEnrolledStudents)>0){
+                                                                        $enrolled = count($relate_course->haveEnrolledStudents);
+                                                                    }
+                                                                @endphp 
+                                                                <span>{{ $enrolled }}</span>
                                                             </div>
                                                         </div>
                                                         <div class="col-lg-6 col-md-6 col-sm-6 col-6">

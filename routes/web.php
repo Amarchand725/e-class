@@ -116,5 +116,6 @@ Route::resource('coursequestion', 'CoursequestionController');
 Route::resource('courseannouncement', 'CourseannouncementController');
 Route::resource('payoutsetting', 'PayoutSettingController');
 Route::resource('follower', 'FollowerController');
+Route::resource('meeting', 'MeetingController');
 
 require __DIR__.'/auth.php';

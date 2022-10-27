@@ -17,6 +17,7 @@ use App\Models\City;
 use App\Models\EmailSubscription;
 use App\Models\Category;
 use App\Models\EnrollStudent;
+use App\Models\ProductRate;
 use DB;
 use Session;
 use Illuminate\Support\Facades\Auth;
@@ -233,6 +234,23 @@ class WebController extends Controller
 
     public function userRate(Request $request)
     {
-        return $request;
+        $model = ProductRate::where('user_slug', Auth::user()->slug)->where('product_slug', $request->product_slug)->first();
+        if($model){
+            $model->rate = $request->rating_value;
+            $model->review = $request->review;
+            $model->save();
+        }else{
+            $model = ProductRate::create([
+                'user_slug' => Auth::user()->slug,
+                'product_slug' => $request->product_slug,
+                'rate' => $request->rating_value,
+                'review' => $request->review,
+            ]);
+        }
+        if($model){
+            return 'success';
+        }else{
+            return 'failed';
+        }
     }
 }

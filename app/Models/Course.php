@@ -60,4 +60,8 @@ class Course extends Model
     {
         return $this->hasMany(EnrollStudent::class, 'product_slug', 'slug');
     }
+    public function hasRating()
+    {
+        return $this->hasMany(ProductRate::class, 'product_slug', 'slug');
+    }
 }
