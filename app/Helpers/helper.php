@@ -11,6 +11,7 @@ use App\Models\TrustCompany;
 use App\Models\Institute;
 use App\Models\User;
 use App\Models\Bundle;
+use App\Models\Meeting;
 
 function globalData()
 {
@@ -67,4 +68,8 @@ function instructors()
 function bundles()
 {
     return Bundle::orderby('id', 'desc')->where('status', 1)->get();
+}
+function meetings()
+{
+    return Meeting::orderby('id', 'desc')->where('status', 1)->get();
 }

@@ -17,11 +17,15 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', 'WebController@index')->name('home');
 Route::get('/institute/{slug}/single', 'WebController@instituteSingle')->name('institute.single');
 Route::get('/course/{slug}/single', 'WebController@courseSingle')->name('course.single');
+Route::get('/meeting/{slug}/single', 'WebController@meetingSingle')->name('meeting.single');
 Route::get('/course/all-discount/courses', 'WebController@allDiscountCourses')->name('course.all-discount.courses');
 Route::get('/course/all-feature/courses', 'WebController@allFeatureCourses')->name('course.all-feature.courses');
 Route::get('/bundle/{slug}/single', 'WebController@bundleSingle')->name('bundle.single');
 Route::get('/user/{slug}/profile', 'WebController@userProfile')->name('user.profile');
 Route::get('/following', 'FollowerController@following')->name('following');
+Route::get('get-chapters', 'WebController@getChapters')->name('get-chapters');
+Route::get('get-classes', 'WebController@getClasses')->name('get-classes');
+Route::get('chapter/chat/{chapter_id}', 'ChatController@Chat')->name('chapter.chat');
 
 Route::group(['middleware' => 'guest'], function(){
     //cart

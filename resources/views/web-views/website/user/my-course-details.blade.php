@@ -341,7 +341,7 @@
                                                                             </div>
                                                                             <div class="row">
                                                                                 <div class="col-lg-10 col-8">
-                                                                                    <div class="profile-heading">{{ $chapter->name }}</div>
+                                                                                    <div class="profile-heading">Chapter Title: {{ $chapter->name }}</div>
                                                                                 </div>
                                                                                 <div class="col-lg-2 col-4">
                                                                                     <div class="text-right">
@@ -369,6 +369,10 @@
                                                 <div class="card-body">
                                                     <table class="table">  
                                                         <tbody>
+                                                            <tr>
+                                                                <td colspan="4"><i class="fa fa-arrow-right" aria-hidden="true"></i> Chapter Topics</td>
+                                                            </tr>
+                                                            @php $bool = true; @endphp 
                                                             @foreach ($chapter->haveChapterClasses as $chapter_class)
                                                                 <tr>
                                                                     @if($chapter_class->type=="Video")
@@ -389,16 +393,16 @@
                                                                         <div class="koh-tab-content">
                                                                             <div class="koh-tab-content-body">
                                                                                 <div class="koh-faq">
-                                                                                <div class="koh-faq-question">
-                                                                                    <span class="koh-faq-question-span"> 
-                                                                                        @if(!empty($model->hasCourse))
-                                                                                            {{ $model->hasCourse->title }}
-                                                                                        @elseif(!empty($model->hasBundle))
-                                                                                            {{ $model->hasBundle->title }}
-                                                                                        @endif    
-                                                                                    </span>
-                                                                                </div>
-                                                                                <div class="koh-faq-answer"></div>
+                                                                                    <div class="koh-faq-question">
+                                                                                        <span class="koh-faq-question-span"> 
+                                                                                            @if(!empty($model->hasCourse))
+                                                                                                {{ $model->hasCourse->title }}
+                                                                                            @elseif(!empty($model->hasBundle))
+                                                                                                {{ $model->hasBundle->title }}
+                                                                                            @endif    
+                                                                                        </span>
+                                                                                    </div>
+                                                                                    <div class="koh-faq-answer"></div>
                                                                                 </div>
                                                                             </div>
                                                                         </div>
@@ -413,7 +417,37 @@
                                                                         {{ $chapter_total_lectures_duration }}                       
                                                                     </td>
                                                                 </tr>
+                                                                
+                                                                <!-- Liv classes -->
+                                                                @if($bool)
+                                                                    @php $bool = false; @endphp 
+                                                                    <tr>
+                                                                        <td colspan="4"><i class="fa fa-arrow-right" aria-hidden="true"></i> Liv Classes</td>
+                                                                    </tr>
+                                                                @endif
+                                                                @foreach ($chapter_class->haveLiveClasses as $liv_class)
+                                                                    <tr>
+                                                                        <td class="class-type">
+                                                                            <a href="{{ asset('public/admin/images/meetings') }}/{{ $liv_class->thumbnail }}" title="Course" download>
+                                                                                <i class="fa fa-circle"></i>&nbsp; {{ $liv_class->topic }}
+                                                                            </a>
+                                                                        </td>
+
+                                                                        <td class="class-name">{{ date('d, M Y', strtotime($liv_class->start_date)) }} | {{ date('h:i:s A', strtotime($liv_class->start_time)) }}</td>
+
+                                                                        <td class="class-size txt-rgt">
+                                                                            <a href="{{ url('/') }}/{{ $liv_class->meeting_url }}" class="btn btn-success btn-sm">Go to Liv Class</a>
+                                                                        </td>
+                                                                    </tr>
+                                                                @endforeach
+                                                                <!-- Liv classes -->
                                                             @endforeach
+                                                            <tr>
+                                                                <td colspan="2"><i class="fa fa-arrow-right" aria-hidden="true"></i> Black Board (Chat)</td>
+                                                                <td class="class-size txt-rgt">
+                                                                    <a href="{{ route('chapter.chat', $chapter->id) }}" target="_blank" title="Black Board Group Chat" class="btn btn-success bg-transparent btn-sm">Go to Chat</a>
+                                                                </td>
+                                                            </tr>
                                                         </tbody>
                                                     </table>
                                                 </div>            

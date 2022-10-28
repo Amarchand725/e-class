@@ -37,7 +37,7 @@
      <!-- Best Selling Bundle start -->
 
     <!-- Zoom start -->
-    {{-- @include('web-views.layouts.zoom-liv') --}}
+    @include('web-views.layouts.zoom-liv')
     <!-- Zoom end -->
 
     <!-- google class room start -->

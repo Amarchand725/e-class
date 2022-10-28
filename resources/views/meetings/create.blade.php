@@ -24,12 +24,54 @@
 				<div class="box box-info">
 					<div class="box-body">
                         <div class="form-group">
-                            <label for="zoom_meeting_url" class="col-sm-2 control-label">Zoom Meeting URL <span style="color:red">*</span></label>
-                            <div class="col-sm-8"><input type="text" class="form-control" name="zoom_meeting_url" value="{{ old("zoom_meeting_url") }}" placeholder="Enter zoom_meeting_url">
-                            <span style="color: red">{{ $errors->first("zoom_meeting_url") }}</span></div></div>
+                            <label for="course_slug" class="col-sm-2 control-label">Courses</label>
+                            <div class="col-sm-8">
+                                <select name="course_slug" id="course_slug" class="form-control">
+                                    <option value="">Select Course</option>
+                                    @foreach ($courses as $course)
+                                        <option value="{{ $course->slug }}">{{ $course->title }}</option>
+                                    @endforeach
+                                </select>
+                                <span style="color: red">{{ $errors->first("course_slug") }}</span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="course_chapter" class="col-sm-2 control-label">Chapters</label>
+                            <div class="col-sm-8">
+                                <select name="course_chapter" id="course_chapter" class="form-control">
+                                    <option value="">Select Chapter</option>
+                                </select>
+                                <span style="color: red">{{ $errors->first("course_chapter") }}</span>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="chapter_class" class="col-sm-2 control-label">Classes</label>
+                            <div class="col-sm-8">
+                                <select name="chapter_class" id="chapter_class" class="form-control">
+                                    <option value="">Select Class</option>
+                                </select>
+                                <span style="color: red">{{ $errors->first("chapter_class") }}</span>
+                            </div>
+                        </div>
 
                         <div class="form-group">
-                                <label for="email" class="col-sm-2 control-label">Zoom Email <span style="color:red">*</span></label>
+                            <label for="meeting_url" class="col-sm-2 control-label">Meeting URL <span style="color:red">*</span></label>
+                            <div class="col-sm-8"><input type="text" class="form-control" name="meeting_url" value="{{ old("meeting_url") }}" placeholder="Enter meeting_url">
+                            <span style="color: red">{{ $errors->first("meeting_url") }}</span></div></div>
+
+                        <div class="form-group">
+                            <label for="meeting_from" class="col-sm-2 control-label">Meeting From</label>
+                            <div class="col-sm-8">
+                                <select name="meeting_from" id="meeting_from" class="form-control">
+                                    <option value="zoom" {{ old('meeting_from')=='zoom'?'selected':'' }}>Zoom</option>
+                                </select>
+                                <span style="color: red">{{ $errors->first("meeting_from") }}</span>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                                <label for="email" class="col-sm-2 control-label">Email <span style="color:red">*</span></label>
                                 <div class="col-sm-8"><input type="text" class="form-control" name="email" value="{{ old("email") }}" placeholder="Enter email">
                                 <span style="color: red">{{ $errors->first("email") }}</span></div></div>
                         
@@ -98,5 +140,37 @@
 @endsection
 @push('js')
     <script>
+        $(document).on('change', '#course_slug', function(){
+            var course_slug = $(this).val();
+            $.ajax({
+                url : "{{ route('get-chapters') }}",
+                data : {'course_slug' : course_slug},
+                type : 'GET',
+                success : function(result){
+                    var html = '';
+                    jQuery.each(result, function(index, val) {
+                        html +='<option value="'+val.id+'">'+val.name+'</option>';
+                    });
+
+                    $('#course_chapter').html(html);
+                }
+            });
+        });
+        $(document).on('change', '#course_chapter', function(){
+            var chapter_id = $(this).val();
+            $.ajax({
+                url : "{{ route('get-classes') }}",
+                data : {'chapter_id' : chapter_id},
+                type : 'GET',
+                success : function(result){
+                    var html = '';
+                    jQuery.each(result, function(index, val) {
+                        html +='<option value="'+val.id+'">'+val.title+'</option>';
+                    });
+
+                    $('#chapter_class').html(html);
+                }
+            });
+        });
     </script>
 @endpush

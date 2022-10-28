@@ -21,4 +21,9 @@ class CourseClass extends Model
     {
         return $this->hasOne(CourseChapter::class, 'id', 'chapter_id');
     }
+
+    public function haveLiveClasses()
+    {
+        return $this->hasMany(Meeting::class, 'chapter_class', 'id');
+    }
 }

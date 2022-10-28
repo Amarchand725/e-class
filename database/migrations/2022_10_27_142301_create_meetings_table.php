@@ -15,7 +15,11 @@ class CreateMeetingsTable extends Migration
     {
         Schema::create('meetings', function (Blueprint $table) {
             $table->id();
-            $table->text('zoom_meeting_url');
+            $table->string('course_slug');
+            $table->bigInteger('course_chapter');
+            $table->bigInteger('chapter_class');
+            $table->string('meeting_from')->default('zoom')->comment('zoom, google etc.');
+            $table->text('meeting_url');
             $table->string('host_slug');
             $table->string('email');
             $table->date('start_date');

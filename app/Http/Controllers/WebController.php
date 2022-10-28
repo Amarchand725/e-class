@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Institute;
 use App\Models\Course;
+use App\Models\CourseChapter;
 use App\Models\User;
 use App\Models\Bundle;
 use App\Models\UserProfile;
@@ -18,6 +19,8 @@ use App\Models\EmailSubscription;
 use App\Models\Category;
 use App\Models\EnrollStudent;
 use App\Models\ProductRate;
+use App\Models\Meeting;
+use App\Models\CourseClass;
 use DB;
 use Session;
 use Illuminate\Support\Facades\Auth;
@@ -55,6 +58,11 @@ class WebController extends Controller
         $recent_courses = Course::orderby('updated_at', 'desc')->where('id', '!=', $model->id)->where('status', 1)->take(4)->get();
         $related_courses = Course::where('id', '!=', $model->id)->where('status', 1)->where('category_slug', $model->category_slug)->get();
         return view('web-views.website.course.single', compact('model', 'recent_courses', 'related_courses'));
+    }
+    public function meetingSingle($slug)
+    {
+        $model = Meeting::where('slug', $slug)->first();
+        return view('web-views.website.meeting.single', compact('model'));
     }
     public function userProfile($slug)
     {
@@ -252,5 +260,14 @@ class WebController extends Controller
         }else{
             return 'failed';
         }
+    }
+    public function getChapters(Request $request)
+    {
+        $course = Course::where('slug', $request->course_slug)->first();
+        return CourseChapter::where('course_id', $course->id)->get();
+    }
+    public function getClasses(Request $request)
+    {
+        return CourseClass::where('chapter_id', $request->chapter_id)->get();
     }
 }

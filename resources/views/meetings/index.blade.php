@@ -1,5 +1,9 @@
 @extends('layouts.admin.app')
 @section('title', $page_title)
+@push('css')
+    <style>
+    </style>
+@endpush
 @section('content')
 <input type="hidden" id="page_url" value="{{ route('meeting.index') }}">
 <section class="content-header">
@@ -37,6 +41,7 @@
                                 <th>SL</th>
                                 <th>THUMBNAIL</th>
                                 <th>Host</th>
+                                <th>Meeting From</th>
                                 <th>Topic</th>
                                 <th>Start Date</th>
                                 <th>Timing</th>
@@ -57,9 +62,12 @@
                                         @endif
                                     </td>
                                     <td>{{ $model->hasHost->name }} ( {{ $model->hasHost->roles->first()->name }} )</td>
+                                    <td>{{ $model->meeting_from }}</td>
                                     <td>{{ $model->topic }}</td>
                                     <td>{{ date('d, M-Y', strtotime($model->start_date)) }}</td>
-                                    <td>{{ date('h:i A', strtotime($model->start_time)) }}</td>
+                                    <td>
+                                        {{ date('h:i A', strtotime($model->start_time)) }}
+                                    </td>
                                     <td>{{ $model->joining }}</td>
                                     <td>
                                         @if($model->status)

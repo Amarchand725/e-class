@@ -13,11 +13,11 @@ class Meeting extends Model
 
     static function getValidationRules(){
     	$rules = [
-            'topic' => ['required', 'string', 'max:191', 'unique:meetings'],
+            'topic' => ['required'],
             'thumbnail' => 'required',
             'start_date' => 'required',
             'start_time' => 'required',
-            'zoom_meeting_url' => 'required',
+            'meeting_url' => 'required',
             'email' => 'required',
 		];
 		return $rules;

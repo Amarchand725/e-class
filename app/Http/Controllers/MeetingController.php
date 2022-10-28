@@ -3,6 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Meeting;
+use App\Models\Course;
+use App\Models\CourseChapter;
+use App\Models\CourseClass;
 use Illuminate\Http\Request;
 use DB;
 use Session;
@@ -52,7 +55,8 @@ class MeetingController extends Controller
     public function create()
     {
         $view_all_title = 'All Meetings';
-        return view('meetings.create', compact('view_all_title'));
+        $courses = Course::where('instructor_slug', Auth::user()->slug)->where('status', 1)->get();
+        return view('meetings.create', compact('view_all_title', 'courses'));
     }
 
     /**
@@ -63,8 +67,6 @@ class MeetingController extends Controller
      */
     public function store(Request $request)
     {
-        // return $request;
-
         $this->validate($request, Meeting::getValidationRules());
         DB::beginTransaction();
 
@@ -77,7 +79,12 @@ class MeetingController extends Controller
                 $model->thumbnail = $thumbnail;
             }
 
-            $model->zoom_meeting_url = $request->zoom_meeting_url;
+            $model->course_slug = $request->course_slug;
+            $model->course_chapter = $request->course_chapter;
+            $model->chapter_class = $request->chapter_class;
+
+            $model->meeting_from = $request->meeting_from;
+            $model->meeting_url = $request->meeting_url;
             $model->host_slug = Auth::user()->slug;
             $model->email = $request->email;
             $model->start_date = $request->start_date;
@@ -119,8 +126,13 @@ class MeetingController extends Controller
     {
         $view_all_title = 'Edit Meeting';
         $model = Meeting::findOrFail($id);
+        $course_id = Course::where('slug', $model->course_slug)->first()->id;
+        $courses = Course::where('instructor_slug', Auth::user()->slug)->where('status', 1)->get();
+        $chapters = CourseChapter::where('course_id', $course_id)->get();
+
+        $classes = CourseClass::where('chapter_id', $model->course_chapter)->get();
         return view('meetings.edit', compact(
-            'view_all_title', 'model'
+            'view_all_title', 'model', 'courses', 'chapters', 'classes'
         ));
     }
 
@@ -133,21 +145,43 @@ class MeetingController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $this->validate($request, Course::getValidationRules());
+        $model = Meeting::findOrFail($id);
+        if(empty($model->thumbnail)){
+            $this->validate($request, Meeting::getValidationRules());
+        }else{
+            $rules = [
+                'topic' => ['required'],
+                'start_date' => 'required',
+                'start_time' => 'required',
+                'meeting_url' => 'required',
+                'email' => 'required',
+            ];
+
+            $this->validate($request, $rules);
+        }
         DB::beginTransaction();
 
         try{
-            $model = Meeting::findOrFail($id);
-
             if (isset($request->thumbnail)) {
+                $exist_image = public_path('/admin/images/meetings');
+                if($model->thumbnail){
+                    $exist = $exist_image.'/'.$model->thumbnail;
+                    unlink($exist);
+                }
+
                 $thumbnail = date('d-m-Y-His').'.'.$request->file('thumbnail')->getClientOriginalExtension();
                 $request->thumbnail->move(public_path('/admin/images/meetings'), $thumbnail);
                 $model->thumbnail = $thumbnail;
             }
 
-            $model->zoom_meeting_url = $request->zoom_meeting_url;
+            $model->course_slug = $request->course_slug;
+            $model->course_chapter = $request->course_chapter;
+            $model->chapter_class = $request->chapter_class;
+
+            $model->meeting_from = $request->meeting_from;
+            $model->meeting_url = $request->meeting_url;
             $model->host_slug = Auth::user()->slug;
-            $model->host_slug = $request->email;
+            $model->email = $request->email;
             $model->start_date = $request->start_date;
             $model->start_time = $request->start_time;
             $model->topic = $request->topic;
