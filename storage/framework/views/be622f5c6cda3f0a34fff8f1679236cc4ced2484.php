@@ -375,7 +375,7 @@
     });
 </script>
 
-<script src="{{ asset('public/website/js/colorbox-script.js') }}"></script>
+<script src="<?php echo e(asset('public/website/js/colorbox-script.js')); ?>"></script>
 
 <script>
     "use Strict";
@@ -417,3 +417,4 @@
         });
     });
 </script>
+<?php /**PATH C:\xampp\htdocs\e-learning-system\resources\views/web-views/layouts/custome_js.blade.php ENDPATH**/ ?>

@@ -60,74 +60,6 @@
     <section id="categories-popularity" class="categories-popularity-main-block category-filters">
         <div class="container-xl">
             <h4 class="btm-40">Devlopment Courses</h4>
-            {{-- <div class="row">
-                <div class="col-md-6 col-sm-6">
-                    <div class="filter-dropdown catalog-main-block">
-                        <ul>
-                            <li class="dropdown language-select dropdown-select-one">
-                                <a href="#" data-toggle="dropdown" title="Duration" class="select">Sort<i class="fa fa-chevron-down lft-7"></i></a>
-                                <ul class="dropdown-menu dropdown-menu-one">
-                                    <li>
-                                        <ul>
-                                            <li><a href="https://eclass.mediacity.co.in/demo/public/browse/category?id=2&amp;category=devlopment&amp;sortby=a-z" title="A-Z">A-Z Sort</a></li>
-                                            <br>
-                                            <li><a href="https://eclass.mediacity.co.in/demo/public/browse/category?id=2&amp;category=devlopment&amp;sortby=z-a" title="Z-A">Z-A Sort</a></li>
-                                            <br>
-                                            <li><a href="https://eclass.mediacity.co.in/demo/public/browse/category?id=2&amp;category=devlopment&amp;sortby=newest" title="Newest">Newest </a></li>
-                                            <br>
-                                            <li><a href="https://eclass.mediacity.co.in/demo/public/browse/category?id=2&amp;category=devlopment&amp;sortby=featured" title="Featured">Featured</a></li>
-
-                                            <br>
-                                            <li><a href="https://eclass.mediacity.co.in/demo/public/browse/category?id=2&amp;category=devlopment&amp;sortby=l-h" title="Low to High"> Low to High</a></li>
-                                            <br>
-                                            <li><a href="https://eclass.mediacity.co.in/demo/public/browse/category?id=2&amp;category=devlopment&amp;sortby=h-l" title="High to Low"> High to Low</a></li>
-                                        </ul>
-                                    </li>
-                                </ul>
-                            </li>
-
-                            <li class="dropdown language-select dropdown-select rgt-15 limit-dropdown">
-                                <a href="#" data-toggle="dropdown" title="Ratings" class="select">Limit<i class="fa fa-chevron-down lft-7"></i></a>
-                                <ul class="dropdown-menu">
-                                    <li>
-                                        <ul>
-                                            <li><a href="https://eclass.mediacity.co.in/demo/public/browse/category?id=2&amp;category=devlopment&amp;limit=10" title="Highest Rated">10</a></li>
-                                            <br>
-
-                                            <li><a href="https://eclass.mediacity.co.in/demo/public/browse/category?id=2&amp;category=devlopment&amp;limit=30" title="Highest Rated">30</a></li>
-                                            <br>
-
-                                            <li><a href="https://eclass.mediacity.co.in/demo/public/browse/category?id=2&amp;category=devlopment&amp;limit=50" title="Highest Rated">50</a></li>
-                                            <br>
-
-                                            <li><a href="https://eclass.mediacity.co.in/demo/public/browse/category?id=2&amp;category=devlopment&amp;limit=100" title="Highest Rated">100</a></li>
-                                            <br>
-                                        </ul>
-                                    </li>
-
-                                </ul>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="col-md-6 col-sm-6 ">
-                    <div class="text-right">
-                        Showing result 5 of 20
-                    </div>
-                    <div class="btn-group-web-screen">
-                        <div class="btn-group float-right mt-2 mb-4">
-                            <div class="btn-group btn-group-toggle" data-toggle="buttons">
-                                <label id="list" class="btn btn-outline-dark active">
-                                    <input type="radio" name="layout" id="layout1" checked=""> <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-list"><line x1="8" y1="6" x2="21" y2="6"></line><line x1="8" y1="12" x2="21" y2="12"></line><line x1="8" y1="18" x2="21" y2="18"></line><line x1="3" y1="6" x2="3.01" y2="6"></line><line x1="3" y1="12" x2="3.01" y2="12"></line><line x1="3" y1="18" x2="3.01" y2="18"></line></svg>
-                                </label>
-                                <label id="grid" class="btn btn-outline-dark">
-                                    <input type="radio" name="layout" id="layout2"> <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-grid"><rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect><rect x="14" y="14" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></rect></svg>
-                                </label>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div> --}}
             <div class="row">
                 <div class="col-lg-3 col-md-4">
                     <div id="accordion">
@@ -146,7 +78,7 @@
                                                     <div class="panel-heading active" role="tab" id="headingOnexxx">
                                                         <h4 class="panel-title">
                                                             <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne-{{ $category->slug }}" aria-expanded="false" aria-controls="collapseOnexxx">
-                                                                {!! $category->icon !!} 
+                                                                {!! $category->icon !!}
                                                                 <label class="prime-cat" data-url="{{ route('user.category-wise-course', $category->slug) }}">{{ $category->name }}</label>
                                                                 @if(count($category->haveChildren))
                                                                     <i class="fa fa-chevron-down pull-right"></i>
@@ -169,37 +101,6 @@
                                 </div>
                             </div>
                         </div>
-                        {{-- <div class="card">
-                            <div class="card-header collapsed" data-toggle="collapse" href="#collapseTwo" data-closetxt="Stäng block" data-opentxt="Visa innehåll">
-                                <a class="card-title">
-                                    Price
-                                </a>
-                            </div>
-                            <div id="collapseTwo" class="collapse show" data-parent="">
-                                <div class="card-body">
-                                    <div class="categories-tags">
-                                        <div class="categories-content-one">
-                                            <div class="categories-tags-content-one">
-                                                <ul>
-                                                    <li>
-                                                        <div class="form-check form-check-inline">
-                                                            <input class="form-check-input type" type="radio" name="type" id="flexRadioDefaultpaid" value="paid">
-                                                            <label class="form-check-label active" for="inlineCheckboxpaid">Paid</label>
-                                                        </div>
-                                                    </li>
-                                                    <li>
-                                                        <div class="form-check form-check-inline">
-                                                            <input class="form-check-input type" type="radio" name="type" id="flexRadioDefaultfree" value="free">
-                                                            <label class="form-check-label" for="inlineCheckboxfree">Free</label>
-                                                        </div>
-                                                    </li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div> --}}
                         <div class="card">
                             <div class="card-header collapsed" data-toggle="collapse" href="#collapseTwo" data-closetxt="Stäng block" data-opentxt="Visa innehåll">
                                 <a class="card-title">
@@ -241,24 +142,6 @@
                                                 <div class="img-wishlist img-wishlist-btm">
                                                     <div class="protip-wishlist">
                                                         <ul>
-                                                            {{-- <li class="protip-wish-btn">
-                                                                <a href="#" target="__blank" title="reminder">
-                                                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-bell">
-                                                                        <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path>
-                                                                        <path d="M13.73 21a2 2 0 0 1-3.46 0"></path>
-                                                                    </svg>
-                                                                </a>
-                                                            </li>
-
-                                                            <li class="protip-wish-btn">
-                                                                <a class="compare" data-id="9" title="compare">
-                                                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-bar-chart">
-                                                                        <line x1="12" y1="20" x2="12" y2="10"></line>
-                                                                        <line x1="18" y1="20" x2="18" y2="4"></line>
-                                                                        <line x1="6" y1="20" x2="6" y2="16"></line>
-                                                                    </svg>
-                                                                </a>
-                                                            </li> --}}
 
                                                             <li class="protip-wish-btn">
                                                                 <a href="{{ route('add.to.cart', $model->slug) }}" class="wishlisht-btn">
@@ -285,7 +168,7 @@
                                                                 <polygon points="10 8 16 12 10 16 10 8"></polygon>
                                                             </svg>
                                                             <div class="class-des">
-                                                                @php 
+                                                                @php
                                                                     $classes = 0;
                                                                     $sum_chapter_class_minutes = 0;
                                                                     foreach ($model->haveChapters as $key => $chapter) {
@@ -296,7 +179,7 @@
                                                                         }
                                                                     }
                                                                     $chapter_total_lectures_duration = floor($sum_chapter_class_minutes/60).':'.floor($sum_chapter_class_minutes % 60);
-                                                                @endphp 
+                                                                @endphp
                                                                 {{ $classes }} Classes
                                                             </div>
                                                         </li>
@@ -328,12 +211,12 @@
                                             <div class="col-lg-2 col-md-3 course-rate-block">
                                                 <div class="rate text-right">
                                                     <ul>
-                                                        @if($model->is_paid)     
+                                                        @if($model->is_paid)
                                                             <li class="rate-r">$ {{ number_format($model->price, 2) }}</li>
                                                             @if($model->discount != NULL)
                                                                 <li class="rate-r"><span><s>${{ number_format($model->retail_price, 2) }}</s></span></li>
                                                             @endif
-                                                        @else 
+                                                        @else
                                                             <li class="rate-r">FREE</li>
                                                         @endif
                                                     </ul>

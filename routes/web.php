@@ -26,16 +26,16 @@ Route::get('/following', 'FollowerController@following')->name('following');
 Route::get('get-chapters', 'WebController@getChapters')->name('get-chapters');
 Route::get('get-classes', 'WebController@getClasses')->name('get-classes');
 Route::get('chapter/chat/{chapter_id}', 'ChatController@Chat')->name('chapter.chat');
+Route::post('/user/store', 'WebController@userStore')->name('user.store');
+//cart
+Route::get('cart', 'CartController@cart')->name('cart');
+Route::get('add-to-cart/{id}', 'CartController@addToCart')->name('add.to.cart');
+Route::patch('update-cart', 'CartController@update')->name('update.cart');
+Route::delete('remove-from-cart', 'CartController@remove')->name('remove.from.cart');
+Route::get('checkout', 'CartController@checkout')->name('checkout');
+Route::post('complete-order', 'CartController@completeOrder')->name('complete-orrder');
 
 Route::group(['middleware' => 'guest'], function(){
-    //cart
-    Route::get('cart', 'CartController@cart')->name('cart');
-    Route::get('add-to-cart/{id}', 'CartController@addToCart')->name('add.to.cart');
-    Route::patch('update-cart', 'CartController@update')->name('update.cart');
-    Route::delete('remove-from-cart', 'CartController@remove')->name('remove.from.cart');
-    Route::get('checkout', 'CartController@checkout')->name('checkout');
-    Route::post('complete-order', 'CartController@completeOrder')->name('complete-orrder');
-
     //login/signup
     Route::get('/admin/login','DashboardController@login')->name('admin.login');
     Route::post('/admin/login', 'DashboardController@authenticate')->name('admin.login');
@@ -51,7 +51,6 @@ Route::group(['middleware' => 'guest'], function(){
 });
 
 Route::middleware(['auth','role:Student'])->group(function () {
-    Route::post('/user/store', 'WebController@userStore')->name('user.store');
     Route::get('/user/my_courses', 'WebController@myCourses')->name('user.my_courses');
     Route::get('/user/my_course/{slug}/single', 'WebController@myCourseDetails')->name('user.my_course.single');
     Route::post('/user/wishlist/store', 'WebController@wishListStore')->name('user.wishlist.store');
@@ -75,7 +74,7 @@ Route::middleware(['auth','role:Instructor'])->group(function () {
 Route::middleware(['auth','role:Admin'])->group(function () {
     Route::get('admin/dashboard', 'DashboardController@dashboard')->name('admin.dashboard');
     Route::get('/profile/edit', 'admin\AdminController@editProfile')->name('admin.profile.edit');
-    Route::post('/profile/update', 'admin\AdminController@updateProfile')->name('admin.profile.update');  
+    Route::post('/profile/update', 'admin\AdminController@updateProfile')->name('admin.profile.update');
 
     //admin reset password
     Route::get('forgot_password', 'admin\AdminController@forgotPassword')->name('admin.forgot_password');
@@ -100,8 +99,8 @@ Route::middleware(['auth','role:Admin'])->group(function () {
     Route::resource('admin/country', 'admin\CountryController');
     Route::resource('admin/state', 'admin\StateController');
     Route::resource('admin/city', 'admin\CityController');
-    
-    
+
+
     Route::resource('admin/bundle', 'admin\BundleController');
     Route::resource('admin/follower', 'FollowerController');
     Route::get('get_courses_price', 'admin\bundleController@getCoursesPrice')->name('get_courses_price');

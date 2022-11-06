@@ -55,12 +55,12 @@
                             <div class="about-home-rate">
                                 <ul>
                                     <li>${{ number_format($model->price, 2) }}</li>
-                                    <li><span><s>${{ number_format($model->retail_price, 2) }}</s></span></li>    
+                                    <li><span><s>${{ number_format($model->retail_price, 2) }}</s></span></li>
                                 </ul>
                             </div>
                             <div class="about-home-btn btm-20">
                                 <a href="{{ route('add.to.cart', $model->slug) }}" class="btn btn-primary btn-block text-center" role="button"><i class="fa fa-cart-plus" aria-hidden="true"></i>&nbsp;Subscribe Now</a>
-                            </div>                        
+                            </div>
                             <hr>
 
                             <div class="row">
@@ -75,37 +75,6 @@
                                     </div>
                                 </div>
                             </div>
-
-                            <!--Model start-->
-                            <div class="modal fade" data-backdrop="" style="z-index: 1050;" id="myModalshare" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-                                <div class="modal-dialog modal-lg" role="document">
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                        <h4 class="modal-title" id="myModalLabel">Share this course</h4>
-                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                                        </div>
-                                        <div class="box box-primary">
-                                            <div class="panel panel-sum">
-                                                <div class="modal-body">
-                                                    <!-- The text field -->
-                                                    <div class="nav-search">
-                                                        <div class="form-group">
-                                                            <input type="text" class="form-control" id="myInput"  value="2.html">
-                                                        </div>
-                                                        <button onclick="myFunction()" class="btn btn-primary">CopyText</button>
-                                                    </div>
-
-                                                    <div class="social-icon">
-                                                        <div class="row"><div class="col-lg-1 offset-lg-3 col-2">
-                                                        <a href="https://www.facebook.com/sharer/sharer.php?u=https://eclass.mediacity.co.in/demo/public/bundle/detail/2" class="social-button " id="" title=""><span class="fa fa-facebook fa-2x"></span></a></div><div class="col-lg-1 col-2"><a href="https://twitter.com/intent/tweet?text=&amp;url=https://eclass.mediacity.co.in/demo/public/bundle/detail/2" class="social-button " id="" title=""><span class="fa fa-twitter fa-2x"></span></a></div><div class="col-lg-1 col-2"><a href="https://www.linkedin.com/shareArticle?mini=true&amp;url=https://eclass.mediacity.co.in/demo/public/bundle/detail/2&amp;title=&amp;summary=Extra+linkedin+summary+can+be+passed+here" class="social-button " id="" title=""><span class="fa fa-linkedin fa-2x"></span></a></div><div class="col-lg-1 col-2"><a target="_blank" href="https://wa.me/?text=https://eclass.mediacity.co.in/demo/public/bundle/detail/2" class="social-button " id="" title=""><span class="fa fa-whatsapp fa-2x"></span></a></div><div class="col-lg-1 col-2"><a target="_blank" href="https://telegram.me/share/url?url=https://eclass.mediacity.co.in/demo/public/bundle/detail/2&amp;text=" class="social-button " id="" title=""><span class="fa fa-telegram fa-2x"></span></a></div></ul></div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <!--Model close -->
                         </div>
                     </div>
                 </div>

@@ -42,7 +42,7 @@
                                     <div class="avatar-preview">
                                         @if(Auth::user()->hasUserProfile->profile_image)
                                             <div class="avatar-preview-img" id="imagePreview" style="background-image: url( {{ asset('public/admin/images/profiles') }}/{{ Auth::user()->hasUserProfile->profile_image }});"></div>
-                                        @else 
+                                        @else
                                             <div class="avatar-preview-img" id="imagePreview" style="background-image: url({{ asset('public/default.png') }});"></div>
                                         @endif
                                     </div>
@@ -74,19 +74,6 @@
                                         <a href="#" data-toggle="modal" data-target="#myModalinstructor" title="Become An Instructor">Become An Instructor</a>
                                     </li>
                                 @endif
-                                {{-- <li>
-                                    <i class="fa fa-bank"></i>
-                                    <a href="https://eclass.mediacity.co.in/demo/public/bankdetail" title="My Bank Details">My Bank Details</a>
-                                </li>
-
-                                <li>
-                                    <i class="fa fa-check"></i>
-                                    <a href="https://eclass.mediacity.co.in/demo/public/2fa" title="2 Factor Auth">2 Factor Auth</a>
-                                </li>
-                                <li>
-                                    <i class="fa fa-check"></i>
-                                    <a href="https://eclass.mediacity.co.in/demo/public/verifaction" title="Verifaction">Verifaction</a>
-                                </li> --}}
                             </ul>
                         </div>
                     </div>
@@ -190,7 +177,7 @@
                                     <div class="col-lg-6">
                                         <div class="form-group">
                                             <label>Confirm Password:</label>
-                                            <input type="password" name="confirmed" id="confirmed" class="form-control" placeholder="Confirm Password" onkeyup="check();"> 
+                                            <input type="password" name="confirmed" id="confirmed" class="form-control" placeholder="Confirm Password" onkeyup="check();">
                                             <span id="message" style="color: rgb(255, 0, 0);">Password Do Not Match</span>
                                         </div>
                                     </div>
@@ -217,7 +204,7 @@
                                                     <input type="text" name="facebook_url" value="{{ Auth::user()->hasUserProfile->facebook_url }}" id="facebook" class="form-control" placeholder="Facebook.com">
                                                     <span class="text-danger">{{ $errors->first('facebook_url') }}</span>
                                                 </div>
-                                            </div>    
+                                            </div>
                                         </div>
                                     </div>
                                     <div class="social-block">
@@ -235,7 +222,7 @@
                                                     <input type="text" name="youtube_url" value="{{ Auth::user()->hasUserProfile->youtube_url }}" id="behance2" class="form-control" placeholder="youtube.com">
                                                     <span class="text-danger">{{ $errors->first('youtube_url') }}</span>
                                                 </div>
-                                            </div>    
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -255,7 +242,7 @@
                                                     <input type="text" name="twitter_url" value="{{ Auth::user()->hasUserProfile->twitter_url }}" id="twitter" class="form-control" placeholder="Twitter.com">
                                                     <span class="text-danger">{{ $errors->first('twitter_url') }}</span>
                                                 </div>
-                                            </div>    
+                                            </div>
                                         </div>
                                     </div>
                                     <div class="social-block">
@@ -273,7 +260,7 @@
                                                     <input type="text" name="linked_in_url" value="{{ Auth::user()->hasUserProfile->linked_in_url }}" id="dribbble2" class="form-control" placeholder="Linkedin.com/">
                                                     <span class="text-danger">{{ $errors->first('linked_in_url') }}</span>
                                                 </div>
-                                            </div>    
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -307,7 +294,7 @@
 			url : "{{ route('get_states') }}",
 			data : {'country_id' : country_id},
 			type : 'GET',
-			success : function(response){	
+			success : function(response){
 				var html = '';
 				html += '<option value="" selected>Select state</option>';
 				jQuery.each(response.states, function(index, state) {
@@ -325,7 +312,7 @@
 			url : "{{ route('get_cities') }}",
 			data : {'state_id' : state_id},
 			type : 'GET',
-			success : function(response){	
+			success : function(response){
 				var html = '';
 				html += '<option value="" selected>Select city</option>';
 				jQuery.each(response.states, function(index, state) {

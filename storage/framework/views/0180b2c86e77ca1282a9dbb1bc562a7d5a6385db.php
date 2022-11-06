@@ -4,8 +4,8 @@
         <div class="navigation fullscreen-search-block">
             <span style="font-size:30px;cursor:pointer" onclick="openNav()" class="hamburger">&#9776; </span>
             <div class="logo">
-                <a href="{{ url('/') }}" >
-                    <img src="{{ asset('public/website/images/logo/logo.png') }}" class="img-fluid" alt="logo">
+                <a href="<?php echo e(url('/')); ?>" >
+                    <img src="<?php echo e(asset('public/website/images/logo/logo.png')); ?>" class="img-fluid" alt="logo">
                 </a>
             </div>
             <div class="nav-search nav-wishlist">
@@ -15,8 +15,8 @@
             <div id="mySidenav" class="sidenav">
                 <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
                 <div class="login-block">
-                    <a href="{{ route('register') }}" class="btn btn-primary" title="register">Signup</a>
-                    <a href="{{ route('login') }}" class="btn btn-secondary" title="login">Login</a>
+                    <a href="<?php echo e(route('register')); ?>" class="btn btn-primary" title="register">Signup</a>
+                    <a href="<?php echo e(route('login')); ?>" class="btn btn-secondary" title="login">Login</a>
                 </div>
 
                 <div class="wrapper center-block">
@@ -406,8 +406,8 @@
             <div class="row">
                 <div class="col-lg-5 col-md-4 col-sm-12">
                     <div class="logo">
-                        <a href="{{ url('/') }}" >
-                            <img src="{{ asset('public/website/images/logo/logo.png') }}" class="img-fluid" alt="logo">
+                        <a href="<?php echo e(url('/')); ?>" >
+                            <img src="<?php echo e(asset('public/website/images/logo/logo.png')); ?>" class="img-fluid" alt="logo">
                         </a>
                     </div>
                 </div>
@@ -418,18 +418,19 @@
                                 <li>
                                     <a href="#" title="Categories"><i data-feather="grid"></i>Categories</a>
                                     <ul>
-                                        @foreach (mainCategories() as $category)
+                                        <?php $__currentLoopData = mainCategories(); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $category): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                                             <li>
-                                                <a href="{{ route('user.category-wise-course', $category->slug) }}" title="Devlopment">{!! $category->icon !!} {{ $category->name }}
-                                                    @if(count($category->haveChildren))
+                                                <a href="<?php echo e(route('user.category-wise-course', $category->slug)); ?>" title="Devlopment"><?php echo $category->icon; ?> <?php echo e($category->name); ?>
+
+                                                    <?php if(count($category->haveChildren)): ?>
                                                         <i data-feather="chevron-right" class="float-right"></i>
-                                                    @endif
+                                                    <?php endif; ?>
                                                 </a>
-                                                @if(count($category->haveChildren))
-                                                    @include('web-views.layouts.manage-child-categories',['childs' => $category->haveChildren])
-                                                @endif
+                                                <?php if(count($category->haveChildren)): ?>
+                                                    <?php echo $__env->make('web-views.layouts.manage-child-categories',['childs' => $category->haveChildren], \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
+                                                <?php endif; ?>
                                             </li>
-                                        @endforeach
+                                        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                                     </ul>
                                 </li>
                             </ul>
@@ -445,29 +446,31 @@
                 </div>
                 <div class="col-lg-1 col-md-1 col-sm-2 col-2">
                     <div class="nav-wishlist">
-                        <a href="{{ route('user.wishlist') }}" title="Go to Wishlist">
+                        <a href="<?php echo e(route('user.wishlist')); ?>" title="Go to Wishlist">
                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-heart">
                                 <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
                             </svg>
                         </a>
                         <span class="red-menu-badge red-bg-success">
-                            @if(Auth::check())
-                            {{ count(Auth::user()->haveWishList) }}
-                            @else
+                            <?php if(Auth::check()): ?>
+                            <?php echo e(count(Auth::user()->haveWishList)); ?>
+
+                            <?php else: ?>
                             0
-                            @endif
+                            <?php endif; ?>
                         </span>
                     </div>
                 </div>
                 <div class="col-lg-1">
                     <div class="shopping-cart">
-                        <a href="{{ route('cart') }}" title="Cart"><i data-feather="shopping-cart"></i></a>
+                        <a href="<?php echo e(route('cart')); ?>" title="Cart"><i data-feather="shopping-cart"></i></a>
                         <span class="red-menu-badge red-bg-success">
-                            @if(session('cart'))
-                                {{ count(session('cart')) }}
-                            @else
+                            <?php if(session('cart')): ?>
+                                <?php echo e(count(session('cart'))); ?>
+
+                            <?php else: ?>
                                 0
-                            @endif
+                            <?php endif; ?>
                         </span>
                     </div>
                 </div>
@@ -483,47 +486,49 @@
                         </form>
                     </div>
                 </div>
-                @if(!Auth::check())
+                <?php if(!Auth::check()): ?>
                     <div class="col-lg-5">
                         <div class="Login-btn">
-                            @if(!request()->is('login'))
-                                <a href="{{ route('login') }}" class="btn btn-primary" title="login">Login</a>
-                            @endif
-                            @if(!request()->is('register'))
-                                <a href="{{ route('register') }}" class="btn btn-primary" title="register">Signup</a>
-                            @endif
+                            <?php if(!request()->is('login')): ?>
+                                <a href="<?php echo e(route('login')); ?>" class="btn btn-primary" title="login">Login</a>
+                            <?php endif; ?>
+                            <?php if(!request()->is('register')): ?>
+                                <a href="<?php echo e(route('register')); ?>" class="btn btn-primary" title="register">Signup</a>
+                            <?php endif; ?>
                         </div>
                     </div>
-                @else
+                <?php else: ?>
                     <div class="col-lg-2 col-md-3 col-sm-6 col-6">
                         <div class="my-container">
                             <div class="dropdown">
                                 <button class="btn btn-default dropdown-toggle  my-dropdown" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    @if(Auth::user()->hasUserProfile->profile_image)
-                                        <img src="{{ asset('public/admin/images/profiles') }}/{{ Auth::user()->hasUserProfile->profile_image }}" class="circle" alt="">
-                                    @else
-                                        <img src="{{ asset('public/default.png') }}" class="circle" alt="">
-                                    @endif
+                                    <?php if(Auth::user()->hasUserProfile->profile_image): ?>
+                                        <img src="<?php echo e(asset('public/admin/images/profiles')); ?>/<?php echo e(Auth::user()->hasUserProfile->profile_image); ?>" class="circle" alt="">
+                                    <?php else: ?>
+                                        <img src="<?php echo e(asset('public/default.png')); ?>" class="circle" alt="">
+                                    <?php endif; ?>
                                     <span class="dropdown__item name" id="name">User</span>
                                     <span class="dropdown__item caret"></span>
                                 </button>
 
                                 <ul class="dropdown-menu dropdown-menu-right User-Dropdown U-open" aria-labelledby="dropdownMenu1" x-placement="bottom-end" style="position: absolute; transform: translate3d(110px, 39px, 0px); top: 0px; left: 0px; will-change: transform;">
                                     <div id="notificationTitle">
-                                        @if(Auth::user()->hasUserProfile->profile_image)
-                                            <img src="{{ asset('public/admin/images/profiles') }}/{{ Auth::user()->hasUserProfile->profile_image }}" class="dropdown-user-circle" alt="">
-                                        @else
-                                            <img src="{{ asset('public/default.png') }}" class="dropdown-user-circle" alt="">
-                                        @endif
+                                        <?php if(Auth::user()->hasUserProfile->profile_image): ?>
+                                            <img src="<?php echo e(asset('public/admin/images/profiles')); ?>/<?php echo e(Auth::user()->hasUserProfile->profile_image); ?>" class="dropdown-user-circle" alt="">
+                                        <?php else: ?>
+                                            <img src="<?php echo e(asset('public/default.png')); ?>" class="dropdown-user-circle" alt="">
+                                        <?php endif; ?>
                                         <div class="user-detailss">
-                                            {{ Auth::user()->roles[0]->name }}
+                                            <?php echo e(Auth::user()->roles[0]->name); ?>
+
                                             <br>
-                                            {{ Auth::user()->email }}
+                                            <?php echo e(Auth::user()->email); ?>
+
                                         </div>
                                     </div>
                                     <div class="scroll-down">
-                                        @if(Auth::user()->roles[0]->name=='Admin')
-                                            <a href="{{ route('admin.dashboard') }}">
+                                        <?php if(Auth::user()->roles[0]->name=='Admin'): ?>
+                                            <a href="<?php echo e(route('admin.dashboard')); ?>">
                                                 <li>
                                                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-book-open">
                                                         <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"></path>
@@ -532,8 +537,8 @@
                                                     Dashboard
                                                 </li>
                                             </a>
-                                        @elseif(Auth::user()->roles[0]->name=='Instructor')
-                                            <a href="{{ route('instructor.dashboard') }}">
+                                        <?php elseif(Auth::user()->roles[0]->name=='Instructor'): ?>
+                                            <a href="<?php echo e(route('instructor.dashboard')); ?>">
                                                 <li>
                                                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-book-open">
                                                         <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"></path>
@@ -542,17 +547,17 @@
                                                     Dashboard
                                                 </li>
                                             </a>
-                                        @else
-                                            <a href="{{ route('user.my_courses') }}">
+                                        <?php else: ?>
+                                            <a href="<?php echo e(route('user.my_courses')); ?>">
                                                 <li><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-book-open"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"></path><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"></path></svg>MyCourses</li>
                                             </a>
-                                            <a href="{{ route('user.wishlist') }}">
+                                            <a href="<?php echo e(route('user.wishlist')); ?>">
                                                 <li><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-heart"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg>MyWishlist</li>
                                             </a>
-                                            <a href="{{ route('user.purchase_history') }}">
+                                            <a href="<?php echo e(route('user.purchase_history')); ?>">
                                                 <li><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-shopping-cart"><circle cx="9" cy="21" r="1"></circle><circle cx="20" cy="21" r="1"></circle><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path></svg>PurchaseHistory</li>
                                             </a>
-                                            <a href="{{ route('user.profile.edit') }}">
+                                            <a href="<?php echo e(route('user.profile.edit')); ?>">
                                                 <li>
                                                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-user">
                                                         <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle>
@@ -563,28 +568,28 @@
                                             <a href="#" data-toggle="modal" data-target="#myModalinstructor" title="Become An Instructor">
                                                 <li><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-shield"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>BecomeAnInstructor</li>
                                             </a>
-                                            {{-- <a href="">
-                                                <li><i class="icon-wallet icons"></i>MyWallet</li>
-                                            </a> --}}
-                                        @endif
+                                            
+                                        <?php endif; ?>
                                     </div>
 
-                                    <a href="{{ route('logout') }}"
+                                    <a href="<?php echo e(route('logout')); ?>"
                                         onclick="event.preventDefault();
                                         document.getElementById('logout-form').submit();">
                                         <div id="notificationFooter">
-                                            {{ __('Logout') }}
+                                            <?php echo e(__('Logout')); ?>
+
                                         </div>
                                     </a>
-                                    <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
-                                        @csrf
+                                    <form id="logout-form" action="<?php echo e(route('logout')); ?>" method="POST" class="d-none">
+                                        <?php echo csrf_field(); ?>
                                     </form>
                                 </ul>
                             </div>
                         </div>
                     </div>
-                @endif
+                <?php endif; ?>
             </div>
         </div>
     </div>
 </section>
+<?php /**PATH C:\xampp\htdocs\e-learning-system\resources\views/web-views/layouts/navbar.blade.php ENDPATH**/ ?>

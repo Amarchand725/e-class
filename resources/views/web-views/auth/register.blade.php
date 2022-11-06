@@ -84,44 +84,6 @@
                                     </div>
                                     <button type="submit" title="Sign Up" class="btn btn-primary">Signup</button>
                                 </form>
-
-                                <div class="social-link btm-10">
-                                    <h2><span>Or Sign Up Using</span></h2>
-                                    <div class="row">
-                                        <div class="col-lg-2 col-4">
-                                            <a href="https://www.facebook.com/v3.3/dialog/oauth?client_id=&amp;redirect_uri=&amp;scope=email&amp;response_type=code&amp;state=o6ZvvuVeQ5HLKkEyuJ645tgBnEUr7zi0z5I11eLO" target="_blank" title="facebook" class="social-icon facebook-icon" title="Facebook"><i class="fa fa-facebook"></i></a>
-                                        </div>
-
-                                        <div class="col-lg-2 col-4">
-                                            <div class="google">
-                                                <a href="https://accounts.google.com/o/oauth2/auth?client_id=&amp;redirect_uri=https%3A%2F%2Feclass.mediacity.co.in%2Fdemo%2Fpublic%2Fauth%2Fgoogle%2Fcallback&amp;scope=openid+profile+email&amp;response_type=code&amp;state=fCSmYdHOolsxmVWIaqegdzsWkCeISs2IReeQHAAE" target="_blank" title="google" class="social-icon google-icon" title="google"><i class="fab fa-google-plus-g"></i></a>
-                                            </div>
-                                        </div>
-                                        <div class="col-lg-2 col-4">
-                                            <div class="signin-link amazon-button">
-                                                <a href="https://www.amazon.com/ap/oa?client_id=&amp;redirect_uri=https%3A%2F%2Feclass.mediacity.co.in%2Fdemo%2Fpublic%2Fauth%2Famazon%2Fcallback&amp;scope=profile&amp;response_type=code&amp;state=PVKTA65MEiAC7cxCvsFqdGjqEUGo5tmRKsuzXtJN" target="_blank" title="amazon" class="social-icon amazon-icon" title="Amazon"><i class="fab fa-amazon"></i></a>
-                                            </div>
-                                        </div>
-
-                                        <div class="col-lg-2 col-4">
-                                            <div class="signin-link linkedin-button">
-                                                <a href="https://www.linkedin.com/oauth/v2/authorization?client_id=&amp;redirect_uri=https%3A%2F%2Feclass.mediacity.co.in%2Fdemo%2Fpublic%2Fauth%2Flinkedin%2Fcallback&amp;scope=r_liteprofile+r_emailaddress&amp;response_type=code&amp;state=Cl8XVDgYE5kzFcjVRRQu3uwZlSjWiwq986anPNGP" target="_blank" title="linkedin" class="social-icon linkedin-icon" title="Linkedin"><i class="fab fa-linkedin"></i></a>
-                                            </div>
-                                        </div>
-
-                                        <div class="col-lg-2 col-4">
-                                            <div class="signin-link twitter-button">
-                                                <a href="auth/twitter.html" target="_blank" title="twitter" class="social-icon twitter-icon" title="Twitter"><i class="fab fa-twitter"></i></a>
-                                            </div>
-                                        </div>
-
-                                        <div class="col-lg-2 col-4">
-                                            <div class="signin-link btm-10">
-                                                <a href="https://gitlab.com/oauth/authorize?client_id=&amp;redirect_uri=https%3A%2F%2Feclass.mediacity.co.in%2Fdemo%2Fpublic%2Fauth%2Fgitlab%2Fcallback&amp;scope=read_user&amp;response_type=code&amp;state=Epvmn9rldIIhBUhfLaSM2v2jiM4QlfvK6vZbEgxb" target="_blank" title="gitlab" class="social-icon gitlab-icon" title="gitlab"><i class="fab fa-gitlab"></i></a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
                                 <div class="sign-up text-center">Alreadyhaveanaccount?<a href="{{ route('login') }}" title="Login"> Login</a></div>
                             </div>
                         </div>

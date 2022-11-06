@@ -1,9 +1,5 @@
 /*
   Theme Name: eClass - Learning Management System
-  Theme URL: https://eclass.mediacity.co.in/
-  Author: Media City
-  Author URI: https://mediacity.co.in
-  Creation Date: 30 January 2020 
   Description: A default stylesheet for eClass - Learning Management System.
   Version: 5.0.0
 */
@@ -13,7 +9,7 @@
               [Table of Contents]
 =========================================================================
 
-01. Typography 
+01. Typography
 02. General
 03. Preloader
 04. 404 page
@@ -45,7 +41,7 @@
 30. Terms-page
 31. Teach-Online-Page
 32. Affiliate-Page
-33. Careers-page 
+33. Careers-page
 
 /* =============== Colors Used =====================
 
@@ -56,7 +52,7 @@
   White       : #FFF;
   Gray        : #F4F4F4;
   Yellow      : #F5C252;
-  
+
  ===================================================*/
 
 
@@ -1007,7 +1003,7 @@ sup.redstar {
 }
 
 
-/* ================================= 
+/* =================================
     /*===== Work =====*/
 
 
@@ -1047,7 +1043,7 @@ sup.redstar {
 }
 
 
-/* ================================= 
+/* =================================
     /*===== Courses =====*/
 
 
@@ -1166,7 +1162,7 @@ sup.redstar {
 }
 
 
-/* ================================= 
+/* =================================
     /*===== Student-View =====*/
 
 
@@ -1320,7 +1316,7 @@ sup.redstar {
 }
 
 
-/* ================================= 
+/* =================================
     /*===== Recommendation =====*/
 
 
@@ -1428,7 +1424,7 @@ sup.redstar {
 }*/
 
 
-/* ================================= 
+/* =================================
     /*===== Testimonial =====*/
 
 
@@ -3910,7 +3906,7 @@ sup.redstar {
 }
 
 
-/* ================================= 
+/* =================================
     /*===== Contact-us page =====*/
 
 
@@ -3979,7 +3975,7 @@ sup.redstar {
 }
 
 
-/* ================================= 
+/* =================================
     /*===== Map =====*/
 
 
@@ -5807,7 +5803,7 @@ sup.redstar {
     position: fixed;
     top: 0;
     bottom: 0;
-    /*left: 0;     
+    /*left: 0;
   right: 0;*/
     overflow: hidden;
 }
@@ -6714,7 +6710,7 @@ sup.redstar {
     top: 50px;
     width: 300px;
     z-index: 999999999;
-    display: none; // Enable this after jquery implementation 
+    display: none; // Enable this after jquery implementation
 }
 
 #notificationContainerr {
@@ -12962,7 +12958,7 @@ svg.feather {
     border-radius: 6px;
     /*background: #FFF;
   border: 2px solid transparent;
-  
+
   margin: 0 10px;
   box-shadow: 5px 5px 10px rgb(0 0 0 / 10%);
   -webkit-transition: all 0.5s ease;

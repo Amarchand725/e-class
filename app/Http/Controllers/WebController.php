@@ -203,7 +203,7 @@ class WebController extends Controller
         ];
 
         $this->validate($request, $rules);
-        
+
         $model = EmailSubscription::where('email', $request->subscribed_email)->first();
         if(empty($model)){
             $success = EmailSubscription::create([
@@ -216,7 +216,7 @@ class WebController extends Controller
                 return 'failed';
             }
         }else{
-            return 'exist';   
+            return 'exist';
         }
     }
 

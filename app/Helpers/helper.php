@@ -12,6 +12,7 @@ use App\Models\Institute;
 use App\Models\User;
 use App\Models\Bundle;
 use App\Models\Meeting;
+use App\Models\ProductRate;
 
 function globalData()
 {
@@ -72,4 +73,8 @@ function bundles()
 function meetings()
 {
     return Meeting::orderby('id', 'desc')->where('status', 1)->get();
+}
+function reviews()
+{
+    return ProductRate::orderby('id', 'desc')->get();
 }

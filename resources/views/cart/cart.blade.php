@@ -61,8 +61,8 @@
                     @if(session('cart'))
                         {{ count(session('cart')) }}
                         Courses in Cart
-                    @else 
-                        0          	
+                    @else
+                        0
                         Courses in Cart
                     @endif
                 </h4>
@@ -72,22 +72,22 @@
                         <div class="no-result-courses btm-10">cart empty</div>
                         <div class="recommendation-btn text-white text-center">
                             <a href="{{ route('home') }}" class="btn btn-primary" title="Keep Shopping"><b>Keep Shopping</b></a>
-                        </div> 
+                        </div>
                     </div>
-                @else 
+                @else
                     <div class="row">
                         <div class="col-lg-9 col-md-9">
-                            @php 
-                           
+                            @php
+
                             $total = 0;
                             $original_total = 0;
                             @endphp
                             @if(session('cart'))
                                 @foreach(session('cart') as $id => $details)
-                                    @php 
-                                        $sub_total = 0; 
+                                    @php
+                                        $sub_total = 0;
                                         $sub_total += $details['price'] * $details['quantity'];
-                                        
+
                                         if(!empty($details['retail_price'])){
                                             $total += $sub_total;
                                             $original_total += $details['retail_price'] * $details['quantity'];
@@ -104,7 +104,7 @@
                                                         <a href="{{ route('course.single', $details['slug']) }}">
                                                             <img src="{{ asset('public/admin/images/courses') }}/{{ $details['image'] }}" class="bg_img img-fluid" alt="Thumbnail">
                                                         </a>
-                                                    @else 
+                                                    @else
                                                         <a href="{{ route('bundle.single', $details['slug']) }}">
                                                             <img src="{{ asset('public/admin/bundle/banners') }}/{{ $details['image'] }}" class="bg_img img-fluid" alt="Thumbnail">
                                                         </a>
@@ -116,30 +116,13 @@
                                                     <p>
                                                         @if($details['product_type']=='course')
                                                             <a href="{{ route('course.single', $details['slug']) }}">{{ $details['name'] }}</a>
-                                                        @else 
+                                                        @else
                                                             <a href="{{ route('bundle.single', $details['slug']) }}">{{ $details['name'] }}</a>
                                                         @endif
                                                     </div>
                                                 </p>
                                             </div>
-                                            
-                                            <div class="col-lg-2 col-sm-6 col-6">
-                                                <div class="cart-actions float-right">
-                                                    <span>  
-                                                        <button class="cart-remove-btn remove-from-cart display-inline" data-id="{{ $details['slug'] }}" title="Remove From cart">Remove</button>
-                                                    </span>
-                                                    <span>
-                                                        <form id="wishlist-form" method="post" action="https://eclass.mediacity.co.in/demo/public/show/wishlist/19" data-parsley-validate="" class="form-horizontal form-label-left">
-                                                            <input type="hidden" name="_token" value="reuicLxDVZOIOG39noFMY93S1itffqc6wc0aUwRi">
 
-                                                            <input type="hidden" name="user_id" value="13">
-                                                            <input type="hidden" name="course_id" value="18">
-
-                                                            <button class="cart-wishlisht-btn" title="Remove to wishlist" type="submit">Remove to Wishlist</button>
-                                                        </form>
-                                                    </span>
-                                                </div>
-                                            </div>
                                             <div class="col-lg-2 col-sm-6 col-6">
                                                 <div class="wrapQtyBtn">
                                                     <div class="qtyField" data-id="{{ $details['slug'] }}">
@@ -187,7 +170,7 @@
                                     <h4 class="cart-heading">Cart Details:</h4>
                                     <ul>
                                         <li>Total Price<span class="categories-count">$ {{ number_format($original_total, 2) }}</span></li>
-                                        @php $offer_discount = $original_total-$total; @endphp 
+                                        @php $offer_discount = $original_total-$total; @endphp
                                         @if($offer_discount > 0)
                                             <li>Offer Discount<span class="categories-count">&nbsp;$ {{ number_format($offer_discount, 2) }}</span></li>
                                         @else
@@ -195,7 +178,7 @@
                                                 <span class="categories-count"><a href="#" data-toggle="modal" data-target="#myModalCoupon" title="report">ApplyCoupon</a></span>
                                             </li>
                                         @endif
-                                        @php $percentage = 0 @endphp 
+                                        @php $percentage = 0 @endphp
                                         @if(isset($offer_discount) && $offer_discount > 0)
                                             @php
                                                 $percentage = $offer_discount/$total*100;
@@ -223,47 +206,6 @@
                 @endif
             </div>
         </div>
-    
-        <!--Model start-->
-        <div class="modal fade" id="myModalCoupon" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-            <div class="modal-dialog modal-md" role="document">
-              <div class="modal-content">
-                <div class="modal-header">
-                  <h4 class="modal-title" id="myModalLabel">Coupon Code</h4>
-                  <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
-                </div>
-                <div class="box box-primary">
-                  <div class="panel panel-sum">
-                    <div class="modal-body">
-                        <div class="coupon-apply">
-                            <form id="cart-form" method="post" action="https://eclass.mediacity.co.in/demo/public/apply/coupon" data-parsley-validate="" class="form-horizontal form-label-left">
-                                <input type="hidden" name="_token" value="reuicLxDVZOIOG39noFMY93S1itffqc6wc0aUwRi">
-                                
-                                <div class="row no-gutters">
-                                    <div class="col-lg-9 col-9">
-                                        <input type="hidden" name="user_id" value="13">
-                                        <input type="text" name="coupon" value="" placeholder="Enter Coupon">
-                                    </div>
-                                    <div class="col-lg-3 col-3">
-                                        <button data-purpose="coupon-submit" type="submit" class="btn btn-primary"><span>Apply</span></button>
-                                    </div>
-                                </div>
-                            </form>
-                        </div>
-                        <hr>
-                                            <div class="available-coupon">
-                            
-                                                                                                                                                                                                                                                                                                                                                                                                                                
-                        </div>
-                        
-    
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div> 
-        </div>
-        <!--Model close -->
     </section>
 @endsection
 @push('js')
@@ -273,7 +215,7 @@
 		  var qtyField = $(this).parent(".qtyField"),
 			 oldValue = $(qtyField).find(".qty").val(),
 			  newVal = 1;
-	
+
 		  if ($(this).is(".plus")) {
 			newVal = parseInt(oldValue) + 1;
 		  } else if (oldValue > 1) {
@@ -283,7 +225,7 @@
 		});
 	}
 	qnt_incre();
-  
+
     $(".update-cart").on('click',function (e) {
         e.preventDefault();
          var ele = $(this);
@@ -291,8 +233,8 @@
             url: '{{ route("update.cart") }}',
             method: "patch",
             data: {
-                _token: '{{ csrf_token() }}', 
-                id: ele.parents(".qtyField").attr("data-id"), 
+                _token: '{{ csrf_token() }}',
+                id: ele.parents(".qtyField").attr("data-id"),
                 quantity: ele.parents(".qtyField").find(".qty").val()
             },
             success: function (response) {
@@ -300,10 +242,10 @@
             }
         });
     });
-  
+
     $(".remove-from-cart").click(function (e) {
         e.preventDefault();
-  
+
         Swal.fire({
             title: 'Are you sure?',
             text: "You won't be able to revert this!",
@@ -318,7 +260,7 @@
                     url: '{{ route("remove.from.cart") }}',
                     method: "DELETE",
                     data: {
-                        _token: '{{ csrf_token() }}', 
+                        _token: '{{ csrf_token() }}',
                         id: $(this).attr("data-id")
                     },
                     success: function (response) {
@@ -333,6 +275,7 @@
             }
         })
     });
-  
+
 </script>
 @endpush
+

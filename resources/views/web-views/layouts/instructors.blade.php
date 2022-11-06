@@ -12,14 +12,14 @@
                 </div>
             </div>
         </div>
-        
+
         <div id="instructor-home-slider" class="instructor-home-main-slider owl-carousel">
             @foreach (instructors() as $instructor)
                 <div class="item">
                     <div class="instructor-home-block text-center">
                         <div class="instructor-home-block-one">
                             <a href="{{ route('user.profile', $instructor->slug) }}" title="{{ $instructor->name }}">
-                                @if($instructor->hasUserProfile)
+                                @if($instructor->hasUserProfile->profile_image)
                                     <img src="{{ asset('public/admin/images/profiles') }}/{{  $instructor->hasUserProfile->profile_image }}" class="img-fluid user-img-one" alt="">
                                 @else
                                     <img src="{{ asset('public/default.png') }}" width="50px"  class="img-fluid user-img-one" alt="">
@@ -43,18 +43,18 @@
                                                 </div>
                                             </span>
                                         </div>
-                                    </li> 
+                                    </li>
                                     <li>
                                         <div class="instructor-home-btn">
                                             <a href="{{ route('user.profile', $instructor->slug) }}" class="btn btn-primary" title="View Profile"><i data-feather="eye"></i></a>
                                         </div>
                                     </li>
                                 </ul>
-                            </div>  
+                            </div>
                             <div class="instructor-home-dtl">
                                 <h4 class="instructor-home-heading"><a href="{{ route('user.profile', $instructor->slug) }}" title="">{{ $instructor->name }}</a></h4>
                                 <p>Instructor</p>
-                            
+
                                 <div class="instructor-home-info">
                                     <ul>
                                         <li>{{ count($instructor->haveCourses) }} Courses</li>

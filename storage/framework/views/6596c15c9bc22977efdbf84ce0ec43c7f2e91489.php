@@ -1,61 +1,59 @@
-@extends('web-views.layouts.app')
-
-@push('css')
+<?php $__env->startPush('css'); ?>
     <style>
         .details svg.feather{
             margin: 0;
         }
     </style>
-@endpush
+<?php $__env->stopPush(); ?>
 
-@section('content')
+<?php $__env->startSection('content'); ?>
 <section id="about-home" class="about-home-main-block">
     <div class="container-xl">
         <div class="row">
             <div class="col-lg-8 col-md-8">
                 <div class="about-home-block">
-                    <h1 class="about-home-heading">{{ $model->title }}</h1>
-                    @if(Session()->has('success'))
+                    <h1 class="about-home-heading"><?php echo e($model->title); ?></h1>
+                    <?php if(Session()->has('success')): ?>
                         <div class="alert alert-success" role="alert">
                         Item added to cart successfully.
                         </div>
-                    @endif
-                    <p>{{ $model->short_description }}</p>
+                    <?php endif; ?>
+                    <p><?php echo e($model->short_description); ?></p>
                     <ul>
                         <li>
                             <div class="pull-left">
                                 <div class="star-ratings-sprite">
-                                    @php
+                                    <?php
                                         $rate = 0;
                                         $tot_reviews = 0;
                                         if(count($model->hasRating)>0){
                                             $tot_reviews = $model->hasRating->count();
                                             $rate = ($model->hasRating->sum('rate')/$model->hasRating->count()*5)*5;
                                         }
-                                    @endphp
-                                    <span style="width:{{ $rate }}%" class="star-ratings-sprite-rating"></span>
+                                    ?>
+                                    <span style="width:<?php echo e($rate); ?>%" class="star-ratings-sprite-rating"></span>
                                 </div>
                             </div>
                         </li>
                         <li>
-                            @if(round($rate/20)>5) 5 @else {{ round($rate/20) }} @endif rating
+                            <?php if(round($rate/20)>5): ?> 5 <?php else: ?> <?php echo e(round($rate/20)); ?> <?php endif; ?> rating
                         </li>
                         <li>
-                            ({{ $tot_reviews }} Reviews)
+                            (<?php echo e($tot_reviews); ?> Reviews)
                         </li>
                         <li>
-                            @php
+                            <?php
                                 $enrolled = 0;
                                 if(count($model->haveEnrolledStudents)>0){
                                     $enrolled = count($model->haveEnrolledStudents);
                                 }
-                            @endphp
-                            {{ $enrolled }} students enrolled
+                            ?>
+                            <?php echo e($enrolled); ?> students enrolled
                         </li>
                     </ul>
                     <ul>
-                        <li><a href="#" title="about">Created:  <a href="{{ route('user.profile', $model->hasInstructor->slug) }}" title="instructor"> {{ $model->hasInstructor->name }} </a> </a></li>
-                        <li><a href="#" title="about">Last Updated: {{ date('d F Y', strtotime($model->updated_at)) }}</a></li>
+                        <li><a href="#" title="about">Created:  <a href="<?php echo e(route('user.profile', $model->hasInstructor->slug)); ?>" title="instructor"> <?php echo e($model->hasInstructor->name); ?> </a> </a></li>
+                        <li><a href="#" title="about">Last Updated: <?php echo e(date('d F Y', strtotime($model->updated_at))); ?></a></li>
                         <li><a href="#" title="about"><i class="fa fa-comment"></i></a> English</li>
                     </ul>
                 </div>
@@ -69,7 +67,7 @@
                         </script>
 
                         <div class="video-device">
-                            <img src="{{ asset('public/admin/images/courses') }}/{{ $model->thumbnail }}" class="bg_img img-fluid" alt="Background">
+                            <img src="<?php echo e(asset('public/admin/images/courses')); ?>/<?php echo e($model->thumbnail); ?>" class="bg_img img-fluid" alt="Background">
                             <div class="video-preview">
                                 <a href="javascript:void(0);" class="btn-video-play"><i class="fa fa-play"></i></a>
                             </div>
@@ -80,44 +78,44 @@
                             <div class="about-home-dtl-block btm-10">
                                 <div class="about-home-rate">
                                     <ul>
-                                        @if($model->is_paid)
-                                            <li>$ {{ number_format($model->price, 2) }}</li>
-                                            @if($model->discount != NULL)
-                                                <li><span><s>${{ number_format($model->retail_price, 2) }}</s></span></li>
-                                            @endif
-                                        @else
+                                        <?php if($model->is_paid): ?>
+                                            <li>$ <?php echo e(number_format($model->price, 2)); ?></li>
+                                            <?php if($model->discount != NULL): ?>
+                                                <li><span><s>$<?php echo e(number_format($model->retail_price, 2)); ?></s></span></li>
+                                            <?php endif; ?>
+                                        <?php else: ?>
                                             <li>FREE</li>
-                                        @endif
+                                        <?php endif; ?>
                                     </ul>
                                 </div>
 
                                 <div class="about-home-btn btm-20">
                                     <div class="box-footer">
-                                        <a href="{{ route('add.to.cart', $model->slug) }}" class="btn btn-primary btn-block text-center" role="button"><i class="fa fa-cart-plus" aria-hidden="true"></i>&nbsp;Add To Cart</a>
+                                        <a href="<?php echo e(route('add.to.cart', $model->slug)); ?>" class="btn btn-primary btn-block text-center" role="button"><i class="fa fa-cart-plus" aria-hidden="true"></i>&nbsp;Add To Cart</a>
                                     </div>
                                 </div>
 
                                 <div class="about-home-includes-list btm-40">
                                     <ul class="btm-40">
                                         <li><span>Course Includes</span></li>
-                                        @if($model->haveCourseIncludes)
-                                            @foreach ($model->haveCourseIncludes as $include)
-                                                <li>{!! $include->icon !!} {{ $include->detail }}</li>
-                                            @endforeach
-                                        @endif
+                                        <?php if($model->haveCourseIncludes): ?>
+                                            <?php $__currentLoopData = $model->haveCourseIncludes; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $include): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                                <li><?php echo $include->icon; ?> <?php echo e($include->detail); ?></li>
+                                            <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                                        <?php endif; ?>
                                     </ul>
 
                                     <div class="about-tags">
-                                        @if($model->haveTags)
+                                        <?php if($model->haveTags): ?>
                                             <span><i data-feather="tag"></i> Tags:</span>
-                                            @foreach ($model->haveTags as $tag)
+                                            <?php $__currentLoopData = $model->haveTags; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $tag): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                                                 <a href="#">
                                                     <span class="badge badge-secondary">
-                                                        <span class="badge badge-default">{{ $tag->tag }}</span>
+                                                        <span class="badge badge-default"><?php echo e($tag->tag); ?></span>
                                                     </span>
                                                 </a>
-                                            @endforeach
-                                        @endif
+                                            <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                                        <?php endif; ?>
                                         </p>
                                     </div>
                                 </div>
@@ -131,26 +129,26 @@
                     <div class="about-content-sidebar">
                         <div class="container-xl">
                             <div class="about-content-img">
-                                @if($model->hasInstructor->profile_image)
-                                    <img src="{{ asset('public/admin/images/profiles') }}/{{  $model->hasInstructor->hasUserProfile->profile_image }}" class="img-fluid user-img-one" alt="">
-                                @else
-                                    <img src="{{ asset('public/default.png') }}" width="50px"  class="img-fluid user-img-one" alt="">
-                                @endif
-                                <h5 class="about-content-heading">{{ $model->hasInstructor->name }}</h5>
+                                <?php if($model->hasInstructor->profile_image): ?>
+                                    <img src="<?php echo e(asset('public/admin/images/profiles')); ?>/<?php echo e($model->hasInstructor->hasUserProfile->profile_image); ?>" class="img-fluid user-img-one" alt="">
+                                <?php else: ?>
+                                    <img src="<?php echo e(asset('public/default.png')); ?>" width="50px"  class="img-fluid user-img-one" alt="">
+                                <?php endif; ?>
+                                <h5 class="about-content-heading"><?php echo e($model->hasInstructor->name); ?></h5>
                             </div>
                             <div class="ratings">
-                                <div class="star-rating">Users Enrolled {{ $enrolled }} </div>
+                                <div class="star-rating">Users Enrolled <?php echo e($enrolled); ?> </div>
                             </div>
 
                             <div class="about-reward-badges">
-                                <img src="{{ asset('public/website/images/badges/1.png') }}" class="img-fluid" alt="" data-toggle="tooltip" data-placement="bottom" title="Member Since 2 years ago">
-                                <img src="{{ asset('public/website/images/badges/2.png') }}" class="img-fluid" alt="" data-toggle="tooltip" data-placement="bottom" title="Has 13 courses">
-                                <img src="{{ asset('public/website/images/badges/3.png') }}" class="img-fluid" alt="" data-toggle="tooltip" data-placement="bottom" title="Here user has applied 20 courses">
-                                <img src="{{ asset('public/website/images/badges/4.png') }}" class="img-fluid" alt="" data-toggle="tooltip" data-placement="bottom" title="Affiliate Users 1">
+                                <img src="<?php echo e(asset('public/website/images/badges/1.png')); ?>" class="img-fluid" alt="" data-toggle="tooltip" data-placement="bottom" title="Member Since 2 years ago">
+                                <img src="<?php echo e(asset('public/website/images/badges/2.png')); ?>" class="img-fluid" alt="" data-toggle="tooltip" data-placement="bottom" title="Has 13 courses">
+                                <img src="<?php echo e(asset('public/website/images/badges/3.png')); ?>" class="img-fluid" alt="" data-toggle="tooltip" data-placement="bottom" title="Here user has applied 20 courses">
+                                <img src="<?php echo e(asset('public/website/images/badges/4.png')); ?>" class="img-fluid" alt="" data-toggle="tooltip" data-placement="bottom" title="Affiliate Users 1">
                             </div>
                             <div class="row">
                                 <div class="col-lg-12">
-                                    <a href="{{ route('user.profile', $model->hasInstructor->slug) }}" class="btn btn-primary" title="course">Profile</a>
+                                    <a href="<?php echo e(route('user.profile', $model->hasInstructor->slug)); ?>" class="btn btn-primary" title="course">Profile</a>
                                 </div>
                             </div>
                         </div>
@@ -159,11 +157,11 @@
                     <div class="about-content-sidebar mt-md-4">
                         <div class="container-xl">
                             <div class="about-reward-badges">
-                                <img src="{{ asset('public/website/images/badges/1.png') }}" class="img-fluid" alt="" data-toggle="tooltip" data-placement="bottom" title="Member Since 2020">
-                                <img src="{{ asset('public/website/images/badges/2.png') }}" class="img-fluid" alt="" data-toggle="tooltip" data-placement="bottom" title="Has 13 courses">
-                                <img src="{{ asset('public/website/images/badges/3.png') }}" class="img-fluid" alt="" data-toggle="tooltip" data-placement="bottom" title="rating from 4 to 5">
-                                <img src="{{ asset('public/website/images/badges/4.png') }}" class="img-fluid" alt="" data-toggle="tooltip" data-placement="bottom" title="20 users has enrolled">
-                                <img src="{{ asset('public/website/images/badges/5.png') }}" class="img-fluid" alt="" data-toggle="tooltip" data-placement="bottom" title="Live classes 14">
+                                <img src="<?php echo e(asset('public/website/images/badges/1.png')); ?>" class="img-fluid" alt="" data-toggle="tooltip" data-placement="bottom" title="Member Since 2020">
+                                <img src="<?php echo e(asset('public/website/images/badges/2.png')); ?>" class="img-fluid" alt="" data-toggle="tooltip" data-placement="bottom" title="Has 13 courses">
+                                <img src="<?php echo e(asset('public/website/images/badges/3.png')); ?>" class="img-fluid" alt="" data-toggle="tooltip" data-placement="bottom" title="rating from 4 to 5">
+                                <img src="<?php echo e(asset('public/website/images/badges/4.png')); ?>" class="img-fluid" alt="" data-toggle="tooltip" data-placement="bottom" title="20 users has enrolled">
+                                <img src="<?php echo e(asset('public/website/images/badges/5.png')); ?>" class="img-fluid" alt="" data-toggle="tooltip" data-placement="bottom" title="Live classes 14">
                             </div>
                         </div>
                     </div>
@@ -180,15 +178,15 @@
                 <div class="product-learn-block">
                     <h3 class="product-learn-heading">Whatlearn</h3>
                     <div class="row">
-                        @foreach ($model->haveWhatLearns as $learn)
+                        <?php $__currentLoopData = $model->haveWhatLearns; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $learn): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                             <div class="col-lg-6 col-md-6">
                                 <div class="product-learn-dtl">
                                     <ul>
-                                        <li class="details"><i data-feather="check-circle"></i><span style="padding-left:10px">{{ $learn->detail }}</span></li>
+                                        <li class="details"><i data-feather="check-circle"></i><span style="padding-left:10px"><?php echo e($learn->detail); ?></span></li>
                                     </ul>
                                 </div>
                             </div>
-                        @endforeach
+                        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                     </div>
                 </div>
 
@@ -202,7 +200,7 @@
                     <div class="row" style="padding-bottom:10px">
                         <div class="col-lg-9 col-6">
                             <div class="expand-content">
-                                @php
+                                <?php
                                 $sum_minutes = 0;
                                 foreach ($model->haveClasses as $course_class){
                                     $explodedTime = array_map('intval', explode(':', $course_class->lecture_duration ));
@@ -211,8 +209,8 @@
                                 $lecture_duration_total_time = floor($sum_minutes/60).':'.floor($sum_minutes % 60);
 
 
-                                @endphp
-                                <small>{{ count($model->haveChapters) }} sections • {{ count($model->haveClasses) }} lectures • {{ $lecture_duration_total_time }} total length</small>
+                                ?>
+                                <small><?php echo e(count($model->haveChapters)); ?> sections • <?php echo e(count($model->haveClasses)); ?> lectures • <?php echo e($lecture_duration_total_time); ?> total length</small>
                             </div>
                         </div>
                     </div>
@@ -222,31 +220,33 @@
                         <div class="faq-dtl">
                             <div id="accordion" class="second-accordion">
                                 <div class="card">
-                                    @foreach ($model->haveChapters as $key=>$chapter)
+                                    <?php $__currentLoopData = $model->haveChapters; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $key=>$chapter): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                                         <div class="card-header" id="headingTwo33">
                                             <div class="mb-0">
-                                                <button class="btn btn-link" data-toggle="collapse" data-target="#collapseTwo{{ $key }}" aria-expanded="false" aria-controls="collapseTwo">
+                                                <button class="btn btn-link" data-toggle="collapse" data-target="#collapseTwo<?php echo e($key); ?>" aria-expanded="false" aria-controls="collapseTwo">
                                                     <div class="row">
                                                         <div class="col-lg-8 col-6">
-                                                            {{ $chapter->name }}
+                                                            <?php echo e($chapter->name); ?>
+
                                                         </div>
                                                         <div class="col-lg-2 col-4">
                                                             <div class="text-right">
-                                                                {{ count($chapter->haveChapterClasses) }} Classes
+                                                                <?php echo e(count($chapter->haveChapterClasses)); ?> Classes
                                                             </div>
                                                         </div>
 
                                                         <div class="col-lg-2 col-2">
                                                             <div class="chapter-total-time">
-                                                                @php
+                                                                <?php
                                                                     $sum_chapter_class_minutes = 0;
                                                                     foreach ($chapter->haveChapterClasses as $chapter_class){
                                                                         $explodedTime = array_map('intval', explode(':', $chapter_class->lecture_duration ));
                                                                         $sum_chapter_class_minutes += $explodedTime[0]*60+$explodedTime[1];
                                                                     }
                                                                     $chapter_total_lectures_duration = floor($sum_chapter_class_minutes/60).':'.floor($sum_chapter_class_minutes % 60);
-                                                                @endphp
-                                                                {{ $chapter_total_lectures_duration }}
+                                                                ?>
+                                                                <?php echo e($chapter_total_lectures_duration); ?>
+
                                                             </div>
                                                         </div>
                                                     </div>
@@ -254,12 +254,12 @@
                                             </div>
                                         </div>
 
-                                        <div id="collapseTwo{{ $key }}" class="collapse false" aria-labelledby="headingTwo" data-parent="#accordion">
+                                        <div id="collapseTwo<?php echo e($key); ?>" class="collapse false" aria-labelledby="headingTwo" data-parent="#accordion">
                                             <div class="card-body">
                                                 <table class="table">
                                                     <tbody>
-                                                        @foreach ($chapter->haveChapterClasses as $chapter_class)
-                                                            @if($chapter_class->type=="Video")
+                                                        <?php $__currentLoopData = $chapter->haveChapterClasses; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $chapter_class): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                                            <?php if($chapter_class->type=="Video"): ?>
                                                                 <tr>
                                                                     <th class="class-icon">
                                                                         <a href="#" title="Course"><i class="fa fa-play-circle"></i></a>
@@ -270,7 +270,8 @@
                                                                                 <div class="koh-faq">
                                                                                     <div class="koh-faq-question">
                                                                                         <span class="koh-faq-question-span">
-                                                                                            {{ $chapter_class->title }}
+                                                                                            <?php echo e($chapter_class->title); ?>
+
                                                                                         </span>
                                                                                     </div>
                                                                                     <div class="koh-faq-answer"></div>
@@ -281,15 +282,16 @@
                                                                     <td>
                                                                     </td>
                                                                     <td class="txt-rgt">
-                                                                        @php
+                                                                        <?php
                                                                             $explodedTime = array_map('intval', explode(':', $chapter_class->lecture_duration ));
                                                                             $sum_chapter_class_minutes = $explodedTime[0]*60+$explodedTime[1];
                                                                             $chapter_total_lectures_duration = floor($sum_chapter_class_minutes/60).':'.floor($sum_chapter_class_minutes % 60);
-                                                                        @endphp
-                                                                        {{ $chapter_total_lectures_duration }}
+                                                                        ?>
+                                                                        <?php echo e($chapter_total_lectures_duration); ?>
+
                                                                     </td>
                                                                 </tr>
-                                                            @else
+                                                            <?php else: ?>
                                                                 <tr>
                                                                     <th class="class-icon">
                                                                         <a href="#" title="Course"><i class='fas fa-file-download'></i></a>
@@ -300,7 +302,8 @@
                                                                                 <div class="koh-faq">
                                                                                     <div class="koh-faq-question">
                                                                                         <span class="koh-faq-question-span">
-                                                                                            {{ $chapter_class->title }}
+                                                                                            <?php echo e($chapter_class->title); ?>
+
                                                                                         </span>
                                                                                     </div>
                                                                                     <div class="koh-faq-answer"></div>
@@ -315,13 +318,13 @@
                                                                         --
                                                                     </td>
                                                                 </tr>
-                                                            @endif
-                                                        @endforeach
+                                                            <?php endif; ?>
+                                                        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                                                     </tbody>
                                                 </table>
                                             </div>
                                         </div>
-                                    @endforeach
+                                    <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                                 </div>
                             </div>
                         </div>
@@ -332,31 +335,32 @@
                     <h3>Requirements</h3>
                     <ul>
                         <li class="comment more">
-                            {!! $model->hasInstructor->hasUserProfile->requirements??'' !!}
+                            <?php echo $model->hasInstructor->hasUserProfile->requirements??''; ?>
+
                         </li>
                     </ul>
                 </div>
 
                 <div class="description-block btm-30">
                     <h3>Description</h3>
-                    <p>{!! $model->hasInstructor->hasUserProfile->details??'' !!}</p>
+                    <p><?php echo $model->hasInstructor->hasUserProfile->details??''; ?></p>
                 </div>
 
                 <div class="students-bought btm-30">
                     <h3>Recent Courses</h3>
-                    @foreach ($recent_courses as $recent_course)
+                    <?php $__currentLoopData = $recent_courses; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $recent_course): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                         <div class="course-bought-block">
                             <div class="row">
                                 <div class="col-lg-3 col-sm-4 col-12">
                                     <div class="course-bought-img">
-                                        <a href="{{ route('course.single', $recent_course->slug) }}">
-                                            <img src="{{ asset('public/admin/images/courses') }}/{{ $recent_course->thumbnail }}" class="img-fluid" alt="blog">
+                                        <a href="<?php echo e(route('course.single', $recent_course->slug)); ?>">
+                                            <img src="<?php echo e(asset('public/admin/images/courses')); ?>/<?php echo e($recent_course->thumbnail); ?>" class="img-fluid" alt="blog">
                                         </a>
                                     </div>
                                     <div class="course-rate txt-rgt">
                                         <ul>
                                             <li>
-                                                <li class="protip-wish-btn add-wish-btn" data-url="{{ route('user.wishlist.store') }}" data-product-slug="{{ $recent_course->slug }}">
+                                                <li class="protip-wish-btn add-wish-btn" data-url="<?php echo e(route('user.wishlist.store')); ?>" data-product-slug="<?php echo e($recent_course->slug); ?>">
                                                     <span title="heart"><i data-feather="heart"></i></span>
                                                 </li>
                                             </li>
@@ -366,33 +370,33 @@
 
                                 <div class="col-lg-7 col-sm-8 col-12">
                                     <div class="course-name btm-10">
-                                        <a href="{{ route('course.single', $recent_course->slug) }}">{{ $recent_course->title }}</a>
+                                        <a href="<?php echo e(route('course.single', $recent_course->slug)); ?>"><?php echo e($recent_course->title); ?></a>
                                     </div>
                                     <div class="course-user btm-10">
                                         <ul>
-                                            <li><i data-feather="clock"></i> <div class="course-update">{{ date('d F Y', strtotime($recent_course->updated_at)) }}</div></li>
+                                            <li><i data-feather="clock"></i> <div class="course-update"><?php echo e(date('d F Y', strtotime($recent_course->updated_at))); ?></div></li>
                                             <li><i data-feather="user"></i> <div class="course-user-count">0</div></li>
                                         </ul>
                                     </div>
-                                    <p class="course-name-para">{{ $recent_course->short_description }}</p>
+                                    <p class="course-name-para"><?php echo e($recent_course->short_description); ?></p>
                                 </div>
                                 <div class="col-lg-2 col-md-3 col-12">
                                     <div class="course-currency txt-rgt">
                                         <ul>
-                                            @if($recent_course->is_paid)
-                                                <li class="rate"><i class="fa fa-dollar"></i> {{ number_format($recent_course->price, 2) }}</li>
-                                                @if($recent_course->discount != NULL)
-                                                    <li class="rate"><s><i class="fa fa-dollar"></i> {{ number_format($recent_course->retail_price, 2) }}</s></li>
-                                                @endif
-                                            @else
+                                            <?php if($recent_course->is_paid): ?>
+                                                <li class="rate"><i class="fa fa-dollar"></i> <?php echo e(number_format($recent_course->price, 2)); ?></li>
+                                                <?php if($recent_course->discount != NULL): ?>
+                                                    <li class="rate"><s><i class="fa fa-dollar"></i> <?php echo e(number_format($recent_course->retail_price, 2)); ?></s></li>
+                                                <?php endif; ?>
+                                            <?php else: ?>
                                                 <li>FREE</li>
-                                            @endif
+                                            <?php endif; ?>
                                         </ul>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    @endforeach
+                    <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                 </div>
 
                 <div class="about-instructor-block">
@@ -401,22 +405,22 @@
                         <div class="row">
                             <div class="col-lg-2 col-md-3 col-4">
                                 <div class="instructor-img btm-30">
-                                    <a href="{{ route('user.profile', $model->hasInstructor->slug) }}" title="instructor">
-                                        @if($model->hasInstructor->profile_image)
-                                            <img src="{{ asset('public/admin/images/profiles') }}/{{ $model->hasInstructor->hasUserProfile->profile_image }}" class="img-fluid user-img-one" alt="">
-                                        @else
-                                            <img src="{{ asset('public/default.png') }}" width="50px"  class="img-fluid user-img-one" alt="">
-                                        @endif
+                                    <a href="<?php echo e(route('user.profile', $model->hasInstructor->slug)); ?>" title="instructor">
+                                        <?php if($model->hasInstructor->profile_image): ?>
+                                            <img src="<?php echo e(asset('public/admin/images/profiles')); ?>/<?php echo e($model->hasInstructor->hasUserProfile->profile_image); ?>" class="img-fluid user-img-one" alt="">
+                                        <?php else: ?>
+                                            <img src="<?php echo e(asset('public/default.png')); ?>" width="50px"  class="img-fluid user-img-one" alt="">
+                                        <?php endif; ?>
                                     </a>
                                 </div>
                             </div>
                             <div class="col-lg-10 col-md-9 col-8">
                                 <div class="instructor-block">
                                     <div class="instructor-name btm-10">
-                                        <a href="{{ route('user.profile', $model->hasInstructor->slug) }}" title="instructor-name">{{ $model->hasInstructor->name }}</a>
+                                        <a href="<?php echo e(route('user.profile', $model->hasInstructor->slug)); ?>" title="instructor-name"><?php echo e($model->hasInstructor->name); ?></a>
                                     </div>
                                     <div class="instructor-post btm-5">About Instructor</div>
-                                    <p>{!! $model->hasInstructor->hasUserProfile->details??'' !!}</p>
+                                    <p><?php echo $model->hasInstructor->hasUserProfile->details??''; ?></p>
                                 </div>
                             </div>
                         </div>
@@ -427,10 +431,10 @@
                     <h3 class="student-feedback-heading">Student Feedback</h3>
                     <div class="student-feedback-block">
                         <div class="rating">
-                            <div class="rating-num">@if(round($rate/20)>5) 5 @else {{ round($rate/20) }} @endif</div>
+                            <div class="rating-num"><?php if(round($rate/20)>5): ?> 5 <?php else: ?> <?php echo e(round($rate/20)); ?> <?php endif; ?></div>
                                 <div class="pull-left">
                                     <div class="star-ratings-sprite star-ratings-center">
-                                        <span style="width:{{ $rate }}%" class="star-ratings-sprite-rating"></span>
+                                        <span style="width:<?php echo e($rate); ?>%" class="star-ratings-sprite-rating"></span>
                                     </div>
                                 </div>
                             <div class="rating-users">Course Rating</div>
@@ -440,12 +444,12 @@
                                 <span class="histo-star">
                                     <div class="pull-left">
                                         <div class="star-ratings-sprite star-ratings-center">
-                                            <span style="width:{{ $rate }}%" class="star-ratings-sprite-rating"></span>
+                                            <span style="width:<?php echo e($rate); ?>%" class="star-ratings-sprite-rating"></span>
                                         </div>
                                     </div>
                                 </span>
                                 <span class="histo-percent">
-                                    <a href="#" title="rate">@if(round($rate/20)>5) 100 @else {{ round($rate/20) }}@endif%</a>
+                                    <a href="#" title="rate"><?php if(round($rate/20)>5): ?> 100 <?php else: ?> <?php echo e(round($rate/20)); ?><?php endif; ?>%</a>
                                 </span>
                                 <span class="bar-block">
                                     <span id="bar-three" style=" width:100%;" class="bar bar-clr bar-radius">&nbsp;</span>
@@ -455,12 +459,12 @@
                                 <span class="histo-star">
                                     <div class="pull-left">
                                         <div class="star-ratings-sprite star-ratings-center">
-                                            <span style="width:{{ $rate }}%" class="star-ratings-sprite-rating"></span>
+                                            <span style="width:<?php echo e($rate); ?>%" class="star-ratings-sprite-rating"></span>
                                         </div>
                                     </div>
                                 </span>
                                 <span class="histo-percent">
-                                    <a href="#" title="rate">@if(round($rate/20)>5) 100 @else {{ round($rate/20) }}@endif%</a>
+                                    <a href="#" title="rate"><?php if(round($rate/20)>5): ?> 100 <?php else: ?> <?php echo e(round($rate/20)); ?><?php endif; ?>%</a>
                                 </span>
                                 <span class="bar-block">
                                     <span id="bar-two" style="width: 100%" class="bar bar-clr bar-radius">&nbsp;</span>
@@ -470,12 +474,12 @@
                                 <span class="histo-star">
                                     <div class="pull-left">
                                         <div class="star-ratings-sprite star-ratings-center">
-                                            <span style="width:{{ $rate }}%" class="star-ratings-sprite-rating"></span>
+                                            <span style="width:<?php echo e($rate); ?>%" class="star-ratings-sprite-rating"></span>
                                         </div>
                                     </div>
                                 </span>
                                 <span class="histo-percent">
-                                    <a href="#" title="rate">@if(round($rate/20)>5) 100 @else {{ round($rate/20) }}@endif%</a>
+                                    <a href="#" title="rate"><?php if(round($rate/20)>5): ?> 100 <?php else: ?> <?php echo e(round($rate/20)); ?><?php endif; ?>%</a>
                                 </span>
                                 <span class="bar-block">
                                     <span id="bar-one" style="width: 100%" class="bar bar-clr bar-radius">&nbsp;</span>
@@ -485,74 +489,71 @@
                     </div>
                 </div>
                 <hr>
-                @if(count($model->hasRating)>0)
+                <?php if(count($model->hasRating)>0): ?>
                     <div class="learning-review btm-40">
                         <div class="review-dtl">
-                            @foreach ($model->hasRating as $rate_value)
+                            <?php $__currentLoopData = $model->hasRating; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $rate_value): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                                 <div class="row btm-20">
                                     <div class="col-lg-4">
                                         <div class="review-img text-white">
-                                            {{ Str::upper(substr($rate_value->hasUser->name, 0, 2))  }}
+                                            <?php echo e(Str::upper(substr($rate_value->hasUser->name, 0, 2))); ?>
+
                                         </div>
                                         <div class="review-img-block">
-                                            <div class="review-month">{{ date('d-m-Y', strtotime($rate_value->created_at)) }}</div>
-                                            <div class="review-name">{{ $rate_value->hasUser->name }}</div>
+                                            <div class="review-month"><?php echo e(date('d-m-Y', strtotime($rate_value->created_at))); ?></div>
+                                            <div class="review-name"><?php echo e($rate_value->hasUser->name); ?></div>
                                         </div>
                                     </div>
                                     <div class="col-lg-8">
                                         <div class="review-rating">
                                             <div class="pull-left-review">
                                                 <div class="star-ratings-sprite">
-                                                    @php
+                                                    <?php
                                                         $rate = ($rate_value->sum('rate')/$model->hasRating->count()*5)*5;
-                                                    @endphp
-                                                    <span style="width:{{ $rate }}%" class="star-ratings-sprite-rating"></span>
+                                                    ?>
+                                                    <span style="width:<?php echo e($rate); ?>%" class="star-ratings-sprite-rating"></span>
                                                 </div>
                                             </div>
                                             <div class="review-text">
-                                                <p>{{ $rate_value->review }}<p>
+                                                <p><?php echo e($rate_value->review); ?><p>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                            @endforeach
+                            <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                             <hr>
                         </div>
                     </div>
-                @endif
+                <?php endif; ?>
 
                 <div class="more-courses btm-30">
                     <h2 class="more-courses-heading">Related Courses</h2>
                     <div class="row">
-                        @foreach ($related_courses as $relate_course)
+                        <?php $__currentLoopData = $related_courses; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $relate_course): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                             <div class="col-lg-6 col-sm-6">
                                 <div class="together-img">
                                     <div class="student-view-block">
                                         <div class="view-block">
                                             <div class="view-img">
-                                                <a href="{{ route('course.single', $relate_course->slug) }}">
-                                                    <img src="{{ asset('public/admin/images/courses') }}/{{ $relate_course->thumbnail }}" alt="course" class="img-fluid owl-lazy">
+                                                <a href="<?php echo e(route('course.single', $relate_course->slug)); ?>">
+                                                    <img src="<?php echo e(asset('public/admin/images/courses')); ?>/<?php echo e($relate_course->thumbnail); ?>" alt="course" class="img-fluid owl-lazy">
                                                 </a>
                                             </div>
                                             <div class="view-user-img">
-                                                <a href="{{ route('user.profile', $relate_course->hasInstructor->slug) }}" title="">
-                                                    @if(isset($relate_course->hasInstructor->hasUserProfile->profile_image))
-                                                        <img src="{{ asset('public/admin/images/profiles') }}/{{ $relate_course->hasInstructor->hasUserProfile->profile_image }}" width="50px"  class="img-fluid user-img-one" alt="">
-                                                    @else
-                                                        <img src="{{ asset('public/default.png') }}" width="50px"  class="img-fluid user-img-one" alt="">
-                                                    @endif
+                                                <a href="<?php echo e(route('user.profile', $relate_course->hasInstructor->slug)); ?>" title="">
+                                                    <?php if(isset($relate_course->hasInstructor->hasUserProfile->profile_image)): ?>
+                                                        <img src="<?php echo e(asset('public/admin/images/profiles')); ?>/<?php echo e($relate_course->hasInstructor->hasUserProfile->profile_image); ?>" width="50px"  class="img-fluid user-img-one" alt="">
+                                                    <?php else: ?>
+                                                        <img src="<?php echo e(asset('public/default.png')); ?>" width="50px"  class="img-fluid user-img-one" alt="">
+                                                    <?php endif; ?>
                                                 </a>
                                             </div>
 
                                             <div class="img-wishlist">
                                                 <div class="protip-wishlist">
                                                     <ul>
-                                                        {{-- <li class="protip-wish-btn">
-                                                            <a href="https://calendar.google.com/calendar/r/eventedit?text=The%20Complete%20Web%20Developer%20Bootcamp"
-                                                                target="__blank" title="reminder"><i data-feather="bell"></i>
-                                                            </a>
-                                                        </li> --}}
-                                                        <li class="protip-wish-btn add-wish-btn" data-url="{{ route('user.wishlist.store') }}" data-product-slug="{{ $relate_course->slug }}">
+                                                        
+                                                        <li class="protip-wish-btn add-wish-btn" data-url="<?php echo e(route('user.wishlist.store')); ?>" data-product-slug="<?php echo e($relate_course->slug); ?>">
                                                             <span title="heart"><i data-feather="heart"></i></span>
                                                         </li>
                                                     </ul>
@@ -561,39 +562,39 @@
 
                                             <div class="view-dtl">
                                                 <div class="view-heading">
-                                                    <a href="{{ route('course.single', $relate_course->slug) }}">{{ $relate_course->title }}</a>
+                                                    <a href="<?php echo e(route('course.single', $relate_course->slug)); ?>"><?php echo e($relate_course->title); ?></a>
                                                 </div>
                                                 <div class="user-name">
-                                                    <h6>By <span><a href="{{ route('user.profile', $relate_course->hasInstructor->slug) }}"> {{ $relate_course->hasInstructor->name }}</a></span></h6>
+                                                    <h6>By <span><a href="<?php echo e(route('user.profile', $relate_course->hasInstructor->slug)); ?>"> <?php echo e($relate_course->hasInstructor->name); ?></a></span></h6>
                                                 </div>
                                                 <div class="rating">
                                                     <ul>
-                                                        @php
+                                                        <?php
                                                             $rate = 0;
                                                             $tot_reviews = 0;
                                                             if(count($relate_course->hasRating)>0){
                                                                 $tot_reviews = $relate_course->hasRating->count();
                                                                 $rate = ($relate_course->hasRating->sum('rate')/$relate_course->hasRating->count()*5)*5;
                                                             }
-                                                        @endphp
-                                                        @if($rate>0)
+                                                        ?>
+                                                        <?php if($rate>0): ?>
                                                             <li>
                                                                 <div class="pull-left">
                                                                     <div class="star-ratings-sprite">
-                                                                        <span style="width:{{ $rate }}%" class="star-ratings-sprite-rating"></span>
+                                                                        <span style="width:<?php echo e($rate); ?>%" class="star-ratings-sprite-rating"></span>
                                                                     </div>
                                                                 </div>
                                                             </li>
                                                             <li class="reviews">
-                                                                ({{ $tot_reviews }} Reviews)
+                                                                (<?php echo e($tot_reviews); ?> Reviews)
                                                             </li>
-                                                        @else
+                                                        <?php else: ?>
                                                             <li>
                                                                 <div class="pull-left no-rating">
                                                                     No Rating
                                                                 </div>
                                                             </li>
-                                                        @endif
+                                                        <?php endif; ?>
                                                     </ul>
                                                 </div>
                                                 <div class="view-footer">
@@ -601,26 +602,26 @@
                                                         <div class="col-lg-6 col-md-6 col-sm-6 col-6">
                                                             <div class="count-user">
                                                                 <i data-feather="user"></i>
-                                                                @php
+                                                                <?php
                                                                     $enrolled = 0;
                                                                     if(count($relate_course->haveEnrolledStudents)>0){
                                                                         $enrolled = count($relate_course->haveEnrolledStudents);
                                                                     }
-                                                                @endphp
-                                                                <span>{{ $enrolled }}</span>
+                                                                ?>
+                                                                <span><?php echo e($enrolled); ?></span>
                                                             </div>
                                                         </div>
                                                         <div class="col-lg-6 col-md-6 col-sm-6 col-6">
                                                             <div class="rate text-right">
                                                                 <ul>
-                                                                    @if($relate_course->is_paid)
-                                                                        <li><a><b><i class="fa fa-dollar"></i> {{ number_format($relate_course->price, 2) }}</b></a></li>
-                                                                        @if($relate_course->discount != NULL)
-                                                                            <li><a><b><strike><i class="fa fa-dollar"></i> {{ number_format($relate_course->retail_price, 2) }}</strike></b></a></li>
-                                                                        @endif
-                                                                    @else
+                                                                    <?php if($relate_course->is_paid): ?>
+                                                                        <li><a><b><i class="fa fa-dollar"></i> <?php echo e(number_format($relate_course->price, 2)); ?></b></a></li>
+                                                                        <?php if($relate_course->discount != NULL): ?>
+                                                                            <li><a><b><strike><i class="fa fa-dollar"></i> <?php echo e(number_format($relate_course->retail_price, 2)); ?></strike></b></a></li>
+                                                                        <?php endif; ?>
+                                                                    <?php else: ?>
                                                                         <li>FREE</li>
-                                                                    @endif
+                                                                    <?php endif; ?>
                                                                 </ul>
                                                             </div>
                                                         </div>
@@ -631,11 +632,13 @@
                                     </div>
                                 </div>
                             </div>
-                        @endforeach
+                        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 </section>
-@endsection
+<?php $__env->stopSection(); ?>
+
+<?php echo $__env->make('web-views.layouts.app', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH C:\xampp\htdocs\e-learning-system\resources\views/web-views/website/course/single.blade.php ENDPATH**/ ?>
